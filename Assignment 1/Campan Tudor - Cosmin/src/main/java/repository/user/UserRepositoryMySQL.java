@@ -42,6 +42,7 @@ public class UserRepositoryMySQL implements UserRepository {
       ResultSet userResultSet = statement.executeQuery(fetchUserSql);
       userResultSet.next();
 
+
       User user = new UserBuilder()
           .setUsername(userResultSet.getString("username"))
           .setPassword(userResultSet.getString("password"))
@@ -140,7 +141,7 @@ public class UserRepositoryMySQL implements UserRepository {
       ResultSet userResultSet = statement.executeQuery(fetchUserSql);
       userResultSet.next();
 
-      User user = new UserBuilder()
+      User user = new UserBuilder().setID(userResultSet.getLong("id"))
               .setUsername(userResultSet.getString("username"))
               .setPassword(userResultSet.getString("password"))
               .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))

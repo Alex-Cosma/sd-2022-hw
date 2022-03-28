@@ -30,8 +30,14 @@ public class EmployeeView extends JFrame {
     private JButton btnaDelete;
     private JButton btnaView;
 
+    private JLabel jt1,jt2,jt3;
+    private JTextField tftId1;
+    private JTextField tftId2;
+    private JTextField tftSum;
+    private JButton btnaTransfer;
+
     public EmployeeView() {
-        setSize(900, 700);
+        setSize(900, 830);
         setLocationRelativeTo(null);
         initializeFields();
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
@@ -68,6 +74,15 @@ public class EmployeeView extends JFrame {
         add(btnaDelete);
         add(btnaUpdate);
         add(btnaView);
+
+        add(jt1);
+        add(tftId1);
+        add(jt2);
+        add(tftId2);
+        add(jt3);
+        add(tftSum);
+        add(btnaTransfer);
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -105,6 +120,13 @@ public class EmployeeView extends JFrame {
         ja5= new JLabel("dateOfCreation");
         ja6= new JLabel("clientID");
         ja7= new JLabel("FOR ACCOUNTS:");
+        jt1 = new JLabel("Account 1 idnumber:");
+        jt2 = new JLabel("Account 2 idnumber:");
+        jt3 = new JLabel("Sum:");
+        tftId1 = new JTextField();
+        tftId2 = new JTextField();
+        tftSum = new JTextField();
+        btnaTransfer = new JButton("Transfer");
     }
 
     public String getName() {
@@ -204,9 +226,16 @@ public class EmployeeView extends JFrame {
     }
     public void setAClientId(int id)
     {
-        tfaMoney.setText(Integer.toString(id));
+        tfaClientID.setText(Integer.toString(id));
     }
 
+    public Long getAccount1(){return Long.parseLong(tftId1.getText());}
+    public Long getAccount2(){return Long.parseLong(tftId2.getText());}
+    public Long getSum(){return Long.parseLong(tftSum.getText());}
+
+    public void addATransferButtonListener(ActionListener ATransferButtonListener) {
+        btnaTransfer.addActionListener(ATransferButtonListener);
+    }
 
 
 }

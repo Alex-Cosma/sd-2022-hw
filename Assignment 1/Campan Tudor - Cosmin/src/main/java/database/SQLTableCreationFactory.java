@@ -50,24 +50,11 @@ public class SQLTableCreationFactory {
           "  PRIMARY KEY (`id`)," +
           "  UNIQUE INDEX `id_UNIQUE` (`id` ASC)," +
           "  UNIQUE INDEX `right_UNIQUE` (`right` ASC));";
-      case ROLE_RIGHT -> "  CREATE TABLE IF NOT EXISTS role_right (" +
-          "  id INT NOT NULL AUTO_INCREMENT," +
-          "  role_id INT NOT NULL," +
-          "  right_id INT NOT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-          "  INDEX role_id_idx (role_id ASC)," +
-          "  INDEX right_id_idx (right_id ASC)," +
-          "  CONSTRAINT role_id" +
-          "    FOREIGN KEY (role_id)" +
-          "    REFERENCES role (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE," +
-          "  CONSTRAINT right_id" +
-          "    FOREIGN KEY (right_id)" +
-          "    REFERENCES `right` (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE);";
+      case ROLE_RIGHT -> "CREATE TABLE IF NOT EXISTS action (" +
+              "  id INT NOT NULL AUTO_INCREMENT," +
+              "  action VARCHAR(500) NOT NULL," +
+              "  PRIMARY KEY (id)," +
+              "  UNIQUE INDEX id_UNIQUE (id ASC));";
       case USER_ROLE -> "\tCREATE TABLE IF NOT EXISTS user_role (" +
           "  id INT NOT NULL AUTO_INCREMENT," +
           "  user_id INT NOT NULL," +
@@ -104,6 +91,7 @@ public class SQLTableCreationFactory {
               "    REFERENCES account (id)" +
               "    ON DELETE CASCADE" +
               "    ON UPDATE CASCADE);";
+
       default -> "";
     };
   }
