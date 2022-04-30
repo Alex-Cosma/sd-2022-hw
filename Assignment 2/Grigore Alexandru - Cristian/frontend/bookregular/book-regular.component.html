@@ -1,0 +1,44 @@
+<div class="search-div">
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type ="text" matInput [(ngModel)]="searchText" (input)="applyFilterGenre()" placeholder="Search by genre">
+  </mat-form-field>
+</div>
+<div class="search-div">
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type ="text" matInput [(ngModel)]="searchTitle" (input)="applyFilterTitle()" placeholder="Search by title">
+  </mat-form-field>
+</div>
+<div class="search-div">
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type ="text" matInput [(ngModel)]="searchAuthor" (input)="applyFilterAuthor()" placeholder="Search by author">
+  </mat-form-field>
+</div>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of bookElements">
+      <td><span>{{book.id}}</span></td>
+      <td><span>{{book.title}}</span></td>
+      <td><span>{{book.author}}</span></td>
+      <td><span>{{book.genre}}</span></td>
+      <td><span>{{book.quantity}}</span></td>
+      <td><span>{{book.price}}</span></td>
+      <td><span> <button mat-raised-button (click)="sellBook(book)">
+    <mat-icon>toll</mat-icon> Sell
+  </button></span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
