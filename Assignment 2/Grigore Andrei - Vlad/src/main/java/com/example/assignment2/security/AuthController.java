@@ -5,7 +5,7 @@ import com.example.assignment2.security.dto.LoginRequest;
 import com.example.assignment2.security.dto.MessageResponse;
 import com.example.assignment2.security.dto.SignupRequest;
 
-import com.example.assignment2.user.dto.UserDetailsImp;
+import com.example.assignment2.user.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +38,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImp userDetails = (UserDetailsImp) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         return ResponseEntity.ok(
                 JwtResponse.fromUser(userDetails,jwt)
         );
@@ -46,8 +46,6 @@ public class AuthController {
 
     @PostMapping(SIGN_UP)
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        System.out.println("why are you here");
-        System.out.println("YOU ARE HERE");
         if (authService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -65,9 +63,6 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-    @PostMapping(TEST)
-    public ResponseEntity<?> test(){
-        return ResponseEntity.ok().body("Damn Daniel");
-    }
+
 
 }
