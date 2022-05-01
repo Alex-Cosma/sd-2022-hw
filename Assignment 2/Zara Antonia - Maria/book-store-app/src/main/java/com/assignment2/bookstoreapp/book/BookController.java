@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static com.assignment2.bookstoreapp.URLMapping.*;
@@ -43,8 +44,25 @@ public class BookController {
         return bookService.findDTOById(id);
     }
 
-    @GetMapping(EXPORT_REPORT)
-    public String exportReport(@PathVariable ReportType type) {
-        return bookService.export(type);
+    @RequestMapping(EXPORT_REPORT + BOOKS_OUT_OF_STOCK_REPORT)
+    public boolean exportReport(HttpServletResponse response, @PathVariable ReportType type) {
+        response.setContentType("text/" + type.toString().toLowerCase());
+        response.addHeader("Content-Disposition","attachment; filename=\"books." + type.toString().toLowerCase() + "\"");
+        return bookService.exportBooksOutOfStock(type);
+    }
+
+    @PostMapping(SELL + BOOKS_ID_PART)
+    public void sellBook(@PathVariable Long id){
+        bookService.sell(id);
+    }
+
+    /*
+    Ran into this bug, on my machine (or in my project) I can only search once successfully
+    Must click twice on search because React doesn't synchronize in first try
+    https://github.com/spring-projects/spring-data-jpa/issues/2476
+     */
+    @GetMapping(SEARCH)
+    public List<BookDTO> search(@PathVariable String detail){
+        return bookService.search(detail);
     }
 }

@@ -21,4 +21,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private ERole name;
+
+
+    public static Role toRole( String s) {
+            return new RoleBuilder().name(ERole.valueOf(s)).build();
+    }
 }

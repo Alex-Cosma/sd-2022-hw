@@ -1,6 +1,4 @@
-import Appbar from "./components/AppBar";
 import React from "react";
-import BookCRUD from "./components/BookCrud";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import {Container, Paper} from "@material-ui/core";
@@ -18,20 +16,6 @@ export default function Login(){
 
     const navigate = useNavigate();
 
-    function navigateByRole() {
-        const url = "http://localhost:8080/api/auth/get-role";
-        fetch(url).then(res => res.json())
-            .then((role) => {
-                console.log(role)
-                if(role === "admin"){
-                    navigate("/books");
-                }
-                if(role === "employee"){
-                    navigate("/employee");
-                }
-            });
-    }
-
     const handleLoginClick=(e) => {
         const loginRequest = {username, password}
         console.log(loginRequest)
@@ -48,7 +32,7 @@ export default function Login(){
                     navigate("/user");
                 }
                 if(role === "ADMIN"){
-                    navigate("/books");
+                    navigate("/admin");
                 }
             });
     }

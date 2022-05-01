@@ -28,8 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private final AuthEntryPointJwt unauthorizedHandler;
-
     private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Override
@@ -51,25 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
-                //.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                //.authorizeRequests()//.antMatchers(AUTH + "/**").permitAll()
-                //.antMatchers("/api/test/**").permitAll()
-                //.antMatchers("/**").permitAll()
-                //.anyRequest().authenticated();
-
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    /*@Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods("*");
-            }
-        };
-    }*/
 
 }

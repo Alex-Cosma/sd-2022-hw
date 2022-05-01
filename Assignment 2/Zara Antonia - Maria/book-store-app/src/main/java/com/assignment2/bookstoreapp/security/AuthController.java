@@ -33,6 +33,9 @@ public class AuthController {
     private final AuthService authService;
     private final JwtUtils jwtUtils;
 
+    /*
+        Must click twice on login because React doesn't synchronize in first try :(
+     */
     @PostMapping(SIGN_IN)
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(

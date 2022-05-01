@@ -3,6 +3,7 @@ package com.assignment2.bookstoreapp.security;
 import com.assignment2.bookstoreapp.security.dto.SignupRequest;
 import com.assignment2.bookstoreapp.user.RoleRepository;
 import com.assignment2.bookstoreapp.user.UserRepository;
+import com.assignment2.bookstoreapp.user.dto.UserRegisterDTO;
 import com.assignment2.bookstoreapp.user.model.ERole;
 import com.assignment2.bookstoreapp.user.model.Role;
 import com.assignment2.bookstoreapp.user.model.User;
@@ -51,5 +52,9 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
+    }
+
+    public void createNewUserFromDTO(UserRegisterDTO user) {
+        register(new SignupRequest(user.getName(), user.getPassword(), user.getRoles()));
     }
 }

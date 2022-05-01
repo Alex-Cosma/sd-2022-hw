@@ -49,14 +49,17 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             }
             bookService.create(new BookDTO(1L, "Pride and Prejudice", "Jane Austen", "ROMANCE",20, 30));
             bookService.create(new BookDTO(1L, "War and Peace", "Lev Tolstoi", "CLASSIC",5, 40));
+            bookService.create(new BookDTO(1L, "The Art of War", "Sun Tzu", "WAR",0, 100));
+            bookService.create(new BookDTO(1L, "The Stranger", "Albert Camus", "PHILOSOPHY",0, 46));
+
             authService.register(SignupRequest.builder()
-                    .username("alex")
-                    .password("WooHoo1!")
+                    .username("root")
+                    .password("root!1")
                     .roles(Set.of("ADMIN"))
                     .build());
             authService.register(SignupRequest.builder()
-                    .username("alex1")
-                    .password("WooHoo1!")
+                    .username("anto")
+                    .password("anto!1")
                     .roles(Set.of("EMPLOYEE"))
                     .build());
         }
