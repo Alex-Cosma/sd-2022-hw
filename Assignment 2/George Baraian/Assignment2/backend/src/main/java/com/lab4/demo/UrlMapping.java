@@ -7,6 +7,7 @@ public class UrlMapping {
     public static final String FILTERED = "/filtered";
     public static final String EXPORT_REPORT = "/export/{type}";
 
+    public static final String SELL = "/sell";
     public static final String REVIEWS = "/reviews";
 
     public static final String AUTH = API_PATH + "/auth";

@@ -61,4 +61,9 @@ public class BookController {
     public String exportReport(@PathVariable ReportType type) {
         return reportServiceFactory.getReportService(type).export();
     }
+
+    @PatchMapping(SELL + ENTITY)
+    public void sellBook(@RequestBody BookDTO bookDTO){
+        bookService.sell(bookDTO.getId());
+    }
 }

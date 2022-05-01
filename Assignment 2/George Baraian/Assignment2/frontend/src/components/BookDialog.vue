@@ -21,6 +21,7 @@
             {{ isNew ? "Create" : "Save" }}
           </v-btn>
           <v-btn @click="deleteBook">Delete Book </v-btn>
+          <v-btn @click="sellBook">Sell Book </v-btn>
         </v-card-actions>
       </v-card>
     </template>
@@ -63,6 +64,9 @@ export default {
     },
     deleteBook() {
       api.books.delete({ id: this.book.id }).then(() => this.$emit("refresh"));
+    },
+    sellBook() {
+      api.books.sell(this.book).then(() => this.$emit("refresh"));
     },
   },
   computed: {
