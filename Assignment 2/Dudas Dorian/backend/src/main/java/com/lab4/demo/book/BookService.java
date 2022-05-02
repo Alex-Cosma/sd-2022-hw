@@ -2,19 +2,14 @@ package com.lab4.demo.book;
 
 import com.lab4.demo.book.model.Book;
 import com.lab4.demo.book.model.dto.BookDTO;
-import com.lab4.demo.book.model.dto.BookFilterRequestDTO;
 import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.report.ReportType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.lab4.demo.book.BookSpecifications.specificationFromFilter;
 
 @Service
 @RequiredArgsConstructor
@@ -48,11 +43,6 @@ public class BookService {
         return bookMapper.toDto(bookRepository.save(actBook));
     }
 
-//    public Page<BookDTO> findAllFiltered(String searchTerm, Pageable pageable) {
-//        final Page<Book> bookPage = bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike(searchTerm, pageable);
-//        return bookPage.map(bookMapper::toDto);
-//    }
-
     public BookDTO sellBooks(Long id, int quantity) {
         Book book = findById(id);
         if (book.getQuantity() < quantity) { // should be checked in frontend and conditioned in controller
@@ -66,11 +56,6 @@ public class BookService {
         Book book = findById(id);
         bookRepository.delete(book);
         return bookMapper.toDto(book);
-    }
-
-    public Page<BookDTO> findAllFilteredBooks(BookFilterRequestDTO filter, Pageable pageable) {
-        return bookRepository.findAll(specificationFromFilter(filter), pageable)
-                .map(bookMapper::toDto);
     }
 
     public List<BookDTO> findAllFilteredBooks(String filter) {

@@ -1,13 +1,8 @@
 package com.lab4.demo.book;
 
 import com.lab4.demo.book.model.dto.BookDTO;
-import com.lab4.demo.book.model.dto.BookFilterRequestDTO;
 import com.lab4.demo.report.ReportType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,21 +25,6 @@ public class BookController {
     public List<BookDTO> filteredBooks(@PathVariable String filter){
         return bookService.findAllFilteredBooks("%" + filter + "%");
     }
-
-//    @GetMapping(FILTERED)
-//    public Page<BookDTO> filteredBooks(@ModelAttribute("filter")BookFilterRequestDTO filter,
-//                                       @PageableDefault(sort = {"name"}) Pageable pageable) {
-//        return bookService.findAllFilteredBooks(filter, pageable);
-//    }
-
-//    @GetMapping("FILTERED")
-//    public Page<BookDTO> findAllFiltered(
-//            @RequestParam(required = false) String searchParam,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size){
-//        Pageable pageable = PageRequest.of(page, size);
-//        return bookService.findAllFiltered(searchParam, pageable);
-//    }
 
     @PostMapping
     public BookDTO create(@Valid @RequestBody BookDTO book){

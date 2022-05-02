@@ -1,19 +1,12 @@
 package com.lab4.demo.book;
 
 import com.lab4.demo.BaseControllerTest;
-import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.book.model.Book;
 import com.lab4.demo.book.model.dto.BookDTO;
-import com.lab4.demo.book.model.dto.BookFilterRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.util.Pair;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -94,27 +87,6 @@ public class BookControllerTest extends BaseControllerTest {
                 .andExpect(jsonContentToBe(reqBook));
     }
 
-//    @Test
-//    void filteredBooks() throws Exception {
-//        final int sortedPage = 4;
-//        final int sortedPageSize = 100;
-//        final String sortColumn = "title";
-//        final PageRequest pagination = PageRequest.of(sortedPage, sortedPageSize, Sort.by(sortColumn).ascending());
-//
-//        Page<BookDTO> books = new PageImpl<>(listOf(BookDTO.class));
-//        String searchTerm = "b";
-//        when(bookService.findAllFiltered(searchTerm, pagination)).thenReturn(books);
-//
-//        ResultActions response = performGetWithRequestParam(
-//                BOOKS + "FILTERED" + "page=" + sortedPage + "&size=" + sortedPageSize + "&sort=" + sortColumn,
-//                searchTerm, pairsFromPagination(pagination)
-//        );
-//
-//        verify(bookService, times(1)).findAllFiltered(searchTerm, pagination);
-//        response.andExpect(status().isOk())
-//                .andExpect(jsonContentToBe(books));
-//    }
-
     @Test
     void deleteBook() throws Exception {
         final BookDTO book = newBookDTO();
@@ -123,28 +95,6 @@ public class BookControllerTest extends BaseControllerTest {
         ResultActions response = performDeleteWithPathVariables(BOOKS + BOOKS_ID_PART, book.getId());
         response.andExpect(status().isOk());
     }
-
-//    @Test
-//    void testFilteredBooks() throws Exception {
-//        String titleFilter = "title filter";
-//        BookFilterRequestDTO filters = BookFilterRequestDTO.builder()
-//                .title(titleFilter)
-//                .build();
-//
-//        final int sortedPage = 4;
-//        final int sortedPageSize = 100;
-//        final String sortColumn = "title";
-//        final PageRequest pagination = PageRequest.of(sortedPage, sortedPageSize, Sort.by(sortColumn).ascending());
-//
-//        Page<BookDTO> books = new PageImpl<>(listOf(BookDTO.class));
-//        when(bookService.findAllFilteredBooks(filters, pagination)).thenReturn(books);
-//
-//        ResultActions result = performGetWithModelAttributeAndParams(ITEMS + FILTERED, Pair.of("filter", filters), pairsFromPagination(pagination));
-//
-//        verify(bookService, times(1)).findAllFilteredBooks(filters, pagination);
-//        result.andExpect(status().isOk())
-//                .andExpect(jsonContentToBe(books));
-//    }
 
     @Test
     void testFilter() throws Exception {

@@ -2,9 +2,7 @@ package com.lab4.demo.user;
 
 import com.lab4.demo.BaseControllerTest;
 import com.lab4.demo.TestCreationFactory;
-import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.user.dto.UserListDTO;
-import com.lab4.demo.user.model.ERole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +14,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.Set;
 
-import static com.lab4.demo.TestCreationFactory.*;
+import static com.lab4.demo.TestCreationFactory.newUserListDTO;
+import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.UrlMapping.*;
 import static java.util.stream.Collectors.toList;
 import static org.mockito.Mockito.when;

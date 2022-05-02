@@ -107,12 +107,6 @@ export default {
     },
     sellBook() {
       api.books
-        // can't figure out the CORS issue
-        // .sellBook({ id: this.book.id, quantity: this.book.quantity })
-        // .then(
-        //   () => this.$emit("refresh"),
-        //   (error) => alert(error.response.data.message)
-        // );
         .edit({
           id: this.book.id,
           title: this.book.title,

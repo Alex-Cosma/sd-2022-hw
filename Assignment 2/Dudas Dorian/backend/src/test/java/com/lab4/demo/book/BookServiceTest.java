@@ -13,29 +13,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.lab4.demo.TestCreationFactory.*;
-import static com.lab4.demo.UrlMapping.BOOKS;
-import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
+import static com.lab4.demo.TestCreationFactory.listOf;
+import static com.lab4.demo.TestCreationFactory.newBook;
 import static com.lab4.demo.report.ReportType.CSV;
 import static com.lab4.demo.report.ReportType.PDF;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BookServiceTest {
     @InjectMocks
@@ -65,159 +55,6 @@ public class BookServiceTest {
 
         Assertions.assertEquals(books.size(), all.size());
     }
-
-//    @Test
-//    void testPaginationQuery(){
-//        List<Book> books = new ArrayList<>();
-//        for (int a1 = 'a'; a1 <= 'z'; a1++) {
-//            for (int a2 = 'a'; a2 <= 'z'; a2++) {
-//                for (int a3 = 'a'; a3 <= 'z'; a3++) {
-//                    String title = String.valueOf((char) a1) +
-//                            (char) a2 +
-//                            (char) a3;
-//                    books.add(Book.builder()
-//                            .title(title)
-//                            .author("author")
-//                            .genre("genre")
-//                            .price(1L)
-//                            .quantity(1L)
-//                            .build());
-//                }
-//            }
-//        }
-//
-//        final int page = 1;
-//        final int pageSize = 10;
-//        final PageRequest pageable = PageRequest.of(page, pageSize);
-//        // OBSERVATION: The test can take too long to run if you don't limit the bookMapper mock. (The full size of books is 17576)
-//        for(Book book : books.stream().limit(500).collect(Collectors.toList())){
-//            given(bookMapper.toDto(book)).willReturn(
-//                     BookDTO.builder()
-//                            .title(book.getTitle())
-//                            .author(book.getAuthor())
-//                            .genre(book.getGenre())
-//                            .price(book.getPrice())
-//                            .quantity(book.getQuantity())
-//                            .build()
-//            );
-//        }
-//        when(bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike("%b%", pageable))
-//                .thenReturn(
-//                        new PageImpl<>(
-//                                books.stream()
-//                                .filter(book -> book.getTitle().contains("b") || book.getAuthor().contains("b") || book.getGenre().contains("b"))
-//                                .limit(pageSize)
-//                                .collect(Collectors.toList()), pageable, books.size()
-//                        )
-//                );
-//        Page<BookDTO> pagedResult = bookService.findAllFiltered("%b%", pageable);
-//
-//        assertTrue(pagedResult.hasContent());
-//        assertEquals(pageSize, pagedResult.getNumberOfElements());
-//        assertEquals(page, pagedResult.getNumber());
-//
-//        // what if now we'd also want to add sorting?
-//
-//        final int sortedPage = 4;
-//        final int sortedPageSize = 100;
-//        final PageRequest first100AscByName = PageRequest.of(sortedPage, sortedPageSize, Sort.by("title").ascending());
-//        when(bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike("%b%", first100AscByName))
-//                .thenReturn(
-//                        new PageImpl<>(
-//                                books.stream()
-//                                        .filter(book -> book.getTitle().contains("b") || book.getAuthor().contains("b") || book.getGenre().contains("b"))
-//                                        .limit(sortedPageSize)
-//                                        .collect(Collectors.toList()), first100AscByName, books.size()
-//                        )
-//                );
-//        final Page<BookDTO> pagedResultSortAsc = bookService.findAllFiltered("%b%", first100AscByName);
-//
-//        assertTrue(pagedResultSortAsc.hasContent());
-//        assertEquals(sortedPageSize, pagedResultSortAsc.getNumberOfElements());
-//        assertEquals(sortedPage, pagedResultSortAsc.getNumber());
-//
-//        final List<BookDTO> pagedResultSortedContent = new ArrayList<>(pagedResultSortAsc.getContent());
-//        assertEquals(sortedPageSize, pagedResultSortedContent.size());
-//
-//        final BookDTO firstItemAsc = pagedResultSortedContent.get(0);
-//        pagedResultSortedContent.remove(0);
-//
-//        assertTrue(
-//                pagedResultSortedContent.stream().anyMatch(bookDTO ->
-//                        firstItemAsc.getTitle().compareTo(bookDTO.getTitle()) < 0
-//                )
-//        );
-//    }
-
-//    @Test
-//    void testSearchQuery() {
-//        List<Book> books = new ArrayList<>();
-//        for (int a1 = 'c'; a1 <= 'z'; a1++) {
-//            for (int a2 = 'c'; a2 <= 'z'; a2++) {
-//                for (int a3 = 'c'; a3 <= 'z'; a3++) {
-//                    String title = String.valueOf((char) a1) +
-//                            (char) a2 +
-//                            (char) a3;
-//                    books.add(Book.builder()
-//                            .title(title)
-//                            .price(1L)
-//                            .quantity(1L)
-//                            .genre("bruh")
-//                            .author("blorbo")
-//                            .build());
-//                }
-//            }
-//        }
-//
-//        final int page = 0;
-//        final int pageSize = 10;
-//        final PageRequest pageable = PageRequest.of(page, pageSize);
-//
-//        for(Book book : books.stream().limit(50).collect(Collectors.toList())){
-//            given(bookMapper.toDto(book)).willReturn(
-//                    BookDTO.builder()
-//                            .title(book.getTitle())
-//                            .author(book.getAuthor())
-//                            .genre(book.getGenre())
-//                            .price(book.getPrice())
-//                            .quantity(book.getQuantity())
-//                            .build()
-//            );
-//        }
-//
-//        // successful search:
-//
-//        List<Book> filterB = books.stream()
-//                .filter(book -> book.getTitle().contains("b") || book.getAuthor().contains("b") || book.getGenre().contains("b"))
-//                .collect(Collectors.toList());
-//
-//        when(bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike("b", pageable))
-//                .thenReturn(new PageImpl<>(filterB));
-//
-//        List<BookDTO> result = bookService.findAllFilteredBooks("b");
-//
-//        assertFalse(result.isEmpty());
-//        assertEquals(filterB.size(), result.size());
-//
-//        // search failure:
-//
-//        when(bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike("a", pageable))
-//                .thenReturn(
-//                        new PageImpl<>(
-//                                books.stream()
-//                                        .filter(book -> book.getTitle().contains("a") || book.getAuthor().contains("a") || book.getGenre().contains("a"))
-//                                        .limit(pageSize)
-//                                        .collect(Collectors.toList()), pageable, books.size()
-//                        )
-//                );
-//
-//        result = bookService.findAllFilteredBooks("a");
-//
-//        assertFalse(pagedResult.hasContent());
-//        assertEquals(0, pagedResult.getNumberOfElements());
-//        assertNotEquals(pageSize, pagedResult.getNumberOfElements());
-//        assertEquals(page, pagedResult.getNumber());
-//    }
 
     @Test
     void testCreateBook(){
