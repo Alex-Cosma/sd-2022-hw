@@ -26,9 +26,6 @@ class ReportServiceFactoryTest {
     private ReportServiceFactory reportServiceFactory;
 
     @Autowired
-    private BookService bookService;
-
-    @Autowired
     private BookRepository bookRepository;
 
     @BeforeEach
@@ -39,10 +36,10 @@ class ReportServiceFactoryTest {
     @Test
     void getReportService() throws IOException {
         ReportService csvReportService = reportServiceFactory.getReportService(CSV);
-        Assertions.assertEquals("I am a CSV reporter.", csvReportService.export());
+        Assertions.assertEquals("Exported to csv-report.csv", csvReportService.export());
 
         ReportService pdfReportService = reportServiceFactory.getReportService(PDF);
-        Assertions.assertEquals("I am a PDF reporter.", pdfReportService.export());
+        Assertions.assertEquals("Exported to pdf-report.pdf", pdfReportService.export());
     }
 
     @Test

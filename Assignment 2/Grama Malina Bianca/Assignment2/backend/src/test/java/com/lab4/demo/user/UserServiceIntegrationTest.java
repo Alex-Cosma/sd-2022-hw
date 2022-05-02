@@ -128,12 +128,10 @@ class UserServiceIntegrationTest {
         userMapper.populateRoles(user, userListDTO);
         userListDTO.setName("username");
         userListDTO.setEmail("email@email.com");
-        userListDTO.setRoles(Set.of("ADMIN"));
 
         userService.edit(user.getId(), userListDTO);
 
         assertEquals(userListDTO.getName(), userRepository.findById(user.getId()).get().getUsername());
         assertEquals(userListDTO.getEmail(), userRepository.findById(user.getId()).get().getEmail());
-        assertEquals(userListDTO.getRoles().contains("ADMIN"), userRepository.findById(user.getId()).get().getRoles().contains(roleRepository.findByName(ADMIN).orElse(null)));
     }
 }

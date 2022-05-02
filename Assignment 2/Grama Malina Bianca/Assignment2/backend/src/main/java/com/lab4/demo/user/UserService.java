@@ -32,7 +32,6 @@ public class UserService {
     private final UserMapper userMapper;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
     public List<UserMinimalDTO> allUsersMinimal() {
         return userRepository.findAll()

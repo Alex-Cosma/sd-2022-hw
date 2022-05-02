@@ -11,8 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class BookServiceTest {
@@ -39,6 +41,20 @@ class BookServiceTest {
 
         List<BookDTO> all = bookService.findAll();
 
-        Assertions.assertEquals(books.size(), all.size());
+        assertEquals(books.size(), all.size());
     }
+
+    @Test
+    void findAllOutOfStock() {
+        List<Book> books = TestCreationFactory.listOf(Book.class);
+        for (Book book : books) {
+            book.setQuantity(0);
+        }
+        when(bookRepository.findAllByQuantityEquals(0)).thenReturn(books);
+
+        List<BookDTO> all = bookService.findAllOutOfStock();
+
+        assertEquals(books.size(), all.size());
+    }
+
 }

@@ -20,12 +20,6 @@ public class BookRepositoryTest {
     @Autowired
     private BookRepository repository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     @BeforeEach
     public void beforeEach() {
         repository.deleteAll();

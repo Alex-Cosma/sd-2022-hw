@@ -54,14 +54,13 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(EXPORT_REPORT)
-    public ResponseEntity<?> exportReport(@PathVariable String type) throws IOException {
+    public String exportReport(@PathVariable String type) throws IOException {
         if (type.equals("pdf")) {
-            reportServiceFactory.getReportService(ReportType.PDF).export();
-        } else {
-            reportServiceFactory.getReportService(ReportType.CSV).export();
+            return reportServiceFactory.getReportService(ReportType.PDF).export();
+        } else if (type.equals("csv")) {
+            return reportServiceFactory.getReportService(ReportType.CSV).export();
         }
-
-        return ResponseEntity.ok(new MessageResponse("Report generated successfully!"));
+        else return "";
 
     }
 
