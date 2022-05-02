@@ -23,7 +23,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    private Book findById(Long id) {
+    public Book findById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found: " + id));
     }
@@ -80,5 +80,9 @@ public class BookService {
                 .stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public Book findByTitle(String title) {
+        return bookRepository.findByTitle(title);
     }
 }

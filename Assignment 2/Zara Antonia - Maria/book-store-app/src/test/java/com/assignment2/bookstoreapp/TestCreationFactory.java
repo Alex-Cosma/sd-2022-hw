@@ -4,6 +4,7 @@ import com.assignment2.bookstoreapp.book.model.Book;
 import com.assignment2.bookstoreapp.book.model.dto.BookDTO;
 import com.assignment2.bookstoreapp.user.dto.UserListDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -41,14 +42,14 @@ public class TestCreationFactory {
                 .stream().collect(toList());
     }
 
-    private static UserListDTO newUserListDTO() {
+    public static UserListDTO newUserListDTO() {
         return UserListDTO.builder()
                 .id(randomLong())
                 .name(randomString())
                 .build();
     }
 
-    private static Book newBook() {
+    public static Book newBook() {
         return Book.builder()
                 .id(randomLong())
                 .title(randomString())
@@ -58,11 +59,12 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static BookDTO newBookDTO() {
+    public static BookDTO newBookDTO() {
         return BookDTO.builder()
                 .id(randomLong())
                 .title(randomString())
                 .author(randomString())
+                .genre(randomString())
                 .price(randomDouble())
                 .quantity(randomBoundedInt(1000))
                 .build();
@@ -95,5 +97,15 @@ public class TestCreationFactory {
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
+    }
+
+    public static ArrayList<Book>  createList(){
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(new Book(1L, "Pride and Prejudice", "Jane Austen", "ROMANCE",20, 30));
+        books.add(new Book(1L, "War and Peace", "Lev Tolstoi", "CLASSIC",5, 40));
+        books.add(new Book(1L, "The Art of War", "Sun Tzu", "WAR",0, 100));
+        books.add(new Book(1L, "The Stranger", "Albert Camus", "PHILOSOPHY",0, 46));
+
+        return books;
     }
 }

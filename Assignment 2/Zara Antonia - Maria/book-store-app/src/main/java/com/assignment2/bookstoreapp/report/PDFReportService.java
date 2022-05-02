@@ -86,6 +86,6 @@ public class PDFReportService implements ReportService {
     }
 
     private String getReportTitle(){
-        return "books.pdf";//("Report" + LocalDateTime.now() + ".pdf").replace(':','-');
+        return "report.pdf"; //("Report" + LocalDateTime.now() + ".pdf").replace(':','-');
     }
 }

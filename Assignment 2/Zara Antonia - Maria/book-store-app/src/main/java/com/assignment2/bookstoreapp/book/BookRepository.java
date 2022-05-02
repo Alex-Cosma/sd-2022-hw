@@ -25,4 +25,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     ArrayList<Book> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre);
 
+    Book findByTitle(String title);
 }

@@ -4,9 +4,14 @@ import com.assignment2.bookstoreapp.book.model.dto.BookDTO;
 import com.assignment2.bookstoreapp.report.ReportType;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static com.assignment2.bookstoreapp.URLMapping.*;
@@ -44,11 +49,39 @@ public class BookController {
         return bookService.findDTOById(id);
     }
 
+    /*
+    Tried to make the files downloadable, did not work, but they are generated :(
+     */
     @RequestMapping(EXPORT_REPORT + BOOKS_OUT_OF_STOCK_REPORT)
-    public boolean exportReport(HttpServletResponse response, @PathVariable ReportType type) {
-        response.setContentType("text/" + type.toString().toLowerCase());
-        response.addHeader("Content-Disposition","attachment; filename=\"books." + type.toString().toLowerCase() + "\"");
-        return bookService.exportBooksOutOfStock(type);
+    public boolean exportReport(HttpServletResponse response, @PathVariable ReportType type) throws IOException {
+
+        String file;
+
+        switch(type) {
+            case PDF:
+                file = "report.pdf";
+                response.setContentType("application/pdf");
+                break;
+            case CSV:
+                file = "report.csv";
+                response.setContentType("text/csv");
+                break;
+            default:
+                file = "";
+        }
+
+        boolean state = bookService.exportBooksOutOfStock(type);
+
+        Path path = Paths.get(file);
+
+        if(state) {
+            response.addHeader("Content-Disposition", "attachment; filename=" + file);
+
+            Files.copy(path, response.getOutputStream());
+            response.getOutputStream().flush();
+        }
+
+        return state;
     }
 
     @PostMapping(SELL + BOOKS_ID_PART)
