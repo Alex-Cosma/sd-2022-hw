@@ -60,4 +60,16 @@ public class BookService {
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
+
+    public void sell(Long id) {
+        //first we get the book with the id
+        Book bookById = findById(id);
+        //check the quantity and decrease by 1 to make the sale
+        if(bookById.getQuantity() == 0){
+            System.out.println("Out of stock");//try adding pop-up on frontend with the message
+        }else{
+            bookById.setQuantity(bookById.getQuantity() - 1);
+        }
+        bookRepository.save(bookById);
+    }
 }
