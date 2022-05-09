@@ -1,6 +1,6 @@
 package com.example.assignment2.security.dto;
 
-import com.example.assignment2.user.dto.UserDetailsImp;
+import com.example.assignment2.user.UserDetailsImpl;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ public class JwtResponse {
     private String email;
     private List<String> roles;
 
-    public static JwtResponse fromUser(UserDetailsImp userDetails, String jwt){
+    public static JwtResponse fromUser(UserDetailsImpl userDetails, String jwt){
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

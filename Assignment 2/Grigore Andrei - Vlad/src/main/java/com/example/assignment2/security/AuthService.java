@@ -21,7 +21,7 @@ public class AuthService {
 
     private final RoleRepository roleRepository;
 
-    private final PasswordEncoder encoder;
+    private final PasswordEncoder passwordEncoder;
 
 
     public boolean existsByUsername(String username) {
@@ -35,7 +35,7 @@ public class AuthService {
     public void register(SignupRequest signUpRequest) {
         User user = User.builder()
                 .username(signUpRequest.getUsername())
-                .password(encoder.encode(signUpRequest.getPassword()))
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .email(signUpRequest.getEmail())
                 .build();
 

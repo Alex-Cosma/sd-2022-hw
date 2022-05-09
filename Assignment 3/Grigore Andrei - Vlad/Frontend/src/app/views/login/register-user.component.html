@@ -1,0 +1,127 @@
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center;">SignIn/SignUp</mat-card-title>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Sign In">
+        <mat-card-content>
+          <form action="">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Username"
+                required
+                name="username"
+                [(ngModel)] ="logInReq.username"
+                ngModel
+                #username="ngModel"
+                >
+              <mat-error *ngIf="username.invalid">username is required</mat-error>
+              <mat-icon matSuffix>username</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                type="password"
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}"
+                required
+                minlength="6"
+                name="password"
+                [(ngModel)]="logInReq.password"
+                ngModel
+                #password="ngModel"
+                >
+              <mat-error
+                *ngIf="password.errors && password.errors['required']">
+                Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="password.errors && password.errors['minlength']">
+                Password must be of length 6
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <mat-checkbox>Remember Me!</mat-checkbox>
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="password.invalid"
+              (click) = "signIn()"
+              class="login-button">
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <mat-card-content>
+          <form action="">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="User Name"
+                [(ngModel)]="signUpReq.username"
+                required
+                name="username"
+                ngModel
+                #username="ngModel">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+              <mat-error
+                *ngIf="username.invalid">
+                Username is required
+              </mat-error>
+
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [(ngModel)]="signUpReq.email"
+                required
+                name="email"
+                ngModel
+                #email="ngModel">
+              <mat-error *ngIf="email.invalid">Email is required</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}"
+                [(ngModel)]="signUpReq.password"
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                ngModel
+                #passwordSignUp="ngModel">
+              <mat-error
+                *ngIf="passwordSignUp.errors && passwordSignUp.errors['required']">
+                Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="passwordSignUp.errors && passwordSignUp.errors['minlength']">
+                Password must be of length min 8, max 16
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="passwordSignUp.invalid || email.invalid"
+              (click) = "signUp()"
+              class="login-button">
+              Sign Up
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
+<div>
+</div>
+

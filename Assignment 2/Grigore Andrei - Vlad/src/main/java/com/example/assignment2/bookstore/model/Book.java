@@ -7,9 +7,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
+@RequiredArgsConstructor
 public class Book {
 
     @Id
@@ -26,6 +27,11 @@ public class Book {
     private String author;
 
     @Column
-    private int quantity;
+    @Builder.Default
+    private int quantity = 0;
+
+    @Column
+    @Builder.Default
+    private int price = 0;
 
 }
