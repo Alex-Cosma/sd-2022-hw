@@ -1,12 +1,11 @@
-package com.lab4.demo.item;
+package com.lab4.demo.book;
 
 import com.lab4.demo.TestCreationFactory;
-import com.lab4.demo.item.model.Item;
+import com.lab4.demo.book.model.Book;
 import com.lab4.demo.user.RoleRepository;
 import com.lab4.demo.user.UserRepository;
 import com.lab4.demo.user.model.ERole;
 import com.lab4.demo.user.model.Role;
-import com.lab4.demo.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +17,16 @@ import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import static com.lab4.demo.item.ItemSpecifications.*;
 import static com.lab4.demo.user.model.ERole.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @SpringBootTest
-public class ItemRepositoryTest {
+public class BookRepositoryTest {
 
     @Autowired
-    private ItemRepository repository;
+    private BookRepository repository;
 
     @Autowired
     private UserRepository userRepository;
@@ -44,39 +41,43 @@ public class ItemRepositoryTest {
 
     @Test
     public void testMock() {
-        Item itemSaved = repository.save(Item.builder().name("whatever").build());
+        Book itemSaved = repository.save(Book.builder().name("whatever").build());
 
         assertNotNull(itemSaved);
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            repository.save(Item.builder().build());
+            repository.save(Book.builder().build());
         });
     }
 
     @Test
     public void testFindAll() {
-        List<Item> items = TestCreationFactory.listOf(Item.class);
+        List<Book> items = TestCreationFactory.listOf(Book.class);
         repository.saveAll(items);
-        List<Item> all = repository.findAll();
+        List<Book> all = repository.findAll();
         assertEquals(items.size(), all.size());
     }
 
     @Test
     public void testSimpleLikeQuery() {
-        final Item item1 = Item.builder()
+        final Book item1 = Book.builder()
+                .author("Peter")
+                .genre("Dark")
                 .name("Stewie")
                 .description("Something, something, something ... dark side.")
+                .price(100L)
+                .quantity(200L)
                 .build();
 
         repository.save(item1);
 
-        final List<Item> res1 = repository.findAllByNameLikeOrDescriptionLike("Stewie",
+        final List<Book> res1 = repository.findAllByNameLikeOrDescriptionLike("Stewie",
                 "noooope");
         assertFalse(res1.isEmpty());
         assertEquals(1, res1.size());
         assertEquals(item1.getId(), res1.get(0).getId());
 
-        final List<Item> res2 = repository.findAllByNameLikeOrDescriptionLike("%tew%",
+        final List<Book> res2 = repository.findAllByNameLikeOrDescriptionLike("%tew%",
                 "noooope");
         assertFalse(res2.isEmpty());
         assertEquals(1, res2.size());
@@ -96,15 +97,15 @@ public class ItemRepositoryTest {
                     String title = String.valueOf((char) a1) +
                             (char) a2 +
                             (char) a3;
-                    repository.save(Item.builder()
+                    repository.save(Book.builder()
                             .name(title)
                             .build());
                 }
             }
         }
 
-        final List<Item> bItemsSortedDesc = repository.findAllByNameLikeOrderByNameDesc("%b%");
-        final Item firstItem = bItemsSortedDesc.get(0);
+        final List<Book> bItemsSortedDesc = repository.findAllByNameLikeOrderByNameDesc("%b%");
+        final Book firstItem = bItemsSortedDesc.get(0);
         bItemsSortedDesc.remove(0);
 
         assertTrue(
@@ -114,8 +115,8 @@ public class ItemRepositoryTest {
         );
 
         // what if you also want to search ascending...?
-        final List<Item> bItemsSortedAsc = repository.findAllByNameLike("%b%", Sort.by(ASC, "name"));
-        final Item firstItemAsc = bItemsSortedDesc.get(0);
+        final List<Book> bItemsSortedAsc = repository.findAllByNameLike("%b%", Sort.by(ASC, "name"));
+        final Book firstItemAsc = bItemsSortedDesc.get(0);
         bItemsSortedAsc.remove(0);
 
         assertTrue(
@@ -135,7 +136,7 @@ public class ItemRepositoryTest {
                     String title = String.valueOf((char) a1) +
                             (char) a2 +
                             (char) a3;
-                    repository.save(Item.builder()
+                    repository.save(Book.builder()
                             .name(title)
                             .build());
                 }
@@ -145,7 +146,7 @@ public class ItemRepositoryTest {
         final int page = 1;
         final int pageSize = 10;
         final PageRequest pageable = PageRequest.of(page, pageSize);
-        final Page<Item> pagedResult = repository.findAllByNameLike("%b%", pageable);
+        final Page<Book> pagedResult = repository.findAllByNameLike("%b%", pageable);
 
         assertTrue(pagedResult.hasContent());
         assertEquals(pageSize, pagedResult.getNumberOfElements());
@@ -157,15 +158,15 @@ public class ItemRepositoryTest {
         final int sortedPage = 4;
         final int sortedPageSize = 100;
         final PageRequest first100AscByName = PageRequest.of(sortedPage, sortedPageSize, Sort.by(ASC, "name"));
-        final Page<Item> pagedResultSortAsc = repository.findAllByNameLike("%b%", first100AscByName);
+        final Page<Book> pagedResultSortAsc = repository.findAllByNameLike("%b%", first100AscByName);
         assertTrue(pagedResultSortAsc.hasContent());
         assertEquals(sortedPageSize, pagedResultSortAsc.getNumberOfElements());
         assertEquals(sortedPage, pagedResultSortAsc.getNumber());
 
-        final List<Item> pagedResultSortedContent = new ArrayList<>(pagedResultSortAsc.getContent());
+        final List<Book> pagedResultSortedContent = new ArrayList<>(pagedResultSortAsc.getContent());
         assertEquals(sortedPageSize, pagedResultSortedContent.size());
 
-        final Item firstItemAsc = pagedResultSortedContent.get(0);
+        final Book firstItemAsc = pagedResultSortedContent.get(0);
         pagedResultSortedContent.remove(0);
 
         assertTrue(
@@ -183,97 +184,44 @@ public class ItemRepositoryTest {
                     String title = String.valueOf((char) a1) +
                             (char) a2 +
                             (char) a3;
-                    repository.save(Item.builder()
+                    repository.save(Book.builder()
                             .name(title)
                             .build());
                 }
             }
         }
 
-        final List<Item> items1 = repository.findAll(similarNames("%b%"));
+        final List<Book> items1 = repository.findAll();
         assertTrue(items1.size() > 1000);
 
         final String newDescription = "New and flashy";
         repository.save(
-                Item.builder()
-                        .name("Laptop")
+                Book.builder()
+                        .name("Harry potter")
+                        .author("Ion Creanga")
+                        .quantity(100L)
+                        .price(200L)
+                        .genre("Action")
                         .description(newDescription)
                         .build()
         );
 
         repository.save(
-                Item.builder()
-                        .name("Laptop")
+                Book.builder()
+                        .name("LOTR")
+                        .genre("Adventure")
+                        .author("JRR T")
+                        .price(20000L)
+                        .quantity(1L)
                         .description("Oldie goldie")
                         .build()
         );
 
-        final List<Item> latestLaptops =
+        final List<Book> latestBooks =
                 repository.findAll(
                 );
-        assertEquals(1, latestLaptops.size());
-        assertEquals(newDescription, latestLaptops.get(0).getDescription());
-    }
-
-    @Test
-    void testComplicatedSpecificationQuery() {
-
-        final String qualityLaptop = "Quality laptop 1";
-        final Item excellent1 = repository.save(Item.builder()
-                .name(qualityLaptop)
-                .build());
-
-        final String qualityMac = "Quality mac 1";
-        final Item excellent2 = repository.save(Item.builder()
-                .name(qualityMac)
-                .build());
-
-        final List<Item> onlyExcellentMacs = repository.findAll();
-        assertEquals(1, onlyExcellentMacs.size());
-        assertEquals(qualityMac, onlyExcellentMacs.get(0).getName());
-    }
-
-    @Test
-    void testWildlyComplicatedQuery() {
-        buildRoles();
-        final User admin = userRepository.save(User.builder()
-                .username("admin")
-                .email("admin@users.com")
-                .password("stronk")
-                .roles(Set.of(roleRepository.findByName(ADMIN).get()))
-                .build());
-
-        final User customer = userRepository.save(User.builder()
-                .username("customer")
-                .email("customer@users.com")
-                .password("stronk")
-                .roles(Set.of(roleRepository.findByName(CUSTOMER).get()))
-                .build());
-
-        final User manager = userRepository.save(User.builder()
-                .username("manager")
-                .email("manager@users.com")
-                .password("stronk")
-                .roles(Set.of(roleRepository.findByName(MANAGER).get()))
-                .build());
-
-        final String laptopName = "laptop";
-        final Item laptop = repository.save(Item.builder()
-                .name(laptopName)
-                .build());
-
-        final Item mac = repository.save(Item.builder()
-                .name("mac")
-                .build());
-
-        final String webcamName = "webcam";
-        final Item webcam = repository.save(Item.builder()
-                .name(webcamName)
-                .build());
-
-        final List<Item> onlyReviewedByAdmins = repository.findAll(withAdministratorReviews());
-        assertEquals(2, onlyReviewedByAdmins.size());
-        assertEquals(laptopName, onlyReviewedByAdmins.get(0).getName());
+        assertEquals(1, latestBooks.size());
+        assertEquals(newDescription, latestBooks.get(0).getDescription());
     }
 
     private void buildRoles() {

@@ -1,11 +1,8 @@
-package com.lab4.demo.item.model;
+package com.lab4.demo.book.model;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -13,7 +10,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Item {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

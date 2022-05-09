@@ -1,8 +1,7 @@
-package com.lab4.demo.item;
+package com.lab4.demo.book;
 
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.model.dto.ItemDTO;
-import com.lab4.demo.item.model.dto.ItemFilterRequestDto;
+import com.lab4.demo.book.model.Book;
+import com.lab4.demo.book.model.dto.BookDTO;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
@@ -13,71 +12,62 @@ import org.apache.http.impl.NoConnectionReuseStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ItemService {
+public class BookService {
 
-    private final ItemRepository itemRepository;
-    private final ItemMapper itemMapper;
+    private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    private Item findById(Long id) {
-        return itemRepository.findById(id)
+    private Book findById(Long id) {
+        return bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item not found: " + id));
     }
 
-    public List<ItemDTO> findAll() {
-        return itemRepository.findAll().stream()
-                .map(itemMapper::toDto)
+    public List<BookDTO> findAll() {
+        return bookRepository.findAll().stream()
+                .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    public ItemDTO create(ItemDTO item) {
-        return itemMapper.toDto(itemRepository.save(
-                itemMapper.fromDto(item)
+    public BookDTO create(BookDTO bookDTO) {
+        return bookMapper.toDto(bookRepository.save(
+                bookMapper.fromDto(bookDTO)
         ));
     }
 
-    public ItemDTO edit(Long id, ItemDTO item) {
-        Item actItem = findById(id);
-        actItem.setName(item.getName());
-        actItem.setAuthor(item.getAuthor());
-        actItem.setGenre(item.getGenre());
-        actItem.setDescription(item.getDescription());
-        actItem.setQuantity(item.getQuantity());
-        actItem.setPrice(item.getPrice());
-        return itemMapper.toDto(
-                itemRepository.save(actItem)
+    public BookDTO edit(Long id, BookDTO bookDTO) {
+        Book book = findById(id);
+        book.setName(bookDTO.getName());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setGenre(bookDTO.getGenre());
+        book.setDescription(bookDTO.getDescription());
+        book.setQuantity(bookDTO.getQuantity());
+        book.setPrice(bookDTO.getPrice());
+        return bookMapper.toDto(
+                bookRepository.save(book)
         );
     }
 
-    public ItemDTO changeName(Long id, String newName) {
-        Item item = findById(id);
-        item.setName(newName);
-        return itemMapper.toDto(
-                itemRepository.save(item)
+    public BookDTO changeName(Long id, String newName) {
+        Book book = findById(id);
+        book.setName(newName);
+        return bookMapper.toDto(
+                bookRepository.save(book)
         );
     }
 
-    public ItemDTO get(Long id) {
-        return itemMapper.toDto(findById(id));
+    public BookDTO get(Long id) {
+        return bookMapper.toDto(findById(id));
     }
 
     public void delete(Long id) {
-        itemRepository.deleteById(id);
-    }
-
-    public Page<ItemDTO> findAllFiltered(ItemFilterRequestDto filter, Pageable pageable) {
-        return itemRepository.findAll(
-                ItemSpecifications.specificationsFromFilter(filter), pageable
-        ).map(itemMapper::toDto);
+        bookRepository.deleteById(id);
     }
 
     public String getApiResponse(/*String subject*/){
@@ -127,14 +117,14 @@ public class ItemService {
             else{
                 genre = "";
             }
-            Item item = Item.builder()
+            Book book = Book.builder()
                     .author(author)
                     .name(infoObject.getString("title"))
                     .description(description)
                     .genre(genre)
                     .build();
 
-            itemRepository.save(item);
+            bookRepository.save(book);
         }
     }
 }
