@@ -25,6 +25,8 @@ dependencies {
     implementation 'com.opencsv:opencsv:5.6'
     implementation('com.itextpdf:itextpdf:5.5.13.3')
     implementation('org.apache.pdfbox:pdfbox:2.0.26')
+    implementation 'com.google.code.gson:gson:2.9.0'
+
 
     runtimeOnly 'mysql:mysql-connector-java:8.0.29'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
