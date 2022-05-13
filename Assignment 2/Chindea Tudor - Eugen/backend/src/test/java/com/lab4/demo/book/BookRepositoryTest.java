@@ -25,6 +25,7 @@ public class BookRepositoryTest {
         repository.deleteAll();
     }
 
+
     @Test
     public void testMock() {
         Book bookSaved = repository.save(Book.builder().title("whatever")

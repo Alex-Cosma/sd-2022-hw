@@ -29,6 +29,7 @@ class BookServiceTest {
     @Mock
     private BookMapper bookMapper;
 
+
     @Mock
     private ReportServiceFactory reportServiceFactory;
 
