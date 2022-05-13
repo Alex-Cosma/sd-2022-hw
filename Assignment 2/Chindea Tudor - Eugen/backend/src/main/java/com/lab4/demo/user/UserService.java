@@ -1,27 +1,17 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.model.dto.ItemDTO;
 import com.lab4.demo.security.AuthService;
 import com.lab4.demo.security.dto.SignupRequest;
 import com.lab4.demo.user.dto.UserDTO;
-import com.lab4.demo.user.dto.UserListDTO;
-import com.lab4.demo.user.dto.UserMinimalDTO;
 import com.lab4.demo.user.mapper.UserMapper;
-import com.lab4.demo.user.model.ERole;
-import com.lab4.demo.user.model.Role;
 import com.lab4.demo.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor

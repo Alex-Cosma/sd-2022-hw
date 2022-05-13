@@ -1,8 +1,8 @@
 package com.lab4.demo;
 
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.model.dto.ItemDTO;
-import com.lab4.demo.user.dto.UserListDTO;
+import com.lab4.demo.book.model.Book;
+import com.lab4.demo.book.model.dto.BookDTO;
+import com.lab4.demo.user.dto.UserDTO;
 
 import java.util.List;
 import java.util.Random;
@@ -24,11 +24,11 @@ public class TestCreationFactory {
         int nrElements = new Random().nextInt(10) + 5;
         Supplier<?> supplier;
 
-        if (cls.equals(UserListDTO.class)) {
-            supplier = TestCreationFactory::newUserListDTO;
-        } else if (cls.equals(Item.class)) {
+        if (cls.equals(UserDTO.class)) {
+            supplier = TestCreationFactory::newUserDTO;
+        } else if (cls.equals(Book.class)) {
             supplier = TestCreationFactory::newItem;
-        } else if (cls.equals(ItemDTO.class)) {
+        } else if (cls.equals(BookDTO.class)) {
             supplier = TestCreationFactory::newItemDTO;
         } else {
             supplier = () -> new String("You failed.");
@@ -41,16 +41,16 @@ public class TestCreationFactory {
                 .stream().collect(toList());
     }
 
-    private static UserListDTO newUserListDTO() {
-        return UserListDTO.builder()
+    private static UserDTO newUserDTO() {
+        return UserDTO.builder()
                 .id(randomLong())
-                .name(randomString())
+                .username(randomString())
                 .email(randomEmail())
                 .build();
     }
 
-    private static Item newItem() {
-        return Item.builder()
+    private static Book newItem() {
+        return Book.builder()
                 .id(randomLong())
                 .title(randomString())
                 .author(randomString())
@@ -60,8 +60,8 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static ItemDTO newItemDTO() {
-        return ItemDTO.builder()
+    private static BookDTO newItemDTO() {
+        return BookDTO.builder()
                 .id(randomLong())
                 .title(randomString())
                 .author(randomString())
