@@ -37,5 +37,5 @@ public class Video {
     private String channelTitle;
 
     @Column(length=11, nullable = false, unique = true)
-    private String videoUrl;
+    private String videoId;
 }

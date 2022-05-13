@@ -17,4 +17,5 @@ public class UrlMapping {
 
     public static final String VIDEOS = "/videos";
     public static final String GET_VIDEOS = "/get-videos";
+    public static final String UPLOAD_VIDEO = "/upload-video";
 }

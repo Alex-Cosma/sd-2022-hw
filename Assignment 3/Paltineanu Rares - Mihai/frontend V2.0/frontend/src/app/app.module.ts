@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule} from "@angular/router";
 import { AuthenticationGuard} from "./authentication/guards/authentication.guard";
 import { VideosViewComponent } from './user/admin/components/videos/view/videos.component';
-import { DxButtonModule, DxDataGridModule } from "devextreme-angular";
+import { DxButtonModule, DxDataGridModule, DxPopupModule } from "devextreme-angular";
 import { VideoService } from "./api/services/video.service";
 import { UsersViewComponent } from './user/admin/components/users/view/users.component';
 import { EmployeeVideosViewComponent } from './user/employee/components/videos-view/videos.component';
@@ -47,7 +47,8 @@ import { AddVideoComponent } from './user/employee/components/add-video/add-vide
     NgbModule,
     RouterModule,
     DxDataGridModule,
-    DxButtonModule
+    DxButtonModule,
+    DxPopupModule
   ],
   providers: [
     AuthenticationService,

@@ -33,7 +33,6 @@ export class UserToolbarComponent {
 
   public onDeleteUser(): void {
     this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(lupa => {
-      console.log(lupa)
       this.updateUsersGrid()});
     ;
   }
