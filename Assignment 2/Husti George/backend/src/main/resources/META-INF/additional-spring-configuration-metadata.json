@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "rapidApiKey",
+      "type": "java.lang.String",
+      "description": "RapidAPI key"
+    }
+  ]
+}
