@@ -78,4 +78,28 @@ public class UserControllerTest extends BaseControllerTest {
         userController.create(userDTO);
         assertNotNull(userRepository.findByUsername("username"));
     }
+
+    @Test
+    void edit() throws Exception {
+        UserDTO userDTO = UserDTO.builder()
+                .id(1L)
+                .email("myemail@aaa.com")
+                .username("username")
+                .password("password")
+                .build();
+        when(userService.create(userDTO)).thenReturn(userDTO);
+        ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(new MessageResponse("User registered successfully!")));
+
+        userDTO.setUsername("new username");
+        userDTO.setEmail("newemail@email.com");
+
+        when(userService.edit(userDTO.getId(), userDTO)).thenReturn(userDTO);
+        when(userService.findById(userDTO.getId())).thenReturn(userDTO);
+
+        ResultActions getEditedUserAction = performGetWithPathVariable(USER + GET_USER, userDTO.getId());
+        getEditedUserAction.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(userDTO));
+    }
 }

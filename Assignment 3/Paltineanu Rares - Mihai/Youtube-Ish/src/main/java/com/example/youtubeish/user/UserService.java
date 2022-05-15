@@ -27,19 +27,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final AuthService authService;
     private final UserMapper userMapper;
-    private final PasswordEncoder encoder;
-    public List<UserMinimalDTO> allUsers() {
-        return userRepository.findAll()
-                .stream().map(userMapper::userMinimalFromUser)
-                .collect(toList());
-
-    }
-
-    public List<UserMinimalDTO> allUsersMinimal() {
-        return userRepository.findAll()
-                .stream().map(userMapper::userMinimalFromUser)
-                .collect(toList());
-    }
 
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -47,16 +34,6 @@ public class UserService {
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
-    }
-
-    public List<UserListDTO> allUsersForList() {
-        return userRepository.findAll()
-                .stream().map( user-> {
-                    UserListDTO userListDTO = userMapper.userListDtoFromUser(user);
-                    userMapper.populateRoles(user, userListDTO);
-                    return userListDTO;
-                })
-                .collect(toList());
     }
 
     public List<UserDTO> allUsersDto() {
