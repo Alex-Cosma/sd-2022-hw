@@ -90,7 +90,7 @@ export default {
             if (this.$store.getters["auth/isAdmin"]) {
               router.push("/users");
             } else {
-              router.push("/items");
+              router.push("/posts");
             }
           } else {
             alert("Invalid credentials!");

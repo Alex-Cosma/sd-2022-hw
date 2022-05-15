@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -26,7 +27,7 @@ public class UserService {
 
     private User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found" + id));
+                .orElseThrow(() -> new EntityNotFoundException("User not found" + id));
     }
 
     public ResponseEntity<MessageResponse> create(UserListDto user) {
@@ -61,6 +62,7 @@ public class UserService {
                 .stream().map(user -> {
                     UserListDto userListDto = userMapper.userListDtoFromUser(user);
                     userMapper.populateRoles(user, userListDto);
+                    userMapper.populateFriends(user,userListDto);
                     return userListDto;
                 })
                 .collect(toList());
@@ -76,5 +78,27 @@ public class UserService {
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setUsername(user.getUsername());
         return userMapper.userListDtoFromUser(userRepository.save(userToUpdate));
+    }
+
+    public UserListDto get(Long id) {
+        User user=findById(id);
+        UserListDto userListDto=userMapper.userListDtoFromUser(user);
+        userMapper.populateRoles(user, userListDto);
+        userMapper.populateFriends(user,userListDto);
+        return userListDto;
+    }
+
+
+    public void addFriend(Long id, Long friendId) {
+        User user=findById(id);
+        User friend=findById(friendId);
+
+        Set<User> friends=user.getFriends();
+        friends.add(friend);
+        user.setFriends(friends);
+
+
+        userRepository.save(user);
+        userRepository.save(friend);
     }
 }

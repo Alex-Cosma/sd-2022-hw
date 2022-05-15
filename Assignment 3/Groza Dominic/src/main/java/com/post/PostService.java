@@ -2,11 +2,16 @@ package com.post;
 
 import com.post.model.Post;
 import com.post.model.dto.PostDto;
+import com.user.UserService;
+import com.user.dto.UserListDto;
+import com.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +21,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final UserService userService;
 
     private Post findById(Long id) {
         return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found with id :"+id));
@@ -28,9 +34,11 @@ public class PostService {
     }
 
     public PostDto create (PostDto postDto){
-
+        System.out.println(postDto+"POST");
+        postDto.setCreated_at(Date.from(new Date().toInstant()));
+        postDto.setLikes(0L);
+        postDto.setDisLikes(0L);
         Post post = postMapper.fromDto(postDto);
-        System.out.println("-----------" +post.getCreated_at());
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -51,8 +59,20 @@ public class PostService {
         return postMapper.toDto(findById(id));
     }
 
-    public List<Post> findByUserId(Long userId){
-        return postRepository.findByUserId(userId);
+    public List<PostDto> findByUserId(Long userId){
+        return postRepository.findByUserId(userId).stream()
+                .map(postMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<PostDto> findPostsOfFriends(Long userId){
+        UserListDto user=userService.get(userId);
+        List<PostDto> posts=new ArrayList<>();
+        for (User friend : user.getFriends()) {
+            List<PostDto> foundPosts = findByUserId(friend.getId());
+            posts.addAll(foundPosts);
+        }
+        return posts;
     }
 
 

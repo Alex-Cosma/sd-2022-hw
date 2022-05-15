@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import UserList from "../views/UserList.vue";
-import ItemList from "../views/ItemList.vue";
+import ItemList from "../views/Feed.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 
@@ -26,8 +26,8 @@ const routes = [
     },
   },
   {
-    path: "/items",
-    name: "Items",
+    path: "/posts",
+    name: "Feed",
     component: ItemList,
     beforeEnter: (to, from, next) => {
       if (store.state.status.loggedIn) {

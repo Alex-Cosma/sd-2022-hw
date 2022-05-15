@@ -53,9 +53,19 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-
     private Set<Post> posts;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private Set<User> friends = new HashSet<>();
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "friends",
+//            joinColumns = @JoinColumn(name = "friend_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+//    private Set<User> friendOf = new HashSet<>();
 }

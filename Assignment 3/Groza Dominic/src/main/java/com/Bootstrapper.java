@@ -6,6 +6,7 @@ import com.security.AuthService;
 import com.security.dto.SignupRequest;
 import com.user.RoleRepository;
 import com.user.UserRepository;
+import com.user.UserService;
 import com.user.model.ERole;
 import com.user.model.Role;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     private final UserRepository userRepository;
 
     private final PostRepository postRepository;
+
+    private final UserService userService;
 
     private final AuthService authService;
 
@@ -63,6 +66,15 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .address("Hagelstadt")
                     .roles(Set.of("USER"))
                     .build());
+            authService.register(SignupRequest.builder()
+                    .email("test@gmail.com")
+                    .username("testfakefriend")
+                    .password("@Dominid123")
+                    .firstName("Fake")
+                    .lastName("Groza")
+                    .address("Bucale")
+                    .roles(Set.of("USER"))
+                    .build());
 
             for(int i=0;i<10;i++){
                 Random rand=new Random();
@@ -75,6 +87,32 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                         .build();
                 postRepository.save(post);
             }
+            for(int i=0;i<10;i++){
+                Random rand=new Random();
+                Post post=Post.builder()
+                        .body("Lorem ipsum dolor sit amet, consectetur adipiscing elit-------- " + rand.nextInt())
+                        .likes((long) rand.nextInt(100))
+                        .disLikes((long) rand.nextInt(100))
+                        .user(userRepository.findByUsername("dominic1").isPresent()?userRepository.findByUsername("dominic1").get():null)
+                        .created_at(Date.from(new Date().toInstant()))
+                        .build();
+                postRepository.save(post);
+            }
+            Random rand=new Random();
+            Post post=Post.builder()
+                    .body("FAKE POST")
+                    .likes((long) rand.nextInt(100))
+                    .disLikes((long) rand.nextInt(100))
+                    .user(userRepository.findByUsername("testfakefriend").isPresent()?userRepository.findByUsername("testfakefriend").get():null)
+                    .created_at(Date.from(new Date().toInstant()))
+                    .build();
+
+            postRepository.save(post);
+
+
+            Long id1=userRepository.findByUsername("dominic").get().getId();
+            Long id2=userRepository.findByUsername("dominic1").get().getId();
+            userService.addFriend(id1, id2);
         }
     }
 }

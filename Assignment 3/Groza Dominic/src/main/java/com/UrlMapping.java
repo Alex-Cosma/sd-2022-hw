@@ -2,7 +2,7 @@ package com;
 
 public class UrlMapping {
     public static final String API_PATH = "/api";
-    public static final String POSTS = API_PATH + "/posts";
+    public static final String POSTS = API_PATH + "/posts/{userId}";
     public static final String ENTITY = "/{id}";
 
     public static final String AUTH = API_PATH + "/auth";
