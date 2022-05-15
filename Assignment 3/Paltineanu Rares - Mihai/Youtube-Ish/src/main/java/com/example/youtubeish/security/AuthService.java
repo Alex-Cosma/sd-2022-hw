@@ -32,7 +32,7 @@ public class AuthService {
         return userRepository.existsByEmail(email);
     }
 
-    public void register(UserDTO signUpRequest) {
+    public User register(UserDTO signUpRequest) {
         User user = User.builder()
                 .username(signUpRequest.getUsername())
                 .password(encoder.encode(signUpRequest.getPassword()))
@@ -55,6 +55,6 @@ public class AuthService {
         }
 
         user.setRoles(roles);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

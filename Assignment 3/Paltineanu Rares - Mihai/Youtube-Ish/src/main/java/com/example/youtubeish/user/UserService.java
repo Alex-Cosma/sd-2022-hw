@@ -73,8 +73,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void create(UserDTO newUser) {
-        authService.register(newUser);
+    public UserDTO create(UserDTO newUser) {
+        return userMapper.toDto(authService.register(newUser));
     }
 
     public UserDTO findById(Long id) {
