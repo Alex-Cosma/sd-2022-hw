@@ -4,7 +4,7 @@
       type="button"
       class="btn btn-link button-secondary"
       (click)="onAddUser()"
-      title="Add book">
+      title="Add user">
       <span class="dx-icon-add" aria-hidden="true"></span>
     </button>
   
@@ -12,8 +12,8 @@
             type="button"
             class="btn btn-link button-secondary"
             (click)="onDeleteUser()"
-            title="Delete book"
-            [disabled]="!areBooksSelected">
+            title="Delete user"
+            [disabled]="!areUsersSelected">
       Delete
     </button >
     <button title="{{buttonName}}"

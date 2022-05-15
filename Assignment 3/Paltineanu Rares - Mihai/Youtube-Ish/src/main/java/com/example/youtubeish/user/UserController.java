@@ -22,8 +22,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(GET_USERS)
-    public List<UserListDTO> allUsers() {
-        return userService.allUsersForList();
+    public List<UserDTO> allUsers() {
+        return userService.allUsersDto();
     }
 
     @DeleteMapping(DELETE_USER)
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping(ADD_USER)
-    public ResponseEntity<?> create(@Valid @RequestBody SignupRequest user) {
+    public ResponseEntity<?> create(@Valid @RequestBody UserDTO user) {
         if (userService.existsByUsername(user.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -44,8 +44,7 @@ public class UserController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-        user.setRoles(new HashSet<>());
-        user.getRoles().add("CUSTOMER");
+
         userService.create(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

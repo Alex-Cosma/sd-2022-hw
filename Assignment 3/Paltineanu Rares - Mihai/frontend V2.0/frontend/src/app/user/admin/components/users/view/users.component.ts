@@ -18,9 +18,9 @@ export class UsersViewComponent implements OnInit{
     public usersGrid: UserGrid[] = [];
     public usersList: User[] = [];
 
-    public bookButtonName: string = 'View books';
+    public videoButtonName: string = 'View videos';
 
-    public bookButtonUrl: string = 'admin/videos';
+    public videoButtonUrl: string = 'admin/videos';
 
     constructor(private router: Router,
         private userService: UserService) {}
@@ -41,7 +41,7 @@ export class UsersViewComponent implements OnInit{
 
     private convertUser(user: User): UserGrid {
         let userGrid: UserGrid = new UserGrid(user);
-        userGrid.roleNames = user.roles?.join('; ');
+        userGrid.roleNames = user.roles?.map(role => role.name).join('; ');
         return userGrid;
     }
 

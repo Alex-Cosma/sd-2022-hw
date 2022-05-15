@@ -24,16 +24,4 @@ export class AuthenticationService {
     const headers = authHeader()
     return this.http.get(API_URL + '/user', {headers});
   }
-
-  isAuthenticated(): boolean {
-    return localStorage.getItem('user') !== '' ;
-  }
-
-  isAdmin(): boolean {
-    let user = JSON.parse(localStorage.getItem('user')!);
-    if(user.roles.some((role:string) => role === 'ADMIN')) {
-      return true;
-    }
-    return false;
-  }
 }

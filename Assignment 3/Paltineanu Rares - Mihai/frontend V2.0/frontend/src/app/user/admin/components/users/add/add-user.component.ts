@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit{
 
   private toSignUpRequest(): SignupRequest {
     let signupRequest: SignupRequest = new SignupRequest();
-    signupRequest.username = this.form.name ?? '';
+    signupRequest.username = this.form.username ?? '';
     signupRequest.email = this.form.email ?? '';
     signupRequest.password = this.form.password ?? '';
     signupRequest.roles = undefined;

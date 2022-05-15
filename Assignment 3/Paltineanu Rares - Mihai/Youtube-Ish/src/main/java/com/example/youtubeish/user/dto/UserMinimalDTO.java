@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class UserMinimalDTO {
     private Long id;
-    private String name;
+    private String username;
 }

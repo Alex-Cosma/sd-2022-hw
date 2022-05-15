@@ -57,7 +57,7 @@ export class UserToolbarComponent {
       return userGrid;
   }
 
-  get areBooksSelected(): boolean {
+  get areUsersSelected(): boolean {
     if(this.grid == null) {
       return false;
     }

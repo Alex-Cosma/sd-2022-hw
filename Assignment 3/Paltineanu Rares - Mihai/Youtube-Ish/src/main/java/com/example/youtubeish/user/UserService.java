@@ -6,6 +6,8 @@ import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserListDTO;
 import com.example.youtubeish.user.dto.UserMinimalDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
+import com.example.youtubeish.user.model.ERole;
+import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -56,6 +59,10 @@ public class UserService {
                 .collect(toList());
     }
 
+    public List<UserDTO> allUsersDto() {
+        return userRepository.findAll().stream().map(userMapper::toDto).collect(toList());
+    }
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException("User Not Found with username: " + username)
@@ -66,7 +73,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void create(SignupRequest newUser) {
+    public void create(UserDTO newUser) {
         authService.register(newUser);
     }
 
@@ -78,10 +85,7 @@ public class UserService {
     public UserDTO edit(Long id, UserDTO user) {
         User actUser = userMapper.fromDto(findById(id));
         actUser.setEmail(user.getEmail());
-        actUser.setUsername(user.getName());
-        actUser.setPassword(encoder.encode(user.getPassword()));
-        actUser.setRoles(user.getRoles());
+        actUser.setUsername(user.getUsername());
         return userMapper.toDto(userRepository.save(actUser));
     }
-
 }

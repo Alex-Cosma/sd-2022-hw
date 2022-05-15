@@ -15,9 +15,6 @@ enum ReportType{
 })
 export class VideoToolbarComponent {
 
-  // @ts-ignore
-  @Input() grid: DxDataGridComponent;
-
   buttonName: string = 'View users';
 
   urlPage: string = '/admin/users';
@@ -30,27 +27,11 @@ export class VideoToolbarComponent {
     localStorage.setItem('user', '')
     this.router.navigate(['/login']);
   }
-
-  public onAddBook(): void {
-    this.router.navigate(['/admin/add-book']);
-  }
-
-  public onDeleteBook(): void {
-    const bookId: number = this.grid.selectedRowKeys[0].id;
-  }
-
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   public changePage(): void {
     this.router.navigate([this.urlPage]);
-  }
-
-  get isBookSelected(): boolean {
-    if(this.grid == null) {
-      return false;
-    }
-    return this.grid.instance.getSelectedRowsData().length > 0;
   }
 }

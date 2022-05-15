@@ -4,6 +4,7 @@ import com.example.youtubeish.security.dto.JwtResponse;
 import com.example.youtubeish.security.dto.LoginRequest;
 import com.example.youtubeish.security.dto.MessageResponse;
 import com.example.youtubeish.security.dto.SignupRequest;
+import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping(SIGN_UP)
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO signUpRequest) {
         if (authService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

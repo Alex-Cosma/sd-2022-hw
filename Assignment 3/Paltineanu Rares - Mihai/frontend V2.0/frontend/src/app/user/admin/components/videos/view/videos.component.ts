@@ -9,9 +9,6 @@ import { VideoService } from "src/app/api/services/video.service";
   styleUrls: ['videos.component.css']
 })
 export class VideosViewComponent implements OnInit, OnDestroy{
-  @ViewChild(DxDataGridComponent)
-  grid!: DxDataGridComponent;
-
 
   constructor(private router: Router,
               private videoService: VideoService) {
