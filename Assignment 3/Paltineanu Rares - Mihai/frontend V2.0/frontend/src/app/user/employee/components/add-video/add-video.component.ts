@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { VideoService } from "src/app/api/services/video.service";
 import { UserDetailsImpl } from "src/app/models/user-details-impl.model";
 import { ResultDTO } from "src/app/models/video/result-dto.model";
-import { VideoDTO } from "src/app/models/video/video-dto.model";
+import { Video } from "src/app/models/video/video.model";
 
 @Component({
     selector: 'app-add-video',
@@ -64,10 +64,12 @@ export class AddVideoComponent implements OnInit{
             }
             return value;
         });
-        this.videoService.uploadVideo(this.currentVideo, user).subscribe();
+        this.videoService.uploadVideo(this.currentVideo, user).subscribe(
+            () => this.router.navigate(['/employee'])
+        );
     }
 
-    public showVideoInfo(video: VideoDTO) {
+    public showVideoInfo(video: Video) {
         this.currentVideo = video;
         this.popupVisible = true;
     }

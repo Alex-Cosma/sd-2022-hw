@@ -6,9 +6,24 @@
       (click)="addVideo()"
       title="Add book">
       <span class="dx-icon-add" aria-hidden="true"></span>
-    </button>
-  
+  </button>
 
+  <label>User: </label>
+  <input type="text" [(ngModel)]="usernameSearchField"> 
+
+  <button id="searchVideosBtn"
+    type="button"
+    class="btn-primary"
+    (click)="getVideosFromUser()">
+    Search Videos
+  </button>
+
+  <button id="myVideosBtn"
+    type="button"
+    class="btn-primary"
+    (click)="getVideosFromLoggedInUser()">
+    My Videos
+  </button>
   <div class="right-bar">
     <button (click)="logout()">Logout</button>
   </div>

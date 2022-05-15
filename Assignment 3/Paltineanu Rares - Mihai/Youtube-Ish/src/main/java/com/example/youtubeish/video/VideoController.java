@@ -1,6 +1,8 @@
 package com.example.youtubeish.video;
 
+import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDetailsImpl;
+import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.model.Video;
 import com.example.youtubeish.video.model.dto.ResultDTO;
 import com.example.youtubeish.video.model.dto.UploadVideoDTO;
@@ -19,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.naming.ldap.HasControls;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.youtubeish.UrlMapping.*;
@@ -28,6 +31,8 @@ import static com.example.youtubeish.UrlMapping.*;
 @RequiredArgsConstructor
 public class VideoController {
 
+    private final VideoService videoService;
+    private final UserService userService;
     @GetMapping(GET_VIDEOS)
     public ResultDTO allVideos(@RequestParam String key,
                             @RequestParam String q,
@@ -51,9 +56,16 @@ public class VideoController {
         return restTemplate.getForObject(url, ResultDTO.class, params);
     }
 
+    @GetMapping(GET_USER_VIDEOS)
+    public List<Video> getVideoFromUser(@RequestParam String username) {
+        User user = userService.getUserByUsername(username);
+        System.out.println(user.getId());
+        return videoService.getVideosFromUser(user.getId());
+    }
+
     @PostMapping(UPLOAD_VIDEO)
     public VideoDTO uploadVideo(@RequestBody UploadVideoDTO uploadVideoDTO) {
-
+        Video video = videoService.create(uploadVideoDTO.getVideo(), uploadVideoDTO.getUser());
         return null;
     }
 }

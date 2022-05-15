@@ -1,56 +1,35 @@
-<app-employee-toolbar [grid]="grid"></app-employee-toolbar>
+<app-employee-toolbar (getVideos)="getVideos($event)"></app-employee-toolbar>
 
-<dx-data-grid id="booksGrid"
-              [allowColumnReordering]="true"
-              [allowColumnResizing]="true"
-              [columnAutoWidth]="false"
-              [showBorders]="true"
-              [showRowLines]="true"
-              class="dx-datagrid dataGrid">
-  <dxo-paging [pageSize]="10"> </dxo-paging>
-  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  <dxo-column-chooser mode="select"></dxo-column-chooser>
 
-  <dxo-selection [showCheckBoxesMode]="'onClick'" mode="single"></dxo-selection>
-  <dxi-column caption="ID"
-            dataField="id"
-            [width]="'10%'"
-            dataType="number">
-  </dxi-column>
-
-  <dxi-column caption="Name"
-              dataField="name"
-              [width]="'15%'"
-              dataType="string">
-  </dxi-column>
-
-  <dxi-column caption="Description"
-              dataField="description"
-              [width]="'15%'"
-              dataType="string">
-  </dxi-column>
-
-  <dxi-column caption="Author"
-              dataField="author"
-              [width]="'15%'"
-              dataType="string">
-  </dxi-column>
-
-  <dxi-column caption="Genre"
-              dataField="genre"
-              [width]="'15%'"
-              dataType="string">
-  </dxi-column>
-
-  <dxi-column caption="Quantity"
-              dataField="quantity"
-              [width]="'15%'"
-              dataType="number">
-  </dxi-column>
-
-  <dxi-column caption="Price"
-              dataField="price"
-              [width]="'15%'"
-              dataType="number">
-  </dxi-column>
-</dx-data-grid>
+<div *ngIf="this.videos.length === 0">
+    No videos
+</div>
+<ul>
+    <li *ngFor="let video of videos" >
+        <div>
+            <p>
+                Title:
+                <span> {{ video.title }}</span>
+            </p>
+    
+            <p>
+                Channel:
+                <span> {{ username }}</span>
+            </p>
+    
+            <p>
+                Description:
+                <span> {{ video.description }} </span>
+            </p>
+    
+            <p>
+                Thumbnail:
+                <span>
+                    <a href="{{'https://youtube.com/watch?v=' + video.videoId}}">
+                        <img src="{{video.thumbnailUrl}}">
+                    </a>
+                </span>
+            </p>
+        </div>
+    </li>
+</ul>

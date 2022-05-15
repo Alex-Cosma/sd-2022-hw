@@ -1,7 +1,7 @@
-import { VideoDTO } from "./video-dto.model";
+import { Video } from "./video.model";
 
 export class ResultDTO {
-    items?: VideoDTO[];
+    items?: Video[];
 
     constructor() {
         this.items = [];

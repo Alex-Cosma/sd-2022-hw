@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit,  } from "@angular/core";
 import { Router } from "@angular/router";
-import { DxDataGridComponent } from "devextreme-angular";
 import { VideoService } from "src/app/api/services/video.service";
+import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
 
 
 @Component({
@@ -10,12 +10,18 @@ import { VideoService } from "src/app/api/services/video.service";
     styleUrls: ['videos.component.css']
 })
 export class EmployeeVideosViewComponent implements OnInit{
-    //@ts-ignore
-    @ViewChild(DxDataGridComponent) grid: DxDataGridComponent;
 
+    public videos: VideoDTO[] = [];
+    public username: string = '';
     constructor(private router: Router,
         private videoService: VideoService) {}
 
     public ngOnInit(): void {
+    }
+
+    public getVideos(event: any[]): void {
+        this.videos = event[0];
+        this.username = event[1];
+        console.log(event[1])
     }
 }

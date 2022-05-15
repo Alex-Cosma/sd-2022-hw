@@ -14,7 +14,7 @@ public class JwtResponse {
 
     private String token;
     private Long id;
-    private String username;
+    private String name;
     private String email;
     private List<String> roles;
 
@@ -25,7 +25,7 @@ public class JwtResponse {
         return JwtResponse.builder()
                 .token(jwt)
                 .id(userDetails.getId())
-                .username(userDetails.getUsername())
+                .name(userDetails.getUsername())
                 .email(userDetails.getEmail())
                 .roles(roles)
                 .build();

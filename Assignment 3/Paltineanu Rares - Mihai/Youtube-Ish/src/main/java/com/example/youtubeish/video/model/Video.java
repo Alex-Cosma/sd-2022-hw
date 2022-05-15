@@ -1,6 +1,7 @@
 package com.example.youtubeish.video.model;
 
 import com.example.youtubeish.user.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +21,6 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(length=128, nullable = false)
     private String title;
 
@@ -38,4 +35,9 @@ public class Video {
 
     @Column(length=11, nullable = false, unique = true)
     private String videoId;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
