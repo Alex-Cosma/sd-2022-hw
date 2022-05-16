@@ -113,6 +113,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             Long id1=userRepository.findByUsername("dominic").get().getId();
             Long id2=userRepository.findByUsername("dominic1").get().getId();
             userService.addFriend(id1, id2);
+            //test
         }
     }
 }
