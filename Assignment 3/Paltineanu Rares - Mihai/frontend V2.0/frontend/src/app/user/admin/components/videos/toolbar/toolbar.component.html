@@ -7,18 +7,20 @@
       <span class="dx-icon-add" aria-hidden="true"></span>
     </button>
   
-    <button id="deleteBookBtn"
-            type="button"
-            class="btn btn-link button-secondary"
-            title="Delete book">
-      Delete
-    </button >
-    <button title="{{buttonName}}"
+    <label>User: </label>
+    <input type="text" [(ngModel)]="usernameSearchField"> 
+
+    <button id="searchVideosBtn"
+      type="button"
+      class="btn-primary"
+      (click)="getVideosFromUser()">
+      Search Videos
+    </button>
+    <button title="View users"
       class="btn btn-link button-secondary"
       (click)="changePage()"
     >
-      {{buttonName}}
-  
+    View users
     </button>
   
     <div class="right-bar">

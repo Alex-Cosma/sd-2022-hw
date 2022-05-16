@@ -1,7 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Router} from "@angular/router";
 import {DxDataGridComponent} from "devextreme-angular";
 import { VideoService } from "src/app/api/services/video.service";
+import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
 
 enum ReportType{
   CSV = 'CSV',
@@ -15,9 +16,9 @@ enum ReportType{
 })
 export class VideoToolbarComponent {
 
-  buttonName: string = 'View users';
-
-  urlPage: string = '/admin/users';
+  public usernameSearchField: string = '';
+  private urlPage: string = '/admin/users';
+  @Output() getVideos = new EventEmitter();
 
   constructor(private videoService: VideoService,
     private router: Router) {
@@ -27,9 +28,15 @@ export class VideoToolbarComponent {
     localStorage.setItem('user', '')
     this.router.navigate(['/login']);
   }
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
+
+  public getVideosFromUser(): void {
+    this.videoService.getVideosFromUser(this.usernameSearchField).subscribe((videos:VideoDTO[]) => 
+    this.getVideos.emit([videos, this.usernameSearchField]), 
+    (error) => {
+      alert("Can not found user with username " + this.usernameSearchField);
+      this.getVideos.emit([[], '']);
+    });
+}
 
   public changePage(): void {
     this.router.navigate([this.urlPage]);

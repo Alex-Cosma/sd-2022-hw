@@ -102,4 +102,22 @@ public class UserControllerTest extends BaseControllerTest {
         getEditedUserAction.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(userDTO));
     }
+
+    @Test
+    void findUserById() throws Exception {
+        UserDTO userDTO = UserDTO.builder()
+                .id(1L)
+                .email("myemail@aaa.com")
+                .username("username")
+                .password("password")
+                .build();
+        when(userService.create(userDTO)).thenReturn(userDTO);
+        ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(new MessageResponse("User registered successfully!")));
+        when(userService.findById(userDTO.getId())).thenReturn(userDTO);
+        ResultActions getUserByIdAction = performGetWithPathVariable(USER + GET_USER, userDTO.getId());
+        getUserByIdAction.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(userDTO));
+    }
 }

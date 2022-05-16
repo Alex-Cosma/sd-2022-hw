@@ -16,6 +16,7 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
     private final UserMapper userMapper;
+
     public Video create(VideoDTO videoDTO, UserDTO user) {
         User fromDto = userMapper.fromDto(user);
         Video video = Video.builder()
@@ -32,5 +33,9 @@ public class VideoService {
 
     public List<Video> getVideosFromUser(Long id) {
         return videoRepository.getAllByUserId(id);
+    }
+
+    public void deleteVideoById(Long id) {
+        this.videoRepository.deleteById(id);
     }
 }

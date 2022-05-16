@@ -1,5 +1,6 @@
 package com.example.youtubeish.video;
 
+import com.example.youtubeish.security.dto.MessageResponse;
 import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDetailsImpl;
 import com.example.youtubeish.user.model.User;
@@ -59,13 +60,18 @@ public class VideoController {
     @GetMapping(GET_USER_VIDEOS)
     public List<Video> getVideoFromUser(@RequestParam String username) {
         User user = userService.getUserByUsername(username);
-        System.out.println(user.getId());
         return videoService.getVideosFromUser(user.getId());
     }
 
+    @DeleteMapping(DELETE_VIDEO)
+    public ResponseEntity<?> deleteVideoById(@PathVariable Long id) {
+        videoService.deleteVideoById(id);
+        return ResponseEntity.ok(new MessageResponse("Video deleted successfully!"));
+    }
+
     @PostMapping(UPLOAD_VIDEO)
-    public VideoDTO uploadVideo(@RequestBody UploadVideoDTO uploadVideoDTO) {
-        Video video = videoService.create(uploadVideoDTO.getVideo(), uploadVideoDTO.getUser());
-        return null;
+    public ResponseEntity<?> uploadVideo(@RequestBody UploadVideoDTO uploadVideoDTO) {
+        videoService.create(uploadVideoDTO.getVideo(), uploadVideoDTO.getUser());
+        return ResponseEntity.ok(new MessageResponse("Video uploaded successfully!"));
     }
 }

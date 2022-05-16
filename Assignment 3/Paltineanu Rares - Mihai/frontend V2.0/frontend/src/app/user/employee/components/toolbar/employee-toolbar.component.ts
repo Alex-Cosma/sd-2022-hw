@@ -29,10 +29,12 @@ export class EmployeeToolbarComponent{
     public getVideosFromLoggedInUser(): void {
         //@ts-ignore
         const loggedInUser: any = JSON.parse(localStorage.getItem('user'));
-        console.log(loggedInUser.name)
         this.videoService.getVideosFromUser(loggedInUser.name).subscribe((videos:VideoDTO[]) => {
             //@ts-ignore
             this.getVideos.emit([videos, loggedInUser.name]);
+        }, 
+        (error) => {
+            console.log(error)
         })
     }
 

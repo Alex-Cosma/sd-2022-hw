@@ -29,4 +29,10 @@ export class VideoService {
     const url: string = VIDEOS_URL + '/upload-video';
     return this.http.post(url, {video: video, user: user}, {headers});
   }
+
+  public deleteVideo(id: number): Observable<any> {
+    const headers = authHeader();
+    const url: string = VIDEOS_URL + `/delete-video/${id}`;
+    return this.http.delete(url, {headers});
+  }
 }

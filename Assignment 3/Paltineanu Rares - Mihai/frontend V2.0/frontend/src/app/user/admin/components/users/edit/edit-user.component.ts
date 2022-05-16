@@ -36,7 +36,6 @@ export class EditUserComponent implements OnInit{
 
     public updateUser(): void {
         if(this.user != undefined) {
-            console.log(this.user)
             let editUser: User = new User(this.user);
             this.userService.updateUser(this.user.id!, editUser);
         }

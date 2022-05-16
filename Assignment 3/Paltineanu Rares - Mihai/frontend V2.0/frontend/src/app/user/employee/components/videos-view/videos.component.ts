@@ -9,19 +9,15 @@ import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
     templateUrl: 'videos.component.html',
     styleUrls: ['videos.component.css']
 })
-export class EmployeeVideosViewComponent implements OnInit{
+export class EmployeeVideosViewComponent {
 
     public videos: VideoDTO[] = [];
     public username: string = '';
     constructor(private router: Router,
         private videoService: VideoService) {}
 
-    public ngOnInit(): void {
-    }
-
     public getVideos(event: any[]): void {
         this.videos = event[0];
         this.username = event[1];
-        console.log(event[1])
     }
 }

@@ -32,7 +32,7 @@ export class UserToolbarComponent {
   }
 
   public onDeleteUser(): void {
-    this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(lupa => {
+    this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(() => {
       this.updateUsersGrid()});
     ;
   }
@@ -53,7 +53,7 @@ export class UserToolbarComponent {
 
   private convertUser(user: User): UserGrid {
       let userGrid: UserGrid = new UserGrid(user);
-      userGrid.roleNames = user.roles?.join('; ');
+      userGrid.roleNames = user.roles?.map(role => role.name).join('; ');
       return userGrid;
   }
 

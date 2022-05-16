@@ -7,4 +7,12 @@
   right: 0;
   bottom: 0.5px;
 }
+
+input {
+  margin-left: 10px;
+}
+
+button {
+  margin-left: 10px;
+}
   
