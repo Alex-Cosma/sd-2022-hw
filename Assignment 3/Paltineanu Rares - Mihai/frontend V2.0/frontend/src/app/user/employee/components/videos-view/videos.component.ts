@@ -1,8 +1,7 @@
-import { Component, OnInit,  } from "@angular/core";
+import { Component, OnDestroy, OnInit,  } from "@angular/core";
 import { Router } from "@angular/router";
 import { VideoService } from "src/app/api/services/video.service";
 import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
-
 
 @Component({
     selector: 'app-employee-videos',
@@ -19,5 +18,8 @@ export class EmployeeVideosViewComponent {
     public getVideos(event: any[]): void {
         this.videos = event[0];
         this.username = event[1];
+    }
+
+    public reportVideo(id: number): void {
     }
 }

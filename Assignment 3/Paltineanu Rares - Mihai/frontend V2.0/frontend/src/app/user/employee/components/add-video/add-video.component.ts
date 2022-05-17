@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { VideoService } from "src/app/api/services/video.service";
 import { UserDetailsImpl } from "src/app/models/user-details-impl.model";
@@ -10,7 +10,7 @@ import { Video } from "src/app/models/video/video.model";
     templateUrl: './add-video.component.html',
     styleUrls: ['./add-video.component.css']
 })
-export class AddVideoComponent implements OnInit{
+export class AddVideoComponent implements OnInit {
     public numbers: number[];
     public maxResults: number = 0;
     public query: string = '';
