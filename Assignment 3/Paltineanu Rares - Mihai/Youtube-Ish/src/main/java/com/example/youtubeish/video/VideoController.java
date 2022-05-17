@@ -2,24 +2,15 @@ package com.example.youtubeish.video;
 
 import com.example.youtubeish.security.dto.MessageResponse;
 import com.example.youtubeish.user.UserService;
-import com.example.youtubeish.user.dto.UserDetailsImpl;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.model.Video;
 import com.example.youtubeish.video.model.dto.ResultDTO;
 import com.example.youtubeish.video.model.dto.UploadVideoDTO;
 import com.example.youtubeish.video.model.dto.VideoDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import javax.naming.ldap.HasControls;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +49,7 @@ public class VideoController {
     }
 
     @GetMapping(GET_USER_VIDEOS)
-    public List<Video> getVideoFromUser(@RequestParam String username) {
+    public List<VideoDTO> getVideoFromUser(@RequestParam String username) {
         User user = userService.getUserByUsername(username);
         return videoService.getVideosFromUser(user.getId());
     }

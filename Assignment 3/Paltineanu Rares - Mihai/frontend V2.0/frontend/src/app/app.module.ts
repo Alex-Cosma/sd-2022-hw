@@ -23,6 +23,7 @@ import { AddUserComponent } from './user/admin/components/users/add/add-user.com
 import { EditUserComponent } from './user/admin/components/users/edit/edit-user.component';
 import { EmployeeToolbarComponent } from './user/employee/components/toolbar/employee-toolbar.component';
 import { AddVideoComponent } from './user/employee/components/add-video/add-video.component';
+import { CommentService } from './api/services/comment.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AddVideoComponent } from './user/employee/components/add-video/add-vide
     VideoService,
     AuthenticationGuard,
     UserService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

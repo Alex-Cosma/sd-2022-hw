@@ -1,13 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Router} from "@angular/router";
-import {DxDataGridComponent} from "devextreme-angular";
 import { VideoService } from "src/app/api/services/video.service";
 import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
-
-enum ReportType{
-  CSV = 'CSV',
-  PDF = 'PDF'
-}
 
 @Component({
   selector: 'app-video-toolbar',

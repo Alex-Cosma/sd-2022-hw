@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { VideoService } from "src/app/api/services/video.service";
 import { UserDetailsImpl } from "src/app/models/user-details-impl.model";
+import { VideoAPIDTO } from "src/app/models/video/dto/api/video-api-dto.model";
 import { ResultDTO } from "src/app/models/video/result-dto.model";
 import { Video } from "src/app/models/video/video.model";
 
@@ -18,7 +19,7 @@ export class AddVideoComponent implements OnInit {
     public popupVisible: boolean = false;
     public popupButtons: any;
     //@ts-ignore
-    public currentVideo: VideoDTO;
+    public currentVideo: VideoAPIDTO;
 
     constructor(private router: Router,
         private videoService: VideoService) {
@@ -57,8 +58,7 @@ export class AddVideoComponent implements OnInit {
     }
 
     public uploadVideo(): void {
-        //@ts-ignore
-        const user: UserDetailsImpl = JSON.parse(localStorage.getItem('user'), (key, value) => {
+        const user: UserDetailsImpl = JSON.parse(localStorage.getItem('user') ?? '{}', (key, value) => {
             if(key === "token" || key === "roles") {
                 return undefined;
             }
@@ -69,7 +69,7 @@ export class AddVideoComponent implements OnInit {
         );
     }
 
-    public showVideoInfo(video: Video) {
+    public showVideoInfo(video: VideoAPIDTO) {
         this.currentVideo = video;
         this.popupVisible = true;
     }

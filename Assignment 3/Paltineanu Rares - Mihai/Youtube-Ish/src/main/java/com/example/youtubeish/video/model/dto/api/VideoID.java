@@ -1,4 +1,4 @@
-package com.example.youtubeish.video.model.dto;
+package com.example.youtubeish.video.model.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

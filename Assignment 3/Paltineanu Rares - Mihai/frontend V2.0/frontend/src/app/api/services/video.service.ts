@@ -4,9 +4,9 @@ import {HttpClient} from "@angular/common/http";
 import {authHeader} from "../authentication/http";
 import { VIDEOS_URL } from "src/app/http/http-urls.component";
 import { ResultDTO } from "src/app/models/video/result-dto.model";
-import { Video } from "src/app/models/video/video.model";
 import { UserDetailsImpl } from "src/app/models/user-details-impl.model";
 import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
+import { VideoAPIDTO } from "src/app/models/video/dto/api/video-api-dto.model";
 
 @Injectable()
 export class VideoService {
@@ -24,7 +24,7 @@ export class VideoService {
     return this.http.get<VideoDTO[]>(url, {headers});
   }
 
-  public uploadVideo(video: Video, user: UserDetailsImpl): Observable<any> {
+  public uploadVideo(video: VideoAPIDTO, user: UserDetailsImpl): Observable<any> {
     const headers = authHeader();
     const url: string = VIDEOS_URL + '/upload-video';
     return this.http.post(url, {video: video, user: user}, {headers});

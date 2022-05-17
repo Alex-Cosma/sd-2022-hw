@@ -9,3 +9,17 @@
     cursor: pointer;
     background: inherit;
 }
+
+button {
+    margin-right: 10px;
+}
+
+.commentsLabel {
+    position: relative;
+    left: 30px;
+}
+
+.commentsList {
+    position: relative;
+    left: 60px;
+}

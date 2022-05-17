@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
-import { DxDataGridComponent } from "devextreme-angular";
 import { VideoService } from "src/app/api/services/video.service";
 import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
 
@@ -22,14 +21,16 @@ export class EmployeeToolbarComponent{
     }
     
     public getVideosFromUser(): void {
-        this.videoService.getVideosFromUser(this.usernameSearchField).subscribe((videos:VideoDTO[]) => 
-        this.getVideos.emit([videos, this.usernameSearchField]));
+        this.videoService.getVideosFromUser(this.usernameSearchField).subscribe((videos:VideoDTO[]) =>  {
+        this.getVideos.emit([videos, this.usernameSearchField])
+    });
     }
 
     public getVideosFromLoggedInUser(): void {
         //@ts-ignore
         const loggedInUser: any = JSON.parse(localStorage.getItem('user'));
         this.videoService.getVideosFromUser(loggedInUser.name).subscribe((videos:VideoDTO[]) => {
+            console.log(videos)
             //@ts-ignore
             this.getVideos.emit([videos, loggedInUser.name]);
         }, 

@@ -1,14 +1,31 @@
 package com.example.youtubeish.video.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import com.example.youtubeish.comment.model.dto.CommentDTO;
+import com.example.youtubeish.user.dto.UserDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@AllArgsConstructor
 public class VideoDTO {
+    private Long id;
 
-    @JsonProperty("id")
-    private VideoID id;
+    private String title;
 
-    @JsonProperty("snippet")
-    private Snippet snippet;
+    private String thumbnailUrl;
+
+    private String description;
+
+    private String channelTitle;
+
+    private String videoId;
+
+    private List<CommentDTO> comments;
+
+    private UserDTO user;
 }

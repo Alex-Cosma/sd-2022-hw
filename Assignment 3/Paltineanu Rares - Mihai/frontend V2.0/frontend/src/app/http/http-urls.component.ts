@@ -8,3 +8,5 @@ export const VIDEOS_URL = BASE_URL + '/videos';
 
 export const USERS_URL = API_URL + '/user';
 
+export const COMMENT_URL = API_URL + '/comment';
+

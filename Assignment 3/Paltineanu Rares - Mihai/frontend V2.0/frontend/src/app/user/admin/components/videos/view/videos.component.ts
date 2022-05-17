@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {DxDataGridComponent} from "devextreme-angular";
 import { VideoService } from "src/app/api/services/video.service";
 import { VideoDTO } from "src/app/models/video/dto/video-dto.model";
 

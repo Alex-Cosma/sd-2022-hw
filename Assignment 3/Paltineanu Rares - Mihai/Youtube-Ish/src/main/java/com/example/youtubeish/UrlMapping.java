@@ -19,4 +19,8 @@ public class UrlMapping {
     public static final String UPLOAD_VIDEO = "/upload-video";
     public static final String GET_USER_VIDEOS = "/get-videos";
     public static final String DELETE_VIDEO = "/delete-video/{id}";
+
+    public static final String COMMENT = API_PATH + "/comment";
+    public static final String GET_COMMENTS = "/get-all-comments/{id}";
+    public static final String ADD_COMMENT = "/add-comment";
 }

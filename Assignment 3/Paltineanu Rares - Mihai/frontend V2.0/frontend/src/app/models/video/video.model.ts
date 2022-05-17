@@ -1,7 +1,8 @@
-import { Snippet } from "./snippet.model";
-import { VideoID } from "./video-id.model";
-
 export class Video {
-    id?: VideoID;
-    snippet?: Snippet;
+    channelTitle?: string;
+    description?: string;
+    id?: number;
+    thumbnailUrl?: string;
+    title?: string;
+    videoId?: string;
 }

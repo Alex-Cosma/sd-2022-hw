@@ -3,12 +3,15 @@ package com.example.youtubeish.video;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.user.model.User;
+import com.example.youtubeish.video.mapper.VideoMapper;
 import com.example.youtubeish.video.model.Video;
 import com.example.youtubeish.video.model.dto.VideoDTO;
+import com.example.youtubeish.video.model.dto.api.VideoAPIDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +19,9 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
     private final UserMapper userMapper;
+    private final VideoMapper videoMapper;
 
-    public Video create(VideoDTO videoDTO, UserDTO user) {
+    public Video create(VideoAPIDTO videoDTO, UserDTO user) {
         User fromDto = userMapper.fromDto(user);
         Video video = Video.builder()
                 .channelTitle(videoDTO.getSnippet().getChannelTitle())
@@ -27,12 +31,11 @@ public class VideoService {
                 .thumbnailUrl(videoDTO.getSnippet().getThumbnail().getMediumThumbnail().getUrl())
                 .user(fromDto)
                 .build();
-        System.out.println(video.getUser().getId());
         return videoRepository.save(video);
     }
 
-    public List<Video> getVideosFromUser(Long id) {
-        return videoRepository.getAllByUserId(id);
+    public List<VideoDTO> getVideosFromUser(Long id) {
+        return videoRepository.getAllByUserId(id).stream().map(videoMapper::toDto).collect(Collectors.toList());
     }
 
     public void deleteVideoById(Long id) {

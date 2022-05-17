@@ -8,17 +8,17 @@
     <li *ngFor="let video of videos" >
         <div>
             <p>
-                Title:
+                <label>Title:</label>
                 <span> {{ video.title }}</span>
             </p>
     
             <p>
-                Channel:
+                <label>Channel:</label>
                 <span> {{ username }}</span>
             </p>
     
             <p>
-                Description:
+                <label>Description:</label>
                 <span> {{ video.description }} </span>
             </p>
     
@@ -30,19 +30,37 @@
                 </span>
             </p>
 
+            <div id="commentSection">
+                <label class="commentsLabel">Comments</label>
+                <p *ngIf="video.comments!.length === 0">
+                    No comments
+                </p>
+                <ul class="commentsList">
+                    <li *ngFor="let comment of video.comments">
+                        <label>{{comment.author}}:</label>
+                        <span> {{comment.content}} </span>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="text"
+                class="form-control"
+                name="username"
+                [(ngModel)]="commentInput">
+
+            <button id="addCommentBtn"
+            type="button"
+            class="btn-primary"
+            (click)="addComment(video)">
+                Add Comment
+            </button>
             <button id="reportVideoBtn"
                 type="button"
                 class="btn-primary"
                 (click)="reportVideo(video.id!)">
                 Report Video
             </button>
+            <hr>
         </div>
-
-        <button id="reportVideoBtn"
-            type="button"
-            class="btn-primary"
-            (click)="reportVideo(video.id!)">
-            Report video
-        </button>
     </li>
 </ul>
