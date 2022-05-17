@@ -4,7 +4,6 @@ export default {
   login(data) {
     return HTTP.post(BASE_URL + "/auth/sign-in", data).then((response) => {
       if (response.data.token) {
-        localStorage.removeItem("user");
         localStorage.setItem("user", JSON.stringify(response.data));
       }
 

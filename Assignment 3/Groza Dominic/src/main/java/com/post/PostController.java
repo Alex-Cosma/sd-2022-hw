@@ -48,6 +48,8 @@ public class PostController {
     @CrossOrigin
     @DeleteMapping(ENTITY)
     public void delete(@PathVariable Long id) {
+//        System.out.println("delete"+id);
+//        System.out.println("delete"+postService.get(id).toString());
         postService.delete(id);
     }
 

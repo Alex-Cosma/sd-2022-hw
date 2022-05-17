@@ -22,10 +22,12 @@ public interface UserMapper {
     })
     UserListDto userListDtoFromUser(User user);
 
-//    @Mappings({
-//            @Mapping(target = "username", source = "username"),
-//    })
-//    User userFromUserListDto(UserListDto userListDto);
+    @Mappings({
+            @Mapping(target = "username", source = "username"),
+            @Mapping(target = "roles",ignore = true)
+
+    })
+    User userFromUserListDto(UserListDto userListDto);
 
 
     @AfterMapping

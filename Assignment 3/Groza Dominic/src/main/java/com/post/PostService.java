@@ -4,6 +4,7 @@ import com.post.model.Post;
 import com.post.model.dto.PostDto;
 import com.user.UserService;
 import com.user.dto.UserListDto;
+import com.user.mapper.UserMapper;
 import com.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final UserMapper userMapper;
     private final UserService userService;
 
     private Post findById(Long id) {
@@ -34,11 +36,11 @@ public class PostService {
     }
 
     public PostDto create (PostDto postDto){
-        System.out.println(postDto+"POST");
         postDto.setCreated_at(Date.from(new Date().toInstant()));
         postDto.setLikes(0L);
         postDto.setDisLikes(0L);
         Post post = postMapper.fromDto(postDto);
+        System.out.println("\n"+post.toString()+"\n");
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -47,12 +49,15 @@ public class PostService {
         post.setBody(postDto.getBody());
         post.setLikes(postDto.getLikes());
         post.setDisLikes(postDto.getDisLikes());
-        post.setUser(postDto.getUser());
+        post.setUser(userMapper.userFromUserListDto(postDto.getUser()));
         return postMapper.toDto(postRepository.save(post));
     }
 
     public void delete(Long id){
+//        Post post=findById(id);
+//        System.out.println(post.toString());
         postRepository.deleteById(id);
+//                deleteById(id);
     }
 
     public PostDto get(Long id){

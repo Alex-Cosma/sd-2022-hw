@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Welcome to the Feed, {{ user.username }}!
+      Welcome to the Feed!
       <v-spacer></v-spacer>
       <v-text-field
           v-model="search"
@@ -19,11 +19,14 @@
         @click:row="editPost">
       <template v-slot:item="row">
         <tr>
-          <td>{{ new Date(row.item.created_at).toLocaleString() }}</td>
+          <td >{{ new Date(row.item.created_at).toLocaleString() }}</td>
           <td>{{ row.item.user.firstName + " " + row.item.user.lastName }}</td>
           <td>{{ row.item.body }}</td>
           <td>{{ row.item.likes }}</td>
           <td>{{ row.item.disLikes }}</td>
+          <td v-if="user.id===row.item.user.id">
+            <v-btn depressed @click="deletePost(row.item.id)" color="red">Delete</v-btn>
+          </td>
         </tr>
       </template>
 
@@ -73,7 +76,7 @@ export default {
     async refreshList() {
       this.dialogVisible = false;
       this.selectedPost = {};
-      this.posts = (await api.posts.allPosts());
+      this.posts = (await api.posts.allPosts(user.id));
       console.log(this.posts);
     },
     generateReportPDF() {
@@ -81,7 +84,11 @@ export default {
     },
     generateReportCSV() {
       api.items.report("CSV");
-    }
+    },
+    deletePost(id) {
+      api.posts.delete(id);
+      // this.refreshList();
+    },
   },
   created() {
     this.refreshList();

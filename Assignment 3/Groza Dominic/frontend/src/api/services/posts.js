@@ -2,9 +2,8 @@ import authHeader, { BASE_URL, HTTP } from "../http";
 
 export default {
 
-  allPosts() {
-    let user = JSON.parse(localStorage.getItem("user"));
-    return HTTP.get(BASE_URL + "/posts/"+user.id, { headers: authHeader() }).then(
+  allPosts(id) {
+    return HTTP.get(BASE_URL + "/posts/"+id, { headers: authHeader() }).then(
       (response) => {
         console.log(response.data);
         return response.data;
@@ -12,7 +11,6 @@ export default {
     );
   },
   create(post) {
-    console.log("post", post);
     const user = JSON.parse(localStorage.getItem("user"));
     return HTTP.post(BASE_URL + "/posts/"+user.id, post, { headers: authHeader() }).then(
       (response) => {
@@ -27,11 +25,13 @@ export default {
       return response.data;
     });
   },
-  delete(item) {
-    console.log("delete item", item);
-    return HTTP.delete(BASE_URL + "/posts/"+ item.id, {
+  delete(id) {
+    console.log("id", id);
+    const user = JSON.parse(localStorage.getItem("user"));
+    return HTTP.delete(BASE_URL + "/posts/"+ user.id+"/"+id, {
       headers: authHeader(),
     }).then((response) => {
+      console.log(response);
       return response.data;
     });
   },
