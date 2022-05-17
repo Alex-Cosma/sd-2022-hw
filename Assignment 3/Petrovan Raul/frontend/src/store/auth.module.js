@@ -71,8 +71,10 @@ export const auth = {
     isAdmin: (state) => {
       return state.user.roles.includes("ADMIN");
     },
+    isFI: (state) => {
+      return state.user.roles.includes("FLIGHT_INSTRUCTOR");
+    },
     drawer: (state) => {
-      console.log('ye');
       return state.drawer;
     },
   },

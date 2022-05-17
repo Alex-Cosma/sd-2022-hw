@@ -3,12 +3,12 @@
     <v-navigation-drawer v-model="drawer" app class="indigo">
       <v-list>
         <v-list-item v-for="link in accessibleLinks" :key="link" router :to="link.to">
-            <v-list-item-action>
-              <v-icon>{{ link.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ link.text }}</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-action>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item-content>
 
         </v-list-item>
       </v-list>
@@ -25,15 +25,16 @@ export default {
     return {
       drawer: true,
       links: [
-        {icon: '', text: 'Users', to: '/users', requiresPrivilege: true},
+        {icon: '', text: 'Users', to: '/users', requireAdmin: true},
         {icon: 'library_books', text: 'Books', to: '/books', requiresPrivilege: false},
-        {icon: '', text: 'Report Generator', to: '/reports', requiresPrivilege: true}
+        {icon: '', text: 'Report Generator', to: '/reports', requiresPrivilege: true},
+        {icon: '', text: 'My Students', to: '/students', requireFI: true},
       ]
     };
   },
   computed: {
     accessibleLinks: function () {
-      return this.links.filter(link => !link.requiresPrivilege || store.getters["auth/isAdmin"]);
+      return this.links.filter(link => link.requireAdmin && store.getters["auth/isAdmin"] || link.requireFI && store.getters["auth/isFI"])
     }
   }
 }

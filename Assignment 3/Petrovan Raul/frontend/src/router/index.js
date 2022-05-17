@@ -5,6 +5,7 @@ import BookList from "../views/BookList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 import Reports from "@/views/Reports";
+import StudentsList from "@/views/StudentsList";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,18 @@ const routes = [
         next();
       } else {
         next({ name: "Books" });
+      }
+    },
+  },
+  {
+    path: "/students",
+    name: "Students",
+    component: StudentsList,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isFI(store.state)) {
+        next();
+      } else {
+        next({ name: "About" });
       }
     },
   },
