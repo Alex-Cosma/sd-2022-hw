@@ -23,4 +23,8 @@ public class UrlMapping {
     public static final String COMMENT = API_PATH + "/comment";
     public static final String GET_COMMENTS = "/get-all-comments/{id}";
     public static final String ADD_COMMENT = "/add-comment";
+
+    public static final String PLAYLIST = API_PATH + "/playlist";
+    public static final String GET_USER_PLAYLIST = "/get-user-playlist/{id}";
+    public static final String CREATE_PLAYLIST = "/create-playlist";
 }

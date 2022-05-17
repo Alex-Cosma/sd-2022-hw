@@ -16,5 +16,5 @@ public interface VideoMapper {
 
     @Mappings({
     })
-    Video toDto(VideoDTO video);
+    Video fromDto(VideoDTO video);
 }

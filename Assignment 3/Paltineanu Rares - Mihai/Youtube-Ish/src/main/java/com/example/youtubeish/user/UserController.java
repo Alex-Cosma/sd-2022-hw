@@ -1,15 +1,12 @@
 package com.example.youtubeish.user;
 
 import com.example.youtubeish.security.dto.MessageResponse;
-import com.example.youtubeish.security.dto.SignupRequest;
 import com.example.youtubeish.user.dto.UserDTO;
-import com.example.youtubeish.user.dto.UserListDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 
 import static com.example.youtubeish.UrlMapping.*;

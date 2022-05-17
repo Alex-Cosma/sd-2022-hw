@@ -25,12 +25,10 @@ public class Comment {
     @Column(nullable = false, length = 512)
     private String content;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "video_id")
     private Video video;

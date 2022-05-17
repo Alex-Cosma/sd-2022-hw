@@ -1,6 +1,7 @@
 package com.example.youtubeish.user.model;
 
 import com.example.youtubeish.comment.model.Comment;
+import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.video.model.Video;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,10 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Playlist> playlists = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
