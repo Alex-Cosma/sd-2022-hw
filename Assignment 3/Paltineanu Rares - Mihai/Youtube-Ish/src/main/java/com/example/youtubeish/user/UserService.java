@@ -1,22 +1,15 @@
 package com.example.youtubeish.user;
 
 import com.example.youtubeish.security.AuthService;
-import com.example.youtubeish.security.dto.SignupRequest;
 import com.example.youtubeish.user.dto.UserDTO;
-import com.example.youtubeish.user.dto.UserListDTO;
-import com.example.youtubeish.user.dto.UserMinimalDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
-import com.example.youtubeish.user.model.ERole;
-import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 

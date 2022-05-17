@@ -3,7 +3,6 @@ package com.example.youtubeish.video;
 import com.example.youtubeish.security.dto.MessageResponse;
 import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.model.User;
-import com.example.youtubeish.video.model.Video;
 import com.example.youtubeish.video.model.dto.ResultDTO;
 import com.example.youtubeish.video.model.dto.UploadVideoDTO;
 import com.example.youtubeish.video.model.dto.VideoDTO;
@@ -46,6 +45,11 @@ public class VideoController {
         params.put("part", part);
         params.put("maxResults", maxResults);
         return restTemplate.getForObject(url, ResultDTO.class, params);
+    }
+
+    @GetMapping(GET_UPLOADED_VIDEOS)
+    public List<VideoDTO> getUploadedVideos() {
+        return this.videoService.getUploadedVideos();
     }
 
     @GetMapping(GET_USER_VIDEOS)

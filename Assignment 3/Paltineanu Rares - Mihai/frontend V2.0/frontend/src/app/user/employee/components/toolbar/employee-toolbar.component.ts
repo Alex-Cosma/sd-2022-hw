@@ -22,8 +22,8 @@ export class EmployeeToolbarComponent{
     
     public getVideosFromUser(): void {
         this.videoService.getVideosFromUser(this.usernameSearchField).subscribe((videos:VideoDTO[]) =>  {
-        this.getVideos.emit([videos, this.usernameSearchField])
-    });
+            this.getVideos.emit([videos, this.usernameSearchField])
+        });
     }
 
     public getVideosFromLoggedInUser(): void {
@@ -37,6 +37,10 @@ export class EmployeeToolbarComponent{
         (error) => {
             console.log(error)
         })
+    }
+
+    public createPlaylist(): void {
+        this.router.navigate(['/employee/create-playlist']);
     }
 
     public logout(): void {

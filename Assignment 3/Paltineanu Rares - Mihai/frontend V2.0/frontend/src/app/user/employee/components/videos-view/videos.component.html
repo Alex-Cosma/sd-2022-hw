@@ -32,7 +32,7 @@
 
             <div id="commentSection">
                 <label class="commentsLabel">Comments</label>
-                <p *ngIf="video.comments!.length === 0">
+                <p class="noCommentsMsg" *ngIf="video.comments!.length === 0">
                     No comments
                 </p>
                 <ul class="commentsList">
@@ -48,18 +48,20 @@
                 name="username"
                 [(ngModel)]="commentInput">
 
-            <button id="addCommentBtn"
-            type="button"
-            class="btn-primary"
-            (click)="addComment(video)">
-                Add Comment
-            </button>
-            <button id="reportVideoBtn"
-                type="button"
-                class="btn-primary"
-                (click)="reportVideo(video.id!)">
-                Report Video
-            </button>
+            <div class="buttons">
+                <button id="addCommentBtn"
+                    type="button"
+                    class="btn-primary"
+                    (click)="addComment(video)">
+                    Add Comment
+                </button>
+                <button id="reportVideoBtn"
+                    type="button"
+                    class="btn-primary"
+                    (click)="reportVideo(video.id!)">
+                    Report Video
+                </button>
+            </div>
             <hr>
         </div>
     </li>

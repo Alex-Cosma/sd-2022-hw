@@ -34,6 +34,10 @@ public class VideoService {
         return videoRepository.save(video);
     }
 
+    public List<VideoDTO> getUploadedVideos() {
+        return videoRepository.findAll().stream().map(videoMapper::toDto).collect(Collectors.toList());
+    }
+
     public List<VideoDTO> getVideosFromUser(Long id) {
         return videoRepository.getAllByUserId(id).stream().map(videoMapper::toDto).collect(Collectors.toList());
     }

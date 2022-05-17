@@ -1,6 +1,5 @@
 package com.example.youtubeish.security;
 
-import com.example.youtubeish.security.dto.SignupRequest;
 import com.example.youtubeish.user.RoleRepository;
 import com.example.youtubeish.user.UserRepository;
 import com.example.youtubeish.user.dto.UserDTO;

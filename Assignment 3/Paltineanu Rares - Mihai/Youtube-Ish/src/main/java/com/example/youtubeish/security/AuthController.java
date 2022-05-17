@@ -3,7 +3,6 @@ package com.example.youtubeish.security;
 import com.example.youtubeish.security.dto.JwtResponse;
 import com.example.youtubeish.security.dto.LoginRequest;
 import com.example.youtubeish.security.dto.MessageResponse;
-import com.example.youtubeish.security.dto.SignupRequest;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -11,13 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.youtubeish.UrlMapping.*;
 import static com.example.youtubeish.UrlMapping.AUTH;

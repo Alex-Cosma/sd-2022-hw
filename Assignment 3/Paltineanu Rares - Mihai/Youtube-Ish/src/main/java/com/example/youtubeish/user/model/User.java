@@ -3,7 +3,6 @@ package com.example.youtubeish.user.model;
 import com.example.youtubeish.comment.model.Comment;
 import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.video.model.Video;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

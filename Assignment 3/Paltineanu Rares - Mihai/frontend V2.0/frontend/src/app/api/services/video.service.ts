@@ -18,6 +18,12 @@ export class VideoService {
     return this.http.get<ResultDTO>(url, {headers})
   }
 
+  public getUploadedVideos(): Observable<VideoDTO[]> {
+    const headers = authHeader();
+    const url: string = VIDEOS_URL + '/get-uploaded-videos';
+    return this.http.get<VideoDTO[]>(url, {headers});
+  }
+
   public getVideosFromUser(username: string): Observable<VideoDTO[]> {
     const headers = authHeader();
     const url: string = VIDEOS_URL + `/get-videos?username=${username}`

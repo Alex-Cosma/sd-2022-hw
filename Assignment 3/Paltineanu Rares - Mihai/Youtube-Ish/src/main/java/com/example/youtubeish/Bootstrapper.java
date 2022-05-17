@@ -1,13 +1,11 @@
 package com.example.youtubeish;
 
 import com.example.youtubeish.security.AuthService;
-import com.example.youtubeish.security.dto.SignupRequest;
 import com.example.youtubeish.user.RoleRepository;
 import com.example.youtubeish.user.UserRepository;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.model.ERole;
 import com.example.youtubeish.user.model.Role;
-import com.example.youtubeish.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

@@ -24,6 +24,7 @@ import { EditUserComponent } from './user/admin/components/users/edit/edit-user.
 import { EmployeeToolbarComponent } from './user/employee/components/toolbar/employee-toolbar.component';
 import { AddVideoComponent } from './user/employee/components/add-video/add-video.component';
 import { CommentService } from './api/services/comment.service';
+import { CreatePlaylistComponent } from './user/employee/components/create-playlist/create-playlist.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CommentService } from './api/services/comment.service';
     AddUserComponent,
     EditUserComponent,
     EmployeeToolbarComponent,
-    AddVideoComponent
+    AddVideoComponent,
+    CreatePlaylistComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,16 @@ button {
     left: 30px;
 }
 
+.noCommentsMsg {
+    position: relative;
+    left: 45px;
+}
+
 .commentsList {
     position: relative;
     left: 60px;
+}
+
+.buttons {
+    margin: 10px 0;
 }

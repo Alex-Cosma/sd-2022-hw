@@ -1,0 +1,17 @@
+.videos {
+    width: 100%;
+}
+
+.uploadedVideos {
+    width: 50%;
+    float: left;
+}
+
+.playlistVideos {
+    width: 50%;
+    float: right;
+}
+
+#addPlaylistVideoBtn {
+    margin: 10px 0;
+}
