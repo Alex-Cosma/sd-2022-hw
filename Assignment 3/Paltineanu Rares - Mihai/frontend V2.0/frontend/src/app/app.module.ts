@@ -25,6 +25,10 @@ import { EmployeeToolbarComponent } from './user/employee/components/toolbar/emp
 import { AddVideoComponent } from './user/employee/components/add-video/add-video.component';
 import { CommentService } from './api/services/comment.service';
 import { CreatePlaylistComponent } from './user/employee/components/create-playlist/create-playlist.component';
+import { CreatePlaylistToolbarComponent } from './user/employee/components/create-playlist/toolbar/create-playlist-toolbar.component';
+import { PlaylistService } from './api/services/playlist.service';
+import { PlaylistsViewComponent } from './user/employee/components/playlists-view/playlists-view.component';
+import { PlaylistToolbarComponent } from './user/employee/components/playlists-view/playlist-toolbar/playlist-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,10 @@ import { CreatePlaylistComponent } from './user/employee/components/create-playl
     EditUserComponent,
     EmployeeToolbarComponent,
     AddVideoComponent,
-    CreatePlaylistComponent
+    CreatePlaylistComponent,
+    CreatePlaylistToolbarComponent,
+    PlaylistsViewComponent,
+    PlaylistToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { CreatePlaylistComponent } from './user/employee/components/create-playl
     VideoService,
     AuthenticationGuard,
     UserService,
-    CommentService
+    CommentService,
+    PlaylistService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,14 @@
+.createPlaylistToolbar {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  padding: 5px 10px; /* some styling, please note overall height of the object will be 35px due to 5px padding on top/bottom. */
+  background: #3D4F5A; /* some styling */
+  border-bottom: 1px solid #333; /* some styling */
+}
+
+#cancelBtn {
+    float: right;
+}

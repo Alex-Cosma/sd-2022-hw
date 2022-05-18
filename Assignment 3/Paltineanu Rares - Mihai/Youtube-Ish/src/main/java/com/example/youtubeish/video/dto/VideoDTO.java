@@ -1,12 +1,11 @@
-package com.example.youtubeish.video.model.dto;
+package com.example.youtubeish.video.dto;
 
-import com.example.youtubeish.comment.model.dto.CommentDTO;
+import com.example.youtubeish.comment.dto.CommentDTO;
 import com.example.youtubeish.user.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

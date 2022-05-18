@@ -1,6 +1,6 @@
-package com.example.youtubeish.video.model.dto;
+package com.example.youtubeish.video.dto;
 
-import com.example.youtubeish.video.model.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.dto.api.VideoAPIDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;

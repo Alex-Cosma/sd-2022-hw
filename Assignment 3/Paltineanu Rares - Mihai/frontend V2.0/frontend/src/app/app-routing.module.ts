@@ -10,6 +10,7 @@ import { AddUserComponent } from './user/admin/components/users/add/add-user.com
 import { EditUserComponent } from './user/admin/components/users/edit/edit-user.component';
 import { AddVideoComponent } from './user/employee/components/add-video/add-video.component';
 import { CreatePlaylistComponent } from './user/employee/components/create-playlist/create-playlist.component';
+import { PlaylistsViewComponent } from './user/employee/components/playlists-view/playlists-view.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeVideosViewComponent, canActivate: [AuthenticationGuard]},
   { path: 'employee/add-video', component: AddVideoComponent, canActivate: [AuthenticationGuard]},
   { path: 'employee/create-playlist', component: CreatePlaylistComponent, canActivate: [AuthenticationGuard]},
+  { path: 'employee/playlists', component: PlaylistsViewComponent, canActivate: [AuthenticationGuard]},
   { path: 'admin/users', component: UsersViewComponent, canActivate: [AuthenticationGuard]},
   { path: 'admin/add-user', component: AddUserComponent, canActivate: [AuthenticationGuard]},
   { path: 'admin/users/:id', component: EditUserComponent, canActivate:[AuthenticationGuard],}

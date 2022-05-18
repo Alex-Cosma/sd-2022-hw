@@ -28,6 +28,7 @@
     "devextreme": "21.2.6",
     "devextreme-angular": "21.2.6",
     "rxjs": "~7.5.0",
+    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

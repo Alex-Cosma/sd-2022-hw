@@ -1,4 +1,4 @@
-package com.example.youtubeish.comment.model.dto;
+package com.example.youtubeish.comment.dto;
 
 import lombok.*;
 

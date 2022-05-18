@@ -2,13 +2,12 @@ package com.example.youtubeish.comment;
 
 import com.example.youtubeish.comment.mapper.CommentMapper;
 import com.example.youtubeish.comment.model.Comment;
-import com.example.youtubeish.comment.model.dto.CommentDTO;
+import com.example.youtubeish.comment.dto.CommentDTO;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.model.Video;
-import com.example.youtubeish.video.model.dto.VideoDTO;
-import com.example.youtubeish.video.model.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.dto.VideoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

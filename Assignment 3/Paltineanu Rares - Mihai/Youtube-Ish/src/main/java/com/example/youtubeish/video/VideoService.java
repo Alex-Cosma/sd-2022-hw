@@ -5,8 +5,8 @@ import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.mapper.VideoMapper;
 import com.example.youtubeish.video.model.Video;
-import com.example.youtubeish.video.model.dto.VideoDTO;
-import com.example.youtubeish.video.model.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.dto.VideoDTO;
+import com.example.youtubeish.video.dto.api.VideoAPIDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

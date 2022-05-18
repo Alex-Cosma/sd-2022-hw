@@ -10,3 +10,4 @@ export const USERS_URL = API_URL + '/user';
 
 export const COMMENT_URL = API_URL + '/comment';
 
+export const PLAYLIST_URL = API_URL + '/playlist';

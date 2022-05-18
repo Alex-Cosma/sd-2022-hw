@@ -1,7 +1,7 @@
 package com.example.youtubeish.comment;
 
-import com.example.youtubeish.comment.model.dto.AddCommentDTO;
-import com.example.youtubeish.comment.model.dto.CommentDTO;
+import com.example.youtubeish.comment.dto.AddCommentDTO;
+import com.example.youtubeish.comment.dto.CommentDTO;
 import com.example.youtubeish.security.dto.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

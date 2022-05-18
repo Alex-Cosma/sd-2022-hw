@@ -1,8 +1,7 @@
-package com.example.youtubeish.comment.model.dto;
+package com.example.youtubeish.comment.dto;
 
 import com.example.youtubeish.user.dto.UserDTO;
-import com.example.youtubeish.video.model.dto.VideoDTO;
-import com.example.youtubeish.video.model.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.dto.VideoDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
