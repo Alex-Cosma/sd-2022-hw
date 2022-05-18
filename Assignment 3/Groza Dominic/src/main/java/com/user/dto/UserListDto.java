@@ -1,4 +1,5 @@
 package com.user.dto;
+import com.group.model.Group;
 import com.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,4 +19,5 @@ public class UserListDto extends UserMinimalDto {
     private Set<String> roles;
     private String password;
     private Set<User> friends;
+    private Set<Group> groups;
 }

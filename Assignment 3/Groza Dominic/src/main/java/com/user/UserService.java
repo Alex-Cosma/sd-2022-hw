@@ -1,5 +1,9 @@
 package com.user;
 
+import com.group.GroupMapper;
+import com.group.GroupService;
+import com.group.model.Group;
+import com.group.model.dto.GroupDto;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
 import com.security.dto.SignupRequest;
@@ -43,8 +47,8 @@ public class UserService {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-        SignupRequest signUpRequest=new SignupRequest(user.getUsername(), user.getEmail(),
-                user.getPassword(),user.getFirstName(),user.getLastName(),user.getAddress(),null);
+        SignupRequest signUpRequest = new SignupRequest(user.getUsername(), user.getEmail(),
+                user.getPassword(), user.getFirstName(), user.getLastName(), user.getAddress(), null);
 
         authService.register(signUpRequest);
 
@@ -62,7 +66,7 @@ public class UserService {
                 .stream().map(user -> {
                     UserListDto userListDto = userMapper.userListDtoFromUser(user);
                     userMapper.populateRoles(user, userListDto);
-                    userMapper.populateFriends(user,userListDto);
+                    userMapper.populateFriends(user, userListDto);
                     return userListDto;
                 })
                 .collect(toList());
@@ -73,7 +77,7 @@ public class UserService {
     }
 
     public UserListDto edit(Long id, UserListDto user) {
-        User userToUpdate=findById(id);
+        User userToUpdate = findById(id);
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setUsername(user.getUsername());
@@ -81,19 +85,19 @@ public class UserService {
     }
 
     public UserListDto get(Long id) {
-        User user=findById(id);
-        UserListDto userListDto=userMapper.userListDtoFromUser(user);
+        User user = findById(id);
+        UserListDto userListDto = userMapper.userListDtoFromUser(user);
         userMapper.populateRoles(user, userListDto);
-        userMapper.populateFriends(user,userListDto);
+        userMapper.populateFriends(user, userListDto);
         return userListDto;
     }
 
 
     public void addFriend(Long id, Long friendId) {
-        User user=findById(id);
-        User friend=findById(friendId);
+        User user = findById(id);
+        User friend = findById(friendId);
 
-        Set<User> friends=user.getFriends();
+        Set<User> friends = user.getFriends();
         friends.add(friend);
         user.setFriends(friends);
 
@@ -101,4 +105,6 @@ public class UserService {
         userRepository.save(user);
         userRepository.save(friend);
     }
+
+
 }

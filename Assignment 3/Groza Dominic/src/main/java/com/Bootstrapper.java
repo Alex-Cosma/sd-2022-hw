@@ -1,5 +1,7 @@
 package com;
 
+import com.group.GroupRepository;
+import com.group.model.Group;
 import com.post.PostRepository;
 import com.post.model.Post;
 import com.security.AuthService;
@@ -10,6 +12,7 @@ import com.user.UserService;
 import com.user.model.ERole;
 import com.user.model.Role;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -32,6 +35,8 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     private final UserService userService;
 
     private final AuthService authService;
+
+    private final GroupRepository groupRepository;
 
     @Value("${app.bootstrap}")
     private Boolean bootstrap;
@@ -114,6 +119,15 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             Long id2=userRepository.findByUsername("dominic1").get().getId();
             userService.addFriend(id1, id2);
             //test
+
+
+            for(int i=0;i<4;i++){
+                Group group=Group.builder()
+                        .name("Group "+rand.nextInt())
+                        .users(Set.of(userRepository.findByUsername("testfakefriend").get(),userRepository.findByUsername("dominic1").get()))
+                        .build();
+                groupRepository.save(group);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.user.model;
 
 
+import com.group.model.Group;
 import com.post.model.Post;
 import lombok.*;
 
@@ -59,6 +60,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<User> friends = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_groups",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> groups = new HashSet<>();
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "friends",
 //            joinColumns = @JoinColumn(name = "friend_id"),

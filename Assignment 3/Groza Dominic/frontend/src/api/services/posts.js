@@ -19,7 +19,9 @@ export default {
     );
   },
   edit(item) {
-    return HTTP.put(BASE_URL + "/posts/"+ item.id,item, {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("item", item,item.id);
+    return HTTP.put(BASE_URL + "/posts/"+user.id+"/"+ item.id,item, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;

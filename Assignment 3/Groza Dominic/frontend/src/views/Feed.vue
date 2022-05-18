@@ -15,43 +15,70 @@
     <v-data-table
         :headers="headers"
         :items="posts"
-        :search="search"
-        @click:row="editPost">
+        :search="search">
       <template v-slot:item="row">
         <tr>
-          <td >{{ new Date(row.item.created_at).toLocaleString() }}</td>
+          <td>{{ new Date(row.item.created_at).toLocaleString() }}</td>
           <td>{{ row.item.user.firstName + " " + row.item.user.lastName }}</td>
           <td>{{ row.item.body }}</td>
           <td>{{ row.item.likes }}</td>
           <td>{{ row.item.disLikes }}</td>
           <td v-if="user.id===row.item.user.id">
+            <v-btn depressed @click="editPost(row.item)" style="margin-right:2em" color="gray">Edit</v-btn>
             <v-btn depressed @click="deletePost(row.item.id)" color="red">Delete</v-btn>
           </td>
         </tr>
       </template>
 
     </v-data-table>
-    <v-btn @click="generateReportPDF" color="yellow">Generate PDF</v-btn>
-    <v-btn @click="generateReportCSV" color="blue">Generate CSV</v-btn>
+    <!--    <v-btn @click="generateReportPDF" color="yellow">Generate PDF</v-btn>-->
+    <!--    <v-btn @click="generateReportCSV" color="blue">Generate CSV</v-btn>-->
     <NewPost
         :opened="dialogVisible"
         @refresh="refreshList"
     ></NewPost>
+    <EditPost
+        :opened="editPostDialog"
+        :post="selectedPost"
+        @refresh="refreshList"
+    ></EditPost>
+    <v-card-title>
+      All Groups
+    </v-card-title>
+
+    <v-data-table
+        :headers="headersGroups"
+        :items="groups">
+      <template v-slot:item="row">
+        <tr>
+          <td>{{ row.item.name }}</td>
+          <td>{{ row.item.users.length}}</td>
+          <td v-if="!row.item.users.includes(user)">
+            <v-btn depressed @click="enterGroup(row.item.id)" style="margin-right:2em" color="green">Join Group</v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
   </v-card>
+
 </template>
 
 <script>
 import api from "../api";
 import NewPost from "../components/NewPost";
+import EditPost from "@/components/EditPost";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 export default {
   name: "Feed",
-  components: {NewPost},
+  components: {NewPost, EditPost},
+  props: {
+    posts: [],
+  },
   data() {
     return {
-      posts: [],
+      groups: [],
       search: "",
       headers: [
         {text: "Date", align: "start", value: "created_at",},
@@ -59,16 +86,23 @@ export default {
         {text: "Post", value: "body"},
         {text: "Likes", value: "likes"},
         {text: "Dislikes", value: "disLikes"},
+        {text: "Actions", value: "actions", align: "center"},
+      ],
+      headersGroups: [
+        {text: "Group Name", align: "start", value: "name",},
+        {text: "People joined", value: "user"},
       ],
       dialogVisible: false,
+      editPostDialog: false,
       selectedPost: {},
       user: user,
     };
   },
   methods: {
     editPost(post) {
+      console.log("this post", post)
       this.selectedPost = post;
-      this.dialogVisible = true;
+      this.editPostDialog = true;
     },
     addPost() {
       this.dialogVisible = true;
@@ -77,14 +111,19 @@ export default {
       this.dialogVisible = false;
       this.selectedPost = {};
       this.posts = (await api.posts.allPosts(user.id));
+      this.groups = (await api.groups.allGroups());
       console.log(this.posts);
     },
-    generateReportPDF() {
-      api.items.report("PDF");
+    enterGroup(groupId) {
+      api.groups.addUser(groupId)
+          .then(() => this.refreshList());
     },
-    generateReportCSV() {
-      api.items.report("CSV");
-    },
+    // generateReportPDF() {
+    //   api.items.report("PDF");
+    // },
+    // generateReportCSV() {
+    //   api.items.report("CSV");
+    // },
     deletePost(id) {
       api.posts.delete(id);
       // this.refreshList();
