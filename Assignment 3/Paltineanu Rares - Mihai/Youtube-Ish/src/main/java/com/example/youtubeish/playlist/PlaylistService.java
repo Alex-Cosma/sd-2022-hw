@@ -21,15 +21,19 @@ public class PlaylistService {
     private final UserMapper userMapper;
     private final VideoMapper videoMapper;
     private final PlaylistMapper playlistMapper;
-    public Playlist create(UserDTO userDTO, List<VideoDTO> videoDTO) {
+    public PlaylistDTO create(UserDTO userDTO, List<VideoDTO> videoDTO) {
         Playlist playlist = Playlist.builder()
                 .user(userMapper.fromDto(userDTO))
                 .videos(videoDTO.stream().map(videoMapper::fromDto).collect(Collectors.toList()))
                 .build();
-        return playlistRepository.save(playlist);
+        return playlistMapper.toDto(playlistRepository.save(playlist));
     }
 
     public List<PlaylistDTO> getUserPlaylists(Long id) {
         return playlistRepository.getAllByUserId(id).stream().map(playlistMapper::toDto).collect(Collectors.toList());
+    }
+
+    public void deletePlaylistById(Long id) {
+        playlistRepository.deleteById(id);
     }
 }

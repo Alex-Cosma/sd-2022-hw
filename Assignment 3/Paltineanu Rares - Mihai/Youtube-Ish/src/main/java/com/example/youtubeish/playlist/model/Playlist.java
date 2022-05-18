@@ -1,6 +1,5 @@
 package com.example.youtubeish.playlist.model;
 
-import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.model.Video;
 import lombok.AllArgsConstructor;
@@ -10,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(

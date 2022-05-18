@@ -1,7 +1,6 @@
 package com.example.youtubeish.comment.model;
 
 import com.example.youtubeish.video.model.Video;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

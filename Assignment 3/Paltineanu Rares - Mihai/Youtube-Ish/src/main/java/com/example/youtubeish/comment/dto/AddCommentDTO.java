@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class AddCommentDTO {
-    @JsonProperty("contnet")
+    @JsonProperty("content")
     private String content;
 
     @JsonProperty("user")
