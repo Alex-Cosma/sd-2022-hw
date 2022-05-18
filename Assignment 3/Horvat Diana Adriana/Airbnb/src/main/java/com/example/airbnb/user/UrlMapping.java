@@ -11,6 +11,7 @@ public class UrlMapping {
     public static final String SIGN_UP = "/sign-up";
 
     public static final String USERS = API_PATH + "/users";
+    public static final String USER_ACCOMMODATIONS = ENTITY + "/accommodations";
     public static final String ACCOMMODATIONS = API_PATH + "/accommodations";
     public static final String BOOKINGS = API_PATH + "/bookings";
 }

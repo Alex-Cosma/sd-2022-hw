@@ -1,6 +1,7 @@
 package com.example.airbnb.accommodation;
 
 import com.example.airbnb.accommodation.model.Accommodation;
+import com.example.airbnb.accommodation.model.dto.AccommodationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,19 @@ public class AccommodationController {
     @GetMapping(ENTITY)
     public Accommodation getAccommodation(@PathVariable Long id) {
         return accommodationService.findById(id);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(ENTITY)
+    public void delete(@PathVariable Long id){
+        accommodationService.delete(id);
+    }
+
+    @CrossOrigin
+    @PostMapping()
+    public Accommodation create(@RequestBody AccommodationDTO accommodationDTO){
+        System.out.println("sdncld");
+        return accommodationService.create(accommodationDTO);
     }
 
 }

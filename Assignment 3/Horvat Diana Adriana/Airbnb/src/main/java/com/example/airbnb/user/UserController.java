@@ -1,5 +1,6 @@
 package com.example.airbnb.user;
 
+import com.example.airbnb.accommodation.model.Accommodation;
 import com.example.airbnb.user.dto.UserListDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
-import static com.example.airbnb.user.UrlMapping.USERS;
-import static org.hibernate.usertype.DynamicParameterizedType.ENTITY;
+import static com.example.airbnb.user.UrlMapping.*;
 
 @RestController
 @RequestMapping(USERS)
@@ -42,4 +43,10 @@ public class UserController {
         return userService.edit(id, user);
     }
 
+    @CrossOrigin
+    @GetMapping(USER_ACCOMMODATIONS)
+    public Set<Accommodation> getUserAccommodations(@PathVariable Long id){
+        System.out.println(userService.getUserAccommodations(id).isEmpty());
+        return userService.getUserAccommodations(id);
+    }
 }

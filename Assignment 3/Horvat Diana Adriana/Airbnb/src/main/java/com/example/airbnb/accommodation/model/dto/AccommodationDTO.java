@@ -1,6 +1,8 @@
 package com.example.airbnb.accommodation.model.dto;
 
 import com.example.airbnb.amenities.model.Amenity;
+import com.example.airbnb.user.dto.UserListDTO;
+import com.example.airbnb.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationDTO {
-    private String id;
+    private Long id;
     private String name;
     private String description;
     private String house_rules;
@@ -25,9 +27,10 @@ public class AccommodationDTO {
     private String bathrooms;
     private String bedrooms;
     private String beds;
-    private Set<Amenity> amenities;
-//    private Decimal128 price;
-//    private Object images;
-//    private Object address;
-//    private List<Object> reviews;
+    private String amenities;
+    private Double price;
+    private String imageURL;
+    private String address_city;
+    private String address_street;
+    private Long user_id;
 }

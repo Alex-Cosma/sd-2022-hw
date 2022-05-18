@@ -4,6 +4,8 @@ import com.example.airbnb.accommodation.model.Accommodation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -17,13 +19,15 @@ import javax.persistence.*;
 public class Amenity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "parent_fk", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "parent_fk")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Accommodation accommodation;
 
-    @Column(nullable = false, length = 1024)
-    private String string;
+    @Column(length = 1024)
+    private String amenity;
 }

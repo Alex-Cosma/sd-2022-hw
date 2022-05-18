@@ -1,5 +1,6 @@
 package com.example.airbnb.user;
 
+import com.example.airbnb.accommodation.model.Accommodation;
 import com.example.airbnb.security.AuthService;
 import com.example.airbnb.security.dto.MessageResponse;
 import com.example.airbnb.security.dto.SignupRequest;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -40,6 +42,7 @@ public class UserService {
                 .stream().map(user -> {
                     UserListDTO userListDTO = userMapper.userListDtoFromUser(user);
                     userMapper.populateRoles(user, userListDTO);
+                    userMapper.populateAccommodations(user, userListDTO);
                     return userListDTO;
                 }).collect(toList());
     }
@@ -67,7 +70,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    private User findById(Long id) {
+    public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
@@ -84,5 +87,13 @@ public class UserService {
                 userRepository.save(actUser)
         );
     }
+
+    public Set<Accommodation> getUserAccommodations(Long user_id){
+        return findById(user_id).getAccommodations();
+//        UserListDTO userListDTO = userMapper.userListDtoFromUser(user);
+//        userMapper.populateAccommodations(user, userListDTO);
+//        return userListDTO.getAccommodations();
+    }
+
 }
 

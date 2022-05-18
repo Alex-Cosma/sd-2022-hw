@@ -26,6 +26,11 @@ public interface UserMapper {
         userListDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toSet()));
     }
 
+    @AfterMapping
+    default void populateAccommodations(User user, @MappingTarget UserListDTO userListDTO){
+        userListDTO.setAccommodations(user.getAccommodations());
+    }
+
     @Mappings({
             @Mapping(target = "username", source = "name"),
             @Mapping(target = "roles", ignore = true)

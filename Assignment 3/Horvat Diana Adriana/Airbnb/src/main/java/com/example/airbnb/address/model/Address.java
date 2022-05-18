@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name="accommodation_address")
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, length = 256)
@@ -23,16 +24,7 @@ public class Address {
     @Column(nullable = false, length = 256)
     private String city;
 
-    @Column(nullable = false, length = 256)
-    private String state;
-
-    @Column(nullable = false, length = 256)
-    private String country;
-
-    @Column(nullable = false, length = 256)
-    private String market;
-
     @JsonIgnore
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade=CascadeType.ALL)
     private Accommodation accommodation;
 }

@@ -1,4 +1,6 @@
 package com.example.airbnb.user.model;
+import com.example.airbnb.accommodation.model.Accommodation;
+import com.example.airbnb.booking.model.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,4 +41,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Accommodation> accommodations = new HashSet<>();
 }

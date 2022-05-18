@@ -16,6 +16,7 @@ import javax.print.DocFlavor;
 @Table(name="accommodation_images")
 public class ImageURL {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JsonIgnore

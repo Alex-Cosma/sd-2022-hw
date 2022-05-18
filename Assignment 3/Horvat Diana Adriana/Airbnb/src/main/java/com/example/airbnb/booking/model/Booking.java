@@ -4,6 +4,8 @@ import com.example.airbnb.accommodation.model.Accommodation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,6 +25,7 @@ public class Booking {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "accommodation_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Accommodation accommodation;
 
 //    @Column(nullable = false, length = 20)
