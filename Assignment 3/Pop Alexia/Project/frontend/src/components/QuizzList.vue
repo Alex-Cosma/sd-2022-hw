@@ -22,7 +22,6 @@
       :expanded.sync="expanded"
       item-key="id"
       show-expand
-      @update:expanded="itemExpanded"
     >
       <template v-slot:expanded-item="{ headers, item }">
         <td>
@@ -66,7 +65,6 @@ export default {
           value: "statement",
         },
         { text: "Category", value: "category" },
-        { text: "Points", value: "points" },
       ],
       headers: [
         {
@@ -83,9 +81,6 @@ export default {
     };
   },
   methods: {
-    itemExpanded() {
-      this.selectedQuizz = this.expanded[0];
-    },
     editQuizz(quizz) {
       this.selectedQuizz = quizz;
       this.quizzDialogVisible = true;

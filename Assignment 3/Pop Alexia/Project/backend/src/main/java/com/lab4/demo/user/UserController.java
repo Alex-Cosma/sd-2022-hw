@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid UserDTO user) {
+    public ResponseEntity<?> create(@RequestBody UserDTO user) {
         if(userService.existsByUsername(user.getUsername())) {
            throw new ConstraintViolationException("Username already exists", Set.of());
         }else if(userService.existsByEmail(user.getEmail())) {
@@ -47,12 +46,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody @Valid UserDTO user) {
+    public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody UserDTO user) {
         if(!userService.findById(id).getUsername().equals(user.getUsername())){
             if(userService.existsByUsername(user.getUsername())) {
                 throw new ConstraintViolationException("Username already exists", Set.of());
-            }else if(userService.existsByEmail(user.getEmail())) {
-                throw new ConstraintViolationException("Email already exists", Set.of());
+            }
+        }else if(!userService.findById(id).getEmail().equals(user.getEmail())){
+            if(userService.existsByEmail(user.getEmail())) {
+                throw  new ConstraintViolationException("Email already exists", Set.of());
             }
         }
         userService.edit(id,user);

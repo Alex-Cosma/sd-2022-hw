@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,17 +21,7 @@ public class AnswerService {
 
     public AnswerDTO findById(Long id) {
         return answerMapper.toDto(answerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Question not found: " + id)));
-    }
-
-    public List<AnswerDTO> findAll() {
-        return answerRepository.findAll().stream()
-                .map(answerMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    public AnswerDTO findByAnswerName(String answerName) {
-        return answerMapper.toDto(answerRepository.findByAnswer(answerName));
+                .orElseThrow(() -> new EntityNotFoundException("Answer not found: " + id)));
     }
 
     public AnswerDTO create(AnswerDTO answerDTO) {

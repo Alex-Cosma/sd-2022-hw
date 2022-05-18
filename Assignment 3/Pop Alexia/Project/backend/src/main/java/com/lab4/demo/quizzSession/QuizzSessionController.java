@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolationException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
 import static com.lab4.demo.UrlMapping.QUIZZ_SESSION;
@@ -22,12 +21,8 @@ import static com.lab4.demo.UrlMapping.QUIZZ_SESSION;
 @RequestMapping(QUIZZ_SESSION)
 @RequiredArgsConstructor
 public class QuizzSessionController {
-    private final QuizzSessionService quizzSessionService;
 
-    @GetMapping
-    public List<QuizzSessionDTO> allQuizzSessions() {
-        return quizzSessionService.findAll();
-    }
+    private final QuizzSessionService quizzSessionService;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody QuizzSessionDTO quizzDTO) {

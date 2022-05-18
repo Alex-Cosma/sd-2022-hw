@@ -3,6 +3,7 @@ package com.lab4.demo.question;
 import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.security.dto.MessageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Set;
 
-import static com.lab4.demo.UrlMapping.*;
+import static com.lab4.demo.UrlMapping.QUESTION;
 
 @RestController
 @RequestMapping(QUESTION)
@@ -50,8 +51,13 @@ public class QuestionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        questionService.delete(id);
-        return ResponseEntity.ok(new MessageResponse("Question deleted successfully"));
+        try {
+            questionService.delete(id);
+            return ResponseEntity.ok(new MessageResponse("Question deleted successfully"));
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Question can't be deleted , it is part of a quizz"));
+        }
+
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -1,6 +1,7 @@
 package com.lab4.demo.question;
 
 import com.lab4.demo.TestCreationFactory;
+import com.lab4.demo.answer.model.Answer;
 import com.lab4.demo.question.model.Question;
 import com.lab4.demo.question.model.dto.QuestionDTO;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.lab4.demo.TestCreationFactory.randomLong;
 
@@ -42,13 +44,13 @@ class QuestionServiceIntegrationTest {
         Question question1 = Question.builder()
                 .statement("aa")
                 .category("aa")
-                .answers(null)
+                .answers(Set.of(Answer.builder().answer("aa").correct(false).build()))
                 .build();
 
         Question question2 = Question.builder()
                 .statement("ww")
                 .category("ww")
-                .answers(null)
+                .answers(Set.of(Answer.builder().answer("bb").correct(false).build()))
                 .build();
 
         questionRepository.saveAll(List.of(question1, question2));

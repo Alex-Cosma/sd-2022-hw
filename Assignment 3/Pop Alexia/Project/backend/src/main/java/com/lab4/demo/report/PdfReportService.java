@@ -1,7 +1,7 @@
 package com.lab4.demo.report;
 
-import com.lab4.demo.answer.model.Answer;
-import com.lab4.demo.question.model.Question;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
+import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import com.lab4.demo.quizzSession.model.dto.QuizzSessionDTO;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -47,13 +47,13 @@ public class PdfReportService implements ReportService {
                     cont.showText("Quizz title: "+quizz.getTitle());
                     cont.newLine();
 
-                    for(Question question : quizz.getQuestions()) {
+                    for(QuestionDTO question : quizz.getQuestions()) {
                         cont.showText("  Question : "+ question.getStatement());
                         cont.newLine();
-                        for(Answer answer : question.getAnswers()) {
+                        for(AnswerDTO answer : question.getAnswers()) {
                             cont.showText("   Answer : " + answer.getAnswer());
                             cont.newLine();
-                            cont.showText("   What was the answer: " + answer.isCorrect());
+                            cont.showText("   What was the answer: " + answer.getCorrect());
                             cont.newLine();
                             cont.showText("   What you picked: " + quizzSession.getAnswerSequence().stream().filter(a -> a.getAnswer().equals(answer.getAnswer())).findFirst().get().isCorrect());
                             cont.newLine();

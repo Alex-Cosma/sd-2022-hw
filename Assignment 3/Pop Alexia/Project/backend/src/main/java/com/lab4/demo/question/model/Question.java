@@ -25,16 +25,7 @@ public class Question {
     @Column(length = 512, nullable = false)
     private String statement;
 
-  //  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@Cascade({org.hibernate.annotations.CascadeType.DELETE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-   // @JoinTable(name = "question_answers",
-            //joinColumns = @JoinColumn(name = "question_id"),
-           // inverseJoinColumns = @JoinColumn(name = "answer_id"))
-   // @Builder.Default
-   // private Set<Answer> answers = new HashSet<>();
-
-    @OneToMany(mappedBy = "question",cascade = CascadeType.MERGE, orphanRemoval = true)
-  //  @JsonManagedReference
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<Answer> answers;
 
     @NotNull

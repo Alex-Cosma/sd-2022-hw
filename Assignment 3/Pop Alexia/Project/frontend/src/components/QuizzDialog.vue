@@ -10,18 +10,12 @@
           <v-toolbar color="black" dark>
             {{ isNew ? "Create quizz" : "Edit quizz" }}
             <v-alert v-if="showAlert" type="error" value="errors">{{
-              errors
+              errorMessage
             }}</v-alert>
           </v-toolbar>
           <v-form>
             <v-text-field v-model="quizz.title" label="Title" />
             <v-text-field v-model="quizz.description" label="Description" />
-            <v-text-field
-              v-model="quizz.points"
-              label="Points"
-              type="number"
-              min="0"
-            />
             <v-data-table
               :headers="headers"
               :items="questions"
@@ -62,7 +56,7 @@ export default {
     return {
       show: false,
       showAlert: false,
-      errors: [],
+      errorMessage: [],
       selectedRows: [],
       headers: [
         {
@@ -106,34 +100,35 @@ export default {
             title: this.quizz.title,
             description: this.quizz.description,
             questions: this.selectedRows,
-            points: this.quizz.points,
           })
           .catch((err) => {
             this.showAlert = true;
-            this.errors = err.response.data.message;
+            this.errorMessage = err.response.data.message;
           })
           .then(() => {
-            if (this.errors.length === 0) {
+            if (this.errorMessage.length === 0) {
               this.$emit("refresh");
               this.selectedRows = [];
               this.showAlert = false;
             }
           });
       } else {
+        if (this.selectedRows.length === 0) {
+          this.selectedRows = this.quizz.questions;
+        }
         api.quizzes
           .editQuizz(this.quizz.id, {
             id: this.quizz.id,
             title: this.quizz.title,
             description: this.quizz.description,
             questions: this.selectedRows,
-            points: this.quizz.points,
           })
           .catch((err2) => {
             this.showAlert = true;
-            this.errors = err2.response.data.message;
+            this.errorMessage = err2.response.data.message;
           })
           .then(() => {
-            if (this.errors.length === 0) {
+            if (this.errorMessage.length === 0) {
               this.selectedRows = [];
               this.$emit("refresh");
               this.showAlert = false;
@@ -156,6 +151,7 @@ export default {
           console.log(JSON.stringify(msg));
           this.stompClient.send("/app/notify", JSON.stringify(msg), {});
         }
+        api.mail.sendMail();
       });
     },
   },

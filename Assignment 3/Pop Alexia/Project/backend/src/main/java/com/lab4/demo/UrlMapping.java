@@ -8,6 +8,7 @@ public class UrlMapping {
     public static final String REVIEW = API_PATH + "/review";
     public static final String ANSWER = API_PATH + "/answer";
     public static final String EXPORT_REPORT = "/export/{type}";
+    public static final String EMAIL = API_PATH + "/email";
 
     public static final String AUTH = API_PATH + "/auth";
     public static final String SIGN_IN = "/sign-in";

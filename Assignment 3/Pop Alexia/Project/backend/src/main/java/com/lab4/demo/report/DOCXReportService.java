@@ -1,7 +1,7 @@
 package com.lab4.demo.report;
 
-import com.lab4.demo.answer.model.Answer;
-import com.lab4.demo.question.model.Question;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
+import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import com.lab4.demo.quizzSession.model.dto.QuizzSessionDTO;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -41,35 +41,27 @@ public class DOCXReportService implements ReportService {
         Iterator<QuizzSessionDTO> quizzSessionIterator = quizzSessions.iterator();
         Iterator<QuizzDTO> quizzIterator = quizzes.iterator();
 
-        String buildPar ="";
         while(quizzSessionIterator.hasNext() && quizzIterator.hasNext()) {
             QuizzSessionDTO quizzSession = quizzSessionIterator.next();
             QuizzDTO quizz = quizzIterator.next();
 
-           //buildPar = buildPar.concat("Quizz title: "+quizz.getTitle());
             r2.setText("Quizz title : " + quizz.getTitle());
             r2.addCarriageReturn();
-            for(Question question : quizz.getQuestions()) {
-                //buildPar = buildPar.concat("  Question : "+ question.getStatement() +"\n");
+            for(QuestionDTO question : quizz.getQuestions()) {
                 r2.setText("  Question : " + question.getStatement());
                 r2.addCarriageReturn();
-                for(Answer answer : question.getAnswers()) {
-                    //buildPar = buildPar.concat("   Answer : " + answer.getAnswer() +"\n");
+                for(AnswerDTO answer : question.getAnswers()) {
                     r2.setText("   Answer : " + answer.getAnswer());
                     r2.addCarriageReturn();
-                    //buildPar = buildPar.concat("   What was the answer: " + answer.isCorrect() +"\n");
-                    r2.setText("   What was the answer : " + answer.isCorrect());
+                    r2.setText("   What was the answer : " + answer.getCorrect());
                     r2.addCarriageReturn();
-                    //buildPar = buildPar.concat("   What you picked: " + quizzSession.getAnswerSequence().stream().filter(a -> a.getAnswer().equals(answer.getAnswer())).findFirst().get().isCorrect() +"\n");
                     r2.setText("   What you picked : " + quizzSession.getAnswerSequence().stream().filter(a->a.getAnswer().equals(answer.getAnswer())).findFirst().get().isCorrect());
                     r2.addCarriageReturn();
                 }
             }
             r2.setText(quizzSession.getScore() + "/" + quizz.getQuestions().size());
             r2.addCarriageReturn();
-            //buildPar = buildPar.concat(quizzSession.getScore() + " / " + quizz.getQuestions().size() + "\n");
         }
-        //r2.setText(buildPar);
         FileOutputStream fo = null;
         try {
             fo = new FileOutputStream("src/report.docx");

@@ -1,5 +1,6 @@
 package com.lab4.demo.quizz;
 
+import com.lab4.demo.question.QuestionMapper;
 import com.lab4.demo.quizz.model.Quizz;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class QuizzService {
 
     private final QuizzRepository quizzRepository;
     private final QuizzMapper quizzMapper;
+    private  final QuestionMapper questionMapper;
 
     public Quizz findById(Long id) {
         return quizzRepository.findById(id)
@@ -48,8 +50,7 @@ public class QuizzService {
         Quizz actQuizz = quizzRepository.findById(id).get();
         actQuizz.setDescription(quizz.getDescription());
         actQuizz.setTitle(quizz.getTitle());
-        actQuizz.setQuestions(quizz.getQuestions());
-        actQuizz.setPoints(quizz.getPoints());
+        actQuizz.setQuestions(quizz.getQuestions().stream().map(questionMapper::fromDto).collect(Collectors.toSet()));
 
         return quizzMapper.toDto(quizzRepository.save(actQuizz));
     }

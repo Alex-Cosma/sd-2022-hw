@@ -39,14 +39,12 @@ public class QuizzRepositoryTest {
                 .title("aa")
                 .description("aa")
                 .questions(null)
-                .points(1)
                 .build();
 
         Quizz quizz2 = Quizz.builder()
                 .title("ww")
                 .description("ww")
                 .questions(null)
-                .points(1)
                 .build();
 
         repository.save(quizz1);
@@ -62,11 +60,9 @@ public class QuizzRepositoryTest {
     @Test
     public void findById() {
         Quizz quizz = repository.save(Quizz.builder()
-                .id(1L)
                 .title("aa")
                 .description("aa")
                 .questions(null)
-                .points(1)
                 .build());
         Quizz quizzFound = repository.findById(quizz.getId()).get();
 
@@ -76,11 +72,9 @@ public class QuizzRepositoryTest {
     @Test
     public void findByQuizzTitle(){
         Quizz quizz = repository.save(Quizz.builder()
-                .id(1L)
                 .title("aa")
                 .description("aa")
                 .questions(null)
-                .points(1)
                 .build());
         Quizz quizzFound = repository.findByTitle(quizz.getTitle());
 
@@ -93,7 +87,6 @@ public class QuizzRepositoryTest {
                 .title("aa")
                 .description("aa")
                 .questions(null)
-                .points(1)
                 .build());
 
         assertNotNull(quizzSaved);
@@ -106,12 +99,10 @@ public class QuizzRepositoryTest {
     @Test
     public void edit(){
         Quizz quizz = repository.save(Quizz.builder()
-                .id(1L)
                 .title("aa")
                 .description("aa")
                 .questions(null)
                 .quizzSessions(null)
-                .points(1)
                 .build());
         quizz.setTitle("newtitle");
         quizz = repository.save(quizz);
@@ -124,7 +115,6 @@ public class QuizzRepositoryTest {
                 .title("aa")
                 .description("aa")
                 .questions(null)
-                .points(1)
                 .build());
         repository.delete(quizz);
         assertTrue(repository.findAll().isEmpty());

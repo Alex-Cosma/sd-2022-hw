@@ -63,9 +63,6 @@ public class UserService {
         User actUser = userRepository.findById(id).get();
         actUser.setUsername(userDTO.getUsername());
         actUser.setEmail(userDTO.getEmail());
-        if(userDTO.getPassword() != null) {
-            actUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        }
         return userMapper.toDto(userRepository.save(actUser));
     }
 

@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Set;
 
 import static com.lab4.demo.UrlMapping.ANSWER;
 
@@ -19,11 +18,6 @@ public class AnswerController {
 
     private final AnswerService answerService;
 
-   // @GetMapping
-   // public List<AnswerDTO> allQuestions() {
-       // return answerService.findAll();
-    //}
-
     @PostMapping
     public ResponseEntity<?> create( @RequestBody AnswerDTO answerDTO) {
         return ResponseEntity.ok().body(answerService.create(answerDTO));
@@ -32,13 +26,14 @@ public class AnswerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> edit(@PathVariable Long id , @RequestBody AnswerDTO answerDTO) {
-        if (!answerService.findById(id).getAnswer().equals(answerDTO.getAnswer())) {
-            if (answerService.findByAnswerName(answerDTO.getAnswer()) != null) {
-                throw new ConstraintViolationException("This answer already exists", Set.of());
-            }
-        }
         answerService.edit(id, answerDTO);
         return ResponseEntity.ok(new MessageResponse("Answer edited successfully"));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        answerService.delete(id);
+        return ResponseEntity.ok(new MessageResponse("Answer deleted successfully"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -125,6 +125,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                             Set<Answer> answers = new HashSet<>();
                             Answer answer = Answer.builder().answer(correctAnswer).correct(true).question(q).build();
                             answers.add(answer);
+                            answerRepository.save(answer);
                             for(int j=0;j<incorrectAnswers.size();j++){
                                 Answer a = Answer.builder().answer(incorrectAnswers.get(j)).correct(false).question(q).build();
                                 answers.add(a);

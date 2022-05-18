@@ -47,7 +47,7 @@
       :opened="answerDialogVisible"
       :answer="selectedAnswer"
       :question="selectedQuestion"
-      @refresh="refreshList"
+      @refresh="refreshLocal"
     ></AnswerDialog>
   </v-card>
 </template>
@@ -83,7 +83,6 @@ export default {
           value: "statement",
         },
         { text: "Category", value: "category" },
-        { text: "Points", value: "points" },
         { text: "", value: "data-table-expand" },
       ],
       questionDialogVisible: false,
@@ -109,6 +108,12 @@ export default {
     },
     addQuestion() {
       this.questionDialogVisible = true;
+    },
+    async refreshLocal() {
+      this.questionDialogVisible = false;
+      this.answerDialogVisible = false;
+      this.selectedAnswer = {};
+      this.questions = await api.questions.allQuestions();
     },
     async refreshList() {
       this.questionDialogVisible = false;

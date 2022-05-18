@@ -47,34 +47,22 @@ export default {
   },
   methods: {
     deleteA() {
-      api.questions
-        .editQuestion(this.question.id, {
-          statement: this.question.statement,
-          category: this.question.category,
-          points: this.question.points,
-          answers: this.question.answers.filter(
-            (answer) => answer.id !== this.answer.id
-          ),
-        })
-        .then(() => {
-          this.$emit("refresh");
-        });
+      api.answers.delete(this.answer.id).then(() => {
+        this.$emit("refresh");
+      });
     },
 
     persist: function () {
       this.showAlert = false;
       this.errors = [];
       if (this.isNew) {
-        if (this.answer !== true) {
+        if (this.answer.correct !== true) {
           this.answer.correct = false;
         }
-        api.questions
-          .editQuestion(this.question.id, {
-            statement: this.question.statement,
-            category: this.question.category,
-            points: this.question.points,
-            answers: this.question.answers.concat(this.answer),
-          })
+        this.answer.questionId = this.question.id;
+
+        api.answers
+          .create(this.answer)
           .catch((err) => {
             this.showAlert = true;
             this.errors = err.response.data.message;
@@ -87,7 +75,7 @@ export default {
           });
       } else {
         api.answers
-          .editAnswer(this.answer.id, this.answer)
+          .edit(this.answer.id, this.answer)
           .catch((err) => {
             this.showAlert = true;
             this.errors = err.response.data.message;

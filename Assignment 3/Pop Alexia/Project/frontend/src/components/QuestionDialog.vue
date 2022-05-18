@@ -59,8 +59,18 @@ export default {
   },
   methods: {
     deleteQ() {
-      api.questions.deleteQuestion(this.question.id);
-      this.$emit("refresh");
+      api.questions
+        .deleteQuestion(this.question.id)
+        .catch((err) => {
+          this.showAlert = true;
+          this.errors = err.response.data.message;
+        })
+        .then(() => {
+          if (this.errors.length === 0) {
+            this.showAlert = false;
+            this.$emit("refresh");
+          }
+        });
     },
 
     persist: function () {
@@ -89,7 +99,6 @@ export default {
             id: this.question.id,
             statement: this.question.statement,
             category: this.question.category,
-            answers: this.question.answers,
           })
           .catch((err2) => {
             this.showAlert = true;

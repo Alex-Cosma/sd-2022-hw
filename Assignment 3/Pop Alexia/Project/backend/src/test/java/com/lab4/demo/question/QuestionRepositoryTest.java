@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class QuestionRepositoryTest {
@@ -63,7 +62,6 @@ public class QuestionRepositoryTest {
     @Test
     public void findById() {
         Question question = repository.save(Question.builder()
-                .id(1L)
                 .statement("aa")
                 .category("aa")
                 .answers(null)
@@ -76,7 +74,6 @@ public class QuestionRepositoryTest {
     @Test
     public void findByStatement(){
         Question question = repository.save(Question.builder()
-                .id(1L)
                 .statement("aa")
                 .category("aa")
                 .answers(null)
@@ -104,10 +101,9 @@ public class QuestionRepositoryTest {
     @Test
     public void edit(){
         Question question = repository.save(Question.builder()
-                .id(1L)
                 .statement("aa")
                 .category("aa")
-                .answers(null)
+                .answers(Set.of(Answer.builder().answer("aa").correct(false).build()))
                 .build());
         question.setStatement("newtitle");
         question = repository.save(question);

@@ -3,6 +3,7 @@ package com.lab4.demo.question;
 import com.lab4.demo.question.model.Question;
 import com.lab4.demo.question.model.dto.QuestionDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +48,11 @@ public class QuestionService {
         Question actQuestion = questionRepository.findById(id).get();
         actQuestion.setStatement(question.getStatement());
         actQuestion.setCategory(question.getCategory());
-        actQuestion.setAnswers(question.getAnswers());
 
         return questionMapper.toDto(questionRepository.save(actQuestion));
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws DataIntegrityViolationException {
         questionRepository.deleteById(id);
     }
 

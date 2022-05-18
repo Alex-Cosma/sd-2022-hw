@@ -42,14 +42,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void findAll() {
-        User user = User.builder()
-                .username("username182")
-                .password("password")
-                .email("email182@yahoo.com")
-                .quizzSessions(null)
-                .rankingPoints(0)
-                .build();
-
         UserDTO userDTO = UserDTO.builder()
                 .username("username182")
                 .password("password")
@@ -58,6 +50,7 @@ public class ReviewServiceIntegrationTest {
                 .build();
 
         userDTO =  userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
         Review review = Review.builder()
@@ -73,14 +66,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void findById(){
-        User user = User.builder()
-                .username("username873")
-                .password("password")
-                .email("email873@yahoo.com")
-                .quizzSessions(null)
-                .rankingPoints(0)
-                .build();
-
         UserDTO userDTO = UserDTO.builder()
                 .username("username873")
                 .password("password")
@@ -88,6 +73,7 @@ public class ReviewServiceIntegrationTest {
                 .rankingPoints(0)
                 .build();
         userDTO =  userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
         Review review = Review.builder()
@@ -102,13 +88,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void filter(){
-        User user = User.builder()
-                .username("username201")
-                .password("password")
-                .email("email201@yahoo.com")
-                .quizzSessions(null)
-                .rankingPoints(0)
-                .build();
         UserDTO userDTO = UserDTO.builder()
                 .username("username201")
                 .password("password")
@@ -116,6 +95,7 @@ public class ReviewServiceIntegrationTest {
                 .rankingPoints(0)
                 .build();
         userDTO =  userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
         Review review = Review.builder()
@@ -131,13 +111,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void create(){
-        User user = User.builder()
-                .username("username401")
-                .password("password")
-                .email("email401@yahoo.com")
-                .quizzSessions(null)
-                .rankingPoints(0)
-                .build();
         UserDTO userDTO = UserDTO.builder()
                 .username("username401")
                 .password("password")
@@ -145,6 +118,7 @@ public class ReviewServiceIntegrationTest {
                 .rankingPoints(0)
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
         ReviewDTO review = ReviewDTO.builder()
@@ -159,12 +133,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void edit(){
-        User user = User.builder()
-                .username("username501")
-                .password("password")
-                .email("email501@email.com")
-                .rankingPoints(0)
-                .build();
         UserDTO userDTO = UserDTO.builder()
                 .username("username501")
                 .password("password")
@@ -172,6 +140,7 @@ public class ReviewServiceIntegrationTest {
                 .rankingPoints(0)
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
         ReviewDTO review = ReviewDTO.builder()
@@ -189,12 +158,6 @@ public class ReviewServiceIntegrationTest {
 
     @Test
     void delete(){
-        User user = User.builder()
-                .username("username601")
-                .password("password")
-                .email("email601@email.com")
-                .rankingPoints(0)
-                .build();
         UserDTO userDTO = UserDTO.builder()
                 .username("username601")
                 .password("password")
@@ -202,6 +165,7 @@ public class ReviewServiceIntegrationTest {
                 .rankingPoints(0)
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
        ReviewDTO review = ReviewDTO.builder()

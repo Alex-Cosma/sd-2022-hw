@@ -1,13 +1,6 @@
 import authHeader, { BASE_URL, HTTP } from "../http";
 
 export default {
-  allQuizzSessions() {
-    return HTTP.get(BASE_URL + "/quizzSession", { headers: authHeader() }).then(
-      (response) => {
-        return response.data;
-      }
-    );
-  },
   createQuizzSession(quizzSession) {
     return HTTP.post(BASE_URL + "/quizzSession", quizzSession, {
       headers: authHeader(),

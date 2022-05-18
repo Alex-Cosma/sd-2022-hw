@@ -1,8 +1,8 @@
 package com.lab4.demo.quizzSession;
 
 import com.lab4.demo.BaseControllerTest;
-import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.quizzSession.model.dto.QuizzSessionDTO;
+import com.lab4.demo.report.ReportType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,10 +10,9 @@ import org.mockito.Mock;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.List;
-
+import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
 import static com.lab4.demo.UrlMapping.QUIZZ_SESSION;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class QuizzSessionControllerTest extends BaseControllerTest {
@@ -32,17 +31,6 @@ public class QuizzSessionControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void allQuizzSessions() throws Exception {
-        List<QuizzSessionDTO> quizzSessions = TestCreationFactory.listOf(QuizzSessionDTO.class);
-        when(quizzSessionService.findAll()).thenReturn(quizzSessions);
-
-        ResultActions response = performGet(QUIZZ_SESSION);
-
-        response.andExpect(status().isOk())
-                .andExpect(jsonContentToBe(quizzSessions));
-    }
-
-    @Test
     void create() throws Exception {
         QuizzSessionDTO reqquizz = QuizzSessionDTO.builder()
                 .score(1)
@@ -57,9 +45,12 @@ public class QuizzSessionControllerTest extends BaseControllerTest {
 
     @Test
     void exportReport() throws Exception {
-        QuizzSessionDTO reqquizz = QuizzSessionDTO.builder()
-                .score(1)
-                .build();
+        Long id = 1L;
+        String filePath = "filePath";
+        when(quizzSessionService.export(ReportType.PDF,id)).thenReturn(filePath);
+        ResultActions result = performGetWithPathVariable(QUIZZ_SESSION + EXPORT_REPORT + "/" + id,ReportType.PDF.name(),id);
+        result.andExpect(status().isOk());
+
     }
 
 }

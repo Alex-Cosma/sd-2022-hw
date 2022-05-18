@@ -8,14 +8,6 @@ export default {
       }
     );
   },
-
-  getQuizz(id) {
-    return HTTP.get(BASE_URL + "/quizz/" + id, {
-      headers: authHeader(),
-    }).then((response) => {
-      return response.data;
-    });
-  },
   createQuizz(quizz) {
     return HTTP.post(BASE_URL + "/quizz", quizz, {
       headers: authHeader(),

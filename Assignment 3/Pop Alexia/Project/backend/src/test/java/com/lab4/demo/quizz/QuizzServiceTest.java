@@ -1,6 +1,11 @@
 package com.lab4.demo.quizz;
 
 import com.lab4.demo.TestCreationFactory;
+import com.lab4.demo.answer.model.Answer;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
+import com.lab4.demo.question.QuestionMapper;
+import com.lab4.demo.question.model.Question;
+import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.quizz.model.Quizz;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -31,11 +37,14 @@ public class QuizzServiceTest {
     @Mock
     private QuizzMapper quizzMapper;
 
+    @Mock
+    private QuestionMapper questionMapper;
+
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        quizzService = new QuizzService(quizzRepository, quizzMapper);
+        quizzService = new QuizzService(quizzRepository, quizzMapper,questionMapper);
     }
 
     @Test
@@ -55,7 +64,6 @@ public class QuizzServiceTest {
                 .id(quizzes.get(0).getId())
                 .title(quizzes.get(0).getTitle())
                 .description(quizzes.get(0).getDescription())
-                .points(quizzes.get(0).getPoints())
                 .questions(null)
                 .build();
 
@@ -74,7 +82,6 @@ public class QuizzServiceTest {
                 .id(quizzes.get(0).getId())
                 .title(quizzes.get(0).getTitle())
                 .description(quizzes.get(0).getDescription())
-                .points(quizzes.get(0).getPoints())
                 .questions(null)
                 .build();
 
@@ -90,7 +97,7 @@ public class QuizzServiceTest {
     void filterQuizzes(){
         PageRequest pageRequest = PageRequest.of(0, 10);
         String filter = "a";
-        Page<Quizz> quizzes1 = new PageImpl(List.of(Quizz.builder().title("a").description("a").points(1).build()),pageRequest,10);
+        Page<Quizz> quizzes1 = new PageImpl(List.of(Quizz.builder().title("a").description("a").build()),pageRequest,10);
         when(quizzRepository.findAllByTitleLikeOrDescriptionLike("%" +filter + "%","%" + filter + "%",pageRequest)).thenReturn(quizzes1);
 
         List<QuizzDTO> all = quizzService.filterQuizzes(filter);
@@ -104,7 +111,6 @@ public class QuizzServiceTest {
                 .id(1L)
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
         when(quizzMapper.toDto(quizzRepository.save(quizzMapper.fromDto(quizz)))).thenReturn(quizz);
         QuizzDTO createdQuizz = quizzService.create(quizz);
@@ -118,13 +124,13 @@ public class QuizzServiceTest {
                 .id(id)
                 .title("a")
                 .description("a")
-                .points(1)
+                .questions(Set.of(Question.builder().id(1L).statement("a").category("a").answers(Set.of(Answer.builder().answer("aa").correct(false).build())).build()))
                 .build();
         QuizzDTO quizzDTO = QuizzDTO.builder()
                 .id(id)
                 .title("a")
                 .description("a")
-                .points(1)
+                .questions(Set.of(QuestionDTO.builder().id(1L).statement("a").category("a").answers(Set.of(AnswerDTO.builder().answer("aa").correct(false).build())).build()))
                 .build();
 
         when(quizzRepository.findById(id)).thenReturn(java.util.Optional.ofNullable(quizz));
@@ -144,7 +150,6 @@ public class QuizzServiceTest {
                 .id(id)
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
 
         when(quizzRepository.save(quizz)).thenReturn(quizz);

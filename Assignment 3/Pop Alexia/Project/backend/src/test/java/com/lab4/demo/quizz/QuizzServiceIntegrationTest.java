@@ -1,6 +1,10 @@
 package com.lab4.demo.quizz;
 
 import com.lab4.demo.TestCreationFactory;
+import com.lab4.demo.answer.AnswerService;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
+import com.lab4.demo.question.QuestionService;
+import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.quizz.model.Quizz;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.lab4.demo.TestCreationFactory.randomLong;
 
@@ -21,6 +26,12 @@ public class QuizzServiceIntegrationTest {
 
     @Autowired
     private QuizzRepository quizzRepository;
+
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private AnswerService answerService;
 
     @BeforeEach
     void setUp() {
@@ -42,13 +53,11 @@ public class QuizzServiceIntegrationTest {
         Quizz quizz1 = Quizz.builder()
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
 
         Quizz quizz2 = Quizz.builder()
                 .title("w")
                 .description("w")
-                .points(1)
                 .build();
 
         quizzRepository.saveAll(List.of(quizz1, quizz2));
@@ -64,7 +73,6 @@ public class QuizzServiceIntegrationTest {
                 .id(1L)
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
         quizz = quizzRepository.save(quizz);
         Quizz foundQuizz = quizzService.findById(quizz.getId());
@@ -75,7 +83,6 @@ public class QuizzServiceIntegrationTest {
         Quizz quizz = Quizz.builder()
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
         quizz = quizzRepository.save(quizz);
         QuizzDTO quizzDTO = quizzService.findByQuizzTitle("a");
@@ -87,7 +94,6 @@ public class QuizzServiceIntegrationTest {
         QuizzDTO quizz = QuizzDTO.builder()
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
         quizz = quizzService.create(quizz);
         Assertions.assertTrue(quizzRepository.findById(quizz.getId()).isPresent());
@@ -95,11 +101,27 @@ public class QuizzServiceIntegrationTest {
 
     @Test
     void edit() {
+
+        QuestionDTO question = QuestionDTO.builder()
+                .statement("a")
+                .category("a")
+                .answers(null)
+                .build();
+        question = questionService.create(question);
+
+        AnswerDTO answerDTO = AnswerDTO.builder()
+                .answer("a")
+                .correct(true)
+                .questionId(question.getId())
+                .build();
+        answerDTO = answerService.create(answerDTO);
+        question.setAnswers(Set.of(answerDTO));
+
         QuizzDTO quizz = QuizzDTO.builder()
                 .id(randomLong())
                 .title("a")
                 .description("a")
-                .points(1)
+                .questions(Set.of(question))
                 .build();
         quizz = quizzService.create(quizz);
         quizz.setTitle("otherstring");
@@ -114,7 +136,6 @@ public class QuizzServiceIntegrationTest {
         QuizzDTO quizz = QuizzDTO.builder()
                 .title("a")
                 .description("a")
-                .points(1)
                 .build();
         quizz = quizzService.create(quizz);
         quizzService.delete(quizz.getId());

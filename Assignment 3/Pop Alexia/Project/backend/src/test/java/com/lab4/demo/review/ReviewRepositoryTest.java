@@ -60,7 +60,6 @@ public class ReviewRepositoryTest {
     @Test
     public void findById() {
         Review review = repository.save(Review.builder()
-                .id(1L)
                 .text("aa")
                 .rating("aa")
                 .user(null)
@@ -88,7 +87,6 @@ public class ReviewRepositoryTest {
     @Test
     public void edit(){
         Review review = repository.save(Review.builder()
-                .id(1L)
                 .text("aa")
                 .rating("aa")
                 .user(null)

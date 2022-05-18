@@ -45,40 +45,26 @@ public class QuizzSessionRepositoryTest {
 
     @Test
     public void findAll() {
-        User user = User.builder()
-                .username("newUser")
-                .password("password")
-                .email("newUser@email.com")
-                .build();
-
         UserDTO userDTO = UserDTO.builder()
                 .username("newUser")
                 .password("password")
                 .email("newUser@email.com")
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
-        Quizz quizz = Quizz.builder()
-                .id(1L)
-                .description("description")
-                .points(1)
-                .questions(null)
-                .title("title")
-                .build();
-
         QuizzDTO quizzDTO = QuizzDTO.builder()
-                .id(1L)
                 .description("description")
-                .points(1)
                 .questions(null)
                 .title("title")
                 .build();
 
         quizzDTO = quizzService.create(quizzDTO);
+        Quizz quizz = quizzService.findById(quizzDTO.getId());
         quizz.setId(quizzDTO.getId());
-        QuizzSession quizzSaved = repository.save(QuizzSession.builder()
-                .id(1L)
+
+        repository.save(QuizzSession.builder()
                 .quizz(quizz)
                 .answerSequence(null)
                 .user(user)
@@ -90,39 +76,25 @@ public class QuizzSessionRepositoryTest {
 
     @Test
     public void findById() {
-        User user = User.builder()
-                .username("newUser2")
-                .password("password")
-                .email("newUser2@email.com")
-                .build();
-
         UserDTO userDTO = UserDTO.builder()
                 .username("newUser2")
                 .password("password")
                 .email("newUser2@email.com")
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
-        Quizz quizz = Quizz.builder()
-                 .id(1L)
-                .description("description")
-                .points(1)
-                .questions(null)
-                .title("title")
-                .build();
-
         QuizzDTO quizzDTO = QuizzDTO.builder()
-                .id(1L)
                 .description("description")
-                .points(1)
                 .questions(null)
                 .title("title")
                 .build();
         quizzDTO = quizzService.create(quizzDTO);
+        Quizz quizz = quizzService.findById(quizzDTO.getId());
         quizz.setId(quizzDTO.getId());
+
         QuizzSession quizzSaved = repository.save(QuizzSession.builder()
-                .id(1L)
                 .quizz(quizz)
                 .answerSequence(null)
                 .user(user)
@@ -135,48 +107,33 @@ public class QuizzSessionRepositoryTest {
 
     @Test
     public void create() {
-        User user = User.builder()
-                .username("username10")
-                .password("password")
-                .email("email10@email.com")
-                .build();
-
         UserDTO userDTO = UserDTO.builder()
                 .username("username10")
                 .password("password")
                 .email("email10@email.com")
                 .build();
         userDTO = userService.create(userDTO);
+        User user = userService.findById(userDTO.getId());
         user.setId(userDTO.getId());
 
-        Quizz quizz = Quizz.builder()
-                .id(1L)
-                .description("description")
-                .points(1)
-                .questions(null)
-                .title("title")
-                .build();
-
         QuizzDTO quizzDTO = QuizzDTO.builder()
-                .id(1L)
                 .description("description")
-                .points(1)
                 .questions(null)
                 .title("title")
                 .build();
-
       quizzDTO = quizzService.create(quizzDTO);
+      Quizz quizz = quizzService.findById(quizzDTO.getId());
       quizz.setId(quizzDTO.getId());
-        QuizzSession quizzSaved = repository.save(QuizzSession.builder()
-                .id(1L)
+
+      QuizzSession quizzSaved = repository.save(QuizzSession.builder()
                 .quizz(quizz)
                 .answerSequence(null)
                 .user(user)
                 .score(1)
                 .build());
 
-        assertNotNull(quizzSaved);
-        assertEquals(1,repository.findAll().size());
+      assertNotNull(quizzSaved);
+      assertEquals(1,repository.findAll().size());
     }
 
 }

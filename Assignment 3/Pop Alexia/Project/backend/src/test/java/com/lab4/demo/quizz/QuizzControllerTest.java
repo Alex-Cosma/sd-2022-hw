@@ -51,13 +51,11 @@ public class QuizzControllerTest extends BaseControllerTest {
                 .id(randomLong())
                 .title("ww")
                 .description("ww")
-                .points(1)
                 .build();
         QuizzDTO quizzDTO2 = QuizzDTO.builder()
                 .id(randomLong())
                 .title("aa")
                 .description("aa")
-                .points(1)
                 .build();
 
         List<QuizzDTO> filteredQuizzes = List.of(quizzDTO2);
@@ -83,7 +81,6 @@ public class QuizzControllerTest extends BaseControllerTest {
         QuizzDTO reqquizz = QuizzDTO.builder()
                 .title("ww")
                 .description("ww")
-                .points(1)
                 .build();
 
         when(quizzService.create(reqquizz)).thenReturn(reqquizz);
@@ -100,14 +97,12 @@ public class QuizzControllerTest extends BaseControllerTest {
                 .id(randomLong())
                 .title("aaaa")
                 .description("aaaaa")
-                .points(1)
                 .build();
 
         Quizz quizz = Quizz.builder()
                 .id(reqquizz.getId())
                 .title("aaaa")
                 .description("aaaaa")
-                .points(1)
                 .build();
 
         when(quizzService.create(reqquizz)).thenReturn(reqquizz);
@@ -131,7 +126,6 @@ public class QuizzControllerTest extends BaseControllerTest {
                 .id(randomLong())
                 .title("ww")
                 .description("ww")
-                .points(1)
                 .build();
 
         when(quizzService.create(reqquizz)).thenReturn(reqquizz);

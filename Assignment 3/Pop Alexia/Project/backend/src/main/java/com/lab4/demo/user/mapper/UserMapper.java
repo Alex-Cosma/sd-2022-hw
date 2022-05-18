@@ -15,7 +15,9 @@ public interface UserMapper {
     UserDTO toDto(User user);
 
     @Mappings({
-            @Mapping(target = "roles", ignore = true)
+            @Mapping(target = "roles", ignore = true),
+            @Mapping(target = "quizzSessions", ignore = true),
+            @Mapping(target = "reviews", ignore = true)
     })
     User fromDto(UserDTO userDTO);
 

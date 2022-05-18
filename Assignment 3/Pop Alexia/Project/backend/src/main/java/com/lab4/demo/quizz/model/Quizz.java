@@ -42,6 +42,4 @@ public class Quizz {
     @OneToMany(mappedBy = "quizz",cascade = CascadeType.PERSIST)
     private Collection<QuizzSession> quizzSessions;
 
-    @NotNull
-    private Integer points;
 }

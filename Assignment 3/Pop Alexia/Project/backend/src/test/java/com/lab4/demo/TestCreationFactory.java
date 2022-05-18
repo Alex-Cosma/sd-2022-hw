@@ -1,6 +1,7 @@
 package com.lab4.demo;
 
 import com.lab4.demo.answer.model.Answer;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
 import com.lab4.demo.question.model.Question;
 import com.lab4.demo.question.model.dto.QuestionDTO;
 import com.lab4.demo.quizz.model.Quizz;
@@ -14,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,6 +35,10 @@ public class TestCreationFactory {
 
         if(cls.equals(User.class)){
             supplier = TestCreationFactory::newUser;
+        }else if(cls.equals(Answer.class)){
+            supplier = TestCreationFactory::newAnswer;
+        }else if(cls.equals(AnswerDTO.class)){
+            supplier = TestCreationFactory::newAnswerDTO;
         }else if (cls.equals(Question.class)) {
             supplier = TestCreationFactory::newQuestion;
         } else if (cls.equals(QuestionDTO.class)) {
@@ -69,12 +73,28 @@ public class TestCreationFactory {
                 .build();
     }
 
+    private static Answer newAnswer(){
+        return Answer.builder()
+                .id(randomLong())
+                .answer(randomString())
+                .correct(randomBoolean())
+                .build();
+    }
+
+    private static AnswerDTO newAnswerDTO(){
+        return AnswerDTO.builder()
+                .id(randomLong())
+                .answer(randomString())
+                .correct(randomBoolean())
+                .build();
+    }
+
     private static Question newQuestion() {
         return Question.builder()
                 .id(randomLong())
                 .statement(randomString())
                 .category(randomString())
-                .answers(Set.of(Answer.builder().answer(randomString()).correct(false).build()))
+                .answers(null)
                 .build();
     }
 
@@ -83,7 +103,7 @@ public class TestCreationFactory {
                 .id(randomLong())
                 .statement(randomString())
                 .category(randomString())
-                .answers(Set.of(Answer.builder().answer(randomString()).correct(false).build()))
+                .answers(null)
                 .build();
     }
 
@@ -93,7 +113,6 @@ public class TestCreationFactory {
                 .title(randomString())
                 .description(randomString())
                 .questions(null)
-                .points(1)
                 .build();
     }
 
@@ -103,7 +122,6 @@ public class TestCreationFactory {
                 .title(randomString())
                 .description(randomString())
                 .questions(null)
-                .points(1)
                 .build();
     }
 

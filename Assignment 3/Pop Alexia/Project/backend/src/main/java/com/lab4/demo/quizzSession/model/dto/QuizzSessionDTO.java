@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -21,7 +20,4 @@ public class QuizzSessionDTO {
     private Integer score;
     private Long userId;
 
-    public String toString(){
-        return id + "," + quizzId +"," + answerSequence.stream().map(Answer::toString).collect(Collectors.toList()) +","+ score ;
-    }
 }

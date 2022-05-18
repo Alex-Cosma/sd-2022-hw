@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -43,7 +42,6 @@ public class User {
     private String email;
 
     @Size(min = 6 , message = "Password must be at least 6 characters long")
-    @Value("noedit")
     @Column(nullable = false, length = 120)
     private String password;
 
@@ -54,7 +52,7 @@ public class User {
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST,orphanRemoval = true)
     private Collection<QuizzSession> quizzSessions;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST,orphanRemoval = true)

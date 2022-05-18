@@ -8,14 +8,6 @@ export default {
       }
     );
   },
-
-  getQuestion(id) {
-    return HTTP.get(BASE_URL + "/question/" + id, {
-      headers: authHeader(),
-    }).then((response) => {
-      return response.data;
-    });
-  },
   createQuestion(question) {
     return HTTP.post(BASE_URL + "/question", question, {
       headers: authHeader(),

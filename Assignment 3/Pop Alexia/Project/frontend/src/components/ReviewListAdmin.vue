@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers"
       :items="reviews"
-      @click:row = "onClick"
+      @click:row="onClick"
       @refresh="refreshList"
     ></v-data-table>
     <ReviewDialogAdmin
