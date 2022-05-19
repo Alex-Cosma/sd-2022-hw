@@ -23,8 +23,8 @@ public class GroupController {
 
     @CrossOrigin
     @PatchMapping(ENTITY)
-    public GroupDto addUser(@PathVariable Long id ,@RequestBody UserListDto userListDto) {
-        return groupService.addUser(id,userListDto);
+    public GroupDto addUser(@PathVariable Long id ,@RequestBody GroupDto groupDto) {
+        return groupService.addUser(id,groupDto);
     }
 
     @CrossOrigin

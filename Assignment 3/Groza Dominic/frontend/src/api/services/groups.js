@@ -10,9 +10,9 @@ export default {
             }
         );
     },
-    addUser(group_id) {
+    addUser(group) {
         const user = JSON.parse(localStorage.getItem("user"));
-        return HTTP.patch(BASE_URL + "/groups/" +group_id, user, {headers: authHeader()}).then(
+        return HTTP.patch(BASE_URL + "/groups/" +user.id, group, {headers: authHeader()}).then(
             (response) => {
                 console.log(response.data);
                 return response.data;

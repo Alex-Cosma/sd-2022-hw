@@ -81,6 +81,9 @@ public class UserService {
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setUsername(user.getUsername());
+        System.out.println(user.getGroups()+"GROUPS USER");
+        userToUpdate.setGroups(user.getGroups());
+        System.out.println(userToUpdate.getGroups()+"RGOUPS"+user.getGroups());
         return userMapper.userListDtoFromUser(userRepository.save(userToUpdate));
     }
 

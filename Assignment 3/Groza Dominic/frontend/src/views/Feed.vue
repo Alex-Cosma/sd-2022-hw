@@ -54,7 +54,7 @@
           <td>{{ row.item.name }}</td>
           <td>{{ row.item.users.length}}</td>
           <td v-if="!row.item.users.includes(user)">
-            <v-btn depressed @click="enterGroup(row.item.id)" style="margin-right:2em" color="green">Join Group</v-btn>
+            <v-btn depressed @click="enterGroup(row.item)" style="margin-right:2em" color="green">Join Group</v-btn>
           </td>
         </tr>
       </template>
@@ -114,8 +114,8 @@ export default {
       this.groups = (await api.groups.allGroups());
       console.log(this.posts);
     },
-    enterGroup(groupId) {
-      api.groups.addUser(groupId)
+    enterGroup(group) {
+      api.groups.addUser(group)
           .then(() => this.refreshList());
     },
     // generateReportPDF() {
