@@ -10,6 +10,7 @@ import com.example.demo.userreview.model.dto.UserReviewDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -23,7 +24,7 @@ class UserReviewServiceTest {
     @Mock
     private UserReviewRepository userReviewRepository;
 
-    @Mock
+    @InjectMocks
     private UserReviewService userReviewService;
 
     @Mock
@@ -48,14 +49,14 @@ class UserReviewServiceTest {
 
     @Test
     void convertReview() {
-//        BookReviewDTO bookReviewDTO = TestCreationFactory.newBookReviewDTO();
-//        UserReviewDTO userReviewDTO = TestCreationFactory.newUserReviewDTO();
-//        when(userReviewService.convertReview(bookReviewDTO)).thenReturn(userReviewDTO);
-//
-//        userReviewDTO = userReviewService.convertReview(bookReviewDTO);
-//
-//        assertEquals(bookReviewDTO.getRating(), userReviewDTO.getRating());
-//        assertEquals(bookReviewDTO.getText(), userReviewDTO.getText());
+        BookReviewDTO bookReviewDTO = TestCreationFactory.newBookReviewDTO();
+        UserReviewDTO userReviewDTO = TestCreationFactory.newUserReviewDTO();
+        when(userReviewService.convertReview(bookReviewDTO)).thenReturn(userReviewDTO);
+
+        userReviewDTO = userReviewService.convertReview(bookReviewDTO);
+
+        assertEquals(bookReviewDTO.getRating(), userReviewDTO.getRating());
+        assertEquals(bookReviewDTO.getText(), userReviewDTO.getText());
     }
 
     @Test
