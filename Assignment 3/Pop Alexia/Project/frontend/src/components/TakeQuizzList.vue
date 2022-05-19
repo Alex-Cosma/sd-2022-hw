@@ -47,7 +47,6 @@ export default {
           value: "title",
         },
         { text: "Description", value: "description" },
-        { text: "Points", value: "points" },
       ],
       quizzDialogVisible: false,
       selectedQuizz: {},

@@ -16,13 +16,13 @@ import java.util.Collection;
 public class QuestionDTO {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Question cannot be null")
     private String statement;
 
     @NotNull
     private Collection<AnswerDTO> answers;
 
-    @NotNull
+    @NotNull(message = "Category cannot be null")
     private String category;
 
 }

@@ -38,7 +38,6 @@ public class AnswerControllerTest extends BaseControllerTest {
                 .build();
 
         when(answerService.create(reqAnswer)).thenReturn(reqAnswer);
-
         ResultActions result = performPostWithRequestBody(ANSWER, reqAnswer);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqAnswer));
@@ -79,6 +78,7 @@ public class AnswerControllerTest extends BaseControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqAnswer));
 
+        when(answerService.findById(reqAnswer.getId())).thenReturn(reqAnswer);
         doNothing().when(answerService).delete(reqAnswer.getId());
 
         ResultActions result2 = performDeleteWithPathVariable(ANSWER +"/{id}", reqAnswer.getId());

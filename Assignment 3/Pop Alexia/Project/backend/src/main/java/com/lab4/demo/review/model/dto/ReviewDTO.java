@@ -14,10 +14,10 @@ import javax.validation.constraints.NotNull;
 public class ReviewDTO {
 
     private Long id;
-    @NotNull
+    @NotNull(message = "Text cannot be null")
     private String text;
     private String reviewer;
-    @NotNull
+    @NotNull(message = "Rating cannot be null")
     private String rating;
 
 }

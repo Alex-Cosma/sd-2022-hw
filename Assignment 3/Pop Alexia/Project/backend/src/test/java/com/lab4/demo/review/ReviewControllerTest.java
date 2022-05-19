@@ -130,6 +130,7 @@ public class ReviewControllerTest extends BaseControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqReview));
 
+        when(reviewService.findById(reqReview.getId())).thenReturn(reqReview);
         doNothing().when(reviewService).delete(reqReview.getId());
 
         ResultActions result2 = performDeleteWithPathVariable(REVIEW +"/{id}", reqReview.getId());

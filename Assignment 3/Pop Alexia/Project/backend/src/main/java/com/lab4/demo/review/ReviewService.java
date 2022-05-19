@@ -1,6 +1,5 @@
 package com.lab4.demo.review;
 
-import com.lab4.demo.answer.model.dto.AnswerDTO;
 import com.lab4.demo.review.model.Review;
 import com.lab4.demo.review.model.dto.ReviewDTO;
 import com.lab4.demo.user.UserService;
@@ -9,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,16 +33,16 @@ public class ReviewService {
     }
 
     public ReviewDTO findById(Long id) {
-        return reviewMapper.toDto(reviewRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Question not found: " + id)));
+        return reviewMapper.toDto(reviewRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Review not found: " + id)));
     }
 
-    public ReviewDTO create(ReviewDTO reviewDTO) {
+    public ReviewDTO create(ReviewDTO reviewDTO) throws ConstraintViolationException {
         Review entity = reviewMapper.fromDto(reviewDTO);
         entity.setUser(userService.findByEmail(reviewDTO.getReviewer()));
         return reviewMapper.toDto(reviewRepository.save(entity));
     }
 
-    public ReviewDTO edit(Long id, ReviewDTO reviewDTO) {
+    public ReviewDTO edit(Long id, ReviewDTO reviewDTO) throws ConstraintViolationException {
         Review actReview = reviewRepository.findById(id).get();
         actReview.setRating(reviewDTO.getRating());
         actReview.setText(reviewDTO.getText());

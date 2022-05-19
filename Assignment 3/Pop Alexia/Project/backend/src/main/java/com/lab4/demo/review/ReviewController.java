@@ -4,7 +4,6 @@ import com.lab4.demo.review.model.dto.ReviewDTO;
 import com.lab4.demo.security.dto.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
@@ -30,32 +29,28 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody ReviewDTO reviewDTO) {
-        return ResponseEntity.ok().body(reviewService.create(reviewDTO));
+        try {
+            return ResponseEntity.ok().body(reviewService.create(reviewDTO));
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getConstraintViolations().iterator().next().getMessage()));
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> edit(@PathVariable Long id , @RequestBody ReviewDTO reviewDTO) {
-        reviewService.edit(id, reviewDTO);
-        return ResponseEntity.ok(new MessageResponse("Review edited successfully"));
+        try {
+            reviewService.edit(id, reviewDTO);
+            return ResponseEntity.ok(new MessageResponse("Review edited successfully"));
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getConstraintViolations().iterator().next().getMessage()));
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        if(reviewService.findById(id) == null)
+            return ResponseEntity.badRequest().body(new MessageResponse("Review not found"));
         reviewService.delete(id);
         return ResponseEntity.ok(new MessageResponse("Review deleted successfully"));
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getBindingResult().getFieldError().getDefaultMessage()));
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getMessage()));
     }
 }

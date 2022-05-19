@@ -17,10 +17,10 @@ public class QuizzDTO {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Title cannot be null")
     private String title;
 
-    @NotNull
+    @NotNull(message = "Description cannot be null")
     private String description;
 
     @NotNull

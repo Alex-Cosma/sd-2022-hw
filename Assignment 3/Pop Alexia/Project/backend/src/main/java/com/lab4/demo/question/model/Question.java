@@ -21,14 +21,14 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Question cannot be null")
     @Column(length = 512, nullable = false)
     private String statement;
 
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<Answer> answers;
 
-    @NotNull
+    @NotNull(message = "Category cannot be null")
     @Column(length = 1024)
     private String category;
 

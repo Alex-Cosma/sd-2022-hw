@@ -13,7 +13,6 @@ import com.lab4.demo.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,18 +20,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class QuizzSessionService {
+
     private final QuizzSessionRepository quizzSessionRepository;
     private final QuizzSessionMapper quizzSessionMapper;
     private final ReportServiceFactory reportServiceFactory;
     private final UserService userService;
     private final QuizzService quizzService;
     private final QuizzMapper quizzMapper;
-
-
-    public QuizzSessionDTO findById(Long id) {
-        return quizzSessionMapper.toDto(quizzSessionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Question not found: " + id)));
-    }
 
     public List<QuizzSessionDTO> findAll() {
         return quizzSessionRepository.findAll().stream()

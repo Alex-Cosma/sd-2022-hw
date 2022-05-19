@@ -5,12 +5,10 @@ import com.lab4.demo.security.dto.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.Set;
 
 import static com.lab4.demo.UrlMapping.QUESTION;
 
@@ -32,25 +30,34 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<?> create( @RequestBody QuestionDTO questionDTO) {
-        if(questionService.findByQuestionName(questionDTO.getStatement())!=null){
-          throw new ConstraintViolationException("This question already exists", Set.of());
+        if(questionService.findByQuestionName(questionDTO.getStatement())!=null)
+          return ResponseEntity.badRequest().body(new MessageResponse("This question already exists"));
+        try {
+            return ResponseEntity.ok().body(questionService.create(questionDTO));
+        }catch(ConstraintViolationException e){
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getConstraintViolations().iterator().next().getMessage()));
         }
-        return ResponseEntity.ok().body(questionService.create(questionDTO));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> edit(@PathVariable Long id ,  @RequestBody QuestionDTO questionDTO) {
         if(!questionService.findById(id).getStatement().equals(questionDTO.getStatement())) {
            if(questionService.findByQuestionName(questionDTO.getStatement())!=null){
-               throw new ConstraintViolationException("This question already exists", Set.of());
+               return ResponseEntity.badRequest().body(new MessageResponse("This question already exists"));
            }
         }
-        questionService.edit(id, questionDTO);
-        return ResponseEntity.ok(new MessageResponse("Question edited successfully"));
+        try {
+            questionService.edit(id, questionDTO);
+            return ResponseEntity.ok(new MessageResponse("Question edited successfully"));
+        }catch(ConstraintViolationException e){
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getConstraintViolations().iterator().next().getMessage()));
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        if(questionService.findById(id) == null)
+            return ResponseEntity.badRequest().body(new MessageResponse("Question not found"));
         try {
             questionService.delete(id);
             return ResponseEntity.ok(new MessageResponse("Question deleted successfully"));
@@ -58,19 +65,5 @@ public class QuestionController {
             return ResponseEntity.badRequest().body(new MessageResponse("Question can't be deleted , it is part of a quizz"));
         }
 
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getBindingResult().getFieldError().getDefaultMessage()));
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getMessage()));
     }
 }

@@ -19,7 +19,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Answer is null")
+    @NotNull(message = "Answer cannot be null")
     @Column(length = 1024)
     private String answer;
 

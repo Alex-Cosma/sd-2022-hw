@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public UserDTO create(UserDTO userDTO) {
+    public UserDTO create(UserDTO userDTO) throws ConstraintViolationException {
         User actUser = userMapper.fromDto(userDTO);
         actUser.setPassword(passwordEncoder.encode(actUser.getPassword()));
         Role r = roleRepository.findByName(ERole.CLIENT).orElseThrow(() -> new EntityNotFoundException("Role not found: " + ERole.CLIENT));
@@ -59,7 +60,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDTO edit(Long id,UserDTO userDTO) {
+    public UserDTO edit(Long id,UserDTO userDTO) throws ConstraintViolationException {
         User actUser = userRepository.findById(id).get();
         actUser.setUsername(userDTO.getUsername());
         actUser.setEmail(userDTO.getEmail());

@@ -24,11 +24,11 @@ public class Quizz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Title cannot be null")
     @Column(length = 512, nullable = false)
     private String title;
 
-    @NotNull
+    @NotNull(message = "Description cannot be null")
     @Column(length = 512, nullable = false)
     private String description;
 

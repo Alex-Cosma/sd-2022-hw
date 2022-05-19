@@ -15,7 +15,7 @@ public class AnswerDTO {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Answer cannot be null")
     private String answer;
 
     @NotNull

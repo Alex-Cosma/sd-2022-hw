@@ -51,6 +51,10 @@ public class QuizzSessionControllerTest extends BaseControllerTest {
         ResultActions result = performGetWithPathVariable(QUIZZ_SESSION + EXPORT_REPORT + "/" + id,ReportType.PDF.name(),id);
         result.andExpect(status().isOk());
 
+        when(quizzSessionService.export(ReportType.DOCX,id)).thenReturn(filePath);
+        ResultActions result2 = performGetWithPathVariable(QUIZZ_SESSION + EXPORT_REPORT + "/" + id,ReportType.DOCX.name(),id);
+        result2.andExpect(status().isOk());
+
     }
 
 }

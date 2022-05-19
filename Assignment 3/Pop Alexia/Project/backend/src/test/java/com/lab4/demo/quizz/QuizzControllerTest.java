@@ -128,11 +128,18 @@ public class QuizzControllerTest extends BaseControllerTest {
                 .description("ww")
                 .build();
 
+        Quizz quizz = Quizz.builder()
+                .id(reqquizz.getId())
+                .title("ww")
+                .description("ww")
+                .build();
+
         when(quizzService.create(reqquizz)).thenReturn(reqquizz);
         ResultActions result = performPostWithRequestBody(QUIZZ, reqquizz);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqquizz));
 
+        when(quizzService.findById(reqquizz.getId())).thenReturn(quizz);
         doNothing().when(quizzService).delete(reqquizz.getId());
 
         ResultActions result2 = performDeleteWithPathVariable(QUIZZ +"/{id}", reqquizz.getId());

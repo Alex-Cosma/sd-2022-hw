@@ -32,7 +32,7 @@ public class User {
     private Long id;
 
     @Size(min = 4, message = "Username must be at least 4 characters long")
-    @NotNull
+    @NotNull(message = "Username cannot be null")
     @Column(nullable = false, length = 20)
     private String username;
 

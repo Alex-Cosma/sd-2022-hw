@@ -2,15 +2,12 @@ package com.lab4.demo.quizzSession;
 
 import com.lab4.demo.quizzSession.model.dto.QuizzSessionDTO;
 import com.lab4.demo.report.ReportType;
-import com.lab4.demo.security.dto.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -38,19 +35,5 @@ public class QuizzSessionController {
             e.printStackTrace();
         }
         return ResponseEntity.ok().body(resource);
-    }
-
-        @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getBindingResult().getFieldError().getDefaultMessage()));
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse(e.getMessage()));
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.lab4.demo.UrlMapping.EMAIL;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class MailSenderControllerTest extends BaseControllerTest {
@@ -28,6 +29,7 @@ public class MailSenderControllerTest extends BaseControllerTest {
 
     @Test
     void sendMail() throws Exception {
+        when(emailService.sendMail("p70987742@gmail.com")).thenReturn("Email sent");
         ResultActions response = performGet(EMAIL);
         response.andExpect(status().isOk());
     }

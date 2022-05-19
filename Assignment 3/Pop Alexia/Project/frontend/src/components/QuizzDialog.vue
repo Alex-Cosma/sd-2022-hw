@@ -92,7 +92,7 @@ export default {
 
     persist: function () {
       this.showAlert = false;
-      this.errors = [];
+      this.errorMessage = [];
       if (this.isNew) {
         this.connectAndSendNotification(this.quizz.title);
         api.quizzes

@@ -7,6 +7,7 @@ import com.lab4.demo.quizz.model.Quizz;
 import com.lab4.demo.quizz.model.dto.QuizzDTO;
 import com.lab4.demo.quizzSession.model.QuizzSession;
 import com.lab4.demo.quizzSession.model.dto.QuizzSessionDTO;
+import com.lab4.demo.report.DOCXReportService;
 import com.lab4.demo.report.PdfReportService;
 import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.report.ReportType;
@@ -22,7 +23,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -55,6 +55,9 @@ public class QuizzSessionServiceTest {
     @Mock
     private PdfReportService pdfReportService;
 
+    @Mock
+    private DOCXReportService docxReportService;
+
 
     @BeforeEach
     void setUp() {
@@ -72,21 +75,6 @@ public class QuizzSessionServiceTest {
         assertEquals(quizzSessions.size(), all.size());
     }
 
-    @Test
-    void findById(){
-        List<QuizzSession> quizzSessions = TestCreationFactory.listOf(QuizzSession.class);
-        QuizzSessionDTO q = QuizzSessionDTO.builder()
-                .id(quizzSessions.get(0).getId())
-                .score(quizzSessions.get(0).getScore())
-                .build();
-
-        when(quizzSessionRepository.findById(quizzSessions.get(0).getId())).thenReturn(Optional.of(quizzSessions.get(0)));
-        when(quizzSessionMapper.toDto(quizzSessions.get(0))).thenReturn(q);
-
-        QuizzSessionDTO q1 = quizzSessionService.findById(quizzSessions.get(0).getId());
-
-        assertEquals(q1.getId(),quizzSessions.get(0).getId());
-    }
     @Test
     void create(){
         User user = User.builder()
@@ -117,6 +105,7 @@ public class QuizzSessionServiceTest {
     void export(){
 
         String filePath = "src/report.pdf";
+        String filePath2 = "src/report.docx";
         User user = User.builder()
                 .id(1L)
                 .username("user")
@@ -142,8 +131,11 @@ public class QuizzSessionServiceTest {
         when(quizzSessionService.findAll().stream().filter(q -> q.getUserId().equals(user.getId())).collect(Collectors.toList())).thenReturn(quizzSessions);
         when(quizzService.findAll().stream().filter(q->q.getId().equals(quizzSessions.get(0).getQuizzId())).collect(Collectors.toList())).thenReturn(quizzes);
         when(reportServiceFactory.getReportService(ReportType.PDF)).thenReturn(pdfReportService);
+        when(reportServiceFactory.getReportService(ReportType.DOCX)).thenReturn(docxReportService);
         when(reportServiceFactory.getReportService(ReportType.PDF).export(quizzSessions,quizzes)).thenReturn("src/report.pdf");
+        when(reportServiceFactory.getReportService(ReportType.DOCX).export(quizzSessions,quizzes)).thenReturn("src/report.docx");
 
         Assertions.assertEquals(quizzSessionService.export(ReportType.PDF,user.getId()),filePath);
+        Assertions.assertEquals(quizzSessionService.export(ReportType.DOCX,user.getId()),filePath2);
     }
 }

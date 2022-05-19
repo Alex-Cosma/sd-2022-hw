@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +41,11 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
-    public QuestionDTO create(QuestionDTO question) {
+    public QuestionDTO create(QuestionDTO question) throws ConstraintViolationException {
         return questionMapper.toDto(questionRepository.save(questionMapper.fromDto(question)));
     }
 
-    public QuestionDTO edit(Long id, QuestionDTO question) {
+    public QuestionDTO edit(Long id, QuestionDTO question) throws ConstraintViolationException {
         Question actQuestion = questionRepository.findById(id).get();
         actQuestion.setStatement(question.getStatement());
         actQuestion.setCategory(question.getCategory());

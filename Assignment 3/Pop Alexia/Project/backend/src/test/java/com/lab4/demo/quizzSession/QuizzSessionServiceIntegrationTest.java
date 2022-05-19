@@ -82,39 +82,6 @@ public class QuizzSessionServiceIntegrationTest {
     }
 
     @Test
-    void findById(){
-        UserDTO userDTO = UserDTO.builder()
-                .username("username3")
-                .password("password")
-                .email("email3@yahoo.com")
-                .rankingPoints(0)
-                .build();
-        QuizzDTO quizzDTO = QuizzDTO.builder()
-                .id(1L)
-                .title("title")
-                .description("description")
-                .build();
-        userDTO =  userService.create(userDTO);
-        User user = userService.findById(userDTO.getId());
-        user.setId(userDTO.getId());
-
-        quizzDTO =  quizzService.create(quizzDTO);
-        Quizz quizz = quizzService.findById(quizzDTO.getId());
-        quizz.setId(quizzDTO.getId());
-
-        QuizzSession quizzSession = QuizzSession.builder()
-                .score(1)
-                .user(user)
-                .quizz(quizz)
-                .answerSequence(null)
-                .build();
-
-        quizzSession = quizzSessionRepository.save(quizzSession);
-        QuizzSessionDTO quizzSessionDTO = quizzSessionService.findById(quizzSession.getId());
-        Assertions.assertEquals(quizzSession.getId(), quizzSessionDTO.getId());
-    }
-
-    @Test
     void create(){
         UserDTO user = UserDTO.builder()
                 .username("username2")
@@ -170,6 +137,9 @@ public class QuizzSessionServiceIntegrationTest {
 
         String filePath = quizzSessionService.export(ReportType.PDF, user.getId());
         Assertions.assertTrue(filePath.contains("report.pdf"));
+
+        String filePath2 = quizzSessionService.export(ReportType.DOCX, user.getId());
+        Assertions.assertTrue(filePath2.contains("report.docx"));
     }
 
 }

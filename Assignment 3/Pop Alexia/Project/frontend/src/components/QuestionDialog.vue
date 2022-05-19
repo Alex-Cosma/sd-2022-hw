@@ -87,9 +87,9 @@ export default {
             this.errors = err.response.data.message;
           })
           .then((response) => {
-            this.createdQuestion = response;
-            this.showCreateAnswersDialog = true;
             if (this.errors.length === 0) {
+              this.createdQuestion = response;
+              this.showCreateAnswersDialog = true;
               this.showAlert = false;
             }
           });

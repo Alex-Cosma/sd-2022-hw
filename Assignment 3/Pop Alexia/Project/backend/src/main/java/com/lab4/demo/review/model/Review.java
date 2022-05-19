@@ -20,10 +20,10 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Text cannot be null")
     private String text;
 
-    @NotNull
+    @NotNull(message = "Rating cannot be null")
     private String rating;
 
     @ManyToOne

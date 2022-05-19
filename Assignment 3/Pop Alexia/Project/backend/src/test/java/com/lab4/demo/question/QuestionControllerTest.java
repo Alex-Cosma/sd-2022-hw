@@ -129,6 +129,7 @@ class QuestionControllerTest extends BaseControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqQuestion));
 
+        when(questionService.findById(reqQuestion.getId())).thenReturn(reqQuestion);
         doNothing().when(questionService).delete(reqQuestion.getId());
 
         ResultActions result2 = performDeleteWithPathVariable(QUESTION +"/{id}", reqQuestion.getId());
