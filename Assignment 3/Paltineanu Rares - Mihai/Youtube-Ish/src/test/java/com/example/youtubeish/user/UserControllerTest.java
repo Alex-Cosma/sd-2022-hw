@@ -40,7 +40,7 @@ public class UserControllerTest extends BaseControllerTest {
     @Test
     void allUsers() throws Exception {
         List<UserDTO> userListDTOs = TestCreationFactory.listOf(UserDTO.class);
-        when(userService.allUsersDto()).thenReturn(userListDTOs);
+        when(userController.allUsers()).thenReturn(userListDTOs);
 
         ResultActions result = mockMvc.perform(get(USER + GET_USERS));
         result.andExpect(status().isOk())
@@ -62,6 +62,7 @@ public class UserControllerTest extends BaseControllerTest {
 
         doNothing().when(userService).deleteById(userDTO.getId());
         ResultActions deleteAction = performDeleteWIthPathVariable(USER + DELETE_USER, userDTO.getId());
+        deleteAction.andExpect(status().isOk()).andExpect(jsonContentToBe(new MessageResponse("User deleted successfully!")));
         verify(userService, times(1)).deleteById(userDTO.getId());
     }
 
@@ -85,7 +86,9 @@ public class UserControllerTest extends BaseControllerTest {
                 .username("username")
                 .password("password")
                 .build();
-        when(userService.create(userDTO)).thenReturn(userDTO);
+        userController.create(userDTO);
+
+        //when(userService.create(userDTO)).thenReturn(userDTO);
         ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(new MessageResponse("User registered successfully!")));
@@ -93,8 +96,8 @@ public class UserControllerTest extends BaseControllerTest {
         userDTO.setUsername("new username");
         userDTO.setEmail("newemail@email.com");
 
-        when(userService.edit(userDTO.getId(), userDTO)).thenReturn(userDTO);
-        when(userService.findById(userDTO.getId())).thenReturn(userDTO);
+        when(userController.edit(userDTO.getId(), userDTO)).thenReturn(userDTO);
+        when(userController.findUserById(userDTO.getId())).thenReturn(userDTO);
 
         ResultActions getEditedUserAction = performGetWithPathVariable(USER + GET_USER, userDTO.getId());
         getEditedUserAction.andExpect(status().isOk())
@@ -113,9 +116,31 @@ public class UserControllerTest extends BaseControllerTest {
         ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(new MessageResponse("User registered successfully!")));
-        when(userService.findById(userDTO.getId())).thenReturn(userDTO);
+        when(userController.findUserById(userDTO.getId())).thenReturn(userDTO);
         ResultActions getUserByIdAction = performGetWithPathVariable(USER + GET_USER, userDTO.getId());
         getUserByIdAction.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(userDTO));
+    }
+
+    @Test
+    void duplicateUsername() throws Exception {
+        UserDTO userDTO = UserDTO.builder()
+                .id(1L)
+                .email("myemail@aaa.com")
+                .username("username")
+                .password("password")
+                .build();
+        ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
+
+        UserDTO userDTO2 = UserDTO.builder()
+                .id(2L)
+                .email("myemail@aaa.com")
+                .username("username")
+                .password("password")
+                .build();
+        userController.create(userDTO);
+        ResultActions result2 = performPostWithRequestBody(USER + ADD_USER, userDTO2);
+        result2
+                .andExpect(jsonContentToBe(new MessageResponse("Error: Username is already taken!")));
     }
 }

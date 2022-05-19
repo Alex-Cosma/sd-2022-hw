@@ -8,5 +8,4 @@ import org.mapstruct.Mapper;
 public interface PlaylistMapper {
 
     PlaylistDTO toDto(Playlist playlist);
-
 }

@@ -29,6 +29,16 @@ export class EmployeeVideosViewComponent {
     public reportVideo(id: number): void {
     }
 
+    public deleteVideo(id: number): void {
+        this.videoService.deleteVideo(id).subscribe(() => {
+            this.videoService.getVideosFromUser(JSON.parse(localStorage.getItem('user') ?? '{}')['name']).subscribe(
+                videos => this.videos = videos
+            )
+        }
+        );
+        
+    }
+
     public addComment(video: VideoDTO): void {
         const user: UserDetailsImpl = JSON.parse(localStorage.getItem('user') ?? '{}', (key, value) => {
             if(key === "token" || key === "roles") {

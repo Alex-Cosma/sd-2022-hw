@@ -36,4 +36,8 @@ public class PlaylistService {
     public void deletePlaylistById(Long id) {
         playlistRepository.deleteById(id);
     }
+
+    public List<Playlist> getVideoPlaylists(Long id) {
+        return playlistRepository.findPlaylistByVideosId(id);
+    }
 }

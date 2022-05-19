@@ -1,6 +1,7 @@
 package com.example.youtubeish.video.model;
 
 import com.example.youtubeish.comment.model.Comment;
+import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +9,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity

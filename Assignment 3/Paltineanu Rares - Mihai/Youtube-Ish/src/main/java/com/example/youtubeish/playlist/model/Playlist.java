@@ -34,4 +34,8 @@ public class Playlist {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void removeVideo(Video video) {
+        this.videos.remove(video);
+    }
 }
