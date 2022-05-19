@@ -1,5 +1,6 @@
 package com.user;
 
+import com.group.model.dto.GroupDto;
 import com.user.dto.UserListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.UrlMapping.ENTITY;
-import static com.UrlMapping.USERS;
+import static com.UrlMapping.*;
 
 @RestController
 @RequestMapping(USERS)
@@ -25,20 +25,22 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody UserListDto user){
+    public ResponseEntity<?> create(@RequestBody UserListDto user) {
         return userService.create(user);
     }
 
     @CrossOrigin
     @DeleteMapping(ENTITY)
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @CrossOrigin
     @PutMapping(ENTITY)
-    public UserListDto edit(@PathVariable Long id, @RequestBody UserListDto user){
+    public UserListDto edit(@PathVariable Long id, @RequestBody UserListDto user) {
 
-        return userService.edit(id,user);
+        return userService.edit(id, user);
     }
+
+
 }

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import UserList from "../views/UserList.vue";
-import ItemList from "../views/Feed.vue";
+import Feed from "../views/Feed.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 
@@ -14,21 +13,9 @@ const routes = [
     component: Login,
   },
   {
-    path: "/users",
-    name: "Users",
-    component: UserList,
-    beforeEnter: (to, from, next) => {
-      if (store.getters.isAdmin) {
-        next();
-      } else {
-        next({ name: "Items" });
-      }
-    },
-  },
-  {
-    path: "/posts",
+    path: "/posts/:id",
     name: "Feed",
-    component: ItemList,
+    component: Feed,
     beforeEnter: (to, from, next) => {
       if (store.state.status.loggedIn) {
         next();

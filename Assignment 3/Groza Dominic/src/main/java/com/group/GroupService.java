@@ -23,8 +23,7 @@ public class GroupService {
 
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
-    private final UserMapper userMapper;
-    private final UserService userService;
+
 
 
     private Group findById(Long id) {
@@ -46,21 +45,6 @@ public class GroupService {
         return groupRepository.findById(id).get().getUsers();
     }
 
-    public GroupDto addUser(Long id, GroupDto groupDto) {
-
-        UserListDto userListDto=userService.get(id);
-        Group groupToAdd=groupMapper.fromDto(groupDto);
-        Set<Group> groups = userListDto.getGroups();
-        if (groups==null){
-            groups = Set.of(groupToAdd);
-        }else {
-            groups.add(groupToAdd);
-        }
-        userListDto.setGroups(groups);
-        userService.edit(userListDto.getId(),userListDto);
-        System.out.println("----------------------TRECE");
-        return groupDto;
-    }
     public GroupDto get(Long id) {
         return groupMapper.toDto(findById(id));
     }

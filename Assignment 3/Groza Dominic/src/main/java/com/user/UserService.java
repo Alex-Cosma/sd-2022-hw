@@ -28,6 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final AuthService authService;
+    private final GroupMapper groupMapper;
 
     private User findById(Long id) {
         return userRepository.findById(id)
@@ -110,4 +111,12 @@ public class UserService {
     }
 
 
+    public void addToGroup(Long id, GroupDto groupDto) {
+        User user = findById(id);
+        Group group = groupMapper.fromDto(groupDto);
+        Set<Group> groups = user.getGroups();
+        groups.add(group);
+        user.setGroups(groups);
+        userRepository.save(user);
+    }
 }

@@ -16,6 +16,7 @@ export default {
   },
 
   register(data) {
+    console.log(data);
     return HTTP.post(BASE_URL + "/auth/sign-up", data);
   },
 };

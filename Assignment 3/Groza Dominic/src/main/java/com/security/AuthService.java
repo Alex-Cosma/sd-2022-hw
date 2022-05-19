@@ -33,6 +33,7 @@ public class AuthService {
     }
 
     public void register(SignupRequest signUpRequest) {
+        System.out.println("register"+signUpRequest.toString());
         User user = User.builder()
                 .username(signUpRequest.getUsername())
                 .password(encoder.encode(signUpRequest.getPassword()))

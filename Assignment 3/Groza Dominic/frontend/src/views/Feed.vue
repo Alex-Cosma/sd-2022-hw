@@ -31,8 +31,6 @@
       </template>
 
     </v-data-table>
-    <!--    <v-btn @click="generateReportPDF" color="yellow">Generate PDF</v-btn>-->
-    <!--    <v-btn @click="generateReportCSV" color="blue">Generate CSV</v-btn>-->
     <NewPost
         :opened="dialogVisible"
         @refresh="refreshList"
@@ -53,8 +51,8 @@
         <tr>
           <td>{{ row.item.name }}</td>
           <td>{{ row.item.users.length}}</td>
-          <td v-if="!row.item.users.includes(user)">
-            <v-btn depressed @click="enterGroup(row.item)" style="margin-right:2em" color="green">Join Group</v-btn>
+          <td v-if="!userInGroup(row.item)">
+            <v-btn depressed @click="enterGroup(row.item)" style="margin-right:2em" color="green">Join Group </v-btn>
           </td>
         </tr>
       </template>
@@ -112,21 +110,23 @@ export default {
       this.selectedPost = {};
       this.posts = (await api.posts.allPosts(user.id));
       this.groups = (await api.groups.allGroups());
-      console.log(this.posts);
     },
     enterGroup(group) {
       api.groups.addUser(group)
           .then(() => this.refreshList());
     },
-    // generateReportPDF() {
-    //   api.items.report("PDF");
-    // },
-    // generateReportCSV() {
-    //   api.items.report("CSV");
-    // },
+    userInGroup(group) {
+     let ingroup = false;
+       group.users.forEach(groupUser=> {
+         if (user.id === groupUser.id) {
+           ingroup = true;
+         }
+       });
+     return ingroup;
+    },
     deletePost(id) {
       api.posts.delete(id);
-      // this.refreshList();
+      this.refreshList();
     },
   },
   created() {

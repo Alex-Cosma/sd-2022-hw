@@ -1,6 +1,7 @@
 package com.group;
 
 import com.group.model.dto.GroupDto;
+import com.user.UserService;
 import com.user.dto.UserListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import static com.UrlMapping.*;
 @RequiredArgsConstructor
 public class GroupController {
     private final GroupService groupService;
+    private final UserService userService;
 
     @CrossOrigin
     @GetMapping
@@ -23,8 +25,8 @@ public class GroupController {
 
     @CrossOrigin
     @PatchMapping(ENTITY)
-    public GroupDto addUser(@PathVariable Long id ,@RequestBody GroupDto groupDto) {
-        return groupService.addUser(id,groupDto);
+    public void addUser(@PathVariable Long id, @RequestBody GroupDto groupDto) {
+        userService.addToGroup(id, groupDto);
     }
 
     @CrossOrigin

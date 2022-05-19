@@ -1,6 +1,7 @@
 package com.user.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group.model.Group;
 import com.post.model.Post;
 import lombok.*;
@@ -64,6 +65,7 @@ public class User {
     @JoinTable(name = "user_groups",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @JsonIgnore
     private Set<Group> groups = new HashSet<>();
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "friends",
