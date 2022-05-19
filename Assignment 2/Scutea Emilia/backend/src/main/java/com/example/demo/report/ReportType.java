@@ -1,7 +1,6 @@
 package com.example.demo.report;
 
 public enum ReportType {
-    PDFBox,
+    PDF,
     CSV,
-    PDFJasper
 }

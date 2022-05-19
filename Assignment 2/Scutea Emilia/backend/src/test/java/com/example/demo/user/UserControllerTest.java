@@ -2,7 +2,6 @@ package com.example.demo.user;
 
 import com.example.demo.BaseControllerTest;
 import com.example.demo.TestCreationFactory;
-import com.example.demo.item.model.dto.ItemDTO;
 import com.example.demo.user.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,8 @@ import java.util.List;
 
 import static com.example.demo.TestCreationFactory.randomLong;
 import static com.example.demo.TestCreationFactory.randomString;
-import static com.example.demo.UrlMapping.*;
+import static com.example.demo.UrlMapping.USERS;
+import static com.example.demo.UrlMapping.USERS_ID_EDIT;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

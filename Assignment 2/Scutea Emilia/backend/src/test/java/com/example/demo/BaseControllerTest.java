@@ -7,9 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.RequestEntity.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -30,15 +35,24 @@ public abstract class BaseControllerTest {
     protected ResultActions performPostWithRequestBody(String path, Object body) throws Exception {
         return mockMvc.perform(post(path)
                 .content(asJsonString(body))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON));
     }
 
     protected ResultActions performPutWithRequestBody(String path, Object body) throws Exception {
         return mockMvc.perform(put(path)
                 .content(asJsonString(body))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON));
+    }
+
+    private RequestBuilder jsonType(MockHttpServletRequestBuilder content) {
+        return content.contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON);
+    }
+
+    protected ResultActions performDeleteWIthPathVariable(String path, Object... pathVariable) throws Exception {
+        return mockMvc.perform(jsonType(MockMvcRequestBuilders.delete(path, pathVariable)));
     }
 
     protected ResultActions performGet(String path) throws Exception {
@@ -52,8 +66,15 @@ public abstract class BaseControllerTest {
     protected ResultActions performPutWithRequestBodyAndPathVariables(String path, Object body, Object... pathVariables) throws Exception {
         return mockMvc.perform(put(path, pathVariables)
                 .   content(asJsonString(body))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON));
+    }
+
+    protected ResultActions performPostWithRequestBodyAndPathVariables(String path, Object body, Object... pathVariables) throws Exception {
+        return mockMvc.perform(post(path, pathVariables)
+                .   content(asJsonString(body))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON));
     }
 
     protected String asJsonString(final Object obj) {

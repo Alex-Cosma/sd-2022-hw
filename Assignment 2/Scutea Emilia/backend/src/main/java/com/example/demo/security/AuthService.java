@@ -44,7 +44,7 @@ public class AuthService {
 
         if (rolesStr == null) {
             Role defaultRole = roleRepository.findByName(ERole.EMPLOYEE)
-                    .orElseThrow(() -> new RuntimeException("Cannot find CUSTOMER role"));
+                    .orElseThrow(() -> new RuntimeException("Cannot find EMPLOYEE role"));
             roles.add(defaultRole);
         } else {
             rolesStr.forEach(r -> {

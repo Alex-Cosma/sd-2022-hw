@@ -1,7 +1,7 @@
 package com.example.demo.report;
 
 
-import com.example.demo.item.model.dto.ItemDTO;
+import com.example.demo.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,32 +15,36 @@ import static com.example.demo.report.ReportType.CSV;
 @RequiredArgsConstructor
 public class CSVReportService implements ReportService {
 
-    private final ReportServiceImpl reportServiceImpl;
+    private final ReportServiceImpl reportService;
 
     @Override
     public String export() {
-        try(PrintWriter writer = new PrintWriter("src/main/resources/csvReport.csv")){
-            StringBuilder stringBuilder = new StringBuilder();
-            List<ItemDTO> items = reportServiceImpl.findItemsByQuantityEquals(0);
+        String filename = "src/main/resources/csvReport.csv";
+        try(PrintWriter writer = new PrintWriter(filename)){
+            List<BookDTO> items = reportService.findItemsByQuantityEquals(0);
 
             if(!items.isEmpty()){
-                for(ItemDTO item : items){
+                for(BookDTO item : items){
+                    StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder
+                            .append("id ")
                             .append(item.getId())
-                            .append(",")
+                            .append(", title ")
                             .append(item.getTitle())
-                            .append(",")
-                            .append(item.getAuthor())
-                            .append(",")
+                            .append(", genre ")
+                            .append(item.getGenre())
+                            .append(", price")
                             .append(item.getPrice());
+
+                    writer.println(stringBuilder.toString());
                 }
             }
 
-            writer.write(stringBuilder.toString());
+
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        return "I am a CSV reporter.";
+        return filename;
     }
 
     @Override

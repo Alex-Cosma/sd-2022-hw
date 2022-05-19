@@ -1,12 +1,15 @@
 package com.example.demo.user.model;
+import com.example.demo.userreview.model.UserReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,6 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Data
+@EnableTransactionManagement
 public class User {
 
     @Id
@@ -41,4 +45,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    //, mappedBy = "item")
+    // @Builder.Default
+    // private Set<Review> reviews = new HashSet<>();
+    private List<UserReview> reviews;
 }
