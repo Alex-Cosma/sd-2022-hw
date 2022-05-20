@@ -8,10 +8,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MailSenderServiceTest {
@@ -24,9 +22,6 @@ public class MailSenderServiceTest {
 
     @BeforeEach
     void setUp() {
-        MimeMessage mimeMessage = new MimeMessage((Session)null);
-        javaMailSender = mock(JavaMailSender.class);
-        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
         MockitoAnnotations.openMocks(this);
         emailService = new EmailService(javaMailSender);
     }

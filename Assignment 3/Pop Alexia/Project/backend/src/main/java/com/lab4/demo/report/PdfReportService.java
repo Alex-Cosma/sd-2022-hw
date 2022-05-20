@@ -55,7 +55,7 @@ public class PdfReportService implements ReportService {
                             cont.newLine();
                             cont.showText("   What was the answer: " + answer.getCorrect());
                             cont.newLine();
-                            cont.showText("   What you picked: " + quizzSession.getAnswerSequence().stream().filter(a -> a.getAnswer().equals(answer.getAnswer())).findFirst().get().isCorrect());
+                            cont.showText("   What you picked: " + quizzSession.getAnswerSequence().stream().filter(a -> a.getAnswer().equals(answer.getAnswer())).findFirst().get().getCorrect());
                             cont.newLine();
                         }
                     }

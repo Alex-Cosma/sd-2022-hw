@@ -22,7 +22,7 @@ public class QuizzService {
 
     public Quizz findById(Long id) {
         return quizzRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Question not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Quizz not found: " + id));
     }
 
     public List<QuizzDTO> findAll() {

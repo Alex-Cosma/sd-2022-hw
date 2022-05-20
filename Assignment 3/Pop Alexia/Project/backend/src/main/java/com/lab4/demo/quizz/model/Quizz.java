@@ -39,7 +39,7 @@ public class Quizz {
     @Builder.Default
     private Set<Question> questions = new HashSet<>();
 
-    @OneToMany(mappedBy = "quizz",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "quizz",orphanRemoval = true)
     private Collection<QuizzSession> quizzSessions;
 
 }

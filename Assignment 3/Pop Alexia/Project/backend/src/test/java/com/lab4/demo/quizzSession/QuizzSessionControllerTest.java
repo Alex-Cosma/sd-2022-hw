@@ -46,12 +46,13 @@ public class QuizzSessionControllerTest extends BaseControllerTest {
     @Test
     void exportReport() throws Exception {
         Long id = 1L;
-        String filePath = "filePath";
-        when(quizzSessionService.export(ReportType.PDF,id)).thenReturn(filePath);
+        String filePathPDF = "src/report.pdf";
+        when(quizzSessionService.export(ReportType.PDF,id)).thenReturn(filePathPDF);
         ResultActions result = performGetWithPathVariable(QUIZZ_SESSION + EXPORT_REPORT + "/" + id,ReportType.PDF.name(),id);
         result.andExpect(status().isOk());
 
-        when(quizzSessionService.export(ReportType.DOCX,id)).thenReturn(filePath);
+        String filePathDOCX = "src/report.docx";
+        when(quizzSessionService.export(ReportType.DOCX,id)).thenReturn(filePathDOCX);
         ResultActions result2 = performGetWithPathVariable(QUIZZ_SESSION + EXPORT_REPORT + "/" + id,ReportType.DOCX.name(),id);
         result2.andExpect(status().isOk());
 

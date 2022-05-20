@@ -2,6 +2,7 @@ package com.lab4.demo.quizz;
 
 import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.quizz.model.Quizz;
+import com.lab4.demo.quizzSession.model.QuizzSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,10 +101,10 @@ public class QuizzRepositoryTest {
     @Test
     public void edit(){
         Quizz quizz = repository.save(Quizz.builder()
-                .title("aa")
-                .description("aa")
+                .title("random")
+                .description("random")
                 .questions(null)
-                .quizzSessions(null)
+                .quizzSessions(Set.of(QuizzSession.builder().build()))
                 .build());
         quizz.setTitle("newtitle");
         quizz = repository.save(quizz);

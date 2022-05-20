@@ -1,6 +1,6 @@
 package com.lab4.demo.quizzSession.model.dto;
 
-import com.lab4.demo.answer.model.Answer;
+import com.lab4.demo.answer.model.dto.AnswerDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class QuizzSessionDTO {
 
     private Long id;
     private Long quizzId;
-    private Set<Answer> answerSequence;
+    private Set<AnswerDTO> answerSequence;
     private Integer score;
     private Long userId;
 

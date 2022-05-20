@@ -55,7 +55,7 @@ public class DOCXReportService implements ReportService {
                     r2.addCarriageReturn();
                     r2.setText("   What was the answer : " + answer.getCorrect());
                     r2.addCarriageReturn();
-                    r2.setText("   What you picked : " + quizzSession.getAnswerSequence().stream().filter(a->a.getAnswer().equals(answer.getAnswer())).findFirst().get().isCorrect());
+                    r2.setText("   What you picked : " + quizzSession.getAnswerSequence().stream().filter(a->a.getAnswer().equals(answer.getAnswer())).findFirst().get().getCorrect());
                     r2.addCarriageReturn();
                 }
             }
