@@ -8,6 +8,7 @@ import lombok.*;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class AddCommentDTO {
     @JsonProperty("content")
     private String content;

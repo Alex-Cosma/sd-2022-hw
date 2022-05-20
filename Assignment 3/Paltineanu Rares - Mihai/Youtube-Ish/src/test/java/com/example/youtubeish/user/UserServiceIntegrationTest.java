@@ -2,16 +2,21 @@ package com.example.youtubeish.user;
 
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserMinimalDTO;
+import com.example.youtubeish.user.model.ERole;
+import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.example.youtubeish.TestCreationFactory.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class UserServiceIntegrationTest {
@@ -21,6 +26,17 @@ public class UserServiceIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @BeforeEach
+    void setup() {
+        roleRepository.save(Role.builder()
+                        .name(ERole.CUSTOMER)
+                .build());
+        userRepository.deleteAll();
+    }
 
     @Test
     void findAll() {
@@ -44,4 +60,52 @@ public class UserServiceIntegrationTest {
         }
     }
 
+    @Test
+    void getUserByUsername() {
+        User user = User.builder()
+                .username("User")
+                .password(UUID.randomUUID().toString())
+                .email("user@gmail.com")
+                .build();
+        userRepository.save(user);
+        assertTrue(userService.existsByUsername(user.getUsername()));
+    }
+
+    @Test
+    void existsByEmail() {
+        User user = User.builder()
+                .username("User")
+                .password(UUID.randomUUID().toString())
+                .email("user@gmail.com")
+                .build();
+        userRepository.save(user);
+        assertTrue(userService.existsByEmail(user.getEmail()));
+    }
+
+    @Test
+    void deleteById() {
+        User user = User.builder()
+                .username("User")
+                .password(UUID.randomUUID().toString())
+                .email("user@gmail.com")
+                .build();
+        User newUser = userRepository.save(user);
+        userService.deleteById(user.getId());
+        assertFalse(userService.existsByUsername(newUser.getUsername()));
+    }
+
+    @Test
+    void create() {
+        UserDTO userDTO = UserDTO.builder()
+                .password(randomString())
+                .email(randomEmail())
+                .username(randomString())
+                .roles(Set.of(Role.builder()
+                                .name(ERole.CUSTOMER)
+                                .id(1)
+                        .build()))
+                .build();
+        UserDTO user = userService.create(userDTO);
+        assertNotNull(userService.findById(user.getId()));
+    }
 }

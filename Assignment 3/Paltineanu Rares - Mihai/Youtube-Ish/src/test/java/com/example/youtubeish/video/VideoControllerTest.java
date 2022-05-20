@@ -13,6 +13,7 @@ import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.dto.UploadVideoDTO;
 import com.example.youtubeish.video.dto.VideoDTO;
 import com.example.youtubeish.video.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.mapper.VideoMapper;
 import com.example.youtubeish.video.model.Video;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static com.example.youtubeish.UrlMapping.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class VideoControllerTest extends BaseControllerTest {
@@ -51,15 +53,14 @@ public class VideoControllerTest extends BaseControllerTest {
     @Mock
     private PlaylistService playlistService;
 
-    @InjectMocks
-    private UserController userController;
+    @Mock
+    private VideoMapper videoMapper;
 
     @BeforeEach
     protected void setUp() {
         super.setUp();
         MockitoAnnotations.openMocks(this);
         videoController = new VideoController(videoService, userService);
-        userController = new UserController(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(videoController).build();
     }
 
@@ -137,11 +138,35 @@ public class VideoControllerTest extends BaseControllerTest {
         List<VideoDTO> videoDTOList = TestCreationFactory.listOf(VideoDTO.class);
         when(videoService.getVideosFromUser(user.getId())).thenReturn(videoDTOList);
         assertEquals(videoDTOList, videoController.getVideoFromUser(user.getUsername()));
-
     }
 
     @Test
     void getUploadedVideos() throws Exception {
-
+        UserDTO userDTO = newUserDto();
+        User user = fromDto(userDTO);
+        VideoDTO videoDTO = VideoDTO.builder()
+                .channelTitle(randomString())
+                .description(randomString())
+                .videoId(randomString())
+                .thumbnailUrl(randomString())
+                .title(randomString())
+                .user(userDTO)
+                .build();
+        List<Video> videos = List.of(
+                Video.builder()
+                        .id(videoDTO.getId())
+                        .videoId(videoDTO.getVideoId())
+                        .thumbnailUrl(videoDTO.getThumbnailUrl())
+                        .title(videoDTO.getTitle())
+                        .channelTitle(videoDTO.getChannelTitle())
+                        .user(user)
+                        .build()
+        );
+        when(videoRepository.findAll()).thenReturn(videos);
+        when(videoMapper.toDto(videos.get(0))).thenReturn(videoDTO);
+        when(videoService.getUploadedVideos()).thenReturn(List.of(videoDTO));
+        ResultActions uploadVideoResult = mockMvc.perform(get(VIDEOS + GET_UPLOADED_VIDEOS));
+        uploadVideoResult.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(List.of(videoDTO)));
     }
 }

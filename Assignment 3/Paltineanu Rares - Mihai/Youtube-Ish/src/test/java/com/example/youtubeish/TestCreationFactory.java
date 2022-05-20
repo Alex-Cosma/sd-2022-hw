@@ -1,8 +1,15 @@
 package com.example.youtubeish;
 
+import com.example.youtubeish.comment.dto.AddCommentDTO;
+import com.example.youtubeish.comment.dto.CommentDTO;
+import com.example.youtubeish.comment.model.Comment;
+import com.example.youtubeish.playlist.dto.PlaylistDTO;
+import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserListDTO;
 import com.example.youtubeish.user.model.User;
+import com.example.youtubeish.video.dto.VideoDTO;
+import com.example.youtubeish.video.model.Video;
 
 import java.util.List;
 import java.util.Random;
@@ -94,6 +101,104 @@ public class TestCreationFactory {
                 .username(randomString())
                 .email(randomEmail())
                 .password(randomString())
+                .build();
+    }
+
+    public static Video newVideo() {
+        return Video.builder()
+                .description(randomString())
+                .thumbnailUrl(randomString())
+                .channelTitle(randomString())
+                .videoId(randomString())
+                .title(randomString())
+                .user(newUser())
+                .build();
+    }
+
+    public static VideoDTO newVideoDTO() {
+        return VideoDTO.builder()
+                .description(randomString())
+                .thumbnailUrl(randomString())
+                .channelTitle(randomString())
+                .videoId(randomString())
+                .title(randomString())
+                .user(newUserDto())
+                .build();
+    }
+
+    public static CommentDTO newCommentDTO() {
+        return CommentDTO.builder()
+                .id(randomLong())
+                .author(randomString())
+                .author(randomString())
+                .build();
+    }
+
+    public static Comment newComment() {
+        return Comment.builder()
+                .user(newUser())
+                .video(newVideo())
+                .content(randomString())
+                .id(randomLong())
+                .build();
+    }
+
+    public static CommentDTO fromComment(Comment comment) {
+        return CommentDTO.builder()
+                .id(comment.getId())
+                .author(comment.getUser().getUsername())
+                .content(comment.getContent())
+                .build();
+    }
+
+    public static Comment fromAddCommentDTO(AddCommentDTO addCommentDTO) {
+        return Comment.builder()
+                .content(addCommentDTO.getContent())
+                .video(videoFromDTO(addCommentDTO.getVideo()))
+                .user(fromDto(addCommentDTO.getUser()))
+                .build();
+    }
+
+    public static Playlist newPlaylist() {
+        return Playlist.builder()
+                .id(randomLong())
+                .videos(List.of(
+                        newVideo(),
+                        newVideo(),
+                        newVideo())
+                )
+                .user(newUser())
+                .build();
+    }
+
+    public static PlaylistDTO toPlaylistDTO(Playlist playlist) {
+        return PlaylistDTO.builder()
+                .id(playlist.getId())
+                .user(toDto(playlist.getUser()))
+                .videos(playlist.getVideos().stream().map(video -> videoToDTO(video)).collect(toList()))
+                .build();
+    }
+
+    public static VideoDTO videoToDTO(Video video) {
+        return VideoDTO.builder()
+                .id(video.getId())
+                .description(video.getDescription())
+                .channelTitle(video.getChannelTitle())
+                .videoId(video.getVideoId())
+                .title(video.getTitle())
+                .user(toDto(video.getUser()))
+                .build();
+    }
+
+    public static Video videoFromDTO(VideoDTO video) {
+        return Video.builder()
+                .id(video.getId())
+                .description(video.getDescription())
+                .channelTitle(video.getChannelTitle())
+                .videoId(video.getVideoId())
+                .title(video.getTitle())
+                .thumbnailUrl(video.getThumbnailUrl())
+                .user(fromDto(video.getUser()))
                 .build();
     }
 
