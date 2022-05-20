@@ -152,16 +152,19 @@ class PostServiceTest {
         userService.create(user);
 
         PostDto postDto = newPostDto();
-        postDto.setUser(user);
+
+        User user1=new User();
+        user1.setId(1L);
+        when(userMapper.userFromUserListDto(user)).thenReturn(user1);
 
         Post post= new Post();
         when(postMapper.fromDto(postDto)).thenReturn(post);
-        user.setPosts(Collections.singleton(post));
+        post.setUser(user1);
+        when(postMapper.toDto(post)).thenReturn(postDto);
         postService.create(postDto);
 
-        System.out.println(postService.findAll().size()+"asdada "+user.getPosts().size());
 
-        List<PostDto> obtained = postService.findByUserId(1L);
+        List<PostDto> obtained = postService.findByUserId(user1.getId());
         assertEquals(1, obtained.size());
 //        assertEquals(post,obtained.get(0));
     }

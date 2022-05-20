@@ -77,6 +77,7 @@ public class TestCreationFactory {
     public static User newUser() {
         return User.builder()
                 .username(randomString())
+                .password(randomString())
                 .email(randomEmail())
                 .firstName(randomString())
                 .lastName(randomString())
@@ -96,6 +97,7 @@ public class TestCreationFactory {
 
     public static PostDto newPostDto() {
         return PostDto.builder()
+                .id(randomLong())
                 .body(randomString())
                 .build();
     }

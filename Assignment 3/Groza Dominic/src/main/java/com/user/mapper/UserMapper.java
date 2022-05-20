@@ -12,14 +12,10 @@ import java.util.stream.Collectors;
 public interface UserMapper {
 
     @Mappings({
-            @Mapping(target = "username", source = "user.username")
-    })
-    UserMinimalDto userMinimalFromUser(User user);
-
-    @Mappings({
             @Mapping(target = "username", source = "user.username"),
             @Mapping(target = "roles",ignore = true),
             @Mapping(target="id",source="user.id"),
+            @Mapping(target="posts",source="user.posts"),
 
 
     })
@@ -30,6 +26,7 @@ public interface UserMapper {
             @Mapping(target = "roles",ignore = true),
             @Mapping(target="id",source="id"),
             @Mapping(target = "friends",source = "friends"),
+            @Mapping(target = "posts",source = "posts")
 
     })
     User userFromUserListDto(UserListDto userListDto);
