@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
 
@@ -34,6 +34,8 @@ class GroupServiceTest {
 
     @BeforeEach
     void setUp() {
+
+        MockitoAnnotations.openMocks(this);
         groupService = new GroupService(mockGroupRepository, mockGroupMapper);
     }
 

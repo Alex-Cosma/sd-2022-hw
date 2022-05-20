@@ -37,6 +37,11 @@ public abstract class BaseControllerTest {
                 .content(asJsonString(body)))
         );
     }
+    protected ResultActions performPostWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
+        return mockMvc.perform(jsonType(post(path,pathVariable)
+                .content(asJsonString(body)))
+        );
+    }
 
     protected ResultActions performPatchWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
         return mockMvc.perform(jsonType(patch(path, pathVariable)
@@ -49,6 +54,12 @@ public abstract class BaseControllerTest {
                 .content(asJsonString(body)))
         );
     }
+    protected ResultActions performPutWithRequestBodyAnd2PathVariables(String path, Object body, Object pathVariable1,Object pathVariable2) throws Exception {
+        return mockMvc.perform(jsonType(put(path, pathVariable1,pathVariable2)
+                .content(asJsonString(body)))
+        );
+    }
+
 
     protected ResultActions performDeleteWIthPathVariable(String path, Object pathVariable) throws Exception {
         return mockMvc.perform(jsonType(delete(path, pathVariable)));

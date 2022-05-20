@@ -25,6 +25,7 @@ public class TestCreationFactory {
         return listOf(cls, (Object[]) null);
     }
 
+
     @SuppressWarnings("all")
     public static <T> List<T> listOf(Class cls, Object... parameters) {
         int nrElements = new Random().nextInt(10) + 5;
@@ -59,6 +60,7 @@ public class TestCreationFactory {
         return UserListDto.builder()
                 .id(randomLong())
                 .username(randomString())
+                .password(randomString())
                 .email(randomEmail())
                 .firstName(randomString())
                 .lastName(randomString())
@@ -87,10 +89,8 @@ public class TestCreationFactory {
 
     public static Post newPost() {
         return Post.builder()
-                .body(randomString())
                 .created_at(Date.from(Instant.now()))
-                .likes(randomLong())
-                .disLikes(randomLong())
+                .body(randomString())
                 .build();
 
     }
@@ -98,6 +98,7 @@ public class TestCreationFactory {
     public static PostDto newPostDto() {
         return PostDto.builder()
                 .id(randomLong())
+                .created_at(Date.from(Instant.now()))
                 .body(randomString())
                 .build();
     }

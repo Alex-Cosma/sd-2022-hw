@@ -89,17 +89,20 @@ public class UserService {
     }
 
 
-    public void addFriend(Long id, Long friendId) {
+    public UserListDto addFriend(Long id, Long friendId) {
         User user = findById(id);
         User friend = findById(friendId);
 
+        System.out.println("user: " + user.getUsername());
+        System.out.println("friend: " + friend.getUsername());
         Set<User> friends = user.getFriends();
         friends.add(friend);
         user.setFriends(friends);
-
+        System.out.println(user.getFriends());
 
         userRepository.save(user);
         userRepository.save(friend);
+        return userMapper.userListDtoFromUser(user);
     }
 
 
@@ -111,5 +114,9 @@ public class UserService {
         user.setGroups(groups);
         userRepository.save(user);
         return groupMapper.toDto(group);
+    }
+
+    public Set<User>getFriends(Long id){
+        return userRepository.findById(id).get().getFriends();
     }
 }

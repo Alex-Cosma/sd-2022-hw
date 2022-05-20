@@ -14,8 +14,6 @@ import java.util.HashSet;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-
-
     @Mappings({
             @Mapping(target = "user.roles",ignore = true),
     })
@@ -25,6 +23,8 @@ public interface PostMapper {
             @Mapping(target = "user.roles",ignore = true)
     })
     Post fromDto (PostDto postDto);
+
+
 
 
 }

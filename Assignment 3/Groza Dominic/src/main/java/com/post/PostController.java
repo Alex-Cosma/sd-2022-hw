@@ -21,16 +21,9 @@ public class PostController {
 
     @CrossOrigin
     @GetMapping
-    public List<PostDto> allPosts(@PathVariable Long userId) {
-        UserListDto userDto = userService.get(userId);
+    public List<PostDto> allPosts() {
+        return postService.findAll();
 
-        if (userDto.getRoles().iterator().next().equals("ADMIN")) {
-            return postService.findAll();
-        } else {
-            List<PostDto> posts = postService.findPostsOfFriends(userId);
-            posts.addAll(postService.findByUserId(userId));
-            return posts;
-        }
     }
 
     @CrossOrigin
@@ -48,8 +41,7 @@ public class PostController {
     @CrossOrigin
     @DeleteMapping(ENTITY)
     public void delete(@PathVariable Long id) {
-//        System.out.println("delete"+id);
-//        System.out.println("delete"+postService.get(id).toString());
+
         postService.delete(id);
     }
 

@@ -25,7 +25,6 @@ public interface UserMapper {
             @Mapping(target = "username", source = "username"),
             @Mapping(target = "roles",ignore = true),
             @Mapping(target="id",source="id"),
-            @Mapping(target = "friends",source = "friends"),
             @Mapping(target = "posts",source = "posts")
 
     })

@@ -2,7 +2,9 @@ package com.post.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.user.dto.UserListDto;
 import com.user.model.User;
 import lombok.*;
 
@@ -15,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+//@ToString
 @Table(name = "post")
 public class Post {
 

@@ -1,8 +1,5 @@
 package com.post.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.user.dto.UserListDto;
 import com.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class PostDto {
 
-    private UserListDto user;
+    private User user;
     private Long id;
     private String body;
     private Long likes;

@@ -48,7 +48,7 @@ public class PostService {
         post.setBody(postDto.getBody());
         post.setLikes(postDto.getLikes());
         post.setDisLikes(postDto.getDisLikes());
-        post.setUser(userMapper.userFromUserListDto(postDto.getUser()));
+        post.setUser(postDto.getUser());
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -69,7 +69,8 @@ public class PostService {
     public List<PostDto> findPostsOfFriends(Long userId){
         UserListDto user=userService.get(userId);
         List<PostDto> posts=new ArrayList<>();
-        for (User friend : user.getFriends()) {
+        System.out.println(user.toString());
+        for (User friend : userService.getFriends(userId)) {
             List<PostDto> foundPosts = findByUserId(friend.getId());
             posts.addAll(foundPosts);
         }
