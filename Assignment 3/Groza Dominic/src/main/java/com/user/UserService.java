@@ -56,12 +56,6 @@ public class UserService {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    public List<UserMinimalDto> allUsersMinimal() {
-        return userRepository.findAll()
-                .stream().map(userMapper::userMinimalFromUser)
-                .collect(toList());
-    }
-
     public List<UserListDto> allUsersForList() {
         return userRepository.findAll()
                 .stream().map(user -> {
@@ -82,9 +76,7 @@ public class UserService {
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setUsername(user.getUsername());
-        System.out.println(user.getGroups()+"GROUPS USER");
         userToUpdate.setGroups(user.getGroups());
-        System.out.println(userToUpdate.getGroups()+"RGOUPS"+user.getGroups());
         return userMapper.userListDtoFromUser(userRepository.save(userToUpdate));
     }
 
@@ -111,12 +103,13 @@ public class UserService {
     }
 
 
-    public void addToGroup(Long id, GroupDto groupDto) {
+    public GroupDto addToGroup(Long id, GroupDto groupDto) {
         User user = findById(id);
         Group group = groupMapper.fromDto(groupDto);
         Set<Group> groups = user.getGroups();
         groups.add(group);
         user.setGroups(groups);
         userRepository.save(user);
+        return groupMapper.toDto(group);
     }
 }

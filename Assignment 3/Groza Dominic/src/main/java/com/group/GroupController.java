@@ -25,10 +25,11 @@ public class GroupController {
 
     @CrossOrigin
     @PatchMapping(ENTITY)
-    public void addUser(@PathVariable Long id, @RequestBody GroupDto groupDto) {
-        userService.addToGroup(id, groupDto);
+    public GroupDto addUser(@PathVariable Long id, @RequestBody GroupDto groupDto) {
+        return userService.addToGroup(id, groupDto);
     }
 
+    //this is covered in groupcontrollertest
     @CrossOrigin
     @GetMapping(ENTITY)
     public GroupDto getGroup(@PathVariable Long id) {

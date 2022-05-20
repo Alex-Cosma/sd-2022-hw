@@ -11,10 +11,10 @@ import org.mapstruct.Mappings;
 public interface PostMapper {
 
     @Mappings({
-            @Mapping(target = "user.roles",ignore = true)
+            @Mapping(target = "user.roles",ignore = true),
     })
-
     PostDto toDto (Post post);
+
     @Mappings({
             @Mapping(target = "user.roles",ignore = true)
     })

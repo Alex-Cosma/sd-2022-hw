@@ -40,7 +40,6 @@ public class PostService {
         postDto.setLikes(0L);
         postDto.setDisLikes(0L);
         Post post = postMapper.fromDto(postDto);
-        System.out.println("\n"+post.toString()+"\n");
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -54,10 +53,7 @@ public class PostService {
     }
 
     public void delete(Long id){
-//        Post post=findById(id);
-//        System.out.println(post.toString());
         postRepository.deleteById(id);
-//                deleteById(id);
     }
 
     public PostDto get(Long id){

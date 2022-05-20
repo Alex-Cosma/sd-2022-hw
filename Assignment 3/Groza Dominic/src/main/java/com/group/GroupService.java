@@ -37,13 +37,6 @@ public class GroupService {
                 .collect(Collectors.toList());
     }
 
-    public GroupDto create(GroupDto group) {
-        return groupMapper.toDto(groupRepository.save(groupMapper.fromDto(group)));
-    }
-
-    public Set<User> findAllUsers(Long id) {
-        return groupRepository.findById(id).get().getUsers();
-    }
 
     public GroupDto get(Long id) {
         return groupMapper.toDto(findById(id));

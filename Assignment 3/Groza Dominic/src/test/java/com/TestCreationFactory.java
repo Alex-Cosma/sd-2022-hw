@@ -5,6 +5,8 @@ import com.group.model.dto.GroupDto;
 import com.post.model.Post;
 import com.post.model.dto.PostDto;
 import com.user.dto.UserListDto;
+import com.user.dto.UserMinimalDto;
+import com.user.model.User;
 
 import java.time.Instant;
 import java.util.Date;
@@ -32,6 +34,10 @@ public class TestCreationFactory {
             supplier = TestCreationFactory::newUserListDto;
         } else if (cls.equals(Post.class)) {
             supplier = TestCreationFactory::newPost;
+        } else if (cls.equals(UserMinimalDto.class)) {
+            supplier = TestCreationFactory::newUserMinimalDto;
+        }else if (cls.equals(User.class)) {
+            supplier = TestCreationFactory::newUser;
         } else if (cls.equals(PostDto.class)) {
             supplier = TestCreationFactory::newPostDto;
         } else if (cls.equals(Group.class)) {
@@ -49,7 +55,7 @@ public class TestCreationFactory {
                 .stream().collect(toList());
     }
 
-    private static UserListDto newUserListDto() {
+    public static UserListDto newUserListDto() {
         return UserListDto.builder()
                 .id(randomLong())
                 .username(randomString())
@@ -59,10 +65,27 @@ public class TestCreationFactory {
                 .address(randomString())
                 .build();
     }
+    public static UserMinimalDto newUserMinimalDto() {
+        return UserMinimalDto.builder()
+                .id(randomLong())
+                .username(randomString())
+                .firstName(randomString())
+                .lastName(randomString())
+                .address(randomString())
+                .build();
+    }
+    public static User newUser() {
+        return User.builder()
+                .username(randomString())
+                .email(randomEmail())
+                .firstName(randomString())
+                .lastName(randomString())
+                .address(randomString())
+                .build();
+    }
 
-    private static Post newPost() {
+    public static Post newPost() {
         return Post.builder()
-                .id(randomLong())
                 .body(randomString())
                 .created_at(Date.from(Instant.now()))
                 .likes(randomLong())
@@ -71,25 +94,21 @@ public class TestCreationFactory {
 
     }
 
-    private static PostDto newPostDto() {
+    public static PostDto newPostDto() {
         return PostDto.builder()
-                .id(randomLong())
                 .body(randomString())
-                .created_at(Date.from(Instant.now()))
-                .likes(randomLong())
-                .disLikes(randomLong())
                 .build();
     }
-    private static Group newGroup() {
+    public static Group newGroup() {
         return Group.builder()
                 .name(randomString())
-                .id(randomLong())
+                .users(null)
                 .build();
     }
-    private static GroupDto newGroupDto() {
+    public static GroupDto newGroupDto() {
         return GroupDto.builder()
                 .name(randomString())
-                .id(randomLong())
+                .users(null)
                 .build();
     }
 
