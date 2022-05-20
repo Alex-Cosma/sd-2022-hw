@@ -1,6 +1,8 @@
 package com.example.youtubeish;
 
+import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserListDTO;
+import com.example.youtubeish.user.model.User;
 
 import java.util.List;
 import java.util.Random;
@@ -76,4 +78,42 @@ public class TestCreationFactory {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
+    public static UserDTO newUserDto() {
+        return UserDTO.builder()
+                .id(randomLong())
+                .username(randomString())
+                .email(randomEmail())
+                .password(randomString())
+                .build();
+    }
+
+    public static User newUser() {
+        return User.builder()
+                .id(randomLong())
+                .username(randomString())
+                .email(randomEmail())
+                .password(randomString())
+                .build();
+    }
+
+    public static UserDTO toDto(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
+    }
+
+    public static User fromDto(UserDTO user) {
+        return User.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
+    }
+
+
 }

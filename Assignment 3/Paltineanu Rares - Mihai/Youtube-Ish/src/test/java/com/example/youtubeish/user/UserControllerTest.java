@@ -88,7 +88,6 @@ public class UserControllerTest extends BaseControllerTest {
                 .build();
         userController.create(userDTO);
 
-        //when(userService.create(userDTO)).thenReturn(userDTO);
         ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(new MessageResponse("User registered successfully!")));
@@ -120,27 +119,5 @@ public class UserControllerTest extends BaseControllerTest {
         ResultActions getUserByIdAction = performGetWithPathVariable(USER + GET_USER, userDTO.getId());
         getUserByIdAction.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(userDTO));
-    }
-
-    @Test
-    void duplicateUsername() throws Exception {
-        UserDTO userDTO = UserDTO.builder()
-                .id(1L)
-                .email("myemail@aaa.com")
-                .username("username")
-                .password("password")
-                .build();
-        ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
-
-        UserDTO userDTO2 = UserDTO.builder()
-                .id(2L)
-                .email("myemail@aaa.com")
-                .username("username")
-                .password("password")
-                .build();
-        userController.create(userDTO);
-        ResultActions result2 = performPostWithRequestBody(USER + ADD_USER, userDTO2);
-        result2
-                .andExpect(jsonContentToBe(new MessageResponse("Error: Username is already taken!")));
     }
 }
