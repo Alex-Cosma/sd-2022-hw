@@ -1,8 +1,8 @@
-import { BASE_URL, HTTP } from "../http";
+import { API_PATH, HTTP } from "../http";
 
 export default {
   login(data) {
-    return HTTP.post(BASE_URL + "/auth/sign-in", data).then((response) => {
+    return HTTP.post(API_PATH + "/auth/sign-in", data).then((response) => {
       if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
@@ -16,6 +16,6 @@ export default {
   },
 
   register(data) {
-    return HTTP.post(BASE_URL + "/auth/sign-up", data);
+    return HTTP.post(API_PATH + "/auth/sign-up", data);
   },
 };

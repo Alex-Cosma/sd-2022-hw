@@ -9,6 +9,8 @@ import com.example.demo.bookreview.model.dto.BookReviewDTO;
 import com.example.demo.cart.model.Cart;
 import com.example.demo.cart.model.CartDTO;
 import com.example.demo.user.dto.UserDTO;
+import com.example.demo.user.model.ERole;
+import com.example.demo.user.model.Role;
 import com.example.demo.user.model.User;
 import com.example.demo.userreview.model.UserReview;
 import com.example.demo.userreview.model.dto.UserReviewDTO;
@@ -59,6 +61,12 @@ public class TestCreationFactory {
         else if (cls.equals(CartDTO.class)) {
             supplier = TestCreationFactory::newCartDTO;
         }
+        else if (cls.equals(Role.class)) {
+            supplier = TestCreationFactory::newRole;
+        }
+        else if (cls.equals(Long.class)) {
+            supplier = TestCreationFactory::randomLong;
+        }
         else {
             supplier = () -> new String("You failed.");
         }
@@ -108,6 +116,13 @@ public class TestCreationFactory {
                 .email(randomEmail())
                 .username(randomString())
                 .password(randomString())
+                .roles(Set.of("EMPLOYEE"))
+                .build();
+    }
+
+    public static Role newRole(){
+        return Role.builder()
+                .name(ERole.EMPLOYEE)
                 .build();
     }
 
@@ -139,6 +154,7 @@ public class TestCreationFactory {
 
     public static Book newBook() {
         return Book.builder()
+                .id(randomLong())
                 .title(randomString())
                 .author(randomString())
                 .genre(GenreType.FITNESS.name())
@@ -147,6 +163,7 @@ public class TestCreationFactory {
                 .description(randomString())
                 .imageUrl(randomString())
                 .pageCount(10)
+                .reviews(List.of(newBookReview()))
                 .build();
     }
 

@@ -15,8 +15,7 @@ import java.util.List;
 
 import static com.example.demo.TestCreationFactory.randomLong;
 import static com.example.demo.TestCreationFactory.randomString;
-import static com.example.demo.UrlMapping.USERS;
-import static com.example.demo.UrlMapping.USERS_ID_EDIT;
+import static com.example.demo.UrlMapping.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,12 +79,10 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     void delete() throws Exception{
         final long id = randomLong();
-        UserDTO reqUser = UserDTO.builder()
-                .email(randomString())
-                .username(randomString())
-                .password(randomString())
-                .build();
+//
+        when(userService.delete(id)).thenReturn(true);
 
-        when(userService.edit(id, reqUser)).thenReturn(reqUser);
+        ResultActions result = performDeleteWIthPathVariable(USERS + USERS_ID_DELETE, id);
+        result.andExpect(status().isOk());
     }
 }

@@ -19,7 +19,7 @@ public class BookReviewController {
 
     @GetMapping(REVIEW_GET)
     public List<BookReviewDTO> getReviews(@PathVariable Long id){
-        return bookReviewService.getReviewsForItem(id);
+        return bookReviewService.getReviewsForBook(id);
     }
 
     @GetMapping(REVIEW_RATINGS)

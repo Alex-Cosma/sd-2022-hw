@@ -1,5 +1,6 @@
 package com.example.demo.book.model;
 import com.example.demo.bookreview.model.BookReview;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,9 +46,9 @@ public class Book {
     @Column
     private Integer pageCount;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "book")
-    // @Builder.Default
-   // private Set<Review> reviews = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "book", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book", orphanRemoval = true)
+
     private List<BookReview> reviews;
 
     @Override
@@ -65,12 +66,10 @@ public class Book {
             return false;
         }
         if ((this.reviews == null) ? (other.reviews != null) : !this.reviews.equals(other.reviews)) {
-            System.out.println("reviews " + this.reviews);
-            System.out.println("other " + other.reviews);
+
             return false;
         }
-        System.out.println("reviews 2" + this.reviews);
-        System.out.println("other 2" + other.reviews);
+
         return this.author.equals(other.author);
     }
 

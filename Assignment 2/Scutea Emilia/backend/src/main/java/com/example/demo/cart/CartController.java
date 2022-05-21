@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.example.demo.UrlMapping.*;
 
 @RestController
@@ -17,8 +19,8 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping()
-    public CartDTO getCart(@PathVariable Long user_id){
+    @GetMapping(GET_CART)
+    public List<BookDTO> getCart(@PathVariable Long user_id){
         return cartService.getCart(user_id);
     }
 
@@ -32,31 +34,21 @@ public class CartController {
 
     }
 
-    @PutMapping(ADD_TO_CART)
-    public ResponseEntity<?> addBook(@PathVariable Long id, @RequestBody BookDTO book){
-
-        if(cartService.addBook(id, book)){
-            return ResponseEntity.ok(new MessageResponse(String.format("Book successfully added to  cart %d",id)));
-        }
-        return ResponseEntity.badRequest().body(new MessageResponse(String.format("Error: Book not found in cart %d",id)));
-
-    }
-
     @PutMapping(DELETE_FROM_CART)
-    public ResponseEntity<?> deleteFromCart(@PathVariable Long id, @RequestBody BookDTO book){
-        if(cartService.deleteFromCart(id, book)){
-            return ResponseEntity.ok(new MessageResponse(String.format("Book successfully deleted from cart %d",id)));
+    public ResponseEntity<?> deleteFromCart(@PathVariable Long user_id, @PathVariable Long book_id, @RequestBody BookDTO book){
+        if(cartService.deleteFromCart(user_id, book_id, book)){
+            return ResponseEntity.ok(new MessageResponse(String.format("Book successfully deleted from cart %d",user_id)));
         }
-        return ResponseEntity.badRequest().body(new MessageResponse(String.format("Error: Book not found in cart %d",id)));
+        return ResponseEntity.badRequest().body(new MessageResponse(String.format("Error: Book not found in cart %d",user_id)));
     }
 
     @DeleteMapping(DELETE_CART)
-    public void deleteCart(@PathVariable Long id){
-        cartService.deleteCart(id);
+    public void deleteCart(@PathVariable Long user_id){
+        cartService.deleteCart(user_id);
     }
 
     @DeleteMapping(PLACE_ORDER)
-    public void placeOrder(@PathVariable Long id, @PathVariable Long user_id){
-        cartService.placeOrder(id, user_id);
+    public void placeOrder(@PathVariable Long user_id){
+        cartService.placeOrder(user_id);
     }
 }

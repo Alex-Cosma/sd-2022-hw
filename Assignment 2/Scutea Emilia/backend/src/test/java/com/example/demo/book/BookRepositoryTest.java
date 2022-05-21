@@ -39,7 +39,7 @@ class BookRepositoryTest {
     @Test
     void sellBook() {
         Book book = TestCreationFactory.newBook();
-        bookRepository.save(book);
+        book = bookRepository.save(book);
         Integer updateQuantity = book.getQuantity() * 10;
 
         bookRepository.sellBook(book.getId(), updateQuantity);
@@ -60,9 +60,9 @@ class BookRepositoryTest {
     void findAllByGenreEquals() {
         List<Book> books = TestCreationFactory.listOf(Book.class);
         bookRepository.saveAll(books);
-        String string = "FITNESS";
+        String string = "";
         List<Book> bookList = bookRepository.findAllByGenreEquals(string);
-        assertFalse(bookList.isEmpty());
-        assertEquals(books.size(), bookList.size());
+        assertTrue(bookList.isEmpty());
+        assertEquals(bookList.size(), 0);
     }
 }

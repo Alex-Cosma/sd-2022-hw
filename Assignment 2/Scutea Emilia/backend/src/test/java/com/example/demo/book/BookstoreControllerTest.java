@@ -3,6 +3,7 @@ package com.example.demo.book;
 import com.example.demo.BaseControllerTest;
 import com.example.demo.TestCreationFactory;
 import com.example.demo.book.model.Book;
+import com.example.demo.book.model.GenreType;
 import com.example.demo.book.model.dto.BookDTO;
 import com.example.demo.report.ReportService;
 import com.example.demo.report.ReportServiceFactory;
@@ -13,10 +14,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.demo.TestCreationFactory.randomLong;
@@ -41,8 +48,6 @@ class BookstoreControllerTest extends BaseControllerTest {
     @Mock
     private StorageService storageService;
 
-    @Mock
-    private ReportServiceFactory reportServiceFactory;
 
     @BeforeEach
     protected void setUp() {
@@ -62,7 +67,6 @@ class BookstoreControllerTest extends BaseControllerTest {
                 .andExpect(jsonContentToBe(books));
     }
 
-//
 
     @Test
     void create() throws Exception {
@@ -105,24 +109,24 @@ class BookstoreControllerTest extends BaseControllerTest {
 
     @Test
     void exportReport() throws Exception {
-//        final String csv = "src/main/resources/csvReport.csv";
-//        final String pdf = "src/main/resources/pdfReport.pdf";
-//        when(bookstoreService.export(CSV)).thenReturn(csv);
-//        when(bookstoreService.export(PDF)).thenReturn(pdf);
-////
-//        ResultActions responseCsv = performGetWithPathVariables(BOOKS + EXPORT_REPORT, CSV.name());
-//        ResultActions responsePdf = performGetWithPathVariables(BOOKS + EXPORT_REPORT, PDF.name());
-////
-////        Assertions.assertEquals(HttpStatus.OK, responseCsv.getStatusCode());
-////
-////        responseCsv.andExpect(status().isOk());
-////        responsePdf.andExpect(status().isOk());
-//
-//        ReportService csvReportService = reportServiceFactory.getReportService(CSV);
-////        Assertions.assertEquals(HttpStatus.OK, csvReportService.export().());
-//
-//        ReportService pdfReportService = reportServiceFactory.getReportService(PDF);
-//        Assertions.assertEquals(HttpStatus.OK, responseCsv.andExpect(status().isOk()));
+        final String csv = "src/main/resources/csvReport.csv";
+        final String pdf = "src/main/resources/pdfReport.pdf";
+        when(bookstoreService.export(CSV)).thenReturn(csv);
+        when(bookstoreService.export(PDF)).thenReturn(pdf);
+
+        Path rootLocation = Paths.get("");
+
+        Path file = rootLocation.resolve(csv);
+        Resource resource = new UrlResource((file.toUri()));
+        when(storageService.loadAsResource(csv)).thenReturn(resource);
+        ResultActions responseCsv = performGetWithPathVariables(API_PATH + EXPORT_REPORT, CSV);
+        responseCsv.andExpect(status().isOk());
+
+        file = rootLocation.resolve(pdf);
+        resource = new UrlResource((file.toUri()));
+        when(storageService.loadAsResource(pdf)).thenReturn(resource);
+        ResultActions responsePdf = performGetWithPathVariables(API_PATH + EXPORT_REPORT, PDF);
+        responsePdf.andExpect(status().isOk());
     }
 
     @Test
@@ -165,6 +169,29 @@ class BookstoreControllerTest extends BaseControllerTest {
 
         ResultActions result = performPutWithRequestBodyAndPathVariables(API_PATH + BOOKSTORE_ID_SELL, reqItem, id);
         result.andExpect(status().isOk());
+    }
 
+    @Test
+    void getAllGnereTypes() throws Exception {
+        List<GenreType> list = Arrays.asList(GenreType.values().clone());
+
+        when(bookstoreService.getAllGenreTypes()).thenReturn(list);
+        ResultActions response = performGet(API_PATH + BOOKSTORE_GENRE_TYPES);
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(list));
+
+    }
+
+    @Test
+    void getBooksByGenre() throws Exception {
+        List<BookDTO> bookDTOList = TestCreationFactory.listOf(BookDTO.class);
+        GenreType genreType = GenreType.ART;
+        when(bookstoreService.getBooksByGenre(genreType)).thenReturn(bookDTOList);
+
+        ResultActions response = performGetWithPathVariables(API_PATH + BOOKSTORE_BOOK_BY_GENRE, genreType);
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(bookDTOList));
     }
 }

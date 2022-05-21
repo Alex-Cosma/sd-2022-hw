@@ -74,8 +74,6 @@ public class BookstoreController {
     public ResponseEntity<?> delete(@PathVariable Long id){
         bookstoreService.delete(id);
             return ResponseEntity.ok(new MessageResponse(String.format("Book with id %d successfully deleted",id)));
-
-//        return ResponseEntity.badRequest().body(new MessageResponse(String.format("Error: Book with id %d not found",id)));
     }
 
     @GetMapping(EXPORT_REPORT)

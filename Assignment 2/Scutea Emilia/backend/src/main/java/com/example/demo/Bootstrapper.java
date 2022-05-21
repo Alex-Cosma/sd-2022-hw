@@ -30,13 +30,14 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final BookRepository bookRepository;
 
+
     @Value("${app.bootstrap}")
     private Boolean bootstrap;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
-//            bookRepository.deleteAll();
+            bookRepository.deleteAll();
             userRepository.deleteAll();
             roleRepository.deleteAll();
             for (ERole value : ERole.values()) {
@@ -55,13 +56,13 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .roles(Set.of("ADMIN"))
                     .build());
             authService.register(SignupRequest.builder()
-                    .email("emily1@email.com")
+                    .email("escutea@gmail.com")
                     .username("emily1")
                     .password("WooHoo1!")
                     .roles(Set.of("EMPLOYEE"))
                     .build());
 
-//             bookstoreService.loadItemsFromExternalApi();
+             bookstoreService.loadItemsFromExternalApi(false);
         }
     }
 }

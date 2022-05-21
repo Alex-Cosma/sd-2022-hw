@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class BookReviewDTO {
     private Long id;
     private String text;

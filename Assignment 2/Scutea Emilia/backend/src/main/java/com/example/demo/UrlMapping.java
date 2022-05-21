@@ -23,16 +23,19 @@ public class UrlMapping {
     public static final String USERS_ID_DELETE = "/delete/{id}";
 
 
-    public static final String CART = BOOKSTORE + "/cart";
+    public static final String CART = API_PATH + "/cart";
+    public static final String GET_CART = "/get/{user_id}";
     public static final String CREATE_CART = "/create/{id}";
     public static final String ADD_TO_CART = "/add/{id}";
-    public static final String DELETE_FROM_CART = "/delete/{id}";
-    public static final String DELETE_CART = "/deletecart/{id}";
-    public static final String PLACE_ORDER = "/order/{id}/{user_id}";
+    public static final String DELETE_FROM_CART = "/delete/{user_id}/{book_id}";
+    public static final String DELETE_CART = "/deletecart/{user_id}";
+    public static final String PLACE_ORDER = "/order/{user_id}";
 
 
     public static final String REVIEWS = API_PATH + "/reviews";
     public static final String REVIEW_GET = "/{id}";
     public static final String REVIEW_ADD_BOOK = "/addreviews/{book_id}/{user_id}";
     public static final String REVIEW_RATINGS = "/ratings";
+    public static final String REVIEWS_USERS = REVIEWS + "/user";
+    public static final String REVIEW_FOR_USER = "/review/{id}";
 }

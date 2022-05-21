@@ -11,8 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,7 +51,7 @@ class BookstoreServiceIntegrationTest {
     @Test
     void findById() {
         Book book = TestCreationFactory.newBook();
-        bookRepository.save(book);
+        book = bookRepository.save(book);
         Assertions.assertEquals(book.getId(), bookstoreService.findById(book.getId()).getId());
     }
 
@@ -60,7 +60,7 @@ class BookstoreServiceIntegrationTest {
         Book book = TestCreationFactory.newBook();
         Integer quantity = book.getQuantity() - 1;
 
-        bookRepository.save(book);
+        book = bookRepository.save(book);
         bookstoreService.decreaseBookQuantity(book.getId(), bookMapper.toDto(book));
 
         Assertions.assertEquals(quantity, bookstoreService.findById(book.getId()).getQuantity());
@@ -71,7 +71,7 @@ class BookstoreServiceIntegrationTest {
         Book book = TestCreationFactory.newBook();
         Integer quantity = book.getQuantity() + 1;
 
-        bookRepository.save(book);
+        book = bookRepository.save(book);
         bookstoreService.increaseBookQuantity(book.getId(), bookMapper.toDto(book));
 
         Assertions.assertEquals(quantity, bookstoreService.findById(book.getId()).getQuantity());
@@ -94,7 +94,7 @@ class BookstoreServiceIntegrationTest {
     void create() {
         BookDTO book = TestCreationFactory.newBookDTO();
         BookDTO bookDTO = bookstoreService.create(book);
-        Assertions.assertEquals(book, bookDTO);
+        Assertions.assertEquals(book.getTitle(), bookDTO.getTitle());
     }
 
     @Test
@@ -120,5 +120,42 @@ class BookstoreServiceIntegrationTest {
 
         assertEquals(csv, reportServiceFactory.getReportService(ReportType.CSV).export());
         assertEquals(pdf, reportServiceFactory.getReportService(ReportType.PDF).export());
+    }
+
+    @Test
+    void getBooksByGenre(){
+        Book book = TestCreationFactory.newBook();
+        bookRepository.save(book);
+        GenreType genreType = GenreType.FITNESS;
+
+
+        Assertions.assertEquals(1, bookstoreService.getBooksByGenre(genreType).size());
+    }
+
+    @Test
+    void getAllGenreTypes(){
+        List<GenreType> genreTypes = Arrays.asList(GenreType.values().clone());
+        Assertions.assertEquals(genreTypes, bookstoreService.getAllGenreTypes());
+    }
+
+    @Test
+    void isEnoughQuantity(){
+        BookDTO bookDTO = TestCreationFactory.newBookDTO();
+        Integer quantity = bookDTO.getQuantity();
+
+        Assertions.assertTrue(bookstoreService.isEnoughQuantity(bookDTO,quantity));
+    }
+
+    @Test
+    void getApiResponse(){
+        String subject = GenreType.FITNESS.name();
+
+        assertFalse(bookstoreService.getApiResponse(subject).isEmpty());
+    }
+
+    @Test
+    void loadItemsFromExternalApi(){
+        bookstoreService.loadItemsFromExternalApi(true);
+        assertFalse(bookRepository.findAll().isEmpty());
     }
 }

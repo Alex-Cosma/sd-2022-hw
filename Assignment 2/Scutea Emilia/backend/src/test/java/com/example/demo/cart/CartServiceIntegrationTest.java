@@ -50,20 +50,37 @@ class CartServiceIntegrationTest {
     }
 
     @Test
+    void getCart() {
+        BookDTO book = TestCreationFactory.newBookDTO();
+        Book book1 = bookRepository.save(bookMapper.fromDto(book));
+
+        UserDTO user = TestCreationFactory.newUserDTO();
+        User user1 = userRepository.save(userMapper.fromDto(user));
+
+        Long user_id = user1.getId();
+
+        cartService.create(user_id, bookMapper.toDto(book1));
+
+        Assertions.assertEquals(1, cartService.getCart(user_id).size());
+    }
+
+    @Test
     void create() {
         BookDTO book = TestCreationFactory.newBookDTO();
-        bookRepository.save(bookMapper.fromDto(book));
+        Book book2 = bookRepository.save(bookMapper.fromDto(book));
 
         UserDTO user = TestCreationFactory.newUserDTO();
         userRepository.save(userMapper.fromDto(user));
 
         Long user_id = userRepository.findAll().get(0).getId();
 
-        cartService.create(user_id, book);
+        BookDTO bookDTO = bookMapper.toDto(book2);
+
+        cartService.create(user_id, bookDTO);
 
         CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
 
-        assertEquals(cartDTO.getItems().get(0).getId(), bookMapper.fromDto(book).getId());
+        assertEquals(cartDTO.getItems().get(0).getId(), bookDTO.getId());
     }
 
     @Test
@@ -83,41 +100,11 @@ class CartServiceIntegrationTest {
 
         CartDTO cartDTO1 = cartMapper.toDto(cartService.findById(cartDTO.getId()));
 
-        assertEquals(cartDTO.getItems(), cartDTO1.getItems());
+        assertEquals(cartDTO.getItems().get(0).getTitle(), cartDTO1.getItems().get(0).getTitle());
         assertEquals(cartDTO.getId(), cartDTO1.getId());
         assertEquals(cartDTO.getUser_id(), cartDTO1.getUser_id());
-
     }
 
-    @Test
-    void addBook() {
-        BookDTO book = TestCreationFactory.newBookDTO();
-        bookRepository.save(bookMapper.fromDto(book));
-
-        UserDTO user = TestCreationFactory.newUserDTO();
-        userRepository.save(userMapper.fromDto(user));
-
-        Long user_id = userRepository.findAll().get(0).getId();
-
-        book = bookMapper.toDto(bookRepository.findAll().get(0));
-
-        cartService.create(user_id, book);
-
-        CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
-
-        assertEquals(cartDTO.getItems().get(0).getId(), bookMapper.fromDto(book).getId());
-
-        BookDTO book2 = TestCreationFactory.newBookDTO();
-        bookRepository.save(bookMapper.fromDto(book2));
-
-        book2 = bookMapper.toDto(bookRepository.findAll().get(1));
-
-        cartService.addBook(cartDTO.getId(), book2);
-
-        cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
-
-        assertEquals(cartDTO.getItems().get(1).getId(), bookMapper.fromDto(book2).getId());
-    }
 
     @Test
     void deleteFromCart() {
@@ -137,31 +124,47 @@ class CartServiceIntegrationTest {
 
         assertEquals(cartDTO.getItems().get(0).getId(), bookMapper.fromDto(book).getId());
 
-        cartService.deleteFromCart(cartDTO.getId(), book);
+        cartService.deleteFromCart(user_id, book.getId(), book);
 
-        cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
-
-        assertTrue(cartDTO.getItems().isEmpty());
+        assertTrue(cartRepository.findAll().isEmpty());
     }
 
     @Test
     void deleteCart() {
-        BookDTO book = TestCreationFactory.newBookDTO();
-        bookRepository.save(bookMapper.fromDto(book));
+        Book book = TestCreationFactory.newBook();
+        book = bookRepository.save(book);
 
-        UserDTO user = TestCreationFactory.newUserDTO();
-        userRepository.save(userMapper.fromDto(user));
+        User user = TestCreationFactory.newUser();
+        user = userRepository.save(user);
 
-        Long user_id = userRepository.findAll().get(0).getId();
+        Long user_id = user.getId();
 
-        book = bookMapper.toDto(bookRepository.findAll().get(0));
-
-        cartService.create(user_id, book);
+        cartService.create(user_id, bookMapper.toDto(book));
 
         CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
 
         cartService.deleteCart(cartDTO.getId());
 
         assertTrue(cartRepository.findAll().isEmpty());
+    }
+
+    @Test
+    void placeOrder(){
+        Book book = TestCreationFactory.newBook();
+        book = bookRepository.save(book);
+
+        User user = TestCreationFactory.newUser();
+        user = userRepository.save(user);
+
+        Long user_id = user.getId();
+
+        cartService.create(user_id, bookMapper.toDto(book));
+
+        CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
+
+        cartService.placeOrder(cartDTO.getId());
+
+        assertTrue(cartRepository.findAll().isEmpty());
+
     }
 }

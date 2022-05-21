@@ -9,10 +9,12 @@ import com.example.demo.userreview.model.UserReview;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -22,10 +24,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final AuthService authService;
+    private final EmailService emailService;
 
-    public User findById(Long id){
+    public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("User not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
 
     public List<UserDTO> allUsers() {
@@ -39,7 +42,7 @@ public class UserService {
                 .collect(toList());
     }
 
-    public UserDTO create(UserDTO userDTO){
+    public UserDTO create(UserDTO userDTO) {
 
         authService.register(SignupRequest.builder()
                 .email(userDTO.getEmail())
@@ -51,22 +54,21 @@ public class UserService {
         return userDTO;
     }
 
-    public UserDTO edit(Long id, UserDTO userDTO){
+    public UserDTO edit(Long id, UserDTO userDTO) {
         User user = findById(id);
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         return userMapper.toDto(userRepository.save(user));
     }
 
-    public boolean delete(Long id){
+    public boolean delete(Long id) {
         Optional<User> user = userRepository.findById(id);
         user.ifPresent(userRepository::delete);
         return user.isPresent();
     }
 
-    public void sendOrderEmail(Long id){
-     User user = findById(id);
-//     emailService.sendMail(user.getEmail());
-
+    public void sendOrderEmail(Long id) {
+        User user = findById(id);
+        emailService.sendEmail(user.getEmail());
     }
 }

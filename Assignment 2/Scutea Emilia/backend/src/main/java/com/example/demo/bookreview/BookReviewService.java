@@ -21,10 +21,11 @@ public class BookReviewService {
     private final BookstoreService bookstoreService;
 
 
-    public List<String> getAllRatings(){
+    public List<String> getAllRatings() {
         return Arrays.stream(Rating.values()).map(Objects::toString).collect(Collectors.toList());
     }
-    public List<BookReviewDTO> getReviewsForItem(Long itemId) {
+
+    public List<BookReviewDTO> getReviewsForBook(Long itemId) {
         return bookReviewRepository.findAllByBookId(itemId)
                 .stream()
                 .map(bookReviewMapper::toDto)
@@ -32,25 +33,26 @@ public class BookReviewService {
     }
 
 
-    public String getRating(String rating){
-        for(Rating rating1: Rating.values()){
-            if(rating1.name().equalsIgnoreCase(rating)){
+    public String getRating(String rating) {
+        for (Rating rating1 : Rating.values()) {
+            if (rating1.name().equalsIgnoreCase(rating)) {
                 return rating1.name();
             }
         }
         return Rating.AVERAGE.name();
     }
+
     // add review to item
     public BookReviewDTO addReview(Long book_id, BookReviewDTO bookReview) {
-            // get the book
-            Book book = bookstoreService.findById(book_id);
+        // get the book
+        Book book = bookstoreService.findById(book_id);
 
-            // set the book to the review
-            bookReview.setBook(book);
+        // set the book to the review
+        bookReview.setBook(book);
 
-            bookReview.setRating(getRating(bookReview.getRating()));
+        bookReview.setRating(getRating(bookReview.getRating()));
 
-            // save the review
-            return bookReviewMapper.toDto(bookReviewRepository.save(bookReviewMapper.fromDto(bookReview)));
+        // save the review
+        return bookReviewMapper.toDto(bookReviewRepository.save(bookReviewMapper.fromDto(bookReview)));
     }
 }

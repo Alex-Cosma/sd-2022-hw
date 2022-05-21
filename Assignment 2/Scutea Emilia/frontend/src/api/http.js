@@ -1,8 +1,12 @@
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8088/api";
+export const API_PATH = "http://localhost:8088/api";
+export const BOOKS = "/admin/books";
+export const BOOKSTORE = "/bookstore";
+export const CART = "/cart";
+export const REVIEWS = "/reviews";
 export const HTTP = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_PATH,
 });
 
 export default function authHeader() {

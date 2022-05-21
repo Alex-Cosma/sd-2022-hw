@@ -2,6 +2,7 @@ package com.example.demo.bookreview.model;
 
 import com.example.demo.book.model.Book;
 import com.example.demo.bookreview.model.Rating;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class BookReview {
     @ManyToOne
     @JoinColumn(name="book_id")
     @JsonIgnore
+//    @JsonBackReference
     private Book book;
 
     @Override
