@@ -29,7 +29,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue//(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(nullable = false, length = 20)

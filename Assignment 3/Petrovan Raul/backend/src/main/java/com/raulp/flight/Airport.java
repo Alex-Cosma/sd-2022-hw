@@ -27,6 +27,6 @@ public class Airport {
     private String name;
 
     @Column(length = 4)
-    private String icao_code;
+    private String icao;
 
 }

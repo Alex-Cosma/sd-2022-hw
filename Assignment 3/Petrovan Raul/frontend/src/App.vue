@@ -4,6 +4,7 @@
       <v-container fluid>
         <NavBar v-if="drawer"></NavBar>
         <TopBar v-if="isLoggedIn"></TopBar>
+
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -14,6 +15,9 @@
 import TopBar from "./components/TopBar";
 import NavBar from "@/components/NavBar";
 import {auth as store} from "@/store/auth.module";
+// import WSGREET from "@/components/WSGREET";
+
+
 export default {
   name: "App",
   components: { NavBar, TopBar },

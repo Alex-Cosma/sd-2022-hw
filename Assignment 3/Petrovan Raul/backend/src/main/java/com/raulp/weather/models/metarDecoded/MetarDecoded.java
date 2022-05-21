@@ -1,4 +1,4 @@
-package com.raulp.weather.models;
+package com.raulp.weather.models.metarDecoded;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,11 @@ import lombok.extern.jackson.Jacksonized;
 import java.util.List;
 
 @Data
-@Jacksonized @Builder
+@Jacksonized
+@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Metar {
-    private List<String> data;
+public class MetarDecoded {
+    private List<MetarDecodedData> data;
     private Integer results;
 }

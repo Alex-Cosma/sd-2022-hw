@@ -4,7 +4,7 @@ import com.raulp.security.dto.JwtResponse;
 import com.raulp.security.dto.LoginRequest;
 import com.raulp.security.dto.MessageResponse;
 import com.raulp.security.dto.SignupRequest;
-import com.raulp.user.dto.UserDetailsImpl;
+import com.raulp.user.dto.user.UserDetailsImpl;
 import com.raulp.UrlMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

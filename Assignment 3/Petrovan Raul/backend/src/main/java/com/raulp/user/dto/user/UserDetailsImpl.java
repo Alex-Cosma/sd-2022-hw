@@ -1,4 +1,4 @@
-package com.raulp.user.dto;
+package com.raulp.user.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raulp.user.model.User;

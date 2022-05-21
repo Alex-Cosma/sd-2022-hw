@@ -1,5 +1,7 @@
 package com.raulp.reservation;
 
+import com.raulp.user.model.Instructor;
+import com.raulp.user.model.Student;
 import com.raulp.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,13 +28,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
-    private User student;
+    private Student student;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "instructor_id")
-    private User instructor;
+    private Instructor instructor;
 
     private Date startTime;
 

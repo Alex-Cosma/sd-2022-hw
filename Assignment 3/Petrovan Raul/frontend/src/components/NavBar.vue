@@ -25,16 +25,21 @@ export default {
     return {
       drawer: true,
       links: [
-        {icon: '', text: 'Users', to: '/users', requireAdmin: true},
-        {icon: 'library_books', text: 'Books', to: '/books', requiresPrivilege: false},
-        {icon: '', text: 'Report Generator', to: '/reports', requiresPrivilege: true},
-        {icon: '', text: 'My Students', to: '/students', requireFI: true},
+        {icon: '', text: 'Users', to: '/users', forAdmin: true},
+        {icon: '', text: 'Report Generator', to: '/reports', forFI: true, forStudent: true},
+        {icon: '', text: 'My Students', to: '/my-students', forFI: true},
+        {icon: '', text: 'My Flights', to: '/my-flights', forFI: true, forStudent: true},
+        {icon: '', text: 'Weather Data', to: '/weather', forFI: true, forStudent: true},
+        {icon: '', text: 'Settings', to: '/settings', forFI: true, forStudent: true},
       ]
     };
   },
   computed: {
     accessibleLinks: function () {
-      return this.links.filter(link => link.requireAdmin && store.getters["auth/isAdmin"] || link.requireFI && store.getters["auth/isFI"])
+      return this.links.filter(link => link.forAdmin && store.getters["auth/isAdmin"] ||
+          link.forFI && store.getters["auth/isFI"] ||
+          link.forStudent && store.getters["auth/isStudent"] ||
+          link.forEveryone);
     }
   }
 }

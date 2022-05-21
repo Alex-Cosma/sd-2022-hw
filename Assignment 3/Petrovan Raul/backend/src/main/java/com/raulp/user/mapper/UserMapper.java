@@ -1,7 +1,8 @@
 package com.raulp.user.mapper;
 
-import com.raulp.user.dto.UserListDTO;
-import com.raulp.user.dto.UserMinimalDTO;
+import com.raulp.user.dto.user.UserDetailsDTO;
+import com.raulp.user.dto.user.UserListDTO;
+import com.raulp.user.dto.user.UserMinimalDTO;
 import com.raulp.user.model.User;
 import org.mapstruct.*;
 
@@ -20,6 +21,11 @@ public interface UserMapper {
             @Mapping(target = "roles", ignore = true)
     })
     UserListDTO userListDtoFromUser(User user);
+
+    @Mappings({
+            @Mapping(target = "name", source = "user.username")
+    })
+    UserDetailsDTO userDetailsFromUser(User user);
 
     @AfterMapping
     default void populateRoles(User user, @MappingTarget UserListDTO userListDTO) {

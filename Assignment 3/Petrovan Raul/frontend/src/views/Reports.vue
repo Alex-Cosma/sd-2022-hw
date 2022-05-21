@@ -3,29 +3,32 @@
     <v-card-title>
       Reports
     </v-card-title>
-    <v-btn @click="getPDF">
+    <div class="padded">
+      Here you can generate reports of your flight activity.
+    </div>
+    <v-btn @click="getCSV" class="padded">
       <v-icon>mdi-file-document-outline</v-icon>
-      <span>PDF Report</span>
-    </v-btn>
-    <v-btn @click="getCSV">
-      <v-icon>mdi-file-document-outline</v-icon>
-      <span>CSV Report</span>
+      <span>Download CSV</span>
     </v-btn>
   </v-card>
 </template>
 
 <script>
 import api from "@/api";
+import {auth as store} from "../store/auth.module";
 
 export default {
   name: "Reports",
   methods: {
-    getPDF() {
-      api.reports.getPDF();
-    },
     getCSV() {
-      api.reports.getCSV();
+      api.reports.getCSV(store.state.user.id);
     },
   },
 };
 </script>
+
+<style>
+.padded {
+  margin: 1rem;
+}
+</style>

@@ -1,6 +1,6 @@
 package com.raulp.user;
 
-import com.raulp.user.dto.UserDetailsImpl;
+import com.raulp.user.dto.user.UserDetailsImpl;
 import com.raulp.user.model.User;
 import com.raulp.user.repos.UserRepository;
 import lombok.RequiredArgsConstructor;

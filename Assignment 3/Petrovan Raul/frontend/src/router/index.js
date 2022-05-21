@@ -1,11 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import UserList from "../views/UserList.vue";
-import BookList from "../views/BookList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 import Reports from "@/views/Reports";
 import StudentsList from "@/views/StudentsList";
+import FlightsList from "@/views/FlightsList";
+import UserSettings from "@/views/UserSettings";
+import Weather from "@/views/Weather";
 
 Vue.use(VueRouter);
 
@@ -16,6 +18,18 @@ const routes = [
     component: Login,
   },
   {
+    path: "/settings",
+    name: "Settings",
+    component: UserSettings,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isFI(store.state) || store.getters.isStudent(store.state)) {
+        next();
+      } else {
+        next({ name: "About" });
+      }
+    },
+  },
+  {
     path: "/users",
     name: "Users",
     component: UserList,
@@ -23,12 +37,12 @@ const routes = [
       if (store.getters.isAdmin(store.state)) {
         next();
       } else {
-        next({ name: "Books" });
+        next({ name: "About" });
       }
     },
   },
   {
-    path: "/students",
+    path: "/my-students",
     name: "Students",
     component: StudentsList,
     beforeEnter: (to, from, next) => {
@@ -40,26 +54,32 @@ const routes = [
     },
   },
   {
-    path: "/books",
-    name: "Books",
-    component: BookList,
-    beforeEnter: (to, from, next) => {
-      if (store.state.status.loggedIn) {
-        next();
-      } else {
-        next({ name: "Home" });
-      }
-    },
+    path: "/my-flights",
+    name: "Flights",
+    component: FlightsList,
+
   },
   {
     path: "/reports",
     name: "Reports",
     component: Reports,
     beforeEnter: (to, from, next) => {
-      if (store.getters.isAdmin(store.state)) {
+      if (store.getters.isFI(store.state) || store.getters.isStudent(store.state)) {
         next();
       } else {
-        next({ name: "Books" });
+        next({ name: "About" });
+      }
+    },
+  },
+  {
+    path: "/weather",
+    name: "Weather",
+    component: Weather,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isFI(store.state) || store.getters.isStudent(store.state)) {
+        next();
+      } else {
+        next({ name: "About" });
       }
     },
   },

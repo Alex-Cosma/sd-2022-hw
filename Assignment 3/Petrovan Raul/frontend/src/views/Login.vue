@@ -86,8 +86,10 @@ export default {
         if (this.$store.state.auth.status.loggedIn) {
           if (this.$store.getters["auth/isAdmin"]) {
             router.push("/users");
+          } else if (this.$store.getters["auth/isFI"]) {
+            router.push("/my-students");
           } else {
-            router.push("/books");
+            router.push("/my-flights");
           }
         } else {
           alert("Invalid credentials!");

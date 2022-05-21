@@ -2,6 +2,7 @@ package com.raulp.report;
 
 import com.raulp.book.model.dto.BookDTO;
 import com.raulp.UrlMapping;
+import com.raulp.flight.dtos.FlightDTO;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,20 +19,36 @@ import static com.raulp.report.ReportType.CSV;
 public class CSVReportService implements ReportService {
 
     public static String docPath = UrlMapping.REPORT_LOCAL_PATH + UrlMapping.REPORT_LOCAL_CSV;
+
     @Override
-    public String export(List<BookDTO> books) {
+    public String export(List<FlightDTO> flights) {
 
         List<String[]> dataLines = new ArrayList<>();
         dataLines.add(new String[]
-                { "Title", "Author", "Genre", "Description", "Price" });
+                {"Flight ID", "Airplane Description", "Departure Airport", "Departure Airport ICAO"
+                        , "Arrival Airport", "Arrival Airport ICAO", "Departure Time",
+                        "Arrival Time"
+                        , "Student Username", "Student Name", "Student Surname",
+                        "Instructor Username", "Instructor Name", "Instructor Surname"
+                });
+        System.out.println(flights);
 
-        for (int i = 0; i < books.size(); i++) {
-            dataLines.add(new String[]{
-                    books.get(i).getTitle(),
-                    books.get(i).getAuthor(),
-                    books.get(i).getGenre() != null ? books.get(i).getGenre().toString() : null,
-                    books.get(i).getDescription(),
-                    books.get(i).getPrice() != null ? books.get(i).getPrice().toString() : null,
+        for (int i = 0; i < flights.size(); i++) {
+            dataLines.add(new String[] {
+                    nullConvert(flights.get(i).getId().toString()),
+                    nullConvert(flights.get(i).getAirplane().getName()),
+                    nullConvert(flights.get(i).getDepartureAirport().getName()),
+                    nullConvert(flights.get(i).getDepartureAirport().getIcao()),
+                    nullConvert(flights.get(i).getArrivalAirport().getName()),
+                    nullConvert(flights.get(i).getArrivalAirport().getIcao()),
+                    nullConvert(flights.get(i).getDepartureTime().toString()),
+                    nullConvert(flights.get(i).getArrivalTime().toString()),
+                    nullConvert(flights.get(i).getStudent().getName()),
+                    nullConvert(flights.get(i).getStudent().getFirstName()),
+                    nullConvert(flights.get(i).getStudent().getLastName()),
+                    nullConvert(flights.get(i).getInstructor().getName()),
+                    nullConvert(flights.get(i).getInstructor().getFirstName()),
+                    nullConvert(flights.get(i).getInstructor().getLastName()),
             });
         }
 
@@ -45,6 +62,13 @@ public class CSVReportService implements ReportService {
         }
 
         return docPath;
+    }
+
+    public String nullConvert(String data) {
+        if (data == null) {
+            return "";
+        }
+        return data;
     }
 
     public String convertToCSV(String[] data) {

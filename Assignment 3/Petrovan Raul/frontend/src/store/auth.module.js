@@ -69,10 +69,16 @@ export const auth = {
   },
   getters: {
     isAdmin: (state) => {
-      return state.user.roles.includes("ADMIN");
+      return state.user?.roles.includes("ADMIN");
     },
     isFI: (state) => {
-      return state.user.roles.includes("FLIGHT_INSTRUCTOR");
+      return state.user?.roles.includes("FLIGHT_INSTRUCTOR");
+    },
+    isStudent: (state) => {
+      return state.user?.roles.includes("STUDENT");
+    },
+    isLoggedIn: (state) => {
+      return state.user.status.loggedIn;
     },
     drawer: (state) => {
       return state.drawer;

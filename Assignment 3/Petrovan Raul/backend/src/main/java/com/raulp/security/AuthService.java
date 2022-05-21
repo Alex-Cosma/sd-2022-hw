@@ -11,11 +11,13 @@ import com.raulp.user.model.ERole;
 import com.raulp.user.model.Role;
 import com.raulp.user.model.User;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -64,13 +66,16 @@ public class AuthService {
         if(rolesStr.contains(ERole.FLIGHT_INSTRUCTOR.toString())){
             instructorRepository.save(Instructor.builder().username(signUpRequest.getUsername())
                     .password(encoder.encode(signUpRequest.getPassword()))
-                    .email(signUpRequest.getEmail()).build());
-        }
+                    .email(signUpRequest.getEmail())
+                    .roles(user.getRoles()).build());
+        } else
         if(rolesStr.contains(ERole.STUDENT.toString())){
             studentRepository.save(Student.builder().username(signUpRequest.getUsername())
                     .password(encoder.encode(signUpRequest.getPassword()))
-                    .email(signUpRequest.getEmail()).build());
+                    .email(signUpRequest.getEmail())
+                    .roles(user.getRoles()).build());
+        }else {
+            userRepository.save(user);
         }
-        userRepository.save(user);
     }
 }

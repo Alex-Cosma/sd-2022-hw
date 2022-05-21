@@ -1,22 +1,8 @@
 import authHeader, {BASE_URL, HTTP} from "../http";
 
 export default {
-    getPDF() {
-        return HTTP.get(BASE_URL + "/reports/pdf", {
-            headers: authHeader(),
-            responseType: "blob",
-        }).then((response) => {
-                const blob = new Blob([response.data], {type: "application/pdf"});
-                const link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "report.pdf";
-                link.click();
-                URL.revokeObjectURL(link.href);
-            }
-        ).catch(console.error);
-    },
-    getCSV() {
-        return HTTP.get(BASE_URL + "/reports/csv", {
+    getCSV(userId) {
+        return HTTP.get(BASE_URL + "/flights/reports/csv/user/" + userId, {
             headers: authHeader(),
             responseType: "blob",
         }).then((response) => {

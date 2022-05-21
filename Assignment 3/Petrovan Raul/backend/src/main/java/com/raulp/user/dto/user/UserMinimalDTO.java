@@ -1,4 +1,4 @@
-package com.raulp.user.dto;
+package com.raulp.user.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

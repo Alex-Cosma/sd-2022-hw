@@ -8,13 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@stomp/stompjs": "^6.1.2",
     "axios": "0.18.1",
     "core-js": "^3.6.5",
     "material-design-icons-iconfont": "5.0.1",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.7",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "websocket": "^1.0.34",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@mdi/font": "^5.5.55",

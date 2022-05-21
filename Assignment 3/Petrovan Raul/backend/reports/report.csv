@@ -1,3 +1,2 @@
-Title,Author,Genre,Description,Price
-Yes,John,ACTION,best book 2,23.5
-The,John,THRILLER,best book,22.3
+Flight ID,Airplane Description,Departure Airport,Departure Airport ICAO,Arrival Airport,Arrival Airport ICAO,Departure Time,Arrival Time,Student Username,Student Name,Student Surname,Instructor Username,Instructor Name,Instructor Surname
+1,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-06 04:20:00.0,2022-05-06 03:15:00.0,alex1,,,alex2,,

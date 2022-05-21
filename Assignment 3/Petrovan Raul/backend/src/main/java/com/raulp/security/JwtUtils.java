@@ -1,6 +1,6 @@
 package com.raulp.security;
 
-import com.raulp.user.dto.UserDetailsImpl;
+import com.raulp.user.dto.user.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

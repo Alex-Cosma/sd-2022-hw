@@ -1,8 +1,9 @@
 package com.raulp.user;
 
-import com.raulp.user.dto.UserMinimalDTO;
+import com.raulp.user.dto.user.UserMinimalDTO;
 import com.raulp.user.model.User;
 import com.raulp.user.repos.UserRepository;
+import com.raulp.user.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,8 +41,11 @@ class UserServiceIntegrationTest {
         List<UserMinimalDTO> userMinimalDTOS = userService.allUsersMinimal();
 
         for (int i = 0; i < nrUsers; i++) {
-            assertEquals(users.get(i).getId(), userMinimalDTOS.get(i).getId());
-            assertEquals(users.get(i).getUsername(), userMinimalDTOS.get(i).getName());
+            int finalI = i;
+            assertEquals(users.get(i).getUsername(),
+                    userMinimalDTOS.stream()
+                            .filter(user -> user.getId() == users.get(finalI).getId()).collect(
+                                    Collectors.toList()).get(0).getName());
         }
     }
 }

@@ -32,7 +32,7 @@ class BookServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        bookService = new BookService(reportServiceFactory, bookRepository, bookMapper);
+        bookService = new BookService(bookRepository, bookMapper);
     }
 
     @Test

@@ -53,10 +53,6 @@ public class BookController {
         return bookService.sellOne(id);
     }
 
-    @GetMapping(EXPORT_REPORT)
-    public String exportReport(@PathVariable ReportType type) {
-        return bookService.export(type);
-    }
 
     @PostMapping(FILTER)
     public List<BookDTO> filter(@RequestBody SearchObject filterObject) {

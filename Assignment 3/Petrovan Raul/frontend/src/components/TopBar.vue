@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-app-bar-nav-icon @click="$store.dispatch('auth/toggleDrawer')"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Book Library</v-toolbar-title>
+      <v-toolbar-title>My Easy Flight Management</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

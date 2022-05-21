@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookService {
 
-    private final ReportServiceFactory reportServiceFactory;
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
@@ -48,14 +47,6 @@ public class BookService {
         return bookMapper.toDto(
             bookRepository.save(actBook)
         );
-    }
-
-    public String export(ReportType type) {
-        try {
-            return reportServiceFactory.getReportService(type).export(findOutOfStock());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public BookDTO sellOne(Long id) {
