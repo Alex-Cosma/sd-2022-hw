@@ -9,9 +9,22 @@ import com.lab4.demo.order.model.Order;
 import com.lab4.demo.order.repository.OrderRepository;
 import com.lab4.demo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,6 +53,10 @@ public class OrderService {
 
     public List<OrderDTO> findAll() {
         List<Order> orders = orderRepository.findAll();
+        return getOrderDTOS(orders);
+    }
+
+    private List<OrderDTO> getOrderDTOS(List<Order> orders) {
         List<OrderDTO> orderDTOS = new ArrayList<>();
         for (Order order : orders) {
             OrderDTO orderDTO = orderMapper.toDto(order);
@@ -47,6 +64,11 @@ public class OrderService {
             orderDTOS.add(orderDTO);
         }
         return orderDTOS;
+    }
+
+    public List<OrderDTO> findAllForUser(Long userId) {
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return getOrderDTOS(orders);
     }
 
     public OrderDTO create(OrderDTO orderDTO) {
@@ -89,6 +111,11 @@ public class OrderService {
     }
 
     public void delete(Long id) {
+        Order order = findById(id);
+        Set<Book> books = order.getBooks();
+        for (Book book : books) {
+            bookService.returnBook(book.getId());
+        }
         orderRepository.delete(findById(id));
     }
 }

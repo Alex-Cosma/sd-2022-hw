@@ -173,4 +173,24 @@ class UserServiceIntegrationTest {
         }
 
     }
+
+    @Test
+    void findById() {
+        User user = User.builder()
+                .username(TestCreationFactory.randomString())
+                .password(UUID.randomUUID().toString())
+                .email(TestCreationFactory.randomString() + "@gmail.com")
+                .roles(Set.of(roleRepository.findByName(ERole.CUSTOMER).get()))
+                .build();
+
+        User expected = userRepository.save(user);
+
+        User actual = userService.findById(user.getId());
+
+        assertEquals(expected.getUsername(), actual.getUsername());
+        assertEquals(expected.getEmail(), actual.getEmail());
+        assertEquals(expected.getRoles(), actual.getRoles());
+        assertEquals(expected.getPassword(), actual.getPassword());
+
+    }
 }

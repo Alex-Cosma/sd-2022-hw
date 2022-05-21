@@ -25,9 +25,7 @@
           <RoleDD @role-change="setRole($event)" :disabled="edit" />
         </v-form>
         <v-card-actions>
-          <v-btn @click="persist" :disabled="passwordsMatch()">
-            Create
-          </v-btn>
+          <v-btn @click="persist" :disabled="passwordsMatch()"> Create </v-btn>
         </v-card-actions>
       </v-card>
     </template>

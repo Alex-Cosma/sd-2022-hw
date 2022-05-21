@@ -171,4 +171,13 @@ class BookServiceIntegrationTest {
         Book soldBook = bookRepository.findById(savedBook.getId()).get();
         assertEquals(savedBook.getQuantity() - 1, soldBook.getQuantity());
     }
+
+    @Test
+    void returnBook() {
+        Book book = createBook();
+        Book savedBook = bookRepository.save(book);
+        bookService.returnBook(savedBook.getId());
+        Book returnedBook = bookRepository.findById(savedBook.getId()).get();
+        assertEquals(savedBook.getQuantity() + 1, returnedBook.getQuantity());
+    }
 }

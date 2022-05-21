@@ -58,6 +58,10 @@ public abstract class BaseControllerTest {
         return mockMvc.perform(jsonType(get(path, pathVariable)));
     }
 
+    protected ResultActions performGetWithPathVariables(String path, Object pathVariable1, Object pathVariable2) throws Exception {
+        return mockMvc.perform(jsonType(get(path, pathVariable1, pathVariable2)));
+    }
+
     protected ResultActions performGetWithModelAttributeAndParams(String path, Pair<String, Object> modelAttribute,
                                                                   List<Pair<String, String>> params) throws Exception {
         MockHttpServletRequestBuilder requestBuilder = get(path);

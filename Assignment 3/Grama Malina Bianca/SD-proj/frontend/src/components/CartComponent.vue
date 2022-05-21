@@ -15,6 +15,15 @@
           @click:row="onClickRow"
         >
         </v-data-table>
+        <vue-google-autocomplete
+          ref="address"
+          id="map"
+          classname="form-control"
+          placeholder="Please type your address"
+          v-on:placechanged="getAddressData"
+          v-show="setDisabled()"
+        >
+        </vue-google-autocomplete>
         <v-form>
           <v-text-field
             v-model="address"
@@ -23,7 +32,10 @@
           />
         </v-form>
         <v-card-actions class="justify-center">
-          <v-btn @click="showItems" v-show="confirmButtonDisabled"
+          <v-btn
+            @click="showItems"
+            v-show="confirmButtonDisabled"
+            :disabled="confirmOrder()"
             >Confirm Order</v-btn
           >
           <v-btn @click="placeOrder()" v-show="buttonDisabled"
@@ -40,6 +52,15 @@
           <v-btn icon @click="close">
             <v-icon>close</v-icon>
           </v-btn>
+          <v-snackbar v-model="snackbar">
+            {{ text }}
+
+            <template v-slot:action="{ attrs }">
+              <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+                Close
+              </v-btn>
+            </template>
+          </v-snackbar>
         </v-card-actions>
       </v-card>
     </template>
@@ -49,9 +70,13 @@
 <script>
 import api from "../api";
 const auth_user = JSON.parse(localStorage.getItem("user"));
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 export default {
   name: "CartComponent",
+  components: {
+    VueGoogleAutocomplete,
+  },
   props: {
     selectedItems: Array,
     opened: Boolean,
@@ -64,6 +89,9 @@ export default {
       confirmButtonDisabled: true,
       deleteButtonDisabled: true,
       address: "",
+      googleAddress: "",
+      snackbar: false,
+      text: `Order has been placed`,
       headers: [
         {
           text: "Title",
@@ -86,7 +114,26 @@ export default {
       ],
     };
   },
+  mounted() {
+    // To demonstrate functionality of exposed component functions
+    // Here we make focus on the user input
+    this.$refs.address.focus();
+  },
   methods: {
+    getAddressData: function (addressData) {
+      this.googleAddress = addressData;
+      this.address =
+        addressData.route +
+        ", " +
+        addressData.locality +
+        ", " +
+        addressData.administrative_area_level_1 +
+        ", " +
+        addressData.country;
+    },
+    confirmOrder() {
+      return this.selectedItems.length <= 0;
+    },
     showItems() {
       this.disabled = true;
       this.buttonDisabled = true;
@@ -111,6 +158,7 @@ export default {
       this.deleteButtonDisabled = true;
     },
     placeOrder() {
+      this.snackbar = true;
       api.orders.create({
         address: this.address,
         userId: auth_user.id,

@@ -158,4 +158,17 @@ class UserServiceTest {
 
         return users;
     }
+
+    @Test
+    void findById() {
+        Long id = TestCreationFactory.randomLong();
+        User user = TestCreationFactory.newUser();
+        user.setId(id);
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+        User expected = userService.findById(id);
+
+        assertEquals(expected, user);
+    }
 }

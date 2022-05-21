@@ -147,4 +147,31 @@ class OrderServiceTest {
 
         verify(orderRepository, times(1)).delete(order);
     }
+
+    @Test
+    void findAllForUser() {
+        List<Order> orders = TestCreationFactory.listOf(Order.class);
+        User user = TestCreationFactory.newUser();
+        List<Order> ordersForUser = new ArrayList<>();
+        for (int i = 0; i < orders.size(); i++) {
+            if (i % 3 == 0) {
+                orders.get(i).setUser(user);
+                ordersForUser.add(orders.get(i));
+            }
+        }
+
+        when(orderRepository.findAllByUserId(user.getId())).thenReturn(ordersForUser);
+
+        List<OrderDTO> expected = new ArrayList<>();
+        for (Order order : ordersForUser) {
+            OrderDTO orderDTO = TestCreationFactory.newOrderDTO();
+            when(orderMapper.toDto(order)).thenReturn(orderDTO);
+            expected.add(orderDTO);
+        }
+
+        List<OrderDTO> actual = orderService.findAllForUser(user.getId());
+
+        assertEquals(expected, actual);
+
+    }
 }

@@ -71,4 +71,10 @@ public class BookService {
         book.setQuantity(book.getQuantity() - 1);
         return bookRepository.save(book);
     }
+
+    public Book returnBook(Long id) {
+        Book book = findById(id);
+        book.setQuantity(book.getQuantity() + 1);
+        return bookRepository.save(book);
+    }
 }

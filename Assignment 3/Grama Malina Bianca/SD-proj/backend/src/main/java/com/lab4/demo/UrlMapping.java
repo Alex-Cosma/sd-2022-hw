@@ -13,6 +13,8 @@ public class UrlMapping {
 
     public static final String ORDERS = API_PATH + "/orders";
 
+    public static final String REPORT = "/report/{type}" + ENTITY;
+
     public static final String SEND_MESSAGE = "/send-message";
     public static final String MESSAGE = "/message";
     public static final String TOPIC = "/topic/messages";

@@ -23,10 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class BookControllerTest extends BaseControllerTest {
 
     @InjectMocks
-    BookController controller;
+    private BookController controller;
 
     @Mock
-    BookService bookService;
+    private BookService bookService;
 
     @BeforeEach
     protected void setUp() {

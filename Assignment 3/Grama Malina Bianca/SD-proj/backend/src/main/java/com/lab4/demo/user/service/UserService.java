@@ -42,7 +42,7 @@ public class UserService {
                 .collect(toList());
     }
 
-    private User findById(Long id) {
+    public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User with id " + id + " not found")
         );

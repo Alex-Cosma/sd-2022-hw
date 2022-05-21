@@ -20,11 +20,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -184,7 +182,65 @@ class OrderServiceIntegrationTest {
         OrderDTO orderDTO = orderMapper.toDto(savedOrders.get(random));
         orderMapper.populateFields(savedOrders.get(random), orderDTO);
 
+        List<Book> before = new ArrayList<>();
+        List<Long> bookIds = new ArrayList<>(orderDTO.getBookIds());
+        for (Long bookId : orderDTO.getBookIds()) {
+            Book book = bookRepository.findById(bookId).get();
+            before.add(book);
+        }
+
         orderService.delete(orderDTO.getId());
+
+        List<Book> after = new ArrayList<>();
+        for (Long bookId : bookIds) {
+            Book book = bookRepository.findById(bookId).get();
+            after.add(book);
+        }
+
         assertFalse(orderRepository.existsById(orderDTO.getId()));
+        for (int i = 0; i < before.size(); i++) {
+            assertEquals(before.get(i).getQuantity(), after.get(i).getQuantity() - 1);
+        }
+    }
+
+    @Test
+    void findAllForUser() {
+        User user = TestCreationFactory.newUser();
+        List<Role> customer = new ArrayList<>();
+        customer.add(roleRepository.findByName(ERole.CUSTOMER).get());
+        Set<Role> roles = new HashSet<>(customer);
+        user.setRoles(roles);
+        User savedUser = userRepository.save(user);
+
+        List<Order> orders = createOrders();
+        for (int i = 0; i < orders.size(); i++) {
+            if (i % 3 == 0) {
+                orders.get(i).setUser(savedUser);
+            }
+        }
+
+        List<Order> savedOrders = orderRepository.saveAll(orders);
+        List<OrderDTO> orderDTOs = new ArrayList<>();
+        for (Order order : savedOrders) {
+            if (order.getUser().getId().equals(savedUser.getId())) {
+                OrderDTO orderDTO = orderMapper.toDto(order);
+                orderMapper.populateFields(order, orderDTO);
+                orderDTOs.add(orderDTO);
+            }
+        }
+
+        List<OrderDTO> foundOrderDTOs = orderService.findAllForUser(savedUser.getId());
+
+        assertEquals(orderDTOs.size(), foundOrderDTOs.size());
+
+        for (int i = 0; i < orderDTOs.size(); i++) {
+            assertEquals(orderDTOs.get(i).getId(), foundOrderDTOs.get(i).getId());
+            assertEquals(orderDTOs.get(i).getBookIds(), foundOrderDTOs.get(i).getBookIds());
+            assertEquals(orderDTOs.get(i).getUserId(), foundOrderDTOs.get(i).getUserId());
+            assertEquals(orderDTOs.get(i).getDeliveryDate().toString(), foundOrderDTOs.get(i).getDeliveryDate().toString());
+            assertEquals(orderDTOs.get(i).getReturnDate().toString(), foundOrderDTOs.get(i).getReturnDate().toString());
+            assertEquals(orderDTOs.get(i).getAddress(), foundOrderDTOs.get(i).getAddress());
+        }
+
     }
 }

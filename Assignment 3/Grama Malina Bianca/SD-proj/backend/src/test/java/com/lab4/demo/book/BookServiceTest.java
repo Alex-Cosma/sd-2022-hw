@@ -147,4 +147,19 @@ public class BookServiceTest {
 
         assertEquals(result.getQuantity(), 0);
     }
+
+    @Test
+    void returnBook() {
+        Long id = TestCreationFactory.randomLong();
+        Book book = newBook();
+        book.setId(id);
+        when(bookRepository.findById(id)).thenReturn(Optional.of(book));
+
+        book.setQuantity(0);
+        when(bookRepository.save(book)).thenReturn(book);
+
+        Book result = bookService.returnBook(id);
+
+        assertEquals(result.getQuantity(), 1);
+    }
 }

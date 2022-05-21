@@ -11,12 +11,28 @@
         hide-details
       >
       </v-text-field>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            @click="openOrders"
+            color="blue"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon dark>list</v-icon>
+          </v-btn>
+        </template>
+        <span>View Orders</span>
+      </v-tooltip>
       <v-badge
         :content="this.selectedItems.length"
         :value="numOfItems"
         @click.native="openCart"
         color="green"
-        overlap
       >
         <v-icon>mdi-cart</v-icon>
       </v-badge>
@@ -50,19 +66,26 @@
       @show-items="changeSelectedItems($event)"
       @refresh="refreshList"
     ></CartComponent>
+    <OrderListComponent
+      :orders="orders"
+      :opened="orderListVisible"
+      @refresh="refreshList"
+    ></OrderListComponent>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
 import CartComponent from "../components/CartComponent";
+import OrderListComponent from "@/components/OrderListComponent";
 
 const auth_user = JSON.parse(localStorage.getItem("user"));
 export default {
   name: "ItemListCustomer",
-  components: { CartComponent },
+  components: { OrderListComponent, CartComponent },
   data() {
     return {
+      orders: [],
       items: [],
       search: "",
       headers: [
@@ -110,24 +133,26 @@ export default {
         },
       ],
       dialogVisible: false,
+      orderListVisible: false,
       selectedItems: [],
       numOfItems: 0,
     };
   },
   methods: {
     openCart() {
-      console.log("open cart");
       this.dialogVisible = true;
     },
     addItemToCart(item) {
       this.selectedItems.push(item);
       this.numOfItems++;
       this.dialogVisible = false;
-      console.log(this.selectedItems);
+      this.orderListVisible = false;
     },
     async refreshList() {
       this.dialogVisible = false;
+      this.orderListVisible = false;
       this.items = await api.items.allItems();
+      this.orders = await api.orders.ordersForCustomer(auth_user.id);
     },
     isUnauthorized() {
       return auth_user.roles.includes("CUSTOMER") && this.isOutOfStock();
@@ -138,6 +163,11 @@ export default {
     changeSelectedItems(items) {
       this.selectedItems = items;
       this.numOfItems = items.length;
+    },
+    async openOrders() {
+      this.orderListVisible = true;
+      this.orders = await api.orders.ordersForCustomer(auth_user.id);
+      console.log(this.orders);
     },
   },
   created() {
