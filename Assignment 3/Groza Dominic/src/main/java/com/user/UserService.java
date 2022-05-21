@@ -48,7 +48,7 @@ public class UserService {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
         SignupRequest signUpRequest = new SignupRequest(user.getUsername(), user.getEmail(),
-                user.getPassword(), user.getFirstName(), user.getLastName(), user.getAddress(), null);
+                user.getPassword(), user.getFirstName(), user.getLastName(), user.getAddress());
 
         authService.register(signUpRequest);
 
@@ -59,7 +59,6 @@ public class UserService {
         return userRepository.findAll()
                 .stream().map(user -> {
                     UserListDto userListDto = userMapper.userListDtoFromUser(user);
-                    userMapper.populateRoles(user, userListDto);
                     userMapper.populateFriends(user, userListDto);
                     return userListDto;
                 })
@@ -82,7 +81,6 @@ public class UserService {
     public UserListDto get(Long id) {
         User user = findById(id);
         UserListDto userListDto = userMapper.userListDtoFromUser(user);
-        userMapper.populateRoles(user, userListDto);
         userMapper.populateFriends(user, userListDto);
         return userListDto;
     }

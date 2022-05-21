@@ -59,8 +59,8 @@ export const auth = {
     },
   },
   getters: {
-    isAdmin: (state) => {
-      return state.user.roles.includes("ADMIN");
+    isAdmin: () => {
+      return false;
     },
   },
 };

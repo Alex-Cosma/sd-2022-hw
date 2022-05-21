@@ -108,7 +108,7 @@ export default {
     async refreshList() {
       this.dialogVisible = false;
       this.selectedPost = {};
-      this.posts = (await api.posts.allPosts(user.id));
+      this.posts = (await api.posts.allPosts());
       this.groups = (await api.groups.allGroups());
     },
     enterGroup(group) {

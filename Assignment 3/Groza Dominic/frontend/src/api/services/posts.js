@@ -2,8 +2,8 @@ import authHeader, { BASE_URL, HTTP } from "../http";
 
 export default {
 
-  allPosts(id) {
-    return HTTP.get(BASE_URL + "/posts/"+id, { headers: authHeader() }).then(
+  allPosts() {
+    return HTTP.get(BASE_URL + "/posts/", { headers: authHeader() }).then(
       (response) => {
         console.log(response.data);
         return response.data;
@@ -11,8 +11,7 @@ export default {
     );
   },
   create(post) {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return HTTP.post(BASE_URL + "/posts/"+user.id, post, { headers: authHeader() }).then(
+    return HTTP.post(BASE_URL + "/posts", post, { headers: authHeader() }).then(
       (response) => {
         return response.data;
       }

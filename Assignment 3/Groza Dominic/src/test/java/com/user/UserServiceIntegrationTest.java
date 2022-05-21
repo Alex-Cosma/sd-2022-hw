@@ -2,14 +2,10 @@ package com.user;
 
 import com.TestCreationFactory;
 import com.group.GroupMapper;
-import com.post.model.Post;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
-import com.security.dto.SignupRequest;
 import com.user.dto.UserListDto;
 import com.user.mapper.UserMapper;
-import com.user.model.ERole;
-import com.user.model.Role;
 import com.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -37,8 +32,7 @@ class UserServiceIntegrationTest {
     private GroupMapper groupMapper;
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleRepository roleRepository;
+
 
     @BeforeEach
     void setUp() {
@@ -75,11 +69,9 @@ class UserServiceIntegrationTest {
     void edit() {
 
         User user = TestCreationFactory.newUser();
-        user.setRoles(Set.of(Objects.requireNonNull(roleRepository.findByName(ERole.USER).orElse(null))));
         user = userRepository.save(user);
 
         UserListDto userListDto = userMapper.userListDtoFromUser(user);
-        userMapper.populateRoles(user, userListDto);
         userListDto.setUsername("newUsername");
         userListDto.setEmail("new@email.com");
 
@@ -91,15 +83,8 @@ class UserServiceIntegrationTest {
 
     @Test
     void get() {
-        for (ERole value : ERole.values()) {
-            roleRepository.save(
-                    Role.builder()
-                            .name(value)
-                            .build()
-            );
-        }
+
         User user = TestCreationFactory.newUser();
-        user.setRoles(Set.of(Objects.requireNonNull(roleRepository.findByName(ERole.USER).orElse(null))));
         user = userRepository.save(user);
 
         UserListDto userListDto = userService.get(user.getId());
@@ -141,11 +126,9 @@ class UserServiceIntegrationTest {
     @Test
     void getFriends() {
         User user0 = TestCreationFactory.newUser();
-        user0.setRoles(Set.of(Objects.requireNonNull(roleRepository.findByName(ERole.USER).orElse(null))));
         user0 = userRepository.save(user0);
 
         User user = TestCreationFactory.newUser();
-        user.setRoles(Set.of(Objects.requireNonNull(roleRepository.findByName(ERole.USER).orElse(null))));
         user.setFriends(Set.of(user0));
         user = userRepository.save(user);
 

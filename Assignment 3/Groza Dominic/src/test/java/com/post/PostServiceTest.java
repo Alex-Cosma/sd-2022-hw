@@ -1,9 +1,5 @@
 package com.post;
 
-import com.TestCreationFactory;
-import com.group.GroupService;
-import com.group.model.Group;
-import com.group.model.dto.GroupDto;
 import com.post.model.Post;
 import com.post.model.dto.PostDto;
 import com.user.UserService;
@@ -11,7 +7,6 @@ import com.user.dto.UserListDto;
 import com.user.mapper.UserMapper;
 
 import com.user.model.User;
-import com.user.model.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

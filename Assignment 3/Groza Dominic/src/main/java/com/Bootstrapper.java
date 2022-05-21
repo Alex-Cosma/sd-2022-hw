@@ -6,13 +6,9 @@ import com.post.PostRepository;
 import com.post.model.Post;
 import com.security.AuthService;
 import com.security.dto.SignupRequest;
-import com.user.RoleRepository;
 import com.user.UserRepository;
 import com.user.UserService;
-import com.user.model.ERole;
-import com.user.model.Role;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -26,7 +22,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> {
 
-    private final RoleRepository roleRepository;
 
     private final UserRepository userRepository;
 
@@ -45,14 +40,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
             userRepository.deleteAll();
-            roleRepository.deleteAll();
-            for (ERole value : ERole.values()) {
-                roleRepository.save(
-                        Role.builder()
-                                .name(value)
-                                .build()
-                );
-            }
+
             authService.register(SignupRequest.builder()
                     .email("groza.dominic@gmail.com")
                     .username("dominic1")
@@ -60,7 +48,6 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .firstName("Dominic")
                     .lastName("Groza")
                     .address("Bucuresti")
-                    .roles(Set.of("ADMIN"))
                     .build());
             authService.register(SignupRequest.builder()
                     .email("groza.dominic@yahoo.de")
@@ -69,7 +56,6 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .firstName("Benjamin")
                     .lastName("Groza")
                     .address("Hagelstadt")
-                    .roles(Set.of("USER"))
                     .build());
             authService.register(SignupRequest.builder()
                     .email("test@gmail.com")
@@ -78,7 +64,6 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .firstName("Fake")
                     .lastName("Groza")
                     .address("Bucale")
-                    .roles(Set.of("USER"))
                     .build());
 
             for(int i=0;i<10;i++){

@@ -46,11 +46,6 @@ public class User {
     @Column(nullable = false,length = 200)
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,orphanRemoval=true)
     private Set<Post> posts;
@@ -67,9 +62,5 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     @JsonIgnore
     private Set<Group> groups = new HashSet<>();
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "friends",
-//            joinColumns = @JoinColumn(name = "friend_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private Set<User> friendOf = new HashSet<>();
+
 }

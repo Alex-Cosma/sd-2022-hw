@@ -14,14 +14,10 @@ import java.util.HashSet;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-    @Mappings({
-            @Mapping(target = "user.roles",ignore = true),
-    })
+
     PostDto toDto (Post post);
 
-    @Mappings({
-            @Mapping(target = "user.roles",ignore = true)
-    })
+
     Post fromDto (PostDto postDto);
 
 

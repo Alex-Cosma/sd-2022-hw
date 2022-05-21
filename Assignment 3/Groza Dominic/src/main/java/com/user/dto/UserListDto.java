@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserListDto extends UserMinimalDto {
     private String email;
-    private Set<String> roles;
     private String password;
     private Set<User> friends;
     private Set<Group> groups;
