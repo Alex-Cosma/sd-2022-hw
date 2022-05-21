@@ -33,10 +33,6 @@ class GroupControllerTest extends BaseControllerTest {
     @Mock
     private UserService userService;
 
-    @Mock
-    private GroupRepository groupRepository;
-    @Mock
-    private GroupMapper groupMapper;
     @InjectMocks
     private GroupController groupController;
 

@@ -16,6 +16,7 @@ public interface UserMapper {
             @Mapping(target = "roles",ignore = true),
             @Mapping(target="id",source="user.id"),
             @Mapping(target="posts",source="user.posts"),
+            @Mapping(target="friends",ignore = true),
 
 
     })
@@ -25,7 +26,9 @@ public interface UserMapper {
             @Mapping(target = "username", source = "username"),
             @Mapping(target = "roles",ignore = true),
             @Mapping(target="id",source="id"),
-            @Mapping(target = "posts",source = "posts")
+            @Mapping(target = "posts",source = "posts"),
+            @Mapping(target="friends",ignore = true),
+
 
     })
     User userFromUserListDto(UserListDto userListDto);

@@ -1,14 +1,12 @@
 package com.user;
 
 import com.group.GroupMapper;
-import com.group.GroupService;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
 import com.security.dto.SignupRequest;
 import com.user.dto.UserListDto;
-import com.user.dto.UserMinimalDto;
 import com.user.mapper.UserMapper;
 import com.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -93,12 +92,13 @@ public class UserService {
         User user = findById(id);
         User friend = findById(friendId);
 
-        System.out.println("user: " + user.getUsername());
-        System.out.println("friend: " + friend.getUsername());
+//        System.out.println("user: " + user.getUsername());
+//        System.out.println("friend: " + friend.getUsername());
+
         Set<User> friends = user.getFriends();
         friends.add(friend);
         user.setFriends(friends);
-        System.out.println(user.getFriends());
+//        System.out.println(user.getFriends());
 
         userRepository.save(user);
         userRepository.save(friend);
@@ -109,14 +109,18 @@ public class UserService {
     public GroupDto addToGroup(Long id, GroupDto groupDto) {
         User user = findById(id);
         Group group = groupMapper.fromDto(groupDto);
-        Set<Group> groups = user.getGroups();
+        Set<Group> userGroups = user.getGroups();
+        Set<Group> groups = new HashSet<>();
+        if (userGroups != null) {
+            groups.addAll(userGroups);
+        }
         groups.add(group);
         user.setGroups(groups);
         userRepository.save(user);
         return groupMapper.toDto(group);
     }
 
-    public Set<User>getFriends(Long id){
-        return userRepository.findById(id).get().getFriends();
+    public Set<User> getFriends(Long id) {
+        return get(id).getFriends();
     }
 }
