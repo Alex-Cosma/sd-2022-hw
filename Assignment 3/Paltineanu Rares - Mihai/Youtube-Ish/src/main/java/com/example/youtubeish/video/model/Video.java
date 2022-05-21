@@ -41,7 +41,7 @@ public class Video {
     @Column(length=11, nullable = false, unique = true)
     private String videoId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "video", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "video", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 

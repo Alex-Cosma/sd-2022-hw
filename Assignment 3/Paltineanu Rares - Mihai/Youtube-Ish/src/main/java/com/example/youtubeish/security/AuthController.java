@@ -7,6 +7,9 @@ import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.Properties;
 
 import static com.example.youtubeish.UrlMapping.*;
 import static com.example.youtubeish.UrlMapping.AUTH;
@@ -60,9 +65,37 @@ public class AuthController {
         }
 
         authService.register(signUpRequest);
-
-
+        JavaMailSender javaMailSender = getJavaMailSender();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("spring.project.rares@gmail.com");
+        message.setTo(signUpRequest.getEmail());
+        message.setSubject("Registraion");
+        message.setText("Welcome to YOUTUBE-ISH!");
+        javaMailSender.send(message);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("spring.project.rares@gmail.com");
+        mailSender.setPassword("Spring987");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        return mailSender;
+    }
+
+    private void sendMail() {
+        String username = "spring.project.rares@gmail.com";
+        String password = "Spring987";
     }
 
 }

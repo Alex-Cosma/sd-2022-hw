@@ -43,4 +43,8 @@ public class CommentService {
                 .build();
         return commentRepository.save(comment);
     }
+
+    public List<Comment> getUserComments(Long id) {
+        return commentRepository.getAllByUserId(id);
+    }
 }

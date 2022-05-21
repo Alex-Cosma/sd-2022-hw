@@ -29,4 +29,6 @@ public class UrlMapping {
     public static final String GET_USER_PLAYLIST = "/get-user-playlist/{id}";
     public static final String CREATE_PLAYLIST = "/create-playlist";
     public static final String DELETE_PLAYLIST = "/delete-playlist/{id}";
+
+    public static final String FILE = API_PATH + "/file";
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> getAllByVideoId(Long id);
+
+    List<Comment> getAllByUserId(Long id);
 }

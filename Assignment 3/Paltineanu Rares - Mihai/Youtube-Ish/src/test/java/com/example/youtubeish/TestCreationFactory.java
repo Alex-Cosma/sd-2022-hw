@@ -9,6 +9,7 @@ import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.dto.UserListDTO;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.dto.VideoDTO;
+import com.example.youtubeish.video.dto.api.*;
 import com.example.youtubeish.video.model.Video;
 
 import java.util.List;
@@ -199,6 +200,24 @@ public class TestCreationFactory {
                 .title(video.getTitle())
                 .thumbnailUrl(video.getThumbnailUrl())
                 .user(fromDto(video.getUser()))
+                .build();
+    }
+
+    public static VideoAPIDTO newVideoAPIDTO() {
+        return VideoAPIDTO.builder()
+                .id(VideoID.builder()
+                        .videoId(randomString())
+                        .build())
+                .snippet(Snippet.builder()
+                        .description(randomString())
+                        .title(randomString())
+                        .channelTitle(randomString())
+                        .thumbnail(Thumbnail.builder()
+                                .mediumThumbnail(MediumThumbnail.builder()
+                                        .url(randomString())
+                                        .build())
+                                .build())
+                        .build())
                 .build();
     }
 

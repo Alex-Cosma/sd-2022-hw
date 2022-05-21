@@ -1,10 +1,10 @@
 package com.example.youtubeish.user;
 
 import com.example.youtubeish.user.dto.UserDTO;
-import com.example.youtubeish.user.dto.UserMinimalDTO;
 import com.example.youtubeish.user.model.ERole;
 import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +32,6 @@ public class UserServiceIntegrationTest {
 
     @BeforeEach
     void setup() {
-        roleRepository.save(Role.builder()
-                        .name(ERole.CUSTOMER)
-                .build());
         userRepository.deleteAll();
     }
 
@@ -96,6 +93,10 @@ public class UserServiceIntegrationTest {
 
     @Test
     void create() {
+        roleRepository.save(Role.builder()
+                .name(ERole.CUSTOMER)
+                .build());
+
         UserDTO userDTO = UserDTO.builder()
                 .password(randomString())
                 .email(randomEmail())

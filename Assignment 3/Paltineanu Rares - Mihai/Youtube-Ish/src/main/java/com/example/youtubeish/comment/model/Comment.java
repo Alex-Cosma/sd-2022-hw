@@ -24,7 +24,7 @@ public class Comment {
     @Column(nullable = false, length = 512)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user;
 
