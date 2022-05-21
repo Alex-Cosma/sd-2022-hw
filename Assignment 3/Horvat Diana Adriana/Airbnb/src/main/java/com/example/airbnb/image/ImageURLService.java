@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 public class ImageURLService {
     private final ImageURLRepository imageURLRepository;
 
-    public ImageURL create(String picture_url, Accommodation accommodation){
-        ImageURL imageURL = new ImageURL();
-        imageURL.setPicture_url(picture_url);
-//        imageURL.setAccommodation(accommodation);
-return imageURL;
-//        return imageURLRepository.save(imageURL);
-    }
+//    public ImageURL create(String picture_url, Accommodation accommodation){
+//        ImageURL imageURL = new ImageURL();
+//        imageURL.setPicture_url(picture_url);
+//
+//        return imageURL;
+//    }
 }

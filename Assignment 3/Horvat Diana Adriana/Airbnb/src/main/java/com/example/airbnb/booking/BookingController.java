@@ -18,7 +18,12 @@ public class BookingController {
     @CrossOrigin
     @PostMapping()
     private BookingDTO create(@RequestBody BookingDTO bookingDTO) {
-
         return bookingService.save(bookingDTO);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(ENTITY)
+    private void delete(@PathVariable Long id) {
+        bookingService.delete(id);
     }
 }

@@ -23,7 +23,7 @@ public class Amenity {
     private long id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_fk")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Accommodation accommodation;

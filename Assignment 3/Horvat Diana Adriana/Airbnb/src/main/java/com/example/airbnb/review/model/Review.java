@@ -15,12 +15,8 @@ import javax.persistence.*;
 @Table(name="reviews")
 public class Review {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "object_fk", nullable = false)
-//    private Accommodation accommodation;
 
     @Column(nullable = false, length = 256)
     private String reviewer_name;

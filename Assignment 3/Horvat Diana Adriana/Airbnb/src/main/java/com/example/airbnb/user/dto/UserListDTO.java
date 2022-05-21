@@ -20,4 +20,8 @@ public class UserListDTO extends UserMinimalDTO{
     private Set<String> roles;
     private String password;
     private Set<Accommodation> accommodations = new HashSet<>();
+
+    public UserListDTO() {
+
+    }
 }

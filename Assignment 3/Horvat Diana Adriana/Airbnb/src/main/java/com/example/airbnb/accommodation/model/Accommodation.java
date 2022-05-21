@@ -40,7 +40,7 @@ public class Accommodation {
     @Column(nullable = false, columnDefinition="TEXT")
     private String description;
 
-    @Column(columnDefinition="TEXT")
+    @Column(length = 1024)
     private String house_rules;
 
     @Column(length = 256)
@@ -48,9 +48,6 @@ public class Accommodation {
 
     @Column(length = 256)
     private String room_type;
-
-    @Column()
-    private Integer accommodates;
 
     @Column(nullable = false)
     private Integer bathrooms;
@@ -61,8 +58,9 @@ public class Accommodation {
     @Column(nullable = false)
     private Integer beds;
 
-    @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY, orphanRemoval = true,
+    @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Amenity> amenities = new HashSet<>();
 
     @Column(nullable = false)

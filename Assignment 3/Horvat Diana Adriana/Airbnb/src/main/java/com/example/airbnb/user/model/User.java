@@ -42,7 +42,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     private Set<Accommodation> accommodations = new HashSet<>();
+
+    @OneToMany(mappedBy = "guest", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Booking> bookings = new HashSet<>();
 }

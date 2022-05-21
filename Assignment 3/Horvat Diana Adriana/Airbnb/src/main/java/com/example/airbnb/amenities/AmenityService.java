@@ -16,25 +16,26 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AmenityService {
-    private final AmenityRepository amenityRepository;
-
-    public Set<Amenity> createSetOfAmenities(String amenities){
-        String[] amenitiesString = amenities.split(",");
-        Set<Amenity> amenitySet = new HashSet<>();
-
-        for (String amenity : amenitiesString){
-            Amenity amenityObj = new Amenity();
-            amenityObj.setAmenity(amenity);
-            amenitySet.add(amenityObj);
-        }
-
-        return amenitySet;
-    }
-
-    public void setAccommodationToAmenities(Set<Amenity> amenities, Accommodation accommodation){
-        for (Amenity amenity : amenities){
-            amenity.setAccommodation(accommodation);
-            amenityRepository.save(amenity);
-        }
-    }
+//    private final AmenityRepository amenityRepository;
+//
+//    public Set<Amenity> createSetOfAmenities(String amenities, Accommodation accommodation){
+//        String[] amenitiesString = amenities.split(",");
+//        Set<Amenity> amenitySet = new HashSet<>();
+//
+//        for (String amenity : amenitiesString){
+//            Amenity amenityObj = new Amenity();
+//            amenityObj.setAmenity(amenity);
+//            amenityObj.setAccommodation(accommodation);
+//            amenitySet.add(amenityObj);
+//        }
+//
+//        return amenitySet;
+//    }
+//
+//    public void setAccommodationToAmenities(Set<Amenity> amenities, Accommodation accommodation){
+//        for (Amenity amenity : amenities){
+//            amenity.setAccommodation(accommodation);
+//            amenityRepository.save(amenity);
+//        }
+//    }
 }

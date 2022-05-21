@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AddressService {
     private final AddressRepository addressRepository;
-
-    public Address create(String street, String city, Accommodation accommodation){
-        Address address = new Address();
-        address.setStreet(street);
-        address.setCity(city);
-//        address.setAccommodation(accommodation);
-
-        return address;
-//        return addressRepository.save(address);
-    }
+//
+//    public Address create(String street, String city, Accommodation accommodation){
+//        Address address = new Address();
+//        address.setStreet(street);
+//        address.setCity(city);
+//
+//        return address;
+//    }
 }
