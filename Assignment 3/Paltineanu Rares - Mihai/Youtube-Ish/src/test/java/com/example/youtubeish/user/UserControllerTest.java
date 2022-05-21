@@ -67,7 +67,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void addUser() throws Exception {
+    void addUser() {
         UserDTO userDTO = UserDTO.builder()
                 .id(1L)
                 .email("myemail@aaa.com")

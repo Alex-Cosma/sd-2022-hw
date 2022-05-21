@@ -4,7 +4,6 @@ import com.example.youtubeish.BaseControllerTest;
 import com.example.youtubeish.comment.dto.CommentDTO;
 import com.example.youtubeish.comment.mapper.CommentMapper;
 import com.example.youtubeish.comment.model.Comment;
-import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.video.dto.VideoDTO;

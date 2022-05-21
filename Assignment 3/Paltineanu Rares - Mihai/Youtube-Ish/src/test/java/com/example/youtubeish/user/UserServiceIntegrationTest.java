@@ -4,18 +4,18 @@ import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.model.ERole;
 import com.example.youtubeish.user.model.Role;
 import com.example.youtubeish.user.model.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.ArrayList;
 
-import static com.example.youtubeish.TestCreationFactory.*;
+import static com.example.youtubeish.TestCreationFactory.randomEmail;
+import static com.example.youtubeish.TestCreationFactory.randomString;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -69,6 +69,17 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
+    void existsByUsername() {
+        User user = User.builder()
+                .username("User")
+                .password(UUID.randomUUID().toString())
+                .email("user@gmail.com")
+                .build();
+        userRepository.save(user);
+        assertTrue(userService.existsByUsername(user.getUsername()));
+    }
+
+    @Test
     void existsByEmail() {
         User user = User.builder()
                 .username("User")
@@ -108,5 +119,16 @@ public class UserServiceIntegrationTest {
                 .build();
         UserDTO user = userService.create(userDTO);
         assertNotNull(userService.findById(user.getId()));
+    }
+
+    @Test
+    void findById() {
+        User user = User.builder()
+                .username("User")
+                .password(UUID.randomUUID().toString())
+                .email("user@gmail.com")
+                .build();
+        user = userRepository.save(user);
+        assertEquals(user.getUsername(), userService.findById(user.getId()).getUsername());
     }
 }

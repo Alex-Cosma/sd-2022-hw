@@ -4,8 +4,6 @@ import com.example.youtubeish.BaseControllerTest;
 import com.example.youtubeish.TestCreationFactory;
 import com.example.youtubeish.playlist.PlaylistService;
 import com.example.youtubeish.security.dto.MessageResponse;
-import com.example.youtubeish.user.UserController;
-import com.example.youtubeish.user.UserRepository;
 import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
@@ -28,7 +26,8 @@ import java.util.List;
 
 import static com.example.youtubeish.TestCreationFactory.*;
 import static com.example.youtubeish.UrlMapping.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -65,7 +64,7 @@ public class VideoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void getApiVideos() throws Exception {
+    public void getApiVideos() {
         assertEquals(5, videoController.allVideos("AIzaSyDhfMBuo6UdD4x2327O7sDT7BKbYuMzb20",
                 "pewdiepie",
                 "video",
@@ -132,7 +131,7 @@ public class VideoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void getVideosFromUser() throws Exception {
+    void getVideosFromUser() {
         User user = newUser();
         when(userService.getUserByUsername(user.getUsername())).thenReturn(user);
         List<VideoDTO> videoDTOList = TestCreationFactory.listOf(VideoDTO.class);

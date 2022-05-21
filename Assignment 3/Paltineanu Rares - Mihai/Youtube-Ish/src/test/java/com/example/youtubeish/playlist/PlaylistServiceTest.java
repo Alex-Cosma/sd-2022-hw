@@ -5,7 +5,6 @@ import com.example.youtubeish.TestCreationFactory;
 import com.example.youtubeish.playlist.dto.PlaylistDTO;
 import com.example.youtubeish.playlist.mapper.PlaylistMapper;
 import com.example.youtubeish.playlist.model.Playlist;
-import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.video.dto.VideoDTO;

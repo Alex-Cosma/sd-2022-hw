@@ -69,7 +69,7 @@ public class AuthController {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("spring.project.rares@gmail.com");
         message.setTo(signUpRequest.getEmail());
-        message.setSubject("Registraion");
+        message.setSubject("Registration");
         message.setText("Welcome to YOUTUBE-ISH!");
         javaMailSender.send(message);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
@@ -91,11 +91,6 @@ public class AuthController {
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         return mailSender;
-    }
-
-    private void sendMail() {
-        String username = "spring.project.rares@gmail.com";
-        String password = "Spring987";
     }
 
 }

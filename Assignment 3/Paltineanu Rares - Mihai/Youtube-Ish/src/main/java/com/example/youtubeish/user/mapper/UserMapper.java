@@ -1,17 +1,16 @@
 package com.example.youtubeish.user.mapper;
 
 import com.example.youtubeish.comment.dto.CommentDTO;
-import com.example.youtubeish.comment.mapper.CommentMapper;
 import com.example.youtubeish.comment.model.Comment;
 import com.example.youtubeish.playlist.dto.PlaylistDTO;
-import com.example.youtubeish.playlist.mapper.PlaylistMapper;
 import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.dto.VideoDTO;
-import com.example.youtubeish.video.mapper.VideoMapper;
 import com.example.youtubeish.video.model.Video;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 
 @Mapper(componentModel = "spring")

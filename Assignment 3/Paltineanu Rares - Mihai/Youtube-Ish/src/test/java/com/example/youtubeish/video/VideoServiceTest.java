@@ -1,13 +1,10 @@
 package com.example.youtubeish.video;
 
 import com.example.youtubeish.BaseControllerTest;
-import com.example.youtubeish.TestCreationFactory;
 import com.example.youtubeish.playlist.PlaylistService;
 import com.example.youtubeish.playlist.model.Playlist;
-import com.example.youtubeish.user.UserService;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
-import com.example.youtubeish.user.model.User;
 import com.example.youtubeish.video.dto.VideoDTO;
 import com.example.youtubeish.video.dto.api.*;
 import com.example.youtubeish.video.mapper.VideoMapper;
@@ -19,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.youtubeish.TestCreationFactory.*;
@@ -52,7 +50,7 @@ public class VideoServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void create() throws Exception {
+    void create() {
         UserDTO userDTO = newUserDto();
         Video video = newVideo();
         video.setUser(fromDto(userDTO));
@@ -77,7 +75,7 @@ public class VideoServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void getUploadedVideos() throws Exception {
+    void getUploadedVideos() {
         List<Video> videosList = List.of(newVideo(), newVideo(), newVideo());
         when(videoRepository.findAll()).thenReturn(videosList);
         for(Video video: videosList) {
@@ -90,7 +88,7 @@ public class VideoServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void getVideosFromUser() throws Exception {
+    void getVideosFromUser() {
         Long id = randomLong();
         List<Video> videosList = List.of(newVideo(), newVideo(), newVideo());
         when(videoRepository.getAllByUserId(id)).thenReturn(videosList);
@@ -106,7 +104,10 @@ public class VideoServiceTest extends BaseControllerTest {
 
     @Test
     void deleteVideoById() {
-        List<Video> videosList = List.of(newVideo(), newVideo(), newVideo());
+        List<Video> videosList = new ArrayList<>();
+        videosList.add(newVideo());
+        videosList.add(newVideo());
+        videosList.add(newVideo());
         Playlist playlist = Playlist.builder()
                         .id(randomLong())
                         .videos(videosList)

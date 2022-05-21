@@ -1,7 +1,6 @@
 package com.example.youtubeish.user;
 
 import com.example.youtubeish.BaseControllerTest;
-import com.example.youtubeish.TestCreationFactory;
 import com.example.youtubeish.security.AuthService;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
@@ -42,7 +41,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void allUsers() throws Exception {
+    void allUsers() {
         List<User> userList = List.of(
                 newUser(), newUser(), newUser()
         );
@@ -56,7 +55,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void create() throws Exception {
+    void create() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())
@@ -72,7 +71,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())
@@ -85,7 +84,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void findById() throws Exception {
+    void findById() {
         Long id = randomLong();
         User user = newUser();
         UserDTO userDTO = UserDTO.builder()
@@ -94,7 +93,7 @@ public class UserServiceTest extends BaseControllerTest {
                 .password(user.getPassword())
                 .username(user.getUsername())
                 .build();
-        when(userRepository.findById(id)).thenReturn(java.util.Optional.ofNullable(user));
+        when(userRepository.findById(id)).thenReturn(java.util.Optional.of(user));
         when(userMapper.toDto(user)).thenReturn(userDTO);
 
         UserDTO userDTO1 = userService.findById(id);
@@ -102,7 +101,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void getUserByUsername() throws Exception {
+    void getUserByUsername() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())
@@ -117,7 +116,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void edit() throws Exception {
+    void edit() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())
@@ -138,7 +137,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void existsByEmail() throws Exception {
+    void existsByEmail() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())
@@ -154,7 +153,7 @@ public class UserServiceTest extends BaseControllerTest {
     }
 
     @Test
-    void existsByUsername() throws Exception {
+    void existsByUsername() {
         UserDTO userDTO = newUserDto();
         User user = User.builder()
                 .id(userDTO.getId())

@@ -109,7 +109,7 @@ public class PlaylistServiceIntegrationTest {
         video = videoRepository.save(video);
         video2 = videoRepository.save(video2);
 
-        PlaylistDTO playlistDTO = playlistService.create(toDto(user), List.of(
+        playlistService.create(toDto(user), List.of(
                 videoToDTO(video),
                 videoToDTO(video2)
         ));

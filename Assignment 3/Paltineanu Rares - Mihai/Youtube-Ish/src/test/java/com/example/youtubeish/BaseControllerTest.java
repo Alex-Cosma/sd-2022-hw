@@ -9,10 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.data.util.Pair;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-
-import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -35,18 +32,6 @@ public class BaseControllerTest {
         );
     }
 
-    protected ResultActions performPatchWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
-        return mockMvc.perform(jsonType(patch(path, pathVariable)
-                .content(asJsonString(body)))
-        );
-    }
-
-    protected ResultActions performPutWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
-        return mockMvc.perform(jsonType(put(path, pathVariable)
-                .content(asJsonString(body)))
-        );
-    }
-
     protected ResultActions performDeleteWIthPathVariable(String path, Object pathVariable) throws Exception {
         return mockMvc.perform(jsonType(delete(path, pathVariable)));
     }
@@ -54,15 +39,6 @@ public class BaseControllerTest {
     protected ResultActions performGetWithPathVariable(String path, Object pathVariable) throws Exception {
         return mockMvc.perform(jsonType(get(path, pathVariable)));
     }
-
-    protected ResultActions performGetWithModelAttributeAndParams(String path, Pair<String, Object> modelAttribute,
-                                                                  List<Pair<String, String>> params) throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = get(path);
-        params.forEach(param -> requestBuilder.param(param.getFirst(), param.getSecond()));
-        requestBuilder.flashAttr(modelAttribute.getFirst(), modelAttribute.getSecond());
-        return mockMvc.perform(requestBuilder);
-    }
-
 
     protected String asJsonString(final Object obj) {
         if (obj instanceof String) return String.valueOf(obj);

@@ -56,22 +56,8 @@ public class TestCreationFactory {
         return randomString() + "@" + randomString() + ".com";
     }
 
-    public static byte[] randomBytes() {
-        byte[] bytes = new byte[Math.toIntExact(randomLong())];
-        new Random().nextBytes(bytes);
-        return bytes;
-    }
-
     public static long randomLong() {
         return new Random().nextInt(1999);
-    }
-
-    public static Boolean randomBoolean() {
-        return new Random().nextBoolean();
-    }
-
-    public static int randomBoundedInt(int upperBound) {
-        return new Random().nextInt(upperBound);
     }
 
     public static String randomString() {
@@ -127,14 +113,6 @@ public class TestCreationFactory {
                 .build();
     }
 
-    public static CommentDTO newCommentDTO() {
-        return CommentDTO.builder()
-                .id(randomLong())
-                .author(randomString())
-                .author(randomString())
-                .build();
-    }
-
     public static Comment newComment() {
         return Comment.builder()
                 .user(newUser())
@@ -176,7 +154,7 @@ public class TestCreationFactory {
         return PlaylistDTO.builder()
                 .id(playlist.getId())
                 .user(toDto(playlist.getUser()))
-                .videos(playlist.getVideos().stream().map(video -> videoToDTO(video)).collect(toList()))
+                .videos(playlist.getVideos().stream().map(TestCreationFactory::videoToDTO).collect(toList()))
                 .build();
     }
 

@@ -48,6 +48,15 @@ public class PlaylistControllerTest extends BaseControllerTest {
     }
 
     @Test
+    void deletePlaylist() throws Exception {
+        Long id = randomLong();
+        doNothing().when(playlistService).deletePlaylistById(id);
+        ResultActions uploadVideoResult = performDeleteWIthPathVariable(PLAYLIST + DELETE_PLAYLIST, id);
+        uploadVideoResult.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(new MessageResponse("Playlist deleted successfully!")));
+    }
+
+    @Test
     void createPlaylist() throws Exception {
         PlaylistDTO playlistDTO = PlaylistDTO.builder()
                 .user(newUserDto())
@@ -58,15 +67,5 @@ public class PlaylistControllerTest extends BaseControllerTest {
         ResultActions uploadVideoResult = performPostWithRequestBody(PLAYLIST + CREATE_PLAYLIST, playlistDTO);
         uploadVideoResult.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(playlistDTO));
-    }
-
-    @Test
-    void deletePlaylist() throws Exception {
-        Long id = randomLong();
-        doNothing().when(playlistService).deletePlaylistById(id);
-        ResultActions uploadVideoResult = performDeleteWIthPathVariable(PLAYLIST + DELETE_PLAYLIST, id);
-        uploadVideoResult.andExpect(status().isOk())
-                .andExpect(jsonContentToBe(new MessageResponse("Playlist deleted successfully!")));
-
     }
 }

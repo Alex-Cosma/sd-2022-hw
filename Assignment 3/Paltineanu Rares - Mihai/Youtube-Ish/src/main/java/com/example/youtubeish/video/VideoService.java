@@ -1,16 +1,14 @@
 package com.example.youtubeish.video;
 
-import com.example.youtubeish.playlist.PlaylistRepository;
 import com.example.youtubeish.playlist.PlaylistService;
-import com.example.youtubeish.playlist.mapper.PlaylistMapper;
 import com.example.youtubeish.playlist.model.Playlist;
 import com.example.youtubeish.user.dto.UserDTO;
 import com.example.youtubeish.user.mapper.UserMapper;
 import com.example.youtubeish.user.model.User;
-import com.example.youtubeish.video.mapper.VideoMapper;
-import com.example.youtubeish.video.model.Video;
 import com.example.youtubeish.video.dto.VideoDTO;
 import com.example.youtubeish.video.dto.api.VideoAPIDTO;
+import com.example.youtubeish.video.mapper.VideoMapper;
+import com.example.youtubeish.video.model.Video;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
