@@ -1,6 +1,7 @@
 package com.user;
 
 import com.group.GroupMapper;
+import com.group.GroupRepository;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
 import com.post.PostMapper;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +34,7 @@ public class UserService {
     private final AuthService authService;
     private final GroupMapper groupMapper;
     private final PostMapper postMapper;
+    private final GroupRepository groupRepository;
 
     private User findById(Long id) {
         return userRepository.findById(id)
@@ -64,11 +67,16 @@ public class UserService {
                 .stream().map(user -> {
                     UserListDto userListDto = userMapper.userListDtoFromUser(user);
 
-                    Set <PostDto> postDtoSet = new HashSet<>();
+                    Set<PostDto> postDtoSet = new HashSet<>();
                     user.getPosts().stream().map(postMapper::toDto).forEach(postDtoSet::add);
 
+                    Set<GroupDto> groupDtoSet = new HashSet<>();
+                    user.getGroups().stream().map(groupMapper::toDto).forEach(groupDtoSet::add);
+
                     userMapper.populateFriends(user, userListDto);
+                    userListDto.setGroups(groupDtoSet);
                     userListDto.setPosts(postDtoSet);
+                    System.out.println("friends" + userListDto.getFriends());
                     return userListDto;
                 })
                 .collect(toList());
@@ -107,8 +115,6 @@ public class UserService {
         friendsOfFriend.add(user);
         friend.setFriends(friendsOfFriend);
 
-        System.out.println("user.getFriends() = " + user.getFriends());
-        System.out.println("friend.getFriends() = " + friend.getFriends());
 
         userRepository.save(user);
         userRepository.save(friend);
@@ -117,17 +123,18 @@ public class UserService {
 
 
     public GroupDto addToGroup(Long id, GroupDto groupDto) {
-        User user = findById(id);
+
         Group group = groupMapper.fromDto(groupDto);
-        Set<Group> userGroups = user.getGroups();
-        Set<Group> groups = new HashSet<>();
-        if (userGroups != null) {
-            groups.addAll(userGroups);
+        User user = findById(id);
+        Set<Group> groups;
+        if (user.getGroups() == null) {
+            groups = new HashSet<>();
+        } else {
+            groups = user.getGroups();
         }
         groups.add(group);
         user.setGroups(groups);
-        userRepository.save(user);
-        return groupMapper.toDto(group);
+        return groupMapper.toDto(groupRepository.save(group));
     }
 
     public Set<UserListDto> getFriends(Long id) {

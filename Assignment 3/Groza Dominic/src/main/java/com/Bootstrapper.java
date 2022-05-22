@@ -1,6 +1,8 @@
 package com;
 
+import com.group.GroupMapper;
 import com.group.GroupRepository;
+import com.group.GroupService;
 import com.group.model.Group;
 import com.post.PostRepository;
 import com.post.model.Post;
@@ -15,6 +17,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -30,6 +33,8 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     private final UserService userService;
 
     private final AuthService authService;
+    private final GroupService groupService;
+    private final GroupMapper groupMapper;
 
     private final GroupRepository groupRepository;
 
@@ -109,10 +114,10 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             for(int i=0;i<4;i++){
                 Group group=Group.builder()
                         .name("Group "+rand.nextInt())
-                        .users(Set.of(userRepository.findByUsername("testfakefriend").get(),userRepository.findByUsername("dominic1").get()))
                         .build();
                 groupRepository.save(group);
             }
+            userService.addToGroup(1L,groupMapper.toDto(groupRepository.findById(1L).get()));
         }
     }
 }

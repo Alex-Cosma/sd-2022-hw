@@ -17,7 +17,7 @@
         :items="posts"
         :search="search">
       <template v-slot:item="row">
-        <tr>
+        <tr v-if="isFriend(row.item.user) || row.item.user.id===user.id">
           <td>{{ new Date(row.item.created_at).toLocaleString() }}</td>
           <td>{{ row.item.user.firstName + " " + row.item.user.lastName }}</td>
           <td>{{ row.item.body }}</td>
@@ -29,7 +29,7 @@
           </td>
         </tr>
       </template>
-
+\
     </v-data-table>
     <NewPost
         :opened="dialogVisible"
@@ -66,12 +66,12 @@
         :headers="headersUsers"
         :items="users">
       <template v-slot:item="row">
-        <tr>
+        <tr v-if="row.item.id!==user.id">
           <td>{{ row.item.username }}</td>
           <td>{{ row.item.firstName }}</td>
           <td>{{ row.item.lastName }}</td>
           <td v-if="!isFriend(row.item)">
-            <v-btn depressed @click="enterGroup(row.item)" color="blue">Add Friend</v-btn>
+            <v-btn depressed @click="addFriend(row.item)" color="blue">Add Friend</v-btn>
           </td>
           <td v-if="isFriend(row.item)">
             <strong style="color: lightskyblue">You already are friends</strong>
@@ -153,6 +153,10 @@ export default {
       });
       return ingroup;
     },
+    addFriend(friend){
+      api.users.addFriend(friend.id)
+          .then(() => window.location.reload());
+    },
     isFriend(friend) {
       let isFriend = false;
       console.log("friend",friend);
@@ -165,7 +169,7 @@ export default {
     },
     deletePost(id) {
       api.posts.delete(id);
-      this.refreshList();
+      window.location.reload();
     }
     ,
   },

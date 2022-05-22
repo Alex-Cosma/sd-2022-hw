@@ -27,9 +27,9 @@ public class PostController {
     }
 
     @CrossOrigin
-    @PostMapping
-    public PostDto create(@RequestBody PostDto postDto) {
-        return postService.create(postDto);
+    @PostMapping(ENTITY)
+    public PostDto create(@PathVariable Long id,@RequestBody PostDto postDto) {
+        return postService.create(id,postDto);
     }
 
     @CrossOrigin

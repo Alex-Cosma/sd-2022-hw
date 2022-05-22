@@ -1,15 +1,16 @@
 package com.group.model.dto;
 
+import com.user.dto.UserListDto;
 import com.user.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +18,5 @@ import java.util.Set;
 public class GroupDto {
     private Long id;
     private String name;
-    private Set<User> users;
+    private Set<UserListDto> users;
 }

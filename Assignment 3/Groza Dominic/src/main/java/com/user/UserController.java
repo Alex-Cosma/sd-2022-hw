@@ -42,5 +42,10 @@ public class UserController {
         return userService.edit(id, user);
     }
 
+    @CrossOrigin
+    @PatchMapping(ENTITY)
+    public UserListDto addFriend(@PathVariable Long id,@RequestBody UserListDto user) {
+        return userService.addFriend(user.getId(),id);
+    }
 
 }

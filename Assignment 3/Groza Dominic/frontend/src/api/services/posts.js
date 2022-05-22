@@ -11,35 +11,25 @@ export default {
     );
   },
   create(post) {
-    return HTTP.post(BASE_URL + "/posts", post, { headers: authHeader() }).then(
+    const user=JSON.parse(localStorage.getItem("user"));
+    return HTTP.post(BASE_URL + "/posts/"+user.id, post, { headers: authHeader() }).then(
       (response) => {
         return response.data;
       }
     );
   },
-  edit(item) {
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log("item", item,item.id);
-    return HTTP.put(BASE_URL + "/posts/"+user.id+"/"+ item.id,item, {
+  edit(post) {
+    return HTTP.put(BASE_URL + "/posts/"+ post.id,post, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;
     });
   },
   delete(id) {
-    console.log("id", id);
-    const user = JSON.parse(localStorage.getItem("user"));
-    return HTTP.delete(BASE_URL + "/posts/"+ user.id+"/"+id, {
+    return HTTP.delete(BASE_URL + "/posts/"+id, {
       headers: authHeader(),
     }).then((response) => {
       console.log(response);
-      return response.data;
-    });
-  },
-  sell(item) {
-    return HTTP.patch(BASE_URL + "/posts/"+ item.id,item, {
-      headers: authHeader(),
-    }).then((response) => {
       return response.data;
     });
   },

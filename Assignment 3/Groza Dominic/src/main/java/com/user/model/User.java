@@ -8,7 +8,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -47,20 +49,15 @@ public class User {
     @Column(nullable = false,length = 200)
     private String address;
 
-
-    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,orphanRemoval=true)
     private Set<Post> posts;
 
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id"))
-    private Set<User> friends=new HashSet<>();
+    private Set<User> friends;
 
-
-    @JsonBackReference
     @ManyToMany(mappedBy="friends",fetch = FetchType.EAGER)
     private Set<User> friendsOf;
 
@@ -68,7 +65,7 @@ public class User {
     @JoinTable(name = "user_groups",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
-    @JsonIgnore
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> groups=new HashSet<>() ;
+
 
 }

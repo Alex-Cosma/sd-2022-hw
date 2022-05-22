@@ -17,6 +17,8 @@ public interface UserMapper {
             @Mapping(target="id",source="user.id"),
             @Mapping(target="posts",ignore = true),
             @Mapping(target="friends",ignore = true),
+            @Mapping(target="groups",ignore = true),
+
 
 
     })
@@ -27,6 +29,7 @@ public interface UserMapper {
             @Mapping(target="id",source="id"),
             @Mapping(target = "posts",ignore = true),
             @Mapping(target="friends",ignore = true),
+            @Mapping(target="groups",ignore = true),
 
 
     })
@@ -39,10 +42,5 @@ public interface UserMapper {
     default void populateFriends(User user, @MappingTarget UserListDto userListDTO) {
        userListDTO.setFriends(user.getFriends().stream().map(this::userListDtoFromUser).collect(Collectors.toSet()));
     }
-//    @AfterMapping
-//    default void populatePosts(User user, @MappingTarget UserListDto userListDTO) {
-//        PostMapper postMapper=new
-//                ;
-//        userListDTO.setPosts(user.getPosts().stream().map(postMapper::postDtoFromPost).collect(Collectors.toSet()));
-//    }
+
 }

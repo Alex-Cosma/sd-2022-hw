@@ -1,10 +1,13 @@
 package com.group.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,5 +28,7 @@ public class Group {
     @ManyToMany(fetch = FetchType.EAGER,
             mappedBy = "groups")
     private Set<User> users = new HashSet<>();
+
+
 
 }

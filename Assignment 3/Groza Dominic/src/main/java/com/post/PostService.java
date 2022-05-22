@@ -33,6 +33,7 @@ public class PostService {
 
 
                     UserListDto userListDto=userMapper.userListDtoFromUser(post.getUser());
+                    userMapper.populateFriends(post.getUser(),userListDto);
 
                     postDto.setUser(userListDto);
                     return postDto;
@@ -40,11 +41,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public PostDto create(PostDto postDto) {
+    public PostDto create(Long userId,PostDto postDto) {
+        UserListDto userListDto=userService.get(userId);
         postDto.setCreated_at(Date.from(new Date().toInstant()));
         postDto.setLikes(0L);
         postDto.setDisLikes(0L);
         Post post = postMapper.fromDto(postDto);
+        post.setUser(userMapper.userFromUserListDto(userListDto));
         return postMapper.toDto(postRepository.save(post));
     }
 
@@ -58,6 +61,7 @@ public class PostService {
     }
 
     public void delete(Long id) {
+        System.out.println("delete"+id);
         postRepository.deleteById(id);
     }
 

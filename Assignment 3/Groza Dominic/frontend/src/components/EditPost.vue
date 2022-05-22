@@ -34,7 +34,7 @@ export default {
   methods: {
     persist() {
       api.posts.edit(this.post)
-          .then(() => this.$emit("refresh"));
+          .then(() =>   window.location.reload());
     },
   },
   computed: {
