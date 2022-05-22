@@ -1,7 +1,7 @@
 package com.user.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import com.group.model.Group;
 import com.post.model.Post;
 import lombok.*;
@@ -11,6 +11,9 @@ import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(
         uniqueConstraints = {
@@ -20,7 +23,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -50,11 +54,16 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,orphanRemoval=true)
     private Set<Post> posts;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_friends",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id"))
-    private Set<User> friends = new HashSet<>();
+            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "friend_id",referencedColumnName = "id", nullable = false))
+    private Set<User> friends=new HashSet<>();
+
+//    @JsonBackReference
+//    @ManyToMany(mappedBy="friends",fetch = FetchType.EAGER)
+//    private Set<User> friendsOf;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_groups",

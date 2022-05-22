@@ -90,13 +90,16 @@ public class UserService {
         User user = findById(id);
         User friend = findById(friendId);
 
-//        System.out.println("user: " + user.getUsername());
-//        System.out.println("friend: " + friend.getUsername());
-
         Set<User> friends = user.getFriends();
         friends.add(friend);
         user.setFriends(friends);
-//        System.out.println(user.getFriends());
+
+        Set<User> friendsOfFriend = friend.getFriends();
+        friendsOfFriend.add(user);
+        friend.setFriends(friendsOfFriend);
+
+        System.out.println("user.getFriends() = " + user.getFriends());
+        System.out.println("friend.getFriends() = " + friend.getFriends());
 
         userRepository.save(user);
         userRepository.save(friend);

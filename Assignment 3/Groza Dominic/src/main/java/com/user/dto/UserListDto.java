@@ -18,6 +18,7 @@ public class UserListDto extends UserMinimalDto {
     private String email;
     private String password;
     private Set<User> friends;
+    private Set<User> friendOf;
     private Set<Group> groups;
     private Set<Post> posts;
 }

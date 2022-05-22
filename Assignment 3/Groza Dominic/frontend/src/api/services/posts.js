@@ -5,7 +5,6 @@ export default {
   allPosts() {
     return HTTP.get(BASE_URL + "/posts/", { headers: authHeader() }).then(
       (response) => {
-        console.log(response.data);
         return response.data;
       }
     );

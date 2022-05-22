@@ -50,9 +50,31 @@
       <template v-slot:item="row">
         <tr>
           <td>{{ row.item.name }}</td>
-          <td>{{ row.item.users.length}}</td>
+          <td>{{ row.item.users.length }}</td>
           <td v-if="!userInGroup(row.item)">
-            <v-btn depressed @click="enterGroup(row.item)" style="margin-right:2em" color="green">Join Group </v-btn>
+            <v-btn depressed @click="enterGroup(row.item)" style="margin-right:2em" color="green">Join Group</v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+
+    <v-card-title>
+      All Users
+    </v-card-title>
+
+    <v-data-table
+        :headers="headersUsers"
+        :items="users">
+      <template v-slot:item="row">
+        <tr>
+          <td>{{ row.item.username }}</td>
+          <td>{{ row.item.firstName }}</td>
+          <td>{{ row.item.lastName }}</td>
+          <td v-if="!isFriend(row.item)">
+            <v-btn depressed @click="enterGroup(row.item)" color="blue">Add Friend</v-btn>
+          </td>
+          <td v-if="isFriend(row.item)">
+            <strong style="color: lightskyblue">You already are friends</strong>
           </td>
         </tr>
       </template>
@@ -73,6 +95,7 @@ export default {
   components: {NewPost, EditPost},
   props: {
     posts: [],
+    users: [],
   },
   data() {
     return {
@@ -89,6 +112,11 @@ export default {
       headersGroups: [
         {text: "Group Name", align: "start", value: "name",},
         {text: "People joined", value: "user"},
+      ],
+      headersUsers: [
+        {text: "Username", align: "start", value: "username",},
+        {text: "First Name", value: "first_name"},
+        {text: "Last Name", value: "last_name"},
       ],
       dialogVisible: false,
       editPostDialog: false,
@@ -110,24 +138,36 @@ export default {
       this.selectedPost = {};
       this.posts = (await api.posts.allPosts());
       this.groups = (await api.groups.allGroups());
+      this.users = (await api.users.allUsers());
     },
     enterGroup(group) {
       api.groups.addUser(group)
           .then(() => this.refreshList());
     },
     userInGroup(group) {
-     let ingroup = false;
-       group.users.forEach(groupUser=> {
-         if (user.id === groupUser.id) {
-           ingroup = true;
-         }
-       });
-     return ingroup;
+      let ingroup = false;
+      group.users.forEach(groupUser => {
+        if (user.id === groupUser.id) {
+          ingroup = true;
+        }
+      });
+      return ingroup;
+    },
+    isFriend(friend) {
+      let isFriend = false;
+      console.log("friend",friend);
+      friend.friends.forEach(friendUser => {
+        if (user.id === friendUser.id) {
+          isFriend = true;
+        }
+      });
+      return isFriend;
     },
     deletePost(id) {
       api.posts.delete(id);
       this.refreshList();
-    },
+    }
+    ,
   },
   created() {
     this.refreshList();
