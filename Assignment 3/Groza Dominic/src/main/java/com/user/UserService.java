@@ -3,6 +3,8 @@ package com.user;
 import com.group.GroupMapper;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
+import com.post.PostMapper;
+import com.post.model.dto.PostDto;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
 import com.security.dto.SignupRequest;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final AuthService authService;
     private final GroupMapper groupMapper;
+    private final PostMapper postMapper;
 
     private User findById(Long id) {
         return userRepository.findById(id)
@@ -59,7 +63,12 @@ public class UserService {
         return userRepository.findAll()
                 .stream().map(user -> {
                     UserListDto userListDto = userMapper.userListDtoFromUser(user);
+
+                    Set <PostDto> postDtoSet = new HashSet<>();
+                    user.getPosts().stream().map(postMapper::toDto).forEach(postDtoSet::add);
+
                     userMapper.populateFriends(user, userListDto);
+                    userListDto.setPosts(postDtoSet);
                     return userListDto;
                 })
                 .collect(toList());
@@ -74,7 +83,7 @@ public class UserService {
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setGroups(user.getGroups());
+        userToUpdate.setGroups(user.getGroups().stream().map(groupMapper::fromDto).collect(toSet()));
         return userMapper.userListDtoFromUser(userRepository.save(userToUpdate));
     }
 
@@ -121,7 +130,7 @@ public class UserService {
         return groupMapper.toDto(group);
     }
 
-    public Set<User> getFriends(Long id) {
+    public Set<UserListDto> getFriends(Long id) {
         return get(id).getFriends();
     }
 }

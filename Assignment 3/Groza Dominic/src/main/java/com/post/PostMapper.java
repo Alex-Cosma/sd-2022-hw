@@ -15,10 +15,16 @@ import java.util.HashSet;
 public interface PostMapper {
 
 
+    @Mappings({
+            @Mapping(target = "user",ignore = true),
+    })
     PostDto toDto (Post post);
 
-
+    @Mappings({
+            @Mapping(target = "user",ignore = true),
+    })
     Post fromDto (PostDto postDto);
+
 
 
 

@@ -1,15 +1,13 @@
 package com.post.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import com.user.dto.UserListDto;
 import com.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+
 
 @Entity
 @Setter
@@ -21,9 +19,9 @@ import java.util.Date;
 @Table(name = "post")
 public class Post {
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="user_id", nullable=false)
-    @JsonBackReference
     private User user;
 
     @Id

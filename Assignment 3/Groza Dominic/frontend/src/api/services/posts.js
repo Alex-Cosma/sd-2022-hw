@@ -3,8 +3,9 @@ import authHeader, { BASE_URL, HTTP } from "../http";
 export default {
 
   allPosts() {
-    return HTTP.get(BASE_URL + "/posts/", { headers: authHeader() }).then(
+    return HTTP.get(BASE_URL + "/posts", { headers: authHeader() }).then(
       (response) => {
+        console.log("posts",response.data);
         return response.data;
       }
     );

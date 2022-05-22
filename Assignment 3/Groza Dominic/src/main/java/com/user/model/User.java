@@ -11,9 +11,6 @@ import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @Entity
 @Table(
         uniqueConstraints = {
@@ -51,19 +48,21 @@ public class User {
     private String address;
 
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,orphanRemoval=true)
     private Set<Post> posts;
 
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_friends",
-            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "friend_id",referencedColumnName = "id", nullable = false))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<User> friends=new HashSet<>();
 
-//    @JsonBackReference
-//    @ManyToMany(mappedBy="friends",fetch = FetchType.EAGER)
-//    private Set<User> friendsOf;
+
+    @JsonBackReference
+    @ManyToMany(mappedBy="friends",fetch = FetchType.EAGER)
+    private Set<User> friendsOf;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_groups",

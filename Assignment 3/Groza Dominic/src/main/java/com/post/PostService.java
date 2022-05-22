@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,16 +23,24 @@ public class PostService {
     private final UserService userService;
 
     private Post findById(Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found with id :"+id));
+        return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found with id :" + id));
     }
 
-    public List<PostDto> findAll(){
+    public List<PostDto> findAll() {
         return postRepository.findAll().stream()
-                .map(postMapper::toDto)
+                .map(post -> {
+                    PostDto postDto = postMapper.toDto(post);
+
+
+                    UserListDto userListDto=userMapper.userListDtoFromUser(post.getUser());
+
+                    postDto.setUser(userListDto);
+                    return postDto;
+                })
                 .collect(Collectors.toList());
     }
 
-    public PostDto create (PostDto postDto){
+    public PostDto create(PostDto postDto) {
         postDto.setCreated_at(Date.from(new Date().toInstant()));
         postDto.setLikes(0L);
         postDto.setDisLikes(0L);
@@ -43,34 +48,34 @@ public class PostService {
         return postMapper.toDto(postRepository.save(post));
     }
 
-    public PostDto edit(Long id, PostDto postDto){
+    public PostDto edit(Long id, PostDto postDto) {
         Post post = findById(id);
         post.setBody(postDto.getBody());
         post.setLikes(postDto.getLikes());
         post.setDisLikes(postDto.getDisLikes());
-        post.setUser(postDto.getUser());
+        post.setUser(userMapper.userFromUserListDto(postDto.getUser()));
         return postMapper.toDto(postRepository.save(post));
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         postRepository.deleteById(id);
     }
 
-    public PostDto get(Long id){
+    public PostDto get(Long id) {
         return postMapper.toDto(findById(id));
     }
 
-    public List<PostDto> findByUserId(Long userId){
+    public List<PostDto> findByUserId(Long userId) {
         return postRepository.findByUserId(userId).stream()
                 .map(postMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    public List<PostDto> findPostsOfFriends(Long userId){
-        UserListDto user=userService.get(userId);
-        List<PostDto> posts=new ArrayList<>();
+    public List<PostDto> findPostsOfFriends(Long userId) {
+        UserListDto user = userService.get(userId);
+        List<PostDto> posts = new ArrayList<>();
         System.out.println(user.toString());
-        for (User friend : userService.getFriends(userId)) {
+        for (UserListDto friend : userService.getFriends(userId)) {
             List<PostDto> foundPosts = findByUserId(friend.getId());
             posts.addAll(foundPosts);
         }

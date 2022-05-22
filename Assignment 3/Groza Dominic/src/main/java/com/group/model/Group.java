@@ -14,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "group_fb")
-@ToString
 public class Group {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

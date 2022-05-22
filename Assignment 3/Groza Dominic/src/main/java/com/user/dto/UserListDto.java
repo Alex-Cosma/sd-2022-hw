@@ -1,6 +1,8 @@
 package com.user.dto;
 import com.group.model.Group;
+import com.group.model.dto.GroupDto;
 import com.post.model.Post;
+import com.post.model.dto.PostDto;
 import com.user.model.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -17,8 +19,8 @@ import java.util.Set;
 public class UserListDto extends UserMinimalDto {
     private String email;
     private String password;
-    private Set<User> friends;
-    private Set<User> friendOf;
-    private Set<Group> groups;
-    private Set<Post> posts;
+    private Set<UserListDto> friends;
+    private Set<UserListDto> friendOf;
+    private Set<GroupDto> groups;
+    private Set<PostDto> posts;
 }
