@@ -132,7 +132,7 @@ class UserServiceIntegrationTest {
         user.setFriends(Set.of(user0));
         user = userRepository.save(user);
 
-        Set<User> users = userService.getFriends(user.getId());
+        Set<UserListDto> users = userService.getFriends(user.getId());
         assertEquals(users.size(), 1);
     }
 }

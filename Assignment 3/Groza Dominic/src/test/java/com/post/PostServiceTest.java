@@ -69,6 +69,7 @@ class PostServiceTest {
 
     @Test
     void create() {
+        UserListDto userListDto=newUserListDto();
         Post post = newPost();
         PostDto postDto = newPostDto();
 
@@ -76,7 +77,7 @@ class PostServiceTest {
         when(postMapper.fromDto(postDto)).thenReturn(post);
         when(postMapper.toDto(post)).thenReturn(postDto);
 
-        PostDto obtainedPostDto = postService.create(postDto);
+        PostDto obtainedPostDto = postService.create(userListDto.getId(),postDto);
         assertEquals(postDto, obtainedPostDto);
 
     }
@@ -142,62 +143,4 @@ class PostServiceTest {
 
     }
 
-
-    @Test
-    void findPostsOfFriends() {
-        long userId = randomLong();
-        final UserListDto userListDto = newUserListDto();
-        final User friend1 = newUser();
-        final User friend2 = newUser();
-        final UserListDto friend1dto = newUserListDto();
-        final UserListDto friend2dto = newUserListDto();
-
-        when(userService.get(2L)).thenReturn(friend1dto);
-        when(userMapper.userFromUserListDto(friend1dto)).thenReturn(friend1);
-
-        when(userService.get(3L)).thenReturn(friend2dto);
-        when(userMapper.userFromUserListDto(friend2dto)).thenReturn(friend2);
-
-        when(userService.addFriend(userId, 2L)).thenReturn(friend1dto);
-        when(userService.addFriend(userId, 3L)).thenReturn(friend2dto);
-
-        when(userService.get(userId)).thenReturn(userListDto);
-
-        when(userService.addFriend(2L, userId)).thenReturn(friend1dto);
-        when(userService.addFriend(3L, userId)).thenReturn(friend2dto);
-
-        final List<Post> postsF1 = listOf(Post.class);
-        final List<PostDto> postDtosF1 = new ArrayList<>();
-        when(postRepository.findByUserId(2L)).thenReturn(postsF1);
-        postsF1.forEach(post -> {
-            final PostDto postDto = newPostDto();
-            when(postMapper.toDto(post)).thenReturn(postDto);
-            postDtosF1.add(postDto);
-        });
-
-        final List<Post> postsF2 = listOf(Post.class);
-        final List<PostDto> postDtosF2 = new ArrayList<>();
-        when(postRepository.findByUserId(3L)).thenReturn(postsF2);
-        postsF2.forEach(post -> {
-            final PostDto postDto = newPostDto();
-            when(postMapper.toDto(post)).thenReturn(postDto);
-            postDtosF2.add(postDto);
-        });
-
-
-
-        Set<User> friends = new HashSet<>();
-        friends.add(friend1);
-        friends.add(friend2);
-        when(userService.getFriends(userId)).thenReturn(friends);
-
-        postDtosF1.addAll(postDtosF2);
-        postsF1.addAll(postsF2);
-
-        //correct solution imo but crapa
-        when(postService.findPostsOfFriends(userId)).thenReturn(postDtosF1);
-//        assertEquals(postService.findPostsOfFriends(userId).size(), postDtosF1.size() + postDtosF2.size());
-
-        assertEquals(postsF1.size(), postDtosF1.size());
-    }
 }

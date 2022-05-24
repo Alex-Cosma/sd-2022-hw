@@ -7,6 +7,7 @@ import com.post.model.Post;
 import com.post.model.dto.PostDto;
 import com.user.UserRepository;
 import com.user.UserService;
+import com.user.dto.UserListDto;
 import com.user.mapper.UserMapper;
 import com.user.model.User;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Date;
 import java.util.List;
 
-import static com.TestCreationFactory.newPost;
+import static com.TestCreationFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -41,6 +42,7 @@ class PostServiceIntegrationTest {
     @BeforeEach
     void setUp() {
         postRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -61,80 +63,50 @@ class PostServiceIntegrationTest {
 
     @Test
     void create() {
-        User user = TestCreationFactory.newUser();
-        user=userRepository.save(user);
+        User user=newUser();
+        user.setId(1L);
+        userRepository.save(user);
 
-        Post post = newPost();
-        post.setUser(user);
-        post.setCreated_at(Date.from(new Date().toInstant()));
-        post.setLikes(12L);
-        post.setDisLikes(3L);
 
-        postRepository.save(post);
-        PostDto obtained = postService.create(postMapper.toDto(post));
-        assertEquals(postMapper.toDto(post).getId(), obtained.getId());
+        PostDto postDto = newPostDto();
+
+
+        postRepository.save(postMapper.fromDto(postDto));
+        PostDto obtained = postService.create(user.getId(), postDto);
+        assertEquals(postDto.getId(), obtained.getId());
     }
 
     @Test
     void edit() {
-        User user = TestCreationFactory.newUser();
-        user.setPosts(null);
-        user=userRepository.save(user);
+        UserListDto userListDto = newUserListDto();
+        userRepository.save(userMapper.userFromUserListDto(userListDto));
 
-        PostDto postDto = PostDto.builder()
-                .id(2L)
-                .body("body")
-                .created_at(Date.from(new Date().toInstant()))
-                .disLikes(11L)
-                .likes(13L)
-                .user(user)
-                .build();
+        PostDto postDto = newPostDto();
+        postDto.setBody("body");
 
         postRepository.save(postMapper.fromDto(postDto));
-        PostDto created = postService.create(postDto);
-        assertEquals("body", created.getBody());
-        created.setBody("NBODY");
-        PostDto edited = postService.edit(created.getId(), created);
+        assertEquals("body", postDto.getBody());
+        postDto.setBody("NBODY");
+        PostDto edited = postService.edit(postDto.getId(), postDto);
         assertEquals("NBODY", edited.getBody());
     }
 
     @Test
     void delete() {
-        User user = TestCreationFactory.newUser();
-        user.setPosts(null);
-        user=userRepository.save(user);
 
-        PostDto postDto = PostDto.builder()
-                .body("body")
-                .created_at(Date.from(new Date().toInstant()))
-                .disLikes(11L)
-                .likes(13L)
-                .user(user)
-                .build();
+        PostDto postDto = newPostDto();
+        Post post = postRepository.save(postMapper.fromDto(postDto));
 
-       Post post= postRepository.save(postMapper.fromDto(postDto));
-        System.out.println(postRepository.existsById(post.getId()));
         postService.delete(post.getId());
         assertFalse(postRepository.existsById(post.getId()));
     }
 
     @Test
     void get() {
-        User user = TestCreationFactory.newUser();
+        PostDto postDto = newPostDto();
+        Post post = postRepository.save(postMapper.fromDto(postDto));
 
-        user.setPosts(null);
-        user=userRepository.save(user);
-
-        PostDto postDto = PostDto.builder()
-                .body("bodyasdfa")
-                .created_at(Date.from(new Date().toInstant()))
-                .disLikes(11L)
-                .likes(13L)
-                .user(user)
-                .build();
-
-        Post post=postRepository.save(postMapper.fromDto(postDto));
-        PostDto postDto1= postService.get(post.getId());
+        PostDto postDto1 = postService.get(post.getId());
         assertNotNull(postDto1);
     }
 

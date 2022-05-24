@@ -37,7 +37,7 @@ public class Post {
     @Column(nullable = false)
     private Long likes;
 
-    @Column(nullable = false)
+    @Column(name="dis_likes",nullable = false)
     private Long disLikes;
 
     @Column(nullable = false)

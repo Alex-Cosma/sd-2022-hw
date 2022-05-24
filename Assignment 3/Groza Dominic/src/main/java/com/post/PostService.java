@@ -75,16 +75,6 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public List<PostDto> findPostsOfFriends(Long userId) {
-        UserListDto user = userService.get(userId);
-        List<PostDto> posts = new ArrayList<>();
-        System.out.println(user.toString());
-        for (UserListDto friend : userService.getFriends(userId)) {
-            List<PostDto> foundPosts = findByUserId(friend.getId());
-            posts.addAll(foundPosts);
-        }
-        return posts;
-    }
 
 
 }

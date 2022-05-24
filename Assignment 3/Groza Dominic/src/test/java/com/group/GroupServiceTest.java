@@ -3,6 +3,7 @@ package com.group;
 import com.TestCreationFactory;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
+import com.user.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,8 @@ class GroupServiceTest {
     private GroupRepository mockGroupRepository;
     @Mock
     private GroupMapper mockGroupMapper;
+    @Mock
+    private UserMapper userMapper;
     @InjectMocks
     private GroupService groupService;
 
@@ -36,7 +39,7 @@ class GroupServiceTest {
     void setUp() {
 
         MockitoAnnotations.openMocks(this);
-        groupService = new GroupService(mockGroupRepository, mockGroupMapper);
+        groupService = new GroupService(mockGroupRepository, mockGroupMapper,userMapper);
     }
 
     @Test

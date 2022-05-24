@@ -5,6 +5,7 @@ import com.TestCreationFactory;
 import com.post.model.dto.PostDto;
 import com.user.UserRepository;
 import com.user.UserService;
+import com.user.dto.UserListDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -59,8 +60,10 @@ class PostControllerTest extends BaseControllerTest {
     @Test
     void create() throws Exception {
         PostDto postDto = TestCreationFactory.newPostDto();
+        UserListDto userListDto=newUserListDto();
+        when(userService.get(1L)).thenReturn(userListDto);
 
-        when(postService.create(postDto)).thenReturn(postDto);
+        when(postService.create(1L,postDto)).thenReturn(postDto);
         ResultActions response = performPostWithRequestBody(POSTS, postDto);
 
         response.andExpect(status().isOk()).
