@@ -10,6 +10,7 @@ import com.user.UserService;
 import com.user.dto.UserListDto;
 import com.user.mapper.UserMapper;
 import com.user.model.User;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,31 +64,37 @@ class PostServiceIntegrationTest {
 
     @Test
     void create() {
-        User user=newUser();
-        user.setId(1L);
-        userRepository.save(user);
-
-
+        User user = newUser();
         PostDto postDto = newPostDto();
-
-
-        postRepository.save(postMapper.fromDto(postDto));
+        postDto.setBody("createTest");
         PostDto obtained = postService.create(user.getId(), postDto);
-        assertEquals(postDto.getId(), obtained.getId());
+        assertEquals(obtained.getBody(), "createTest");
     }
 
     @Test
     void edit() {
         UserListDto userListDto = newUserListDto();
-        userRepository.save(userMapper.userFromUserListDto(userListDto));
+        User savedUser = userRepository.save(userMapper.userFromUserListDto(userListDto));
 
         PostDto postDto = newPostDto();
-        postDto.setBody("body");
+        postDto.setUser(userMapper.userListDtoFromUser(savedUser));
+        postDto.setBody("editTest");
+        postDto.setCreated_at(new Date());
+        postDto.setLikes(12L);
+        postDto.setDisLikes(3L);
 
-        postRepository.save(postMapper.fromDto(postDto));
-        assertEquals("body", postDto.getBody());
+        Post post=postMapper.fromDto(postDto);
+        post.setUser(savedUser);
+
+        Post savedPost = postRepository.save(post);
+
+        postDto=postMapper.toDto(savedPost);
+        postDto.setUser(userMapper.userListDtoFromUser(savedPost.getUser()));
+        assertEquals("editTest", postDto.getBody());
+
         postDto.setBody("NBODY");
         PostDto edited = postService.edit(postDto.getId(), postDto);
+
         assertEquals("NBODY", edited.getBody());
     }
 

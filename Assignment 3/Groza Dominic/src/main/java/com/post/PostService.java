@@ -56,12 +56,15 @@ public class PostService {
         post.setBody(postDto.getBody());
         post.setLikes(postDto.getLikes());
         post.setDisLikes(postDto.getDisLikes());
-        post.setUser(userMapper.userFromUserListDto(postDto.getUser()));
+        User user=userMapper.userFromUserListDto(postDto.getUser());
+        post.setUser(user);
+        System.out.println("POST IS THIS++++"+user+"--"+post.getUser());
+        System.out.println("postDto   "+postDto);
+        System.out.println("salvat   "+postMapper.toDto(postRepository.save(post)));
         return postMapper.toDto(postRepository.save(post));
     }
 
     public void delete(Long id) {
-        System.out.println("delete"+id);
         postRepository.deleteById(id);
     }
 

@@ -76,7 +76,6 @@ public class UserService {
                     userMapper.populateFriends(user, userListDto);
                     userListDto.setGroups(groupDtoSet);
                     userListDto.setPosts(postDtoSet);
-                    System.out.println("friends" + userListDto.getFriends());
                     return userListDto;
                 })
                 .collect(toList());

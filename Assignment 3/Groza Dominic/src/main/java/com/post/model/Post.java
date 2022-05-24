@@ -34,13 +34,13 @@ public class Post {
     @Column(name = "post_body", nullable = false)
     private String body;
 
-    @Column(nullable = false)
+    @Column()
     private Long likes;
 
-    @Column(name="dis_likes",nullable = false)
+    @Column(name="dis_likes")
     private Long disLikes;
 
-    @Column(nullable = false)
+    @Column()
     private Date created_at;
 
 

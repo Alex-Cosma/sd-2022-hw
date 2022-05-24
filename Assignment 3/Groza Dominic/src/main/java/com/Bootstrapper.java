@@ -16,10 +16,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -110,14 +107,14 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             userService.addFriend(id1, id2);
             //test
 
-
+            ArrayList<Group> sampleGroups=new ArrayList<>();
             for(int i=0;i<4;i++){
                 Group group=Group.builder()
                         .name("Group "+rand.nextInt())
                         .build();
-                groupRepository.save(group);
+                sampleGroups.add(groupRepository.save(group));
             }
-            userService.addToGroup(1L,groupMapper.toDto(groupRepository.findById(1L).get()));
+            userService.addToGroup(id1,groupMapper.toDto(sampleGroups.get(0)));
         }
     }
 }
