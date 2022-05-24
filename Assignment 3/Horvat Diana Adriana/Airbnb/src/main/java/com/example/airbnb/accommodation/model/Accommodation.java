@@ -58,7 +58,7 @@ public class Accommodation {
     @Column(nullable = false)
     private Integer beds;
 
-    @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "accommodation", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Amenity> amenities = new HashSet<>();

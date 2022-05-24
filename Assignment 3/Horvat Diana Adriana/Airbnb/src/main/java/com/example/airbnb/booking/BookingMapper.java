@@ -7,7 +7,6 @@ import com.example.airbnb.booking.model.dto.BookingDTO;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
-
 public interface BookingMapper {
     @Mappings({
             @Mapping(target = "accommodation_id", ignore = true),

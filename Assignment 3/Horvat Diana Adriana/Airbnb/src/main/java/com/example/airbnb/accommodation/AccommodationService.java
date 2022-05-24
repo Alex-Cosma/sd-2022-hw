@@ -26,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,8 +38,8 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AccommodationService {
-    @Autowired
-    private JavaMailSender mailSender;
+//    @Autowired
+    private final JavaMailSender mailSender;
 
     private final AccommodationMapper accommodationMapper;
     private final AccommodationRepository accommodationRepository;
@@ -207,10 +208,11 @@ public class AccommodationService {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(user.getEmail());
+//        message.setTo("horvat.diana2000@gmail.com");
         message.setSubject(accommodation.getName() + " Accommodation Details");
 
         String amenities = "Amenities: ";
-        if(accommodation.getAmenities() != null){
+        if(accommodation.getAmenities().size() != 0){
             for (Amenity amenity : accommodation.getAmenities()) {
                 amenities += amenity.getAmenity() + ", ";
             }

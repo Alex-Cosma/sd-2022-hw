@@ -115,8 +115,17 @@ class AccommodationControllerTest extends com.example.bookstore.BaseControllerTe
 //        doNothing().when(accommodationService).exportPDF(accommodation.getId());
         when(accommodationService.exportPDF(accommodation.getId())).thenReturn(response);
 
-        ResultActions result = performGetWithPathVariable(ACCOMMODATIONS + SEND_EMAIL, accommodation.getId());
+        ResultActions result = performGetWithPathVariable(ACCOMMODATIONS + EXPORT_ACCOMMODATION_PDF, accommodation.getId());
         verify(accommodationService, times(1)).exportPDF(accommodation.getId());
+        result.andExpect(status().isOk());
+    }
+
+    @Test
+    void sendEmail() throws Exception {
+        doNothing().when(accommodationService).sendEmail(anyLong());
+
+        ResultActions result = performGetWithPathVariable(ACCOMMODATIONS + SEND_EMAIL, TestCreationFactory.randomLong());
+        verify(accommodationService, times(1)).sendEmail(anyLong());
         result.andExpect(status().isOk());
     }
 }

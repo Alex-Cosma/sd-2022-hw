@@ -28,8 +28,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
 import static com.example.airbnb.TestCreationFactory.randomLong;
 import static com.example.airbnb.TestCreationFactory.randomString;
@@ -47,17 +51,15 @@ class AccommodationServiceUnitTests {
     private AccommodationMapper accommodationMapper;
 
     @Mock
-    private UserService userService;
-
-    private GreenMail greenMail;
+    private JavaMailSender javaMailSender;
 
     @Mock
-    private JavaMailSender emailSender;
+    private UserService userService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        accommodationService = new AccommodationService(accommodationMapper, accommodationRepository, userService);
+        accommodationService = new AccommodationService(javaMailSender, accommodationMapper, accommodationRepository, userService);
     }
 
     @Test
@@ -134,24 +136,6 @@ class AccommodationServiceUnitTests {
 
     }
 
-    @Test
-    void sendEmail() throws MessagingException {
-        greenMail = new GreenMail(ServerSetupTest.SMTP);
-        greenMail.start();
-
-        User user = User.builder().id(randomLong())
-                .email("horvat.diana2000@gmail.com").password(randomString()).username(randomString()).build();
-        Accommodation accommodation = TestCreationFactory.accommodationWithUser(user);
-
-        when(accommodationRepository.findById(accommodation.getId())).thenReturn(java.util.Optional.of(accommodation));
-        accommodationService.sendEmail(accommodation.getId());
-
-        Message[] messages = greenMail.getReceivedMessages();
-//        assertEquals(1, messages.length);
-        assertEquals(accommodation.getName() + " Accommodation Details", messages[0].getSubject());
-//        String body = GreenMailUtil.getBody(messages[0]).replaceAll("=\r?\n", "");
-//        assertEquals("test message", body);
-    }
 
     @Test
     void exportPDF() throws IOException {
