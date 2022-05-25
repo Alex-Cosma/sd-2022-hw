@@ -38,7 +38,7 @@ public class GroupService {
         return groupRepository.findAll().stream()
                 .map(group->{
                     GroupDto groupDto = groupMapper.toDto(group);
-
+                    System.out.println(groupDto.getName());
                     Set<UserListDto> userListDtos = new HashSet<>();
                     group.getUsers().stream().map(userMapper::userListDtoFromUser).forEach(userListDtos::add);
 

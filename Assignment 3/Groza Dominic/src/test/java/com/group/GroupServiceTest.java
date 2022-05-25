@@ -3,7 +3,9 @@ package com.group;
 import com.TestCreationFactory;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
+import com.user.UserRepository;
 import com.user.mapper.UserMapper;
+import com.user.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,8 @@ class GroupServiceTest {
     @Mock
     private GroupRepository mockGroupRepository;
     @Mock
+    private UserRepository userRepository;
+    @Mock
     private GroupMapper mockGroupMapper;
     @Mock
     private UserMapper userMapper;
@@ -44,10 +48,12 @@ class GroupServiceTest {
 
     @Test
     void findAll() {
+        User user = TestCreationFactory.newUser();
         List<Group> groups = listOf(Group.class);
         when(mockGroupRepository.findAll()).thenReturn(groups);
         List<GroupDto> preparedGroupDtos = new ArrayList<>();
         for (Group group : groups) {
+            group.setUsers(Set.of(user));
             GroupDto groupDto = newGroupDto();
             when(mockGroupMapper.toDto(group)).thenReturn(groupDto);
             preparedGroupDtos.add(groupDto);

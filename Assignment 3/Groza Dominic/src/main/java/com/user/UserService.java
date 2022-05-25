@@ -110,7 +110,12 @@ public class UserService {
         friends.add(friend);
         user.setFriends(friends);
 
-        Set<User> friendsOfFriend = friend.getFriends();
+        Set<User> friendsOfFriend ;
+        if(friend.getFriends()==null){
+            friendsOfFriend=new HashSet<>();
+        }else{
+            friendsOfFriend=friend.getFriends();
+        }
         friendsOfFriend.add(user);
         friend.setFriends(friendsOfFriend);
 

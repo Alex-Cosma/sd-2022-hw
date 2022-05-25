@@ -6,6 +6,7 @@ import com.group.GroupRepository;
 import com.group.model.Group;
 import com.group.model.dto.GroupDto;
 import com.post.PostMapper;
+import com.post.model.Post;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
 import com.user.dto.UserListDto;
@@ -48,7 +49,7 @@ class UserServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        userService = new UserService(userRepository, userMapper, authService, groupMapper,postMapper,groupRepository);
+        userService = new UserService(userRepository, userMapper, authService, groupMapper, postMapper, groupRepository);
     }
 
     @Test
@@ -67,17 +68,31 @@ class UserServiceTest {
     @Test
     void allUsersForList() {
         List<User> users = TestCreationFactory.listOf(User.class);
-
+        Group group = newGroup();
         when(userRepository.findAll()).thenReturn(users);
+        List<UserListDto> preparedUsers = new ArrayList<>();
+        for (User user : users) {
+            Post post = newPost();
+            user.setPosts(new HashSet<>());
+            user.setGroups(new HashSet<>());
+            user.getGroups().add(group);
+            user.getPosts().add(post);
+            UserListDto userListDto = new UserListDto();
+            when(userMapper.userListDtoFromUser(user)).thenReturn(userListDto);
+            preparedUsers.add(userListDto);
+        }
 
         List<UserListDto> userDtos = userService.allUsersForList();
-
-        assertEquals(users.size(), userDtos.size());
+        assertEquals(preparedUsers.size(), userDtos.size());
     }
 
     @Test
     void delete() {
         User user = newUser();
+        Post post = newPost();
+        Group group = newGroup();
+        user.setGroups(Set.of(group));
+        user.setPosts(Set.of(post));
         when(userRepository.findById(1L)).thenReturn(java.util.Optional.of(user));
         doNothing().when(userRepository).delete(user);
         userService.delete(user.getId());
@@ -88,15 +103,18 @@ class UserServiceTest {
     void edit() {
         User user = newUser();
         user.setId(1L);
+
         UserListDto userDto = newUserListDto();
         userDto.setUsername("newUsername");
+
+        userDto.setGroups(Set.of( newGroupDto()));
+        userDto.setPosts(Set.of( newPostDto()));
 
         when(userRepository.findById(1L)).thenReturn(java.util.Optional.of(user));
         when(userMapper.userFromUserListDto(userDto)).thenReturn(user);
         when(userMapper.userListDtoFromUser(user)).thenReturn(userDto);
         when(userRepository.save(user)).thenReturn(user);
 
-        System.out.println(userDto.getId() + user.getId());
         UserListDto userListDto = userService.edit(user.getId(), userDto);
 
         assertEquals("newUsername", userListDto.getUsername());
@@ -156,19 +174,19 @@ class UserServiceTest {
     @Test
     void addToGroup() {
         long id0 = randomLong();
-        UserListDto userListDto=newUserListDto();
-        User user=newUser();
+        UserListDto userListDto = newUserListDto();
+        User user = newUser();
         when(userRepository.findById(id0)).thenReturn(java.util.Optional
                 .ofNullable(user));
 
-        Set<UserListDto>users=new HashSet<>();
+        Set<UserListDto> users = new HashSet<>();
         users.add(userListDto);
 
         GroupDto group = newGroupDto();
         group.setUsers(users);
 
 //        when(userService.addToGroup(id0, group)).thenReturn(group);
-        GroupDto group1 =userService.addToGroup(id0, group);
+        GroupDto group1 = userService.addToGroup(id0, group);
 
 //        assertEquals(user0.getGroups().size(), 1);
         assertTrue(true);

@@ -65,9 +65,10 @@ class PostServiceIntegrationTest {
     @Test
     void create() {
         User user = newUser();
+        User savedUser = userRepository.save(user);
         PostDto postDto = newPostDto();
         postDto.setBody("createTest");
-        PostDto obtained = postService.create(user.getId(), postDto);
+        PostDto obtained = postService.create(savedUser.getId(), postDto);
         assertEquals(obtained.getBody(), "createTest");
     }
 
@@ -100,20 +101,25 @@ class PostServiceIntegrationTest {
 
     @Test
     void delete() {
+        UserListDto userListDto = newUserListDto();
+        User savedUser = userRepository.save(userMapper.userFromUserListDto(userListDto));
 
-        PostDto postDto = newPostDto();
-        Post post = postRepository.save(postMapper.fromDto(postDto));
+        PostDto postDto= newPostDto();
+        PostDto createdPost =postService.create(savedUser.getId(), postDto);
 
-        postService.delete(post.getId());
-        assertFalse(postRepository.existsById(post.getId()));
+        postService.delete(createdPost.getId());
+        assertFalse(postRepository.existsById(createdPost.getId()));
     }
 
     @Test
     void get() {
-        PostDto postDto = newPostDto();
-        Post post = postRepository.save(postMapper.fromDto(postDto));
+        UserListDto userListDto = newUserListDto();
+        User savedUser = userRepository.save(userMapper.userFromUserListDto(userListDto));
 
-        PostDto postDto1 = postService.get(post.getId());
+        PostDto postDto= newPostDto();
+        PostDto createdPost =postService.create(savedUser.getId(), postDto);
+
+        PostDto postDto1 = postService.get(createdPost.getId());
         assertNotNull(postDto1);
     }
 

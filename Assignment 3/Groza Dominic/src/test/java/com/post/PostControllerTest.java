@@ -64,7 +64,7 @@ class PostControllerTest extends BaseControllerTest {
         when(userService.get(1L)).thenReturn(userListDto);
 
         when(postService.create(1L,postDto)).thenReturn(postDto);
-        ResultActions response = performPostWithRequestBody(POSTS, postDto);
+        ResultActions response = performPostWithRequestBodyAndPathVariable(POSTS+ENTITY, postDto,1L);
 
         response.andExpect(status().isOk()).
                 andExpect(jsonContentToBe(postDto));

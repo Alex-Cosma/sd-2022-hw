@@ -2,6 +2,10 @@ package com.user;
 
 import com.TestCreationFactory;
 import com.group.GroupMapper;
+import com.group.GroupRepository;
+import com.group.GroupService;
+import com.group.model.Group;
+import com.group.model.dto.GroupDto;
 import com.security.AuthService;
 import com.security.dto.MessageResponse;
 import com.user.dto.UserListDto;
@@ -32,6 +36,9 @@ class UserServiceIntegrationTest {
     private GroupMapper groupMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private GroupRepository groupRepository;
+
 
 
     @BeforeEach
@@ -69,9 +76,15 @@ class UserServiceIntegrationTest {
     void edit() {
 
         User user = TestCreationFactory.newUser();
+        Group group=TestCreationFactory.newGroup();
+        Group savedGroup=groupRepository.save(group);
+
+        user.setGroups(Set.of(savedGroup));
         user = userRepository.save(user);
 
         UserListDto userListDto = userMapper.userListDtoFromUser(user);
+        GroupDto groupDto=groupMapper.toDto(savedGroup);
+        userListDto.setGroups(Set.of(groupDto));
         userListDto.setUsername("newUsername");
         userListDto.setEmail("new@email.com");
 
