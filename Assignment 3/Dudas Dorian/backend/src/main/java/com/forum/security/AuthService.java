@@ -1,0 +1,62 @@
+package com.forum.security;
+
+import com.forum.user.RoleRepository;
+import com.forum.user.UserRepository;
+import com.forum.user.model.ERole;
+import com.forum.user.model.User;
+import com.forum.security.dto.SignupRequest;
+import com.forum.user.model.Role;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Component
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final UserRepository userRepository;
+
+    @Getter
+    private final RoleRepository roleRepository;
+
+    @Getter
+    private final PasswordEncoder encoder;
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public void register(SignupRequest signUpRequest) {
+        User user = User.builder()
+                .username(signUpRequest.getUsername())
+                .password(encoder.encode(signUpRequest.getPassword()))
+                .email(signUpRequest.getEmail())
+                .build();
+
+        Set<String> rolesStr = signUpRequest.getRoles();
+        Set<Role> roles = new HashSet<>();
+
+        if (rolesStr == null) {
+            Role defaultRole = roleRepository.findByName(ERole.REGULAR)
+                    .orElseThrow(() -> new RuntimeException("Cannot find REGULAR role"));
+            roles.add(defaultRole);
+        } else {
+            rolesStr.forEach(r -> {
+                Role ro = roleRepository.findByName(ERole.valueOf(r))
+                        .orElseThrow(() -> new RuntimeException("Cannot find role: " + r));
+                roles.add(ro);
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+}
