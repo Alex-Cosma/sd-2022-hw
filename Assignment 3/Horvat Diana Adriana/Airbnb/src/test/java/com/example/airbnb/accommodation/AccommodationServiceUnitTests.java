@@ -147,5 +147,17 @@ class AccommodationServiceUnitTests {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    void sendEmail(){
+        User user = TestCreationFactory.user();
+        user.setEmail("horvat.diana2000@gmail.com");
+
+        Accommodation accommodation = TestCreationFactory.accommodationWithUser(user);
+        when(accommodationRepository.findById(accommodation.getId())).thenReturn(java.util.Optional.of(accommodation));
+
+        accommodationService.sendEmail(accommodation.getId());
+
+    }
+
 
 }

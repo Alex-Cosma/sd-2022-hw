@@ -2,12 +2,7 @@ package com.example.airbnb.accommodation;
 
 import com.example.airbnb.accommodation.model.Accommodation;
 import com.example.airbnb.accommodation.model.dto.AccommodationDTO;
-import com.example.airbnb.address.AddressService;
-import com.example.airbnb.address.model.Address;
-import com.example.airbnb.amenities.AmenityService;
 import com.example.airbnb.amenities.model.Amenity;
-import com.example.airbnb.image.ImageURLService;
-import com.example.airbnb.image.model.ImageURL;
 import com.example.airbnb.user.UserService;
 import com.example.airbnb.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -15,25 +10,20 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -212,7 +202,7 @@ public class AccommodationService {
         message.setSubject(accommodation.getName() + " Accommodation Details");
 
         String amenities = "Amenities: ";
-        if(accommodation.getAmenities().size() != 0){
+        if(accommodation.getAmenities() != null){
             for (Amenity amenity : accommodation.getAmenities()) {
                 amenities += amenity.getAmenity() + ", ";
             }

@@ -228,47 +228,47 @@ class AccommodationServiceTest {
 
     }
 
-    @Test
-    void sendEmail() throws MessagingException {
-        greenMail = new GreenMail(ServerSetupTest.SMTP);
-        greenMail.start();
-        greenMail.setUser("horvat.diana2000@gmail.com", "haajrcxlbesoahwl");
-
-//        Properties props = System.getProperties();
-//        props.put("mail.smtp.host", "localhost");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.port", ServerSetupTest.SMTP.getPort());
-
-
-        for (ERole value : ERole.values()) {
-            roleRepository.save(
-                    Role.builder()
-                            .name(value)
-                            .build()
-            );
-        }
-
-        authService.register(SignupRequest.builder()
-                .email("horvat.diana2000@gmail.com")
-                .username("alex1")
-                .password("WooHoo1!")
-                .roles(Set.of("GUEST"))
-                .build());
-
-        User user = userRepository.findByUsername("alex1").orElse(null);
-
-        Accommodation accommodation = TestCreationFactory.accommodationWithUser(user);
-
-        Accommodation accommodation1 = accommodationRepository.save(accommodation);
-
-        accommodationService.sendEmail(accommodation1.getId());
-
-        assertTrue(greenMail.waitForIncomingEmail(5000, 1));
-        Message[] messages = greenMail.getReceivedMessages();
-        assertEquals(1, messages.length);
+//    @Test
+//    void sendEmail() throws MessagingException {
+//        greenMail = new GreenMail(ServerSetupTest.SMTP);
+//        greenMail.start();
+//        greenMail.setUser("horvat.diana2000@gmail.com", "haajrcxlbesoahwl");
+//
+////        Properties props = System.getProperties();
+////        props.put("mail.smtp.host", "localhost");
+////        props.put("mail.smtp.auth", "true");
+////        props.put("mail.smtp.port", ServerSetupTest.SMTP.getPort());
+//
+//
+//        for (ERole value : ERole.values()) {
+//            roleRepository.save(
+//                    Role.builder()
+//                            .name(value)
+//                            .build()
+//            );
+//        }
+//
+//        authService.register(SignupRequest.builder()
+//                .email("horvat.diana2000@gmail.com")
+//                .username("alex1")
+//                .password("WooHoo1!")
+//                .roles(Set.of("GUEST"))
+//                .build());
+//
+//        User user = userRepository.findByUsername("alex1").orElse(null);
+//
+//        Accommodation accommodation = TestCreationFactory.accommodationWithUser(user);
+//
+//        Accommodation accommodation1 = accommodationRepository.save(accommodation);
+//
+//        accommodationService.sendEmail(accommodation1.getId());
+//
+//        assertTrue(greenMail.waitForIncomingEmail(5000, 1));
+//        Message[] messages = greenMail.getReceivedMessages();
+//        assertEquals(1, messages.length);
 //        assertEquals(accommodation.getName() + " Accommodation Details", messages[0].getSubject());
 //        String body = GreenMailUtil.getBody(messages[0]).replaceAll("=\r?\n", "");
 //        assertEquals("test message", body);
-        greenMail.stop();
-    }
+//        greenMail.stop();
+//    }
 }

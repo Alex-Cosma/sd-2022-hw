@@ -128,4 +128,5 @@ class AccommodationControllerTest extends com.example.bookstore.BaseControllerTe
         verify(accommodationService, times(1)).sendEmail(anyLong());
         result.andExpect(status().isOk());
     }
+
 }
