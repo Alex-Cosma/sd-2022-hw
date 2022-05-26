@@ -15,10 +15,10 @@ public class UrlMapping {
 
     public static final String REPORT = "/report/{type}" + ENTITY;
 
-    public static final String SEND_MESSAGE = "/send-message";
-    public static final String MESSAGE = "/message";
-    public static final String TOPIC = "/topic/messages";
-    public static final String WS = "/ws";
-    public static final String OUR_WS = "/web-socket";
+//    public static final String SEND_MESSAGE = "/send-message";
+//    public static final String MESSAGE = "/message";
+//    public static final String TOPIC = "/topic/messages";
+//    public static final String WS = "/ws";
+//    public static final String OUR_WS = "/web-socket";
 
 }
