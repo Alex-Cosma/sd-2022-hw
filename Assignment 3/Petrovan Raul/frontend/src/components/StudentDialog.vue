@@ -37,6 +37,7 @@ export default {
   data () {
     return {
       headers: [
+        { text: 'Username', value: 'name' },
         { text: 'Name', value: 'firstName' },
         { text: 'Surname', value: 'lastName' },
       ],

@@ -19,6 +19,7 @@
           <v-card-actions>
             <v-btn @click="close">Cancel</v-btn>
             <v-btn @click="addFlight">Add a flight</v-btn>
+            <v-btn @click="unassign">Unassign</v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -71,6 +72,12 @@ export default {
     addFlight() {
       console.log("add flight");
       this.addFlightDialogOpened = true;
+    },
+    unassign() {
+      api.flights.unassignStudent(this.student.id).then(() => {
+        this.close()
+      });
+
     },
     async refreshFlightList() {
       this.addFlightDialogOpened = false;

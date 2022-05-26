@@ -69,6 +69,22 @@
         >
           Please fill in all fields
         </v-alert>
+        <v-alert
+            :value="hasDateErrors"
+            type="error"
+            dismissible
+            transition="scale-transition"
+        >
+          The arrival date must be after the departure date
+        </v-alert>
+        <v-alert
+            :value="hasTimeErrors"
+            type="error"
+            dismissible
+            transition="scale-transition"
+        >
+          The arrival time must be after the departure time
+        </v-alert>
         <v-card-actions>
           <v-btn @click="persist">
             Save Flight
@@ -98,9 +114,17 @@ export default {
     departureAirport: { required },
     arrivalAirport: { required },
     departureDate: { required },
-    arrivalDate: { required },
+    arrivalDate: { required,
+      minValue(value) {
+        return new Date(value) >= new Date(this.flight.departureDate);
+      }
+    },
     departureTime: { required },
-    arrivalTime: { required },
+    arrivalTime: { required,
+      minValue(value) {
+        return new Date(this.flight.departureDate + " " + value) >= new Date(this.flight.arrivalDate + ' ' + this.flight.departureTime);
+      }
+    }
   },
 },
   data() {
@@ -108,6 +132,8 @@ export default {
       airports: [],
       planes: [],
       hasErrors: false,
+      hasDateErrors: false,
+      hasTimeErrors: false,
     };
   },
   methods: {
@@ -116,8 +142,21 @@ export default {
     },
     persist() {
       this.$v.flight.$touch();
+      this.hasErrors = false;
+      this.hasDateErrors = false;
+      this.hasTimeErrors = false;
       if (this.$v.flight.$error) {
         this.hasErrors = true;
+      }
+      if(!this.$v.flight.arrivalDate.minValue) {
+        console.log(this.$v.flight.arrivalDate.minValue);
+        this.hasDateErrors = true;
+      }
+      if(!this.$v.flight.arrivalTime.minValue) {
+        console.log(this.$v.flight.arrivalTime.minValue);
+        this.hasTimeErrors = true;
+      }
+      if(this.hasErrors || this.hasDateErrors || this.hasTimeErrors) {
         return;
       }
       console.log(this.flight);

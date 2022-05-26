@@ -36,5 +36,11 @@ export default {
             }
         );
     },
-
+    unassignStudent(studentId) {
+        return HTTP.post(BASE_URL + "/flights/unassign-student", {id: studentId}, {headers: authHeader()}).then(
+            (response) => {
+                return response.data;
+            }
+        );
+    },
 };
