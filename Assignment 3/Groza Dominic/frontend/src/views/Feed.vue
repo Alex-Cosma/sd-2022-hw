@@ -29,7 +29,6 @@
           </td>
         </tr>
       </template>
-\
     </v-data-table>
     <NewPost
         :opened="dialogVisible"
@@ -87,9 +86,12 @@
 import api from "../api";
 import NewPost from "../components/NewPost";
 import EditPost from "@/components/EditPost";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
+let stompClient = null;
 export default {
   name: "Feed",
   components: {NewPost, EditPost},
@@ -125,6 +127,7 @@ export default {
     };
   },
   methods: {
+
     editPost(post) {
       console.log("this post", post)
       this.selectedPost = post;
@@ -139,6 +142,8 @@ export default {
       this.posts = (await api.posts.allPosts());
       this.groups = (await api.groups.allGroups());
       this.users = (await api.users.allUsers());
+      this.connect();
+      this.startTask();
     },
     enterGroup(group) {
       api.groups.addUser(group)
@@ -153,13 +158,13 @@ export default {
       });
       return ingroup;
     },
-    addFriend(friend){
+    addFriend(friend) {
       api.users.addFriend(friend.id)
           .then(() => window.location.reload());
     },
     isFriend(friend) {
       let isFriend = false;
-      console.log("friend",friend);
+      console.log("friend", friend);
       friend.friends.forEach(friendUser => {
         if (user.id === friendUser.id) {
           isFriend = true;
@@ -170,8 +175,43 @@ export default {
     deletePost(id) {
       api.posts.delete(id);
       window.location.reload();
-    }
-    ,
+    },
+    connect: function () {
+      var socket = new SockJS('/connect');
+      stompClient = Stomp.over(socket);
+      var that = this;
+      stompClient.connect({}, function () {
+
+        that.handleMessageReceipt("Connected");
+        stompClient.subscribe('/topic/messages',
+            function (messageOutput) {
+              that.handleMessageReceipt(messageOutput.body);
+            });
+      });
+    },
+    disconnect: function () {
+      if (stompClient != null) {
+        stompClient.disconnect();
+      }
+      this.handleMessageReceipt("Disconnected");
+    },
+    startTask: function () {
+      if (stompClient != null) {
+        stompClient.send("/ws/start");
+      } else {
+        alert("Please connect first");
+      }
+    },
+    stopTask: function () {
+      if (stompClient != null) {
+        stompClient.send("/ws/stop");
+      } else {
+        alert("Please connect first");
+      }
+    },
+    handleMessageReceipt: function (messageOutput) {
+      this.messages.push(messageOutput);
+    },
   },
   created() {
     this.refreshList();

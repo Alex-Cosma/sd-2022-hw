@@ -14,6 +14,8 @@ import com.user.mapper.UserMapper;
 import com.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -36,6 +38,7 @@ public class UserService {
     private final PostMapper postMapper;
     private final GroupRepository groupRepository;
 
+
     private User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found" + id));
@@ -56,11 +59,13 @@ public class UserService {
         }
         SignupRequest signUpRequest = new SignupRequest(user.getUsername(), user.getEmail(),
                 user.getPassword(), user.getFirstName(), user.getLastName(), user.getAddress());
-
         authService.register(signUpRequest);
+
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+
 
     public List<UserListDto> allUsersForList() {
         return userRepository.findAll()
