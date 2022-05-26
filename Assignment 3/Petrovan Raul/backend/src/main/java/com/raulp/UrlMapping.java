@@ -39,4 +39,5 @@ public class UrlMapping {
     public static final String AIRPLANES = "/airplanes";
     public static final String AIRPORTS = "/airports";
 
+    public static final String UNASSIGN_STUDENT = "/unassign-student";
 }

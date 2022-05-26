@@ -1,8 +1,5 @@
 package com.raulp.user.repos;
 
-import com.raulp.book.model.Book;
-import com.raulp.user.model.ERole;
-import com.raulp.user.model.Role;
 import com.raulp.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

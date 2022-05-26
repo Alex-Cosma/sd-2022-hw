@@ -30,6 +30,6 @@ public class Instructor extends User {
 //    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER)
 //    private Set<Reservation> reservations = new HashSet<>();
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
 }

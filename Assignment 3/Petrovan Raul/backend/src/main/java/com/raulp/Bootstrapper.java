@@ -1,8 +1,5 @@
 package com.raulp;
 
-import com.raulp.book.BookRepository;
-import com.raulp.book.model.Book;
-import com.raulp.book.model.Genre;
 import com.raulp.flight.Airport;
 import com.raulp.flight.Plane;
 import com.raulp.flight.repos.AirportRepository;
@@ -37,15 +34,12 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final AuthService authService;
 
-    private final BookRepository bookRepository;
-
     @Value("${app.bootstrap}")
     private Boolean bootstrap;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
-            bookRepository.deleteAll();
             userRepository.deleteAll();
             roleRepository.deleteAll();
             for (ERole value : ERole.values()) {
@@ -82,12 +76,6 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
             planeRepository.save(Plane.builder().name("Boeing 747").build());
             planeRepository.save(Plane.builder().name("Boeing 767").build());
             planeRepository.save(Plane.builder().name("Boeing 777").build());
-//            bookRepository.save(
-//                    Book.builder().author("John").description("best book").genre(Genre.ACTION)
-//                            .title("The Happening").price((float) 22.3).quantity(1).build());
-//            bookRepository.save(
-//                    Book.builder().author("John").description("best book 2").genre(Genre.DRAMA)
-//                            .title("The Happening").price((float) 23.5).quantity(0).build());
 
         }
     }

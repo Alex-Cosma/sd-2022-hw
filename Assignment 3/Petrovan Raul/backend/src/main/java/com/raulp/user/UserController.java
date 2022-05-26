@@ -1,6 +1,5 @@
 package com.raulp.user;
 
-import com.raulp.book.model.dto.BookDTO;
 import com.raulp.user.dto.instructor.InstructorMinimalDTO;
 import com.raulp.user.dto.student.StudentMinimalDTO;
 import com.raulp.user.dto.user.UserDetailsDTO;
@@ -69,6 +68,5 @@ public class UserController {
     public void addStudent(@PathVariable Long studentId, @PathVariable Long instructorId) {
         instructorService.addStudent(instructorId, studentId);
     }
-
 
 }

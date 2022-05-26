@@ -5,6 +5,8 @@ import com.raulp.flight.dtos.AirportDTO;
 import com.raulp.flight.dtos.FlightDTO;
 import com.raulp.flight.dtos.PlaneDTO;
 import com.raulp.report.ReportType;
+import com.raulp.user.dto.student.StudentMinimalDTO;
+import com.raulp.user.services.InstructorService;
 import com.raulp.websocket.MessageDTO;
 import com.raulp.websocket.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ import static com.raulp.UrlMapping.EXPORT_REPORT;
 @RequiredArgsConstructor
 public class FlightController {
     private final FlightService flightService;
+    private final InstructorService instructorService;
     private final NotificationService notificationService;
 
     @GetMapping("/{userId}")
@@ -72,5 +75,9 @@ public class FlightController {
                 .body(resource);
     }
 
+    @PostMapping(UrlMapping.UNASSIGN_STUDENT)
+    public void unassignStudent(@RequestBody StudentMinimalDTO studentMinimalDTO) {
+        instructorService.unassignStudent(studentMinimalDTO.getId());
+    }
 
 }

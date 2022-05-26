@@ -1,6 +1,5 @@
 package com.raulp.report;
 
-import com.raulp.book.model.dto.BookDTO;
 import com.raulp.flight.dtos.FlightDTO;
 
 import java.io.IOException;

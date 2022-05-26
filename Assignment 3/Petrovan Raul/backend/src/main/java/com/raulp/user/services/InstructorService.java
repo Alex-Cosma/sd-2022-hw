@@ -55,4 +55,18 @@ public class InstructorService {
             instructorRepository.save(instructor);
         });
     }
+
+    public void unassignStudent(Long studentId) {
+        studentRepository.findById(studentId).ifPresent(student -> {
+            if(student.getInstructor() != null) {
+                instructorRepository.findById(student.getInstructor().getId()).ifPresent(instructor -> {
+                    System.out.println(instructor.toString());
+                    instructor.getStudents().remove(student);
+                    instructorRepository.save(instructor);
+                });
+                student.setInstructor(null);
+                studentRepository.save(student);
+            }
+        });
+    }
 }

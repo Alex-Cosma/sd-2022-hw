@@ -1,8 +1,6 @@
 package com.raulp.user.services;
 
 import com.raulp.TestCreationFactory;
-import com.raulp.book.BookService;
-import com.raulp.user.dto.user.UserMinimalDTO;
 import com.raulp.user.mapper.UserMapper;
 import com.raulp.user.model.Student;
 import com.raulp.user.repos.StudentRepository;

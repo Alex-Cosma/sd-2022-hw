@@ -1,6 +1,5 @@
 package com.raulp.report;
 
-import com.raulp.book.model.dto.BookDTO;
 import com.raulp.UrlMapping;
 import com.raulp.flight.dtos.FlightDTO;
 import org.springframework.stereotype.Service;

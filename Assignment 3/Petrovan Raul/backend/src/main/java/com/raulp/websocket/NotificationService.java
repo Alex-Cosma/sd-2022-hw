@@ -23,9 +23,11 @@ public class NotificationService {
         Instructor instructor = instructorRepository.findById(instructorId)
                 .orElseThrow(() -> new RuntimeException("Instructor not found"));
         messageController.sendNotification(MessageDTO.builder()
-                .message("A new flight was added by " + instructor.getFirstName() + " " +
-                        instructor.getLastName() +
-                        " for " + student.getFirstName() + " " + student.getLastName())
+                .message("A new flight was added by instructor " + instructor.getFirstName() + " " +
+                        instructor.getLastName() + " (" + instructor.getUsername() + ") " +
+                        " for student " + student.getFirstName() + " " + student.getLastName() +
+                        " (" + student.getUsername() +
+                        "). Check the 'My Flights' tab to see the flight " + "details.")
                 .userIds(List.of(studentId.toString(), instructorId.toString()))
                 .build());
     }

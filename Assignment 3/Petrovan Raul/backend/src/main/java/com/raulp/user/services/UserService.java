@@ -1,6 +1,5 @@
 package com.raulp.user.services;
 
-import com.raulp.book.model.Book;
 import com.raulp.user.dto.user.UserDetailsDTO;
 import com.raulp.user.dto.user.UserListDTO;
 import com.raulp.user.dto.user.UserMinimalDTO;

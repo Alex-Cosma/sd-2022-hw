@@ -63,18 +63,17 @@ public class AuthService {
         }
 
         user.setRoles(roles);
-        if(rolesStr.contains(ERole.FLIGHT_INSTRUCTOR.toString())){
+        if (rolesStr != null && rolesStr.contains(ERole.FLIGHT_INSTRUCTOR.toString())) {
             instructorRepository.save(Instructor.builder().username(signUpRequest.getUsername())
                     .password(encoder.encode(signUpRequest.getPassword()))
                     .email(signUpRequest.getEmail())
                     .roles(user.getRoles()).build());
-        } else
-        if(rolesStr.contains(ERole.STUDENT.toString())){
+        } else if (rolesStr != null && rolesStr.contains(ERole.STUDENT.toString())) {
             studentRepository.save(Student.builder().username(signUpRequest.getUsername())
                     .password(encoder.encode(signUpRequest.getPassword()))
                     .email(signUpRequest.getEmail())
                     .roles(user.getRoles()).build());
-        }else {
+        } else {
             userRepository.save(user);
         }
     }
