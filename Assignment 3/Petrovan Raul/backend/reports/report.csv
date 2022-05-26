@@ -1,2 +1,5 @@
 Flight ID,Airplane Description,Departure Airport,Departure Airport ICAO,Arrival Airport,Arrival Airport ICAO,Departure Time,Arrival Time,Student Username,Student Name,Student Surname,Instructor Username,Instructor Name,Instructor Surname
-1,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-06 04:20:00.0,2022-05-06 03:15:00.0,alex1,,,alex2,,
+2,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-27 05:25:00.0,2022-05-22 02:08:00.0,alex1,Alex,Student,alex2,Alex,Instructor
+1,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-27 05:25:00.0,2022-05-27 04:22:00.0,alex1,Alex,Student,alex2,Alex,Instructor
+3,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-20 05:25:00.0,2022-05-17 01:06:00.0,alex1,Alex,Student,alex2,Alex,Instructor
+4,Boeing 737,Baia Mare,LRBM,Baia Mare,LRBM,2022-05-12 05:25:00.0,2022-05-16 02:12:00.0,alex1,Alex,Student,alex2,Alex,Instructor

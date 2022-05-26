@@ -5,6 +5,8 @@ import com.raulp.flight.dtos.AirportDTO;
 import com.raulp.flight.dtos.FlightDTO;
 import com.raulp.flight.dtos.PlaneDTO;
 import com.raulp.report.ReportType;
+import com.raulp.websocket.MessageDTO;
+import com.raulp.websocket.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -31,6 +33,7 @@ import static com.raulp.UrlMapping.EXPORT_REPORT;
 @RequiredArgsConstructor
 public class FlightController {
     private final FlightService flightService;
+    private final NotificationService notificationService;
 
     @GetMapping("/{userId}")
     public List<FlightDTO> getFlightsForUser(@PathVariable Long userId) {
@@ -40,11 +43,14 @@ public class FlightController {
     @PostMapping(UrlMapping.ADD_FLIGHT)
     public void addFlight(@RequestBody FlightDTO flightDTO) {
         flightService.create(flightDTO);
+
+        notificationService.sendNotification(flightDTO.getStudent().getId(),
+                flightDTO.getInstructor().getId());
     }
 
     @GetMapping(UrlMapping.GET_FLIGHT)
     public List<FlightDTO> getFlightsForInstructorStudent(@PathVariable Long instructorId,
-                                     @PathVariable Long studentId) {
+                                                          @PathVariable Long studentId) {
         return flightService.getFlightsForInstructorStudent(instructorId, studentId);
     }
 
