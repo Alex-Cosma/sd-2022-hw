@@ -1,0 +1,23 @@
+<td><span><button mat-raised-button (click) = "goToSearch()">
+        <mat-icon>search</mat-icon>SearchChamp
+      </button></span></td>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>League</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let summoner of summoners">
+      <td><span>{{summoner.id}}</span></td>
+      <td><span>{{summoner.name}}</span></td>
+      <td><span>{{summoner.league}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

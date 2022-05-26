@@ -1,0 +1,85 @@
+<div class="edit-build">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center; ">Edit Build</mat-card-title>
+    <mat-card-content>
+      <div>
+        <select class="form-control" [(ngModel)]="item1">
+          <option disabled>Select Item1</option>
+          <option>Choose Item1</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)]="item2">
+          <option disabled>Select Item2</option>
+          <option>Choose Item2</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)]="item3">
+          <option disabled>Select Item3</option>
+          <option>Choose Item3</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)]="item4">
+          <option disabled>Select Item4</option>
+          <option>Choose Item4</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)]="item5">
+          <option disabled>Select Item5</option>
+          <option>Choose Item5</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)]="item6">
+          <option disabled>Select Item6</option>
+          <option>Choose Item6</option>
+          <option [value] = "item.name" *ngFor="let item of itemsData">{{item.name}}</option>
+        </select>
+      </div>
+
+      <div>
+        <select class="form-control" [(ngModel)] = "rune1">
+          <option disabled>Select Rune1</option>
+          <option>Choose Rune1</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)] = "rune2">
+          <option disabled>Select Rune2</option>
+          <option>Choose Rune2</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control" [(ngModel)] = "rune3">
+          <option disabled>Select Rune3</option>
+          <option>Choose Rune3</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control"  [(ngModel)] = "rune4">
+          <option disabled>Select Rune4 </option>
+          <option>Choose Rune4</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control"  [(ngModel)] = "rune5">
+          <option disabled>Select Rune5</option>
+          <option>Choose Rune5</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control"  [(ngModel)] = "rune6">
+          <option disabled>Select Rune6</option>
+          <option>Choose Rune6</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+        <select class="form-control"  [(ngModel)] = "rune7">
+          <option disabled>Select Rune7</option>
+          <option>Choose Rune7</option>
+          <option [value] = "rune.name" *ngFor="let rune of runesData">{{rune.name}}</option>
+        </select>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="save-button"
+        (click)="editBuild();">
+        Save
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
