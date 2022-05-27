@@ -104,6 +104,7 @@ public class TestCreationFactory {
 
     public static VideoDTO newVideoDTO() {
         return VideoDTO.builder()
+                .id(randomLong())
                 .description(randomString())
                 .thumbnailUrl(randomString())
                 .channelTitle(randomString())

@@ -64,6 +64,7 @@ public class CommentServiceTest extends BaseControllerTest {
         String content = randomString();
         UserDTO userDTO = newUserDto();
         VideoDTO videoDTO = newVideoDTO();
+        videoDTO.setUser(userDTO);
         Comment comment = Comment.builder()
                 .content(content)
                 .user(fromDto(userDTO))

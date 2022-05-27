@@ -32,6 +32,11 @@ export class UserToolbarComponent {
   }
 
   public onDeleteUser(): void {
+    let user = JSON.parse(localStorage.getItem('user')!);
+    if(this.grid.selectedRowKeys[0].username === user.name) {
+      alert('You can not delete yourself')
+      return
+    }
     this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(() => {
       this.updateUsersGrid()});
     ;
