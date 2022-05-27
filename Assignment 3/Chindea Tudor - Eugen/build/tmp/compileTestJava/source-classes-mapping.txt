@@ -1,0 +1,48 @@
+com/travel/BookingHotel/BookingHotelRepositoryTest.java
+ com.travel.BookingHotel.BookingHotelRepositoryTest
+com/travel/user/UserControllerTest.java
+ com.travel.user.UserControllerTest
+com/travel/hotel/HotelServiceTest.java
+ com.travel.hotel.HotelServiceTest
+com/travel/city/CityControllerTest.java
+ com.travel.city.CityControllerTest
+com/travel/BookingFlight/BookingFlightRepositoryTest.java
+ com.travel.BookingFlight.BookingFlightRepositoryTest
+com/travel/flight/FlighServiceIntegrationTest.java
+ com.travel.flight.FlighServiceIntegrationTest
+com/travel/hotel/HotelControllerTest.java
+ com.travel.hotel.HotelControllerTest
+com/travel/BookingHotel/BookingHotelControllerTest.java
+ com.travel.BookingHotel.BookingHotelControllerTest
+com/travel/BaseControllerTest.java
+ com.travel.BaseControllerTest
+com/travel/BookingFlight/BookingFlightServiceIntegrationTest.java
+ com.travel.BookingFlight.BookingFlightServiceIntegrationTest
+com/travel/BookingFlight/BookingFlightServiceTest.java
+ com.travel.BookingFlight.BookingFlightServiceTest
+com/travel/hotel/HotelRepositoryTest.java
+ com.travel.hotel.HotelRepositoryTest
+com/travel/user/UserServiceIntegrationTest.java
+ com.travel.user.UserServiceIntegrationTest
+com/travel/BookingHotel/BookingHotelSeviceTest.java
+ com.travel.BookingHotel.BookingHotelSeviceTest
+com/travel/hotel/HotelServiceIntegrationTest.java
+ com.travel.hotel.HotelServiceIntegrationTest
+com/travel/city/CityRepositoryTest.java
+ com.travel.city.CityRepositoryTest
+com/travel/flight/FlightControllerTest.java
+ com.travel.flight.FlightControllerTest
+com/travel/flight/FlightServiceTest.java
+ com.travel.flight.FlightServiceTest
+com/travel/user/UserServiceTest.java
+ com.travel.user.UserServiceTest
+com/travel/BookingHotel/BookingHotelServiceIntegrationtest.java
+ com.travel.BookingHotel.BookingHotelServiceIntegrationtest
+com/travel/BookingFlight/BookingFlightControllerTest.java
+ com.travel.BookingFlight.BookingFlightControllerTest
+com/travel/TestCreationFactory.java
+ com.travel.TestCreationFactory
+com/travel/city/CityServiceIntegrationTest.java
+ com.travel.city.CityServiceIntegrationTest
+com/travel/city/CityServiceTest.java
+ com.travel.city.CityServiceTest
