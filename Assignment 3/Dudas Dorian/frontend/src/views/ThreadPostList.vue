@@ -69,6 +69,8 @@ export default {
       }
     },
     async refreshList() {
+      this.dialogVisible = false;
+      this.editDialogVisible = false;
       this.posts = await api.posts.allPostsFromThread(
         parseInt(this.$route.params.id)
       );

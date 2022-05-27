@@ -71,6 +71,7 @@ export default {
       });
     },
     async refreshList() {
+      this.dialogVisible = false;
       this.threads = await api.threads.allThreadsFromCategory(
         parseInt(this.$route.params.id)
       );

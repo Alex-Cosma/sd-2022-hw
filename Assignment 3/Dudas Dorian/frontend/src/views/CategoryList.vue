@@ -52,6 +52,7 @@ export default {
       this.dialogVisible = true;
     },
     async refreshList() {
+      this.dialogVisible = false;
       this.categories = await api.categories.allCategories();
     },
   },

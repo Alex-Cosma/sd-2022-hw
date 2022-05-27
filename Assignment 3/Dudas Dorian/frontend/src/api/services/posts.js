@@ -30,7 +30,7 @@ export default {
     });
   },
   delete(post) {
-    return HTTP.delete(BASE_URL + "/thread/" + post.id, {
+    return HTTP.delete(BASE_URL + "/post/" + post.id, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;
