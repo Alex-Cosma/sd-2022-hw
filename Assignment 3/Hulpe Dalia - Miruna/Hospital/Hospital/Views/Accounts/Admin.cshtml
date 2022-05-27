@@ -1,0 +1,95 @@
+﻿@model AdminViewModel
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<form asp-controller="Accounts" asp-action="AddUser" method="get">
+    <button type="submit" class="btn btn-info">Add new user</button>
+</form>
+<div>
+    <table class="table table-striped table-borderless table-responsive-sm ">
+        <thead>
+            <tr class="table-head">
+                <th>Email</th>
+                <th>UserName</th>
+                <th>AccessFailCount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Users.Count; i++)
+            {
+                <tr>
+                    <td class="table-element-custom">@Model.Users[i].Email</td>
+                    <td class="table-element-custom">@Model.Users[i].UserName</td>
+                    <td class="table-element-custom">@Model.Users[i].AccessFailedCount</td>
+                    <td class="table-element-custom">
+                        <a asp-controller="Accounts" asp-action="UpdateUser" asp-route-email="@Model.Users[i].Email" style="color:black">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+
+                        <a asp-controller="Accounts" asp-action="DeleteUser" asp-route-email="@Model.Users[i].Email" style="color:black">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<form asp-controller="Hospital" asp-action="AddHospital" method="get">
+    <button type="submit" class="btn btn-info">Add new hospital</button>
+</form>
+<table class="table table-striped table-borderless table-responsive-sm ">
+    <thead>
+        <tr class="table-head">
+            <th>Name</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Hospitals.Count; i++)
+        {
+            <tr>
+                <td class="table-element-custom">@Model.Hospitals[i].Name</td>
+                <td class="table-element-custom">@Model.Hospitals[i].Address</td>
+                <td class="table-element-custom">
+                    <a asp-controller="Hospital" asp-action="UpdateHospital" asp-route-id="@Model.Hospitals[i].Id" style="color:black">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a asp-controller="Hospital" asp-action="DeleteHospital" asp-route-id="@Model.Hospitals[i].Id" style="color:black">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-controller="Department" asp-action="AddDepartment" method="get">
+    <button type="submit" class="btn btn-info">Add new department</button>
+</form>
+<table class="table table-striped table-borderless table-responsive-sm ">
+    <thead>
+        <tr class="table-head">
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Departments.Count; i++)
+        {
+            <tr>
+                <td class="table-element-custom">@Model.Departments[i].Name</td>
+                <td class="table-element-custom">
+                    <a asp-controller="Department" asp-action="UpdateDepartment" asp-route-id="@Model.Departments[i].Id" style="color:black">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a asp-controller="Department" asp-action="DeleteDepartment" asp-route-id="@Model.Departments[i].Id" style="color:black">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

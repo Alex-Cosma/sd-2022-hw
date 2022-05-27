@@ -1,0 +1,347 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Tests\\Hospital.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj",
+        "projectName": "Hospital.BusinessLogic",
+        "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\miruh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\miruh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj": {
+                "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "PDFsharp": {
+              "target": "Package",
+              "version": "[1.50.5147, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj",
+        "projectName": "Hospital.Repository",
+        "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj",
+        "packagesPath": "C:\\Users\\miruh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\miruh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.25, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Tests\\Hospital.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Tests\\Hospital.Tests.csproj",
+        "projectName": "Hospital.Tests",
+        "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Tests\\Hospital.Tests.csproj",
+        "packagesPath": "C:\\Users\\miruh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\miruh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj"
+              },
+              "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj": {
+                "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.Repository\\Hospital.Repository.csproj"
+              },
+              "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\Hospital.csproj": {
+                "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\Hospital.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.2.10, )"
+            },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.8, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\Hospital.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\Hospital.csproj",
+        "projectName": "Hospital",
+        "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\Hospital.csproj",
+        "packagesPath": "C:\\Users\\miruh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\miruh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\miruh\\Documents\\Facultate\\An3Sem2\\SD_Lab\\sd-2022-hw\\Assignment 3\\Hulpe Dalia - Miruna\\Hospital\\Hospital.BusinessLogic\\Hospital.BusinessLogic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.25, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.1.25, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.25, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.25, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

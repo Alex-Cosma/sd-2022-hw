@@ -1,0 +1,17 @@
+﻿@model AppointmentViewModel
+<form asp-controller="Doctor" asp-action="AddFeedback" method="post">
+    <input asp-for="Id" class="form-control" hidden />
+    <input asp-for="Client" class="form-control" hidden />
+    <input asp-for="Doctor" class="form-control" hidden />
+    <input asp-for="ClientId" class="form-control" hidden />
+    <input asp-for="DoctorId" class="form-control" hidden />
+    <input asp-for="DateTime" class="form-control" hidden />
+    <input asp-for="Hospital" class="form-control" hidden />
+    <input asp-for="HospitalId" class="form-control" hidden />
+    <div class="form-group row">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+</form>

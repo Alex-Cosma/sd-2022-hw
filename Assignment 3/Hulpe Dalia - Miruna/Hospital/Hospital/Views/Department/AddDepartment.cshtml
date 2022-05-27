@@ -1,0 +1,10 @@
+﻿@model DepartmentViewModel
+
+<form asp-controller="Department" asp-action="AddDepartment" method="post">
+    <div class="form-group row">
+        <label asp-for="Name"></label><br>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Add department</button>
+</form>
