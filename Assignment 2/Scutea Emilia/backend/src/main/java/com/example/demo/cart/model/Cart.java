@@ -28,7 +28,7 @@ public class Cart {
     @JoinTable(name = "cart_books",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "books_id"))
-    private List<Book> items;
+    private List<Book> books;
 
 
     @Override
@@ -45,7 +45,7 @@ public class Cart {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.items, other.items)) {
+        if (!Objects.equals(this.books, other.books)) {
             return false;
         }
         return this.user_id.equals(other.user_id);

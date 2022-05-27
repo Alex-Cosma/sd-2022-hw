@@ -49,7 +49,7 @@ class CartRepositoryTest {
 
         Cart cart = TestCreationFactory.newCart();
         cart.setUser_id(user_id);
-        cart.setItems(List.of(book));
+        cart.setBooks(List.of(book));
 
         cartRepository.save(cart);
         List<Long> book_ids = cartRepository.findAllBooksByUser_id(user_id);
@@ -71,11 +71,11 @@ class CartRepositoryTest {
 //        Cart cart = TestCreationFactory.newCart();
         Cart cart = Cart.builder()
                 .user_id(randomLong())
-                .items(List.of(newBook()))
+                .books(List.of(newBook()))
                 .build();
 
         cart.setUser_id(user_id);
-        cart.setItems(List.of(book));
+        cart.setBooks(List.of(book));
 
         cart = cartRepository.save(cart);
         Long cart_id = cart.getId();
@@ -98,7 +98,7 @@ class CartRepositoryTest {
 
         Cart cart = TestCreationFactory.newCart();
         cart.setUser_id(user_id);
-        cart.setItems(List.of(book));
+        cart.setBooks(List.of(book));
 
         cart = cartRepository.save(cart);
 

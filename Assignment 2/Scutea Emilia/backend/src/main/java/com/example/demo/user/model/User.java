@@ -47,7 +47,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    //, mappedBy = "item")
+    //, mappedBy = "book")
     // @Builder.Default
     // private Set<Review> reviews = new HashSet<>();
     private List<UserReview> reviews;

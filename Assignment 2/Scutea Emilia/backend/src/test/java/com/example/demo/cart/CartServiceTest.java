@@ -92,11 +92,11 @@ class CartServiceTest {
         BookDTO bookDTO = TestCreationFactory.newBookDTO();
 
         Cart cart = TestCreationFactory.newCart();
-        cart.setItems(List.of(book));
+        cart.setBooks(List.of(book));
         when(cartRepository.save(cart)).thenReturn(cart);
 
         Long user_id = cart.getUser_id();
-        Long book_id = cart.getItems().get(0).getId();
+        Long book_id = cart.getBooks().get(0).getId();
 
         List<Long> book_ids = List.of(book_id);
 

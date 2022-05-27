@@ -50,10 +50,10 @@ public class CartService {
     // create cart with user id and 1 book
     public boolean create(Long user_id, BookDTO book) {
         if (bookstoreService.decreaseBookQuantity(book.getId(), book)) { // if book is in stock
-            Book item = bookMapper.fromDto(book);
+            Book book1 = bookMapper.fromDto(book);
             CartDTO cart = CartDTO.builder()
                     .user_id(user_id)
-                    .items(List.of(item))
+                    .books(List.of(book1))
                     .build();
             cartRepository.save(cartMapper.fromDto(cart));
             return true;

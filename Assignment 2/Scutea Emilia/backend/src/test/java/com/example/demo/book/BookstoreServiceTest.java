@@ -51,11 +51,11 @@ class BookstoreServiceTest {
 
     @Test
     void findAll() {
-        List<Book> items = TestCreationFactory.listOf(Book.class);
-        when(bookRepository.findAll()).thenReturn(items);
+        List<Book> books = TestCreationFactory.listOf(Book.class);
+        when(bookRepository.findAll()).thenReturn(books);
 
         List<BookDTO> all = bookstoreService.findAll();
-        assertEquals(items.size(), all.size());
+        assertEquals(books.size(), all.size());
     }
 
     @Test
@@ -109,7 +109,7 @@ class BookstoreServiceTest {
     }
 
     @Test
-    void searchItems() {
+    void searchBooks() {
         List<Book> books = TestCreationFactory.listOf(Book.class);
         Book book = TestCreationFactory.newBook();
         BookDTO bookDTO = TestCreationFactory.newBookDTO();
@@ -118,7 +118,7 @@ class BookstoreServiceTest {
         when(bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike(str, str, str)).thenReturn(books);
         when(bookMapper.toDto(book)).thenReturn(bookDTO);
 
-        List<BookDTO> bookList = bookstoreService.searchItems(str);
+        List<BookDTO> bookList = bookstoreService.searchBooks(str);
 
         Assertions.assertTrue(bookList.isEmpty());
     }
@@ -217,7 +217,7 @@ class BookstoreServiceTest {
     }
 
     @Test
-    void loadItemsFromExternalApi(){
+    void loadBooksFromExternalApi(){
         Book book = Book.builder()
                 .title("title")
                 .author("author")
@@ -230,7 +230,7 @@ class BookstoreServiceTest {
                 .build();
 
         when(bookRepository.save(book)).thenReturn(book);
-        bookstoreService.loadItemsFromExternalApi(true);
+        bookstoreService.loadBooksFromExternalApi(true);
         Assertions.assertTrue(bookRepository.findAll().isEmpty());
     }
 

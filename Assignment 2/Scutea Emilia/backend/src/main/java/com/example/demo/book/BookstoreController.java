@@ -32,7 +32,7 @@ public class BookstoreController {
 
     @GetMapping(BOOKSTORE_SEARCH_BOOKS)
     public List<BookDTO> searchBooks(@PathVariable String str) {
-        return bookstoreService.searchItems(str);
+        return bookstoreService.searchBooks(str);
     }
 
     @PutMapping(BOOKSTORE_ID_SELL)
@@ -61,13 +61,13 @@ public class BookstoreController {
     }
 
     @PostMapping(BOOKS_CREATE)
-    public BookDTO create(@RequestBody BookDTO item) {
-        return bookstoreService.create(item);
+    public BookDTO create(@RequestBody BookDTO bookDTO) {
+        return bookstoreService.create(bookDTO);
     }
 
     @PutMapping(BOOKS_ID_EDIT)
-    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO item) {
-        return bookstoreService.edit(id, item);
+    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+        return bookstoreService.edit(id, bookDTO);
     }
 
     @DeleteMapping(BOOKS_ID_DELETE)

@@ -39,8 +39,8 @@ class BookstoreServiceIntegrationTest {
 
     @Test
     void findAll() {
-        List<Book> items = TestCreationFactory.listOf(Book.class);
-        bookRepository.saveAll(items);
+        List<Book> books = TestCreationFactory.listOf(Book.class);
+        bookRepository.saveAll(books);
 
         List<BookDTO> all = bookstoreService.findAll();
 
@@ -78,14 +78,14 @@ class BookstoreServiceIntegrationTest {
     }
 
     @Test
-    void searchItems() {
-        List<Book> items = TestCreationFactory.listOf(Book.class);
-        bookRepository.saveAll(items);
+    void searchBooks() {
+        List<Book> books = TestCreationFactory.listOf(Book.class);
+        bookRepository.saveAll(books);
 
-        List<BookDTO> bookDTOList = bookstoreService.searchItems("FITNESS");
+        List<BookDTO> bookDTOList = bookstoreService.searchBooks("FITNESS");
         assertFalse(bookDTOList.isEmpty());
 
-        List<BookDTO> bookDTOList2 = bookstoreService.searchItems("ART");
+        List<BookDTO> bookDTOList2 = bookstoreService.searchBooks("ART");
         Assertions.assertTrue(bookDTOList2.isEmpty());
 
     }
@@ -154,8 +154,8 @@ class BookstoreServiceIntegrationTest {
     }
 
     @Test
-    void loadItemsFromExternalApi(){
-        bookstoreService.loadItemsFromExternalApi(true);
+    void loadBooksFromExternalApi(){
+        bookstoreService.loadBooksFromExternalApi(true);
         assertFalse(bookRepository.findAll().isEmpty());
     }
 }

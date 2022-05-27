@@ -49,7 +49,7 @@ public class BookstoreService {
 
     public Book findById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item not found: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Book not found: " + id));
     }
 
     public boolean decreaseBookQuantity(Long id, BookDTO book) {
@@ -65,9 +65,9 @@ public class BookstoreService {
         return false;
     }
 
-    public void increaseBookQuantity(Long id, BookDTO item) {
-        Book item1 = findById(id);
-        BookDTO bookDTO = bookMapper.toDto(item1);
+    public void increaseBookQuantity(Long id, BookDTO book) {
+        Book book1 = findById(id);
+        BookDTO bookDTO = bookMapper.toDto(book1);
 
         Integer updateQuantity = bookDTO.getQuantity() + 1;
 
@@ -83,7 +83,7 @@ public class BookstoreService {
         return false;
     }
 
-    public List<BookDTO> searchItems(String str) {
+    public List<BookDTO> searchBooks(String str) {
         String string = "%" + str + "%";
         return bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike(string, string, string)
                 .stream()
@@ -110,10 +110,10 @@ public class BookstoreService {
         return response.getBody();
     }
 
-    public void loadItemsFromExternalApi(boolean test) {
+    public void loadBooksFromExternalApi(boolean test) {
 
         if (test) {
-            Book item = Book.builder()
+            Book book = Book.builder()
                     .title("title")
                     .author("author")
                     .imageUrl("imageUrl")
@@ -124,7 +124,7 @@ public class BookstoreService {
                     .genre(GenreType.ANTIQUES.name())
                     .build();
 
-            bookRepository.save(item);
+            bookRepository.save(book);
         } else {
             for (GenreType type : GenreType.values()) {
                 String jsonString = getApiResponse(type.name().toLowerCase()); //assign your JSON String here
@@ -161,7 +161,7 @@ public class BookstoreService {
                         price = (double) Math.round(new Random().nextDouble() * 100 * 100) / 100;
                     } while (price < 20.0);
 
-                    Book item = Book.builder()
+                    Book book = Book.builder()
                             .title(title)
                             .author(author)
                             .imageUrl(imageUrl)
@@ -172,33 +172,33 @@ public class BookstoreService {
                             .genre(type.name())
                             .build();
 
-                    bookRepository.save(item);
+                    bookRepository.save(book);
                 }
             }
         }
     }
 
-    public BookDTO create(BookDTO item) {
+    public BookDTO create(BookDTO book) {
         return bookMapper.toDto(bookRepository.save(
-                bookMapper.fromDto(item)
+                bookMapper.fromDto(book)
         ));
     }
 
-    public BookDTO edit(Long id, BookDTO item) {
-        Book actItem = findById(id);
-        actItem.setTitle(item.getTitle());
-        actItem.setAuthor(item.getAuthor());
-        actItem.setGenre(item.getGenre());
-        actItem.setQuantity(item.getQuantity());
-        actItem.setPrice(item.getPrice());
+    public BookDTO edit(Long id, BookDTO book) {
+        Book actBook = findById(id);
+        actBook.setTitle(book.getTitle());
+        actBook.setAuthor(book.getAuthor());
+        actBook.setGenre(book.getGenre());
+        actBook.setQuantity(book.getQuantity());
+        actBook.setPrice(book.getPrice());
         return bookMapper.toDto(
-                bookRepository.save(actItem)
+                bookRepository.save(actBook)
         );
     }
 
     public void delete(Long id) {
-        Optional<Book> item = bookRepository.findById(id);
-        item.ifPresent(bookRepository::delete);
+        Optional<Book> book = bookRepository.findById(id);
+        book.ifPresent(bookRepository::delete);
     }
 
     public String export(ReportType type) {

@@ -16,8 +16,8 @@ public class ReportServiceImpl {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    public List<BookDTO> findItemsByQuantityEquals(Integer quantity){
-        return bookRepository.findItemsByQuantityEquals(quantity).stream()
+    public List<BookDTO> findBooksByQuantityEquals(Integer quantity){
+        return bookRepository.findBooksByQuantityEquals(quantity).stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());    }
 }

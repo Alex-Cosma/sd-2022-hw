@@ -78,7 +78,7 @@ public class UserServiceTest {
         User user = TestCreationFactory.newUser();
         when(userRepository.save(user)).thenReturn(user);
 
-        ERole eRole = ERole.EMPLOYEE;
+        ERole eRole = ERole.CUSTOMER;
         Role role = TestCreationFactory.newRole();
 
         when(roleRepository.findByName(eRole)).thenReturn(Optional.ofNullable(role));

@@ -25,8 +25,8 @@ public class BookReviewService {
         return Arrays.stream(Rating.values()).map(Objects::toString).collect(Collectors.toList());
     }
 
-    public List<BookReviewDTO> getReviewsForBook(Long itemId) {
-        return bookReviewRepository.findAllByBookId(itemId)
+    public List<BookReviewDTO> getReviewsForBook(Long bookId) {
+        return bookReviewRepository.findAllByBookId(bookId)
                 .stream()
                 .map(bookReviewMapper::toDto)
                 .collect(Collectors.toList());
@@ -42,7 +42,7 @@ public class BookReviewService {
         return Rating.AVERAGE.name();
     }
 
-    // add review to item
+    // add review to book
     public BookReviewDTO addReview(Long book_id, BookReviewDTO bookReview) {
         // get the book
         Book book = bookstoreService.findById(book_id);

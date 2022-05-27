@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findItemsByQuantityEquals(Integer quantity);
+    List<Book> findBooksByQuantityEquals(Integer quantity);
 
     @Transactional
     @Modifying

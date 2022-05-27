@@ -80,7 +80,7 @@ class CartServiceIntegrationTest {
 
         CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
 
-        assertEquals(cartDTO.getItems().get(0).getId(), bookDTO.getId());
+        assertEquals(cartDTO.getBooks().get(0).getId(), bookDTO.getId());
     }
 
     @Test
@@ -100,7 +100,7 @@ class CartServiceIntegrationTest {
 
         CartDTO cartDTO1 = cartMapper.toDto(cartService.findById(cartDTO.getId()));
 
-        assertEquals(cartDTO.getItems().get(0).getTitle(), cartDTO1.getItems().get(0).getTitle());
+        assertEquals(cartDTO.getBooks().get(0).getTitle(), cartDTO1.getBooks().get(0).getTitle());
         assertEquals(cartDTO.getId(), cartDTO1.getId());
         assertEquals(cartDTO.getUser_id(), cartDTO1.getUser_id());
     }
@@ -122,7 +122,7 @@ class CartServiceIntegrationTest {
 
         CartDTO cartDTO = cartMapper.toDto(cartRepository.findAll().get(0));
 
-        assertEquals(cartDTO.getItems().get(0).getId(), bookMapper.fromDto(book).getId());
+        assertEquals(cartDTO.getBooks().get(0).getId(), bookMapper.fromDto(book).getId());
 
         cartService.deleteFromCart(user_id, book.getId(), book);
 

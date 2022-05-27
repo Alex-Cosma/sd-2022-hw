@@ -21,20 +21,20 @@ public class CSVReportService implements ReportService {
     public String export() {
         String filename = "src/main/resources/csvReport.csv";
         try(PrintWriter writer = new PrintWriter(filename)){
-            List<BookDTO> items = reportService.findItemsByQuantityEquals(0);
+            List<BookDTO> books = reportService.findBooksByQuantityEquals(0);
 
-            if(!items.isEmpty()){
-                for(BookDTO item : items){
+            if(!books.isEmpty()){
+                for(BookDTO book : books){
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder
                             .append("id ")
-                            .append(item.getId())
+                            .append(book.getId())
                             .append(", title ")
-                            .append(item.getTitle())
+                            .append(book.getTitle())
                             .append(", genre ")
-                            .append(item.getGenre())
+                            .append(book.getGenre())
                             .append(", price")
-                            .append(item.getPrice());
+                            .append(book.getPrice());
 
                     writer.println(stringBuilder.toString());
                 }

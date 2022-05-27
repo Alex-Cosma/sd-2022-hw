@@ -48,7 +48,7 @@ public class UserService {
                 .email(userDTO.getEmail())
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
-                .roles(Set.of("EMPLOYEE"))
+                .roles(Set.of("CUSTOMER"))
                 .build());
 
         return userDTO;

@@ -22,7 +22,7 @@ public class PDFReportService implements ReportService {
     @Override
     public String export() {
         String filename = "src/main/resources/pdfReport.pdf";
-        Integer countItems = 0;
+        Integer countBooks = 0;
         try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage();
             doc.addPage(page);
@@ -35,9 +35,9 @@ public class PDFReportService implements ReportService {
                 content.setLeading(14.5f);
                 content.newLineAtOffset(25, 750);
 
-                List<BookDTO> items = reportService.findItemsByQuantityEquals(0);
+                List<BookDTO> books = reportService.findBooksByQuantityEquals(0);
 
-                if (!items.isEmpty()) {
+                if (!books.isEmpty()) {
 
                     content.showText("Books out of stock:");
                     content.newLine();
@@ -48,30 +48,30 @@ public class PDFReportService implements ReportService {
                         sb.append(field.getName()).append(" ");
                     }
 
-                    countItems += 2;
+                    countBooks += 2;
                     content.showText(sb.toString());
                     content.newLine();
 
-                    for (BookDTO item : items) {
+                    for (BookDTO book : books) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append(item.getId())
+                        stringBuilder.append(book.getId())
                                 .append(" ")
-                                .append(item.getTitle())
+                                .append(book.getTitle())
                                 .append(" ")
-                                .append(item.getAuthor())
+                                .append(book.getAuthor())
                                 .append(" ")
-                                .append(item.getGenre())
+                                .append(book.getGenre())
                                 .append(" ")
-                                .append(item.getPrice());
+                                .append(book.getPrice());
 
                         content.showText(stringBuilder.toString());
                         content.newLine();
-                        countItems++;
+                        countBooks++;
 
                         // if page is full, create a new page in the document
                         // not professional implementation tho
-                        if(countItems >= 50){
-                            countItems = 0;
+                        if(countBooks >= 50){
+                            countBooks = 0;
                             content.endText();
                             content.close();
 
@@ -85,7 +85,7 @@ public class PDFReportService implements ReportService {
                         }
                     }
                 } else {
-                    content.showText("No items are out of stock");
+                    content.showText("No books are out of stock");
                 }
 
                 content.endText();

@@ -59,10 +59,10 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .email("escutea@gmail.com")
                     .username("emily1")
                     .password("WooHoo1!")
-                    .roles(Set.of("EMPLOYEE"))
+                    .roles(Set.of("CUSTOMER"))
                     .build());
 
-             bookstoreService.loadItemsFromExternalApi(false);
+             bookstoreService.loadBooksFromExternalApi(false);
         }
     }
 }

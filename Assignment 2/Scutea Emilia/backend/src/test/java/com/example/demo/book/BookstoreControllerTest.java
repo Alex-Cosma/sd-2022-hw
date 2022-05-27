@@ -145,7 +145,7 @@ class BookstoreControllerTest extends BaseControllerTest {
     void searchBooks() throws Exception {
         List<BookDTO> books = TestCreationFactory.listOf(Book.class);
         String str = "1";
-        when(bookstoreService.searchItems(str)).thenReturn(books);
+        when(bookstoreService.searchBooks(str)).thenReturn(books);
 
         ResultActions response = performGetWithPathVariables(API_PATH + BOOKSTORE_SEARCH_BOOKS, str);
 
@@ -156,18 +156,18 @@ class BookstoreControllerTest extends BaseControllerTest {
     @Test
     void sellBook() throws Exception {
         final long id = randomLong();
-        BookDTO reqItem = BookDTO.builder()
+        BookDTO reqBook = BookDTO.builder()
                 .title(randomString())
                 .author(randomString())
                 .quantity(20)
                 .build();
 
-        BookDTO sellItem = reqItem;
-        sellItem.setQuantity(sellItem.getQuantity() - 1);
+        BookDTO sellBook = reqBook;
+        sellBook.setQuantity(sellBook.getQuantity() - 1);
 
-        when(bookstoreService.decreaseBookQuantity(id, reqItem)).thenReturn(true);
+        when(bookstoreService.decreaseBookQuantity(id, reqBook)).thenReturn(true);
 
-        ResultActions result = performPutWithRequestBodyAndPathVariables(API_PATH + BOOKSTORE_ID_SELL, reqItem, id);
+        ResultActions result = performPutWithRequestBodyAndPathVariables(API_PATH + BOOKSTORE_ID_SELL, reqBook, id);
         result.andExpect(status().isOk());
     }
 

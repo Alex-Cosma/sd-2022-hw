@@ -25,13 +25,13 @@ class BookRepositoryTest {
     }
 
     @Test
-    void findItemsByQuantityEquals() {
+    void findBooksByQuantityEquals() {
         List<Book> bookList = TestCreationFactory.listOf(Book.class);
         bookRepository.saveAll(bookList);
 
         Book firstBook = bookRepository.findAll().get(0);
 
-        List<Book> books = bookRepository.findItemsByQuantityEquals(firstBook.getQuantity());
+        List<Book> books = bookRepository.findBooksByQuantityEquals(firstBook.getQuantity());
 
         assertFalse(books.isEmpty());
     }

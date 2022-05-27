@@ -90,7 +90,7 @@ public class TestCreationFactory {
         return Cart.builder()
                 .user_id(randomLong())
                 .id(randomLong())
-                .items(List.of(newBook()))
+                .books(List.of(newBook()))
                 .build();
     }
 
@@ -98,7 +98,7 @@ public class TestCreationFactory {
         return CartDTO.builder()
                 .user_id(randomLong())
                 .id(randomLong())
-                .items(List.of(newBook()))
+                .books(List.of(newBook()))
                 .build();
     }
 
@@ -116,13 +116,13 @@ public class TestCreationFactory {
                 .email(randomEmail())
                 .username(randomString())
                 .password(randomString())
-                .roles(Set.of("EMPLOYEE"))
+                .roles(Set.of("CUSTOMER"))
                 .build();
     }
 
     public static Role newRole(){
         return Role.builder()
-                .name(ERole.EMPLOYEE)
+                .name(ERole.CUSTOMER)
                 .build();
     }
 
