@@ -27,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import static com.raulp.UrlMapping.BOOKS;
 import static com.raulp.UrlMapping.EXPORT_REPORT;
 
 @RestController

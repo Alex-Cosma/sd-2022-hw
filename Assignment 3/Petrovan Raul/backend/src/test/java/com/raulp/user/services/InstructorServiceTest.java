@@ -15,7 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -80,5 +82,17 @@ class InstructorServiceTest {
         when(instructorRepository.findById(instructor.getId())).thenReturn(java.util.Optional.of(instructor));
         instructorService.addStudent(instructor.getId(), student.getId());
         assertEquals(student.getInstructor(), instructor);
+    }
+
+    @Test
+    void unassignStudent() {
+        Student student = TestCreationFactory.newStudent();
+        Instructor instructor = TestCreationFactory.newInstructor();
+        instructor.setStudents(Set.of(student));
+        student.setInstructor(instructor);
+        when(studentRepository.findById(student.getId())).thenReturn(java.util.Optional.of(student));
+        when(instructorRepository.findById(student.getInstructor().getId())).thenReturn(java.util.Optional.of(student.getInstructor()));
+        instructorService.unassignStudent(student.getId());
+        assertNull(student.getInstructor());
     }
 }

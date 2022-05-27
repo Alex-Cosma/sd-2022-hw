@@ -76,8 +76,19 @@ class UserServiceTest {
 
     @Test
     void updateUser() {
-        List<User> users = TestCreationFactory.listOf(User.class);
-        when(userRepository.findAll()).thenReturn(users);
-        assertEquals(users.size(), userService.allUsersForList().size());
+        Student student = TestCreationFactory.newStudent();
+        when(userRepository.findById(student.getId())).thenReturn(java.util.Optional.of(student));
+        when(studentRepository.findById(student.getId())).thenReturn(java.util.Optional.of(student));
+        when(studentRepository.save(student)).thenReturn(student);
+
+        Instructor instructor = TestCreationFactory.newInstructor();
+        when(userRepository.findById(instructor.getId())).thenReturn(java.util.Optional.of(instructor));
+        when(instructorRepository.findById(instructor.getId())).thenReturn(java.util.Optional.of(instructor));
+        when(instructorRepository.save(instructor)).thenReturn(instructor);
+
+        UserDetailsDTO updateDTO = TestCreationFactory.newUserDetailsDTO();
+
+        assertDoesNotThrow(() -> userService.updateUser(updateDTO, student.getId()));
+        assertDoesNotThrow(() -> userService.updateUser(updateDTO, instructor.getId()));
     }
 }

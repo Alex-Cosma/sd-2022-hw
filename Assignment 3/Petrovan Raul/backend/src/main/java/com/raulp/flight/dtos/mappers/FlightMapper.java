@@ -11,4 +11,5 @@ import org.mapstruct.Mapping;
         uses = {InstructorMapper.class, StudentMapper.class})
 public interface FlightMapper {
     FlightDTO flightToFlightDTO(Flight flight);
+    Flight flightDTOToFlight(FlightDTO flightDTO);
 }

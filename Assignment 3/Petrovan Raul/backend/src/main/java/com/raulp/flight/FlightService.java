@@ -36,7 +36,6 @@ public class FlightService {
 
     private final ReportServiceFactory reportServiceFactory;
 
-
     private final FlightMapper flightMapper;
     private final PlaneMapper planeMapper;
     private final AirportMapper airportMapper;
@@ -48,12 +47,12 @@ public class FlightService {
         if (user instanceof Student) {
             Student student = (Student) user;
             return student.getFlights().stream().map(flightMapper::flightToFlightDTO)
-                    .collect(java.util.stream.Collectors.toList());
+                    .collect(Collectors.toList());
         }
         if (user instanceof Instructor) {
             Instructor instructor = (Instructor) user;
             return instructor.getFlights().stream().map(flightMapper::flightToFlightDTO)
-                    .collect(java.util.stream.Collectors.toList());
+                    .collect(Collectors.toList());
         }
         throw new RuntimeException("User is not a student or instructor");
     }

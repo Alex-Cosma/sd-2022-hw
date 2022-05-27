@@ -26,34 +26,6 @@ public class PdfReportService implements ReportService {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
-//        if(books.size() == 0) {
-//            //write that there are no books out of stock
-//            document.save(docPath);
-//            document.close();
-//            return docPath;
-//        }
-//
-//        PDPageContentStream contentStream = new PDPageContentStream(document, page);
-//        System.out.println(books);
-//        String[][] content = new String[books.size()+1][];
-//        content[0] = new String[]{
-//                "Title",
-//                "Author",
-//                "Genre",
-//                "Description",
-//                "Price",
-//        };
-//        for (int i = 0; i < books.size(); i++) {
-//            content[i+1] = new String[]{
-//                    books.get(i).getTitle(),
-//                    books.get(i).getAuthor(),
-//                    books.get(i).getGenre() != null ? books.get(i).getGenre().toString() : null,
-//                    books.get(i).getDescription(),
-//                    books.get(i).getPrice() != null ? books.get(i).getPrice().toString() : null,
-//            };
-//        }
-//        drawTable(page, contentStream, content, 700, 10);
-//        contentStream.close();
 
         document.save(docPath);
         document.close();

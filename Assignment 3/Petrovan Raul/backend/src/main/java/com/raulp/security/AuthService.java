@@ -68,7 +68,7 @@ public class AuthService {
                     .password(encoder.encode(signUpRequest.getPassword()))
                     .email(signUpRequest.getEmail())
                     .roles(user.getRoles()).build());
-        } else if (rolesStr != null && rolesStr.contains(ERole.STUDENT.toString())) {
+        } else if (rolesStr == null || !rolesStr.contains(ERole.ADMIN.toString())) {
             studentRepository.save(Student.builder().username(signUpRequest.getUsername())
                     .password(encoder.encode(signUpRequest.getPassword()))
                     .email(signUpRequest.getEmail())

@@ -6,11 +6,13 @@ import com.raulp.user.dto.user.UserMinimalDTO;
 import com.raulp.user.mapper.InstructorMapper;
 import com.raulp.user.mapper.StudentMapper;
 import com.raulp.user.mapper.UserMapper;
+import com.raulp.user.model.Student;
 import com.raulp.user.repos.InstructorRepository;
 import com.raulp.user.repos.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,8 +62,9 @@ public class InstructorService {
         studentRepository.findById(studentId).ifPresent(student -> {
             if(student.getInstructor() != null) {
                 instructorRepository.findById(student.getInstructor().getId()).ifPresent(instructor -> {
-                    System.out.println(instructor.toString());
-                    instructor.getStudents().remove(student);
+                    Set<Student> students = new HashSet<>(instructor.getStudents());
+                    students.remove(student);
+                    instructor.setStudents(students);
                     instructorRepository.save(instructor);
                 });
                 student.setInstructor(null);

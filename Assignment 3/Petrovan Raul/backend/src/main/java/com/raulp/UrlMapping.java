@@ -7,10 +7,6 @@ public class UrlMapping {
     public static final String WEATHER_API = API_PATH + "/weather";
     public static final String METAR = "/metar";
     public static final String TAF = "/taf";
-    public static final String BOOKS = API_PATH + "/books";
-    public static final String BOOKS_ID_PART = "/{id}";
-    public static final String GENRES = "/genres";
-    public static final String FILTER = "/filter";
     public static final String EXPORT_REPORT = "/reports/{type}/user/{userId}";
 
     public static final String PDF = "/pdf";
