@@ -90,7 +90,6 @@ export default {
       this.studentDialogVisible = false;
       this.flightDialogVisible = false;
       this.students = await api.users.allStudentsForInstructor(store.state.user.id);
-      // this.search != "" ? this.books = await api.books.filterBooks(this.search) : {};
     },
     searchStudents() {
       this.refreshList();
