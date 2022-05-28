@@ -41,5 +41,6 @@ public class Main {
     final UserValidator userValidator = new UserValidator(userRepository);
     new AdminController(authenticationService,adminView,userRepository,rightsRolesRepository, actionRepositoryMySQL);
     new LoginController(loginView, authenticationService, userValidator,employeeView, adminView, userRepository, rightsRolesRepository);
+
   }
 }
