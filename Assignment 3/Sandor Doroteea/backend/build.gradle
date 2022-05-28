@@ -1,0 +1,121 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    // id 'org.flywaydb.flyway' version '7.9.0'
+}
+group = 'com.lab4'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+    implementation 'org.apache.pdfbox:pdfbox:2.0.25'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.6'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.6'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.6'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    //runtimeOnly 'com.h2database:h2:2.1.210'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    runtime('mysql:mysql-connector-java:8.0.28')
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.5'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.8.0'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.9.RELEASE'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.5'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin
+    implementation group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.6.7.Final'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation 'mysql:mysql-connector-java:8.0.28'
+
+    // https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
+    implementation group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
+
+    implementation 'com.konghq:unirest-java:3.11.09'
+
+    // https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java
+    implementation group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20220320'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.6.7'
+
+    //stripe
+    implementation "com.stripe:stripe-java:20.61.0"
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    implementation "com.sparkjava:spark-core:2.8.0"
+
+    //mongo
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.6.7'
+    implementation 'org.mongodb:mongo-java-driver:3.12.11'
+    implementation 'org.mongodb:mongodb-driver-sync:4.6.0'
+
+    // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+    testImplementation group: 'org.hsqldb', name: 'hsqldb', version: '2.6.1'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-batch
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: '2.6.7'
+
+    // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+    testImplementation group: 'org.hsqldb', name: 'hsqldb', version: '2.0.0'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.7'
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+
+
+    //email
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.7'
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+
+    //sms
+    implementation group: 'com.twilio.sdk', name: 'twilio', version: '8.30.0'
+    implementation 'junit:junit:4.12'
+
+    //db migrations
+    // compile "org.flywaydb:flyway-core:7.9.0"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//flyway{
+//    url='jdbc:mysql://localhost:3306'
+//    user='root'
+//    password='Dorothy'
+//    schemas = ['music_player']
+//}
