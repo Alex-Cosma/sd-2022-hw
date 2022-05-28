@@ -1,7 +1,7 @@
 package com.lab4.demo;
 
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.model.dto.ItemDTO;
+import com.lab4.demo.book.model.Book;
+import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 
 import java.util.List;
@@ -26,10 +26,10 @@ public class TestCreationFactory {
 
         if (cls.equals(UserListDTO.class)) {
             supplier = TestCreationFactory::newUserListDTO;
-        } else if (cls.equals(Item.class)) {
-            supplier = TestCreationFactory::newItem;
-        } else if (cls.equals(ItemDTO.class)) {
-            supplier = TestCreationFactory::newItemDTO;
+        } else if (cls.equals(Book.class)) {
+            supplier = TestCreationFactory::newBook;
+        } else if (cls.equals(BookDTO.class)) {
+            supplier = TestCreationFactory::newBookDTO;
         } else {
             supplier = () -> new String("You failed.");
         }
@@ -49,8 +49,8 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static Item newItem() {
-        return Item.builder()
+    private static Book newBook() {
+        return Book.builder()
                 .id(randomLong())
                 .name(randomString())
                 .genre(randomString())
@@ -59,8 +59,8 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static ItemDTO newItemDTO() {
-        return ItemDTO.builder()
+    private static BookDTO newBookDTO() {
+        return BookDTO.builder()
                 .id(randomLong())
                 .name(randomString())
                 .author(randomString())

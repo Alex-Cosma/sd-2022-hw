@@ -1,7 +1,5 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.model.dto.ItemDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 import com.lab4.demo.user.mapper.UserMapper;
 import com.lab4.demo.user.model.User;

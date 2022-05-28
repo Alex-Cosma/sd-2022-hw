@@ -1,6 +1,5 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.model.dto.ItemDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
