@@ -1,0 +1,22 @@
+<div>
+  <mat-card-title style="text-align:center; ">{{summoner.name}}</mat-card-title>
+  <mat-card-content>
+    <p>SUMMONER</p>
+    <h1>USERNAME: {{summoner.name}}</h1>
+    <h1>LEAGUE: {{summoner.league}}</h1>
+    <h1>REGION: {{summoner.region.region}}</h1>
+  </mat-card-content>
+  <p>MASTERY</p>
+  <ul>
+    <li *ngFor = "let mast of mastery">
+      {{mast}}
+    </li>
+  </ul>
+  <button
+    mat-raised-button
+    color="primary"
+    class="download-pdf-button"
+    (click)="close()">
+    Back
+  </button>
+</div>

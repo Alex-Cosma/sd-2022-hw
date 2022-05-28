@@ -50,7 +50,7 @@ public class Constants {
     public static final String USER_ROLE = "user_role";
     public static final String CLIENT_ACCOUNT = "client_account";
 
-    public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER,CLIENT,ACCOUNT, ROLE};
+    public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER,CLIENT,ACCOUNT, ROLE,USER_ROLE,ROLE_RIGHT};
   }
 
   public static class Roles {

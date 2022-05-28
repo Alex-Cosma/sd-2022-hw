@@ -1,21 +1,18 @@
 package com.example.assignment2.user;
 
-import com.example.assignment2.user.dto.UserDetailsImp;
 import com.example.assignment2.user.dto.UserListDTO;
+import com.example.assignment2.user.dto.UserMinimalDTO;
+import com.example.assignment2.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.hibernate.cfg.AvailableSettings.USER;
+import static com.example.assignment2.UrlMappings.ENTITY;
+import static com.example.assignment2.UrlMappings.USERS;
 
 @RestController
-@RequestMapping(USER)
+@RequestMapping(USERS)
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -24,4 +21,15 @@ public class UserController {
     public List<UserListDTO> allUsers(){
         return userService.allUsersForList();
     }
+
+    @PatchMapping("/edit/{id}")
+    public UserListDTO edit(@PathVariable Long id, @RequestBody UserListDTO user){return userService.edit(id,user);}
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){userService.delete(id);}
+
+    @PostMapping("/create")
+    public User create(@RequestBody User user){return userService.create(user);}
+
+
 }

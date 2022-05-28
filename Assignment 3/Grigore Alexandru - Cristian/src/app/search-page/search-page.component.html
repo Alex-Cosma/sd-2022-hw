@@ -1,0 +1,60 @@
+<div class= "search-div">
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type = "text" matInput [(ngModel)]="searchText" (keydown.enter) ="searchChamp()" placeholder="Search champ">
+  </mat-form-field>
+</div>
+<img [src] ="image"/>
+<div>
+  <mat-card-title style="text-align:center; ">{{champion.name}}</mat-card-title>
+  <mat-card-content>
+    <p>ITEMS</p>
+    <ul>
+      <li *ngFor = "let item of build">
+        {{item}}
+      </li>
+    </ul>
+    <p>RUNES</p>
+    <ul>
+      <li *ngFor = "let rune of runeBuild">
+        {{rune}}
+      </li>
+    </ul>
+  </mat-card-content>
+  <button
+    mat-raised-button
+    color="primary"
+    class="download-pdf-button"
+    (click)="generatePDF()">
+    Download
+  </button>
+</div>
+
+<div class= "search-div">
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type = "text" matInput [(ngModel)]="searchText2" (keydown.enter) ="searchSummoner()" placeholder="Search summoner">
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-card-title style="text-align:center; ">{{selectSummoner.name}}</mat-card-title>
+  <mat-card-content>
+    <p>SUMMONER</p>
+      <h1>USERNAME: {{selectSummoner.name}}</h1>
+      <h1>LEAGUE: {{selectSummoner.league}}</h1>
+      <h1>REGION: {{region.region}}</h1>
+  </mat-card-content>
+  <button
+    mat-raised-button
+    color="primary"
+    class="download-pdf-button"
+    (click)="follow()">
+    Follow
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="download-pdf-button"
+    (click)="logOut()">
+    LogOut
+  </button>
+</div>

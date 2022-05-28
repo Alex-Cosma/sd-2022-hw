@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0981bdf9-46bf-46d0-a353-52d04d3a1fe9" name="Changes" comment="final form">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assignment 3/Grigore Andrei - Vlad/.changeMe!" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27Qmrpzvbw8EvkZorhxSQieIcY9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.15527344" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.assignment2.security" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Andrei Vlad\Desktop\faculta_stuff_3\SD_assignments\sd-2022-hw\Assignment 2\Grigore Andrei - Vlad\src\main\java\com\example\assignment2\bookstore" />
+    </key>
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="com.example.assignment2.bookstore.BookController" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.assignment2" />
+      <recent name="com.example.assignment2.bookstore.mapper" />
+      <recent name="com.example.assignment2.bookstore" />
+      <recent name="com.example.assignment2.bookstore.model.dto" />
+      <recent name="com.example.assignment2.user" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.example.assignment2.reports" />
+      <recent name="com.example.assignment2.user" />
+      <recent name="com.example.assignment2.bookstore" />
+      <recent name="com.example.assignment2.Book" />
+      <recent name="com.example.assignment2.Book.Model" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="openRunningConfigInTab" value="true" />
+  </component>
+  <component name="RunManager" selected="JUnit.UserControllerTest.edit">
+    <configuration name="BookControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Assignment2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.assignment2.bookstore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.assignment2.bookstore" />
+      <option name="MAIN_CLASS_NAME" value="com.example.assignment2.bookstore.BookControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportServiceFactoryTest.getReportService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Assignment2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.assignment2.reports.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.assignment2.reports" />
+      <option name="MAIN_CLASS_NAME" value="com.example.assignment2.reports.ReportServiceFactoryTest" />
+      <option name="METHOD_NAME" value="getReportService" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Assignment2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.assignment2.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.assignment2.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.assignment2.user.UserControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.delete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Assignment2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.assignment2.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.assignment2.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.assignment2.user.UserControllerTest" />
+      <option name="METHOD_NAME" value="delete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.edit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Assignment2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.assignment2.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.assignment2.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.assignment2.user.UserControllerTest" />
+      <option name="METHOD_NAME" value="edit" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Assignment2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Assignment2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.assignment2.Assignment2Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.UserControllerTest.edit" />
+      <item itemvalue="JUnit.UserControllerTest.delete" />
+      <item itemvalue="JUnit.ReportServiceFactoryTest.getReportService" />
+      <item itemvalue="JUnit.UserControllerTest" />
+      <item itemvalue="JUnit.BookControllerTest" />
+      <item itemvalue="Spring Boot.Assignment2Application" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.BookControllerTest" />
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.ReportServiceFactoryTest.getReportService" />
+        <item itemvalue="JUnit.UserControllerTest.delete" />
+        <item itemvalue="JUnit.UserControllerTest.edit" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0981bdf9-46bf-46d0-a353-52d04d3a1fe9" name="Changes" comment="" />
+      <created>1649260892147</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649260892147</updated>
+      <workItem from="1649260897940" duration="7647000" />
+      <workItem from="1649308543126" duration="48000" />
+      <workItem from="1649340811460" duration="8620000" />
+      <workItem from="1649417819420" duration="4787000" />
+      <workItem from="1649500722896" duration="3699000" />
+      <workItem from="1649597604269" duration="205000" />
+      <workItem from="1649597864303" duration="2594000" />
+      <workItem from="1649601304360" duration="5774000" />
+      <workItem from="1649792440875" duration="7000" />
+      <workItem from="1650016946442" duration="3325000" />
+      <workItem from="1650202845700" duration="4610000" />
+      <workItem from="1650214984502" duration="6727000" />
+      <workItem from="1650307745280" duration="5242000" />
+      <workItem from="1650373797370" duration="272000" />
+      <workItem from="1650384090558" duration="2682000" />
+      <workItem from="1650448717548" duration="9418000" />
+      <workItem from="1650616936324" duration="15366000" />
+      <workItem from="1650647252735" duration="2935000" />
+      <workItem from="1650703734186" duration="22874000" />
+      <workItem from="1650734602634" duration="59000" />
+      <workItem from="1650735397080" duration="12108000" />
+      <workItem from="1650789880790" duration="1962000" />
+      <workItem from="1650791882454" duration="13072000" />
+      <workItem from="1650881620150" duration="7249000" />
+      <workItem from="1650900046716" duration="2216000" />
+      <workItem from="1650967237064" duration="12113000" />
+      <workItem from="1650989834584" duration="3664000" />
+      <workItem from="1651053775863" duration="5739000" />
+      <workItem from="1651064125826" duration="8411000" />
+      <workItem from="1651139924762" duration="9533000" />
+      <workItem from="1651158682251" duration="488000" />
+      <workItem from="1651229070241" duration="35000" />
+      <workItem from="1651229140209" duration="8334000" />
+      <workItem from="1651328014405" duration="9000" />
+      <workItem from="1651328774015" duration="2957000" />
+      <workItem from="1651337946795" duration="175000" />
+      <workItem from="1651338206085" duration="467000" />
+      <workItem from="1651338801418" duration="76000" />
+    </task>
+    <task id="LOCAL-00001" summary="problem somewhere">
+      <created>1650373921231</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650373921231</updated>
+    </task>
+    <task id="LOCAL-00002" summary="final form">
+      <created>1651331955210</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651331955210</updated>
+    </task>
+    <task id="LOCAL-00003" summary="final form">
+      <created>1651332086957</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651332086957</updated>
+    </task>
+    <task id="LOCAL-00004" summary="final form">
+      <created>1651338538490</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651338538490</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="problem somewhere" />
+    <MESSAGE value="final form" />
+    <option name="LAST_COMMIT_MESSAGE" value="final form" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.example.assignment2.Bootstrapper" memberName="controller" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>

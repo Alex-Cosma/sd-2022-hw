@@ -1,0 +1,113 @@
+<div class="search-div">
+  <button mat-raised-button [disabled] = "title.invalid || author.invalid || genre.invalid || quantity.invalid || price.invalid"
+    (click) = "create()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+  <button mat-raised-button
+  (click)="generateReports('PDF')">
+    <mat-icon>eject</mat-icon>Report PDF
+  </button>
+  <button mat-raised-button (click) = "goToUsers()">
+    <mat-icon>launch</mat-icon>Go to users
+  </button>
+  <button mat-raised-button
+          (click)="generateReports('CSV')">
+    <mat-icon>eject</mat-icon>Report CSV
+  </button>
+  <mat-form-field class = "search-form-field" floatLabel="never">
+    <input type="tel" matInput placeholder="Search">
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "bookToEdit.title"
+      placeholder="Title"
+      required
+      name="title"
+      ngModel
+      #title="ngModel">
+    <mat-error *ngIf="title.invalid">Title is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "bookToEdit.author"
+      placeholder="Author"
+      required
+      name="author"
+      ngModel
+      #author="ngModel">
+    <mat-error *ngIf="author.invalid">Author is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "bookToEdit.genre"
+      placeholder="Genre"
+      required
+      name="genre"
+      ngModel
+      #genre="ngModel">
+    <mat-error *ngIf="genre.invalid">Genre is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "bookToEdit.quantity"
+      placeholder="Quantity"
+      required
+      name="quantity"
+      ngModel
+      #quantity="ngModel">
+    <mat-error *ngIf="quantity.invalid">Quantity is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "bookToEdit.price"
+      placeholder="Price"
+      required
+      name="price"
+      ngModel
+      #price="ngModel">
+    <mat-error *ngIf="price.invalid">Price is required</mat-error>
+  </mat-form-field>
+</div>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of bookElements">
+      <td><span>{{book.id}}</span></td>
+      <td><span>{{book.title}}</span></td>
+      <td><span>{{book.author}}</span></td>
+      <td><span>{{book.genre}}</span></td>
+      <td><span>{{book.quantity}}</span></td>
+      <td><span>{{book.price}}</span></td>
+      <td><span> <button mat-raised-button (click)="deleteBook(book)">
+    <mat-icon>delete</mat-icon>Delete
+      </button></span></td>
+      <td><span><button mat-raised-button [disabled] = "title.invalid || author.invalid || genre.invalid || quantity.invalid || price.invalid"
+                        (click)="edit()">
+    <mat-icon>edit</mat-icon>Edit
+  </button></span></td>
+      <td><span><button mat-raised-button (click)="fill(book)">
+    <mat-icon>send</mat-icon> Send to edit
+  </button></span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
