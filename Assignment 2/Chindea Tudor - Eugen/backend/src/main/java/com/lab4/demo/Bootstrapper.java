@@ -1,7 +1,8 @@
 package com.lab4.demo;
 
-import com.lab4.demo.item.ItemRepository;
-import com.lab4.demo.item.model.Item;
+import com.lab4.demo.book.BookRepository;
+
+import com.lab4.demo.book.model.Book;
 import com.lab4.demo.security.AuthService;
 import com.lab4.demo.security.dto.SignupRequest;
 import com.lab4.demo.user.RoleRepository;
@@ -26,7 +27,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final AuthService authService;
 
-    private final ItemRepository itemRepository;
+    private final BookRepository bookRepository;
 
     @Value("true")
     private Boolean bootstrap;
@@ -34,7 +35,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
-            itemRepository.deleteAll();
+            bookRepository.deleteAll();
             userRepository.deleteAll();
             roleRepository.deleteAll();
             for (ERole value : ERole.values()) {
@@ -44,12 +45,12 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                                 .build()
                 );
             }
-            itemRepository.save(Item.builder().title("titlu1")
+            bookRepository.save(Book.builder().title("titlu1")
                     .author("auth")
                     .genre("gen3")
                     .price(90)
                     .quantity(60).build());
-            itemRepository.save(Item.builder().title("titlu2")
+            bookRepository.save(Book.builder().title("titlu2")
                     .author("auth2")
                     .genre("gen2")
                     .price(90)

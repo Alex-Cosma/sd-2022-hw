@@ -1,8 +1,6 @@
 package com.lab4.demo.user.mapper;
 
 import com.lab4.demo.user.dto.UserDTO;
-import com.lab4.demo.user.dto.UserListDTO;
-import com.lab4.demo.user.dto.UserMinimalDTO;
 import com.lab4.demo.user.model.User;
 import org.mapstruct.*;
 

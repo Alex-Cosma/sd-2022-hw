@@ -1,7 +1,7 @@
 package com.lab4.demo.report;
 
-import com.lab4.demo.item.ItemService;
-import com.lab4.demo.item.model.dto.ItemDTO;
+import com.lab4.demo.book.BookService;
+import com.lab4.demo.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -16,10 +16,10 @@ import static com.lab4.demo.report.ReportType.PDF;
 @RequiredArgsConstructor
 public class PdfReportService implements ReportService {
 
-    private  ItemService itemService;
+    private BookService bookService;
 
-    public PdfReportService(ItemService itemService) {
-        this.itemService = itemService;
+    public PdfReportService(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class PdfReportService implements ReportService {
 
 
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
-            for(ItemDTO item : itemService.findAll() ){
+            for(BookDTO item : bookService.findAll() ){
                 if(item.getQuantity() == 0){
                     contentStream.beginText();
                     contentStream.newLineAtOffset(200,685);
