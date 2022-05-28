@@ -1,0 +1,32 @@
+<div class="toolbar">
+
+    <button id="addVideoBtn"
+      type="button"
+      class="btn btn-link button-secondary"
+      (click)="onAddUser()"
+      title="Add user">
+      <span class="dx-icon-add" aria-hidden="true"></span>
+    </button>
+  
+    <button id="deleteVideoBtn"
+            type="button"
+            class="btn btn-link button-secondary"
+            (click)="onDeleteUser()"
+            title="Delete user"
+            [disabled]="!areUsersSelected">
+      Delete
+    </button >
+    <button title="{{buttonName}}"
+      (click)="changePage()"
+    >
+      {{buttonName}}
+  
+    </button>
+  
+    <div class="right-bar btn">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+  
+  
+  

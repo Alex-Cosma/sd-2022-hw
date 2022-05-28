@@ -1,0 +1,49 @@
+<div class="toolbar">
+
+  <button id="addVideoBtn"
+      type="button"
+      class="btn btn-link button-secondary"
+      (click)="addVideo()"
+      title="Add video">
+      <span class="dx-icon-add" aria-hidden="true"></span>
+  </button>
+
+  <label>User: </label>
+  <input type="text" [(ngModel)]="usernameSearchField"> 
+
+  <button id="searchVideosBtn"
+    type="button"
+    class="btn-primary"
+    (click)="getVideosFromUser()">
+    Search Videos
+  </button>
+
+  <button id="myVideosBtn"
+    type="button"
+    class="btn-primary"
+    (click)="getVideosFromLoggedInUser()">
+    My Videos
+  </button>
+
+  <button id="myPlaylistBtn"
+    type="button"
+    class="btn-primary"
+    (click)="goToOwnPlaylists()">
+    My Playlists
+  </button>
+
+  <button id="createPlaylistBtn"
+    type="button"
+    class="btn-primary"
+    (click)="createPlaylist()">
+    Create playlist
+  </button>
+
+  <button class="btn-primary right-bar"(click)="logout()">
+    Logout
+  </button>
+  
+</div>
+  
+  
+  

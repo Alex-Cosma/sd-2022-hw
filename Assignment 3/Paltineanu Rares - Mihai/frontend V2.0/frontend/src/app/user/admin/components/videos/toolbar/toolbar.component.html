@@ -1,0 +1,32 @@
+<div class="toolbar">
+
+    <button id="addBookBtn"
+      type="button"
+      class="btn btn-link button-secondary"
+      title="Add video">
+      <span class="dx-icon-add" aria-hidden="true"></span>
+    </button>
+  
+    <label>User: </label>
+    <input type="text" [(ngModel)]="usernameSearchField"> 
+
+    <button id="searchVideosBtn"
+      type="button"
+      class="btn-primary"
+      (click)="getVideosFromUser()">
+      Search Videos
+    </button>
+    <button title="View users"
+      class="btn btn-link button-secondary"
+      (click)="changePage()"
+    >
+    View users
+    </button>
+  
+    <div class="right-bar">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+  
+  
+  

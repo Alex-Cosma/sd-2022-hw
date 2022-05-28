@@ -1,0 +1,105 @@
+<app-create-playlist-toolbar (createPlaylist)="createPlaylist()"></app-create-playlist-toolbar>
+
+<div class="videos">
+    <div class="uploadedVideos">
+        <div *ngIf="this.uploadedVideos.length === 0">
+            No uploaded videos
+        </div>
+        <ul>
+            <li *ngFor="let video of uploadedVideos" >
+                <div>
+                    <p>
+                        <label>Title:</label>
+                        <span> {{ video.title }}</span>
+                    </p>
+            
+                    <p>
+                        <label>Channel:</label>
+                        <span> {{ video.user!.username }}</span>
+                    </p>
+            
+                    <p>
+                        <label>Description:</label>
+                        <span> {{ video.description }} </span>
+                    </p>
+            
+                    <p>
+                        <span>
+                            <a href="{{'https://youtube.com/watch?v=' + video.videoId}}">
+                                <img src="{{video.thumbnailUrl}}">
+                            </a>
+                        </span>
+                    </p>
+        
+                    <div id="commentSection">
+                        <label class="commentsLabel">Comments</label>
+                        <p *ngIf="video.comments!.length === 0">
+                            No comments
+                        </p>
+                        <ul class="commentsList">
+                            <li *ngFor="let comment of video.comments">
+                                <label>{{comment.author}}:</label>
+                                <span> {{comment.content}} </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button id="addPlaylistVideoBtn"
+                        type="button"
+                        class="btn-primary"
+                        (click)="addOnPlaylist(video)">
+                        Add On Playlist
+                    </button>
+                    <hr>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="playlistVideos">
+        <div *ngIf="this.playlistVideos.length === 0">
+            No playlist videos
+        </div>
+        <ul>
+            <li *ngFor="let video of playlistVideos" >
+                <div>
+                    <p>
+                        <label>Title:</label>
+                        <span> {{ video.title }}</span>
+                    </p>
+            
+                    <p>
+                        <label>Channel:</label>
+                        <span> {{ video.user!.username }}</span>
+                    </p>
+            
+                    <p>
+                        <label>Description:</label>
+                        <span> {{ video.description }} </span>
+                    </p>
+            
+                    <p>
+                        <span>
+                            <a href="{{'https://youtube.com/watch?v=' + video.videoId}}">
+                                <img src="{{video.thumbnailUrl}}">
+                            </a>
+                        </span>
+                    </p>
+        
+                    <div id="commentSection">
+                        <label class="commentsLabel">Comments</label>
+                        <p *ngIf="video.comments!.length === 0">
+                            No comments
+                        </p>
+                        <ul class="commentsList">
+                            <li *ngFor="let comment of video.comments">
+                                <label>{{comment.author}}:</label>
+                                <span> {{comment.content}} </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

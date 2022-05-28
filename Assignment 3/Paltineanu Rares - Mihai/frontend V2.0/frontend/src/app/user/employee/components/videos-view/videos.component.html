@@ -1,0 +1,78 @@
+<app-employee-toolbar (getVideos)="getVideos($event)"></app-employee-toolbar>
+
+
+<div class="videosView">
+
+</div>
+<div *ngIf="this.videos.length === 0">
+    No videos
+</div>
+<ul>
+    <li *ngFor="let video of videos" >
+        <div>
+            <p>
+                <label>Title:</label>
+                <span> {{ video.title }}</span>
+            </p>
+    
+            <p>
+                <label>Channel:</label>
+                <span> {{ username }}</span>
+            </p>
+    
+            <p>
+                <label>Description:</label>
+                <span> {{ video.description }} </span>
+            </p>
+    
+            <p>
+                <span>
+                    <a href="{{'https://youtube.com/watch?v=' + video.videoId}}">
+                        <img src="{{video.thumbnailUrl}}">
+                    </a>
+                </span>
+            </p>
+
+            <div id="commentSection">
+                <label class="commentsLabel">Comments</label>
+                <p class="noCommentsMsg" *ngIf="video.comments!.length === 0">
+                    No comments
+                </p>
+                <ul class="commentsList">
+                    <li *ngFor="let comment of video.comments">
+                        <label>{{comment.author}}:</label>
+                        <span> {{comment.content}} </span>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="text"
+                class="form-control"
+                name="username"
+                [(ngModel)]="commentInput">
+
+            <div class="buttons">
+                <button id="addCommentBtn"
+                    type="button"
+                    class="btn-primary"
+                    (click)="addComment(video)">
+                    Add Comment
+                </button>
+                <button id="reportVideoBtn"
+                    type="button"
+                    class="btn-primary"
+                    (click)="reportVideo(video.id!)">
+                    Report Video
+                </button>
+
+                <button id="reportVideoBtn"
+                    type="button"
+                    class="btn-primary"
+                    (click)="deleteVideo(video.id!)">
+                    Delete Video
+                </button>
+            </div>
+            <hr>
+        </div>
+    </li>
+</ul>

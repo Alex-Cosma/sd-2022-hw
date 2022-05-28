@@ -1,0 +1,106 @@
+<div class="col-md-12">
+    <div class="center card card-container">
+        <h2 class="title">Get videos</h2>
+        <form   name="form" 
+                (ngSubmit)="f.form.valid && getVideos()" 
+                #f="ngForm" 
+                novalidate>
+
+            <div class="form-group">
+                <label>Query</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    [(ngModel)]="query"
+                    required
+                    #name="ngModel"
+                />
+            </div>
+
+            <div class="form-group">
+                <label>Max results</label>
+                <select name="my-dropdown" [(ngModel)]="maxResults">
+                    <option *ngFor="let number of numbers" [value]="number">{{number}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Add Video
+                </button>
+        
+                <button (click)="onCancel()" type="button" class="btn btn-secondary btn-block">
+                  Cancel
+                </button>
+        
+              </div>
+        </form> 
+    </div>
+</div>
+
+
+<ul>
+    <li *ngFor="let video of this.videos.items">
+        <img src="{{video.snippet!.thumbnails!.medium!.url}}">
+        <br>
+        <i>{{ video.snippet!.title }} </i>
+        <br>
+        <i>{{ video.snippet!.channelTitle }}</i>
+        <br>
+        <dx-button class="button-info"
+        text="Details"
+        (onClick)="showVideoInfo(video)">
+            
+        </dx-button>
+    </li>
+</ul>
+
+<dx-popup 
+    id="addVideo"
+    class="add-video-popup"
+    [showTitle]="true"
+    [(visible)]="popupVisible"
+    title="Video information"
+    width="800px"
+    height="450px"
+    contentTemplate="content"
+    [dragEnabled]="true"
+    shadingColor="rgba(29,29,29,0,79)"
+    [showCloseButton]="false"
+    [toolbarItems]="popupButtons"
+    [closeOnOutsideClick]="closeOnOutsideClick"
+    [scrollTop]="true"
+    [animation]="{
+        show: {type: 'pop', from: { opacity: 1, scale: 0}, to: {scale: 1}}
+    }">
+    <!-- <div *ngFor="let video of this.videos.items">
+        
+    </div>  -->
+
+    <div *dxTemplate="let data of 'content'">
+        <p>
+            Title:
+            <span> {{ this.currentVideo.snippet!.title }}</span>
+        </p>
+
+        <p>
+            Channel:
+            <span> {{ this.currentVideo.snippet!.channelTitle }}</span>
+        </p>
+
+        <p>
+            Description:
+            <span> {{ this.currentVideo.snippet!.description }} </span>
+        </p>
+
+        <p>
+            <span>
+                <a href="{{'https://youtube.com/watch?v=' + currentVideo.id!.videoId}}">
+                    <img src="{{currentVideo.snippet!.thumbnails!.medium!.url}}">
+                </a>
+            </span>
+        </p>
+    </div>
+</dx-popup>
+  

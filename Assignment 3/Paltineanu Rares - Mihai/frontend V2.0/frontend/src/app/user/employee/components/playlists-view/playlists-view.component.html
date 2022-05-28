@@ -1,0 +1,38 @@
+<app-playlist-toolbar></app-playlist-toolbar>
+
+<div class="playlistView">
+    <ul>
+        <li *ngFor="let playlist of playlists; let i = index">
+            <h3>Playlist {{i}}</h3>
+            <ul>
+                <li *ngFor="let video of playlist.videos">
+                    <div>
+                        <p>
+                            <label>Title:</label>
+                            <span> {{ video.title }}</span>
+                        </p>
+                
+                        <p>
+                            <label>Channel:</label>
+                            <span> {{ video.user!.username }}</span>
+                        </p>
+                
+                        <p>
+                            <label>Description:</label>
+                            <span> {{ video.description }} </span>
+                        </p>
+                
+                        <p>
+                            <span>
+                                <a href="{{'https://youtube.com/watch?v=' + video.videoId}}">
+                                    <img src="{{video.thumbnailUrl}}">
+                                </a>
+                            </span>
+                        </p>
+                        <hr>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
