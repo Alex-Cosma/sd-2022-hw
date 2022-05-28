@@ -1,12 +1,23 @@
 package com.example.demo;
 
-import com.example.demo.item.model.Item;
-import com.example.demo.item.model.GenreType;
-import com.example.demo.item.model.dto.ItemDTO;
+import com.example.demo.book.model.Book;
+import com.example.demo.book.model.GenreType;
+import com.example.demo.book.model.dto.BookDTO;
+import com.example.demo.bookreview.model.BookReview;
+import com.example.demo.bookreview.model.Rating;
+import com.example.demo.bookreview.model.dto.BookReviewDTO;
+import com.example.demo.cart.model.Cart;
+import com.example.demo.cart.model.CartDTO;
 import com.example.demo.user.dto.UserDTO;
+import com.example.demo.user.model.ERole;
+import com.example.demo.user.model.Role;
+import com.example.demo.user.model.User;
+import com.example.demo.userreview.model.UserReview;
+import com.example.demo.userreview.model.dto.UserReviewDTO;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -27,11 +38,36 @@ public class TestCreationFactory {
 
         if (cls.equals(UserDTO.class)) {
             supplier = TestCreationFactory::newUserListDTO;
-        } else if (cls.equals(Item.class)) {
-            supplier = TestCreationFactory::newItem;
-        } else if (cls.equals(ItemDTO.class)) {
-            supplier = TestCreationFactory::newItemDTO;
-        } else {
+        } else if (cls.equals(Book.class)) {
+            supplier = TestCreationFactory::newBook;
+        } else if (cls.equals(BookDTO.class)) {
+            supplier = TestCreationFactory::newBookDTO;
+
+        } else if (cls.equals(BookReview.class)) {
+            supplier = TestCreationFactory::newBookReview;
+        }
+        else if (cls.equals(BookReviewDTO.class)) {
+            supplier = TestCreationFactory::newBookReviewDTO;
+        }
+        else if (cls.equals(UserReview.class)) {
+            supplier = TestCreationFactory::newUserReview;
+        }
+        else if (cls.equals(UserReviewDTO.class)) {
+            supplier = TestCreationFactory::newUserReviewDTO;
+        }
+        else if (cls.equals(Cart.class)) {
+            supplier = TestCreationFactory::newCart;
+        }
+        else if (cls.equals(CartDTO.class)) {
+            supplier = TestCreationFactory::newCartDTO;
+        }
+        else if (cls.equals(Role.class)) {
+            supplier = TestCreationFactory::newRole;
+        }
+        else if (cls.equals(Long.class)) {
+            supplier = TestCreationFactory::randomLong;
+        }
+        else {
             supplier = () -> new String("You failed.");
         }
 
@@ -50,27 +86,101 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static Item newItem() {
-        return Item.builder()
+    public static Cart newCart(){
+        return Cart.builder()
+                .user_id(randomLong())
                 .id(randomLong())
-                .title(randomString())
-                .author(randomString())
-                .genre("Comedy")
-                .quantity(randomBoundedInt(100))
-                .price(10.0)
+                .books(List.of(newBook()))
                 .build();
     }
 
-    private static ItemDTO newItemDTO() {
-        return ItemDTO.builder()
+    public static CartDTO newCartDTO(){
+        return CartDTO.builder()
+                .user_id(randomLong())
+                .id(randomLong())
+                .books(List.of(newBook()))
+                .build();
+    }
+
+    public static User newUser() {
+        return User.builder()
+                .username(randomString())
+                .email(randomEmail())
+                .password(randomString())
+                .build();
+    }
+
+    public static UserDTO newUserDTO() {
+        return UserDTO.builder()
+                .username(randomString())
+                .email(randomEmail())
+                .username(randomString())
+                .password(randomString())
+                .roles(Set.of("CUSTOMER"))
+                .build();
+    }
+
+    public static Role newRole(){
+        return Role.builder()
+                .name(ERole.CUSTOMER)
+                .build();
+    }
+
+    public static BookReview newBookReview(){
+        return BookReview.builder()
+                .rating(Rating.AVERAGE.name())
+                .text(randomString())
+                .build();
+    }
+    public static BookReviewDTO newBookReviewDTO(){
+        return BookReviewDTO.builder()
+                .rating(Rating.AVERAGE.name())
+                .text(randomString())
+                .build();
+    }
+
+    public static UserReview newUserReview(){
+        return UserReview.builder()
+                .rating(Rating.AVERAGE.name())
+                .text(randomString())
+                .build();
+    }
+    public static UserReviewDTO newUserReviewDTO(){
+        return UserReviewDTO.builder()
+                .rating(Rating.AVERAGE.name())
+                .text(randomString())
+                .build();
+    }
+
+    public static Book newBook() {
+        return Book.builder()
                 .id(randomLong())
                 .title(randomString())
                 .author(randomString())
-                .genre("Comedy")
+                .genre(GenreType.FITNESS.name())
                 .quantity(randomBoundedInt(100))
                 .price(10.0)
+                .description(randomString())
+                .imageUrl(randomString())
+                .pageCount(10)
+                .reviews(List.of(newBookReview()))
                 .build();
     }
+
+    public static BookDTO newBookDTO() {
+        return BookDTO.builder()
+                .id(1L)
+                .title(randomString())
+                .author(randomString())
+                .genre(GenreType.FITNESS.name())
+                .quantity(randomBoundedInt(100))
+                .description(randomString())
+                .imageUrl(randomString())
+                .price(10.0)
+                .reviews(List.of())
+                .build();
+    }
+
 
     public static String randomEmail() {
         return randomString() + "@" + randomString() + ".com";

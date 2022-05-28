@@ -1,11 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import UserList from "../views/UserList.vue";
-import ItemList from "../views/ItemList.vue";
-import Admin from "../views/Admin.vue";
+import AdminBooksCRUD from "../views/AdminBooksCRUD.vue";
+import AdminFirstPage from "../views/AdminFirstPage.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 import Bookstore from "../views/Bookstore";
+import UserReviews from "../views/UserReviews";
+import UserCart from "../views/UserCart";
 
 Vue.use(VueRouter);
 
@@ -17,8 +19,18 @@ const routes = [
   },
   {
     path: "/admin",
-    name: "Admin",
-    component: Admin,
+    name: "AdminFirstPage",
+    component: AdminFirstPage,
+  },
+  {
+    path: "/userreviews",
+    name: "UserReviews",
+    component: UserReviews,
+  },
+  {
+    path: "/cart",
+    name: "UserCart",
+    component: UserCart,
   },
   {
     path: "/users",
@@ -28,7 +40,7 @@ const routes = [
       if (store.getters.isAdmin) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "Books" });
       }
     },
   },
@@ -38,9 +50,9 @@ const routes = [
     component: Bookstore,
   },
   {
-    path: "/items",
-    name: "Items",
-    component: ItemList,
+    path: "/admin/books",
+    name: "Books",
+    component: AdminBooksCRUD,
     beforeEnter: (to, from, next) => {
       if (store.state.status.loggedIn) {
         next();
@@ -56,7 +68,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Admin.vue"),
+      import(/* webpackChunkName: "about" */ "../views/AdminFirstPage.vue"),
   },
 ];
 

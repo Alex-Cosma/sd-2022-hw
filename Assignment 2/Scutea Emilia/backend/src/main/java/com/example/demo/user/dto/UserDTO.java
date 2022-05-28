@@ -1,7 +1,6 @@
 package com.example.demo.user.dto;
 
-import com.example.demo.user.model.ERole;
-import com.example.demo.user.model.Role;
+import com.example.demo.userreview.model.UserReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,6 @@ public class UserDTO {
     private String email;
     private String password;
     private Set<String> roles;
+    private Set<UserReview> reviews;
 }
 

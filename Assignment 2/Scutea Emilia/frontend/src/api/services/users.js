@@ -1,29 +1,29 @@
-import authHeader, { BASE_URL, HTTP } from "../http";
+import authHeader, { API_PATH, HTTP } from "../http";
 
 export default {
   allUsers() {
-    return HTTP.get(BASE_URL + "/users", { headers: authHeader() }).then(
+    return HTTP.get(API_PATH + "/users", { headers: authHeader() }).then(
       (response) => {
         return response.data;
       }
     );
   },
   create(user) {
-    return HTTP.post(BASE_URL + "/users", user, { headers: authHeader() }).then(
+    return HTTP.post(API_PATH + "/users", user, { headers: authHeader() }).then(
       (response) => {
         return response.data;
       }
     );
   },
   edit(user) {
-    return HTTP.put(BASE_URL + "/users/edit/" + user.id, user, {
+    return HTTP.put(API_PATH + "/users/edit/" + user.id, user, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;
     });
   },
   delete(user) {
-    return HTTP.delete(BASE_URL + "/users/delete/" + user.id, {
+    return HTTP.delete(API_PATH + "/users/delete/" + user.id, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;

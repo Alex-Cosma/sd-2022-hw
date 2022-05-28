@@ -3,8 +3,11 @@ package com.example.demo.user;
 import com.example.demo.security.AuthService;
 import com.example.demo.security.dto.SignupRequest;
 import com.example.demo.user.dto.UserDTO;
+import com.example.demo.user.model.ERole;
+import com.example.demo.user.model.Role;
 import com.example.demo.user.model.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +27,22 @@ class UserServiceIntegrationTest {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @BeforeEach
+    void setUp(){
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
+        for (ERole value : ERole.values()) {
+            roleRepository.save(
+                    Role.builder()
+                            .name(value)
+                            .build()
+            );
+        }
+    }
 
     @Test
     void findAll() {
@@ -54,7 +73,7 @@ class UserServiceIntegrationTest {
         UserDTO userDTO = UserDTO.builder()
                 .username("username")
                 .password("password")
-                .email("email")
+                .email("email@yahoo.com")
                 .build();
 
         authService.register(SignupRequest.builder()
@@ -72,7 +91,7 @@ class UserServiceIntegrationTest {
         UserDTO userDTO = UserDTO.builder()
                 .username("username")
                 .password("password")
-                .email("email")
+                .email("email@yahoo.com")
                 .build();
 
         authService.register(SignupRequest.builder()
@@ -83,17 +102,16 @@ class UserServiceIntegrationTest {
 
         Optional<User> user = userRepository.findByUsername("username");
         User user1 = new User();
-        if(user.isPresent()){
-            user1= user.get();
-        }
 
-        user1.setEmail("newEmail");
+        user1.setId(user.get().getId());
+        user1.setPassword(user.get().getPassword());
+        user1.setEmail("newEmail@yahoo.com");
         user1.setUsername("newUsername");
         userRepository.save(user1);
 
         Optional<User> foundUser = userRepository.findById(user1.getId());
         foundUser.ifPresent(value -> Assertions.assertEquals("newUsername", value.getUsername()));
-        foundUser.ifPresent(value -> Assertions.assertEquals("newEmail", value.getEmail()));
+        foundUser.ifPresent(value -> Assertions.assertEquals("newEmail@yahoo.com", value.getEmail()));
     }
 
     @Test
@@ -102,7 +120,7 @@ class UserServiceIntegrationTest {
         UserDTO userDTO = UserDTO.builder()
                 .username("username")
                 .password("password")
-                .email("email")
+                .email("email@yahoo.com")
                 .build();
 
         authService.register(SignupRequest.builder()

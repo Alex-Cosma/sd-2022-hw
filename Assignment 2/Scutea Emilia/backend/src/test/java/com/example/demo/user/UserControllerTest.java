@@ -2,7 +2,6 @@ package com.example.demo.user;
 
 import com.example.demo.BaseControllerTest;
 import com.example.demo.TestCreationFactory;
-import com.example.demo.item.model.dto.ItemDTO;
 import com.example.demo.user.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,12 +79,10 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     void delete() throws Exception{
         final long id = randomLong();
-        UserDTO reqUser = UserDTO.builder()
-                .email(randomString())
-                .username(randomString())
-                .password(randomString())
-                .build();
+//
+        when(userService.delete(id)).thenReturn(true);
 
-        when(userService.edit(id, reqUser)).thenReturn(reqUser);
+        ResultActions result = performDeleteWIthPathVariable(USERS + USERS_ID_DELETE, id);
+        result.andExpect(status().isOk());
     }
 }

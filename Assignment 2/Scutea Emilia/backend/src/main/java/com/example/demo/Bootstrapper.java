@@ -1,7 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.item.crud.ItemRepository;
-import com.example.demo.item.model.Item;
+import com.example.demo.book.BookstoreService;
+import com.example.demo.book.BookRepository;
 import com.example.demo.security.AuthService;
 import com.example.demo.security.dto.SignupRequest;
 import com.example.demo.user.RoleRepository;
@@ -26,7 +26,10 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final AuthService authService;
 
-    private final ItemRepository itemRepository;
+    private final BookstoreService bookstoreService;
+
+    private final BookRepository bookRepository;
+
 
     @Value("${app.bootstrap}")
     private Boolean bootstrap;
@@ -34,7 +37,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
-            itemRepository.deleteAll();
+            bookRepository.deleteAll();
             userRepository.deleteAll();
             roleRepository.deleteAll();
             for (ERole value : ERole.values()) {
@@ -44,29 +47,22 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                                 .build()
                 );
             }
+
+
             authService.register(SignupRequest.builder()
-                    .email("alex@email.com")
-                    .username("alex")
+                    .email("emily@email.com")
+                    .username("emily")
                     .password("WooHoo1!")
                     .roles(Set.of("ADMIN"))
                     .build());
             authService.register(SignupRequest.builder()
-                    .email("alex1@email.com")
-                    .username("alex1")
+                    .email("escutea@gmail.com")
+                    .username("emily1")
                     .password("WooHoo1!")
-                    .roles(Set.of("EMPLOYEE"))
+                    .roles(Set.of("CUSTOMER"))
                     .build());
 
-            for(int i = 0; i < 5; i++){
-                Item item = Item.builder()
-                .author(String.format("Auth%d",i))
-                .title(String.format("Book%d",i))
-                .genre("Comedy")
-                .price((double) (i))
-                .quantity(i)
-                .build();
-                itemRepository.save(item);
-            }
+             bookstoreService.loadBooksFromExternalApi(false);
         }
     }
 }

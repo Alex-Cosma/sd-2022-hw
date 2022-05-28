@@ -43,7 +43,7 @@ public class AuthService {
         Set<Role> roles = new HashSet<>();
 
         if (rolesStr == null) {
-            Role defaultRole = roleRepository.findByName(ERole.EMPLOYEE)
+            Role defaultRole = roleRepository.findByName(ERole.CUSTOMER)
                     .orElseThrow(() -> new RuntimeException("Cannot find CUSTOMER role"));
             roles.add(defaultRole);
         } else {
