@@ -1,0 +1,74 @@
+<div class="search-div">
+  <button mat-raised-button
+          [disabled] = "password.invalid || email.invalid || username.invalid"
+          (click)="register()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+  <button mat-raised-button
+          (click) ="goChamps()">
+    <mat-icon>launch</mat-icon>Go to Champs
+  </button>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "signupRequest.username"
+      placeholder="Username"
+      required
+      name="username"
+      ngModel
+      #username="ngModel">
+    <mat-error *ngIf="username.invalid">Username is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "signupRequest.email"
+      placeholder="Email"
+      required
+      name="email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      ngModel
+      #email="ngModel">
+    <mat-error *ngIf="email.invalid">Email is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)] = "signupRequest.password"
+      placeholder="Password"
+      required
+      name="password"
+      minlength="6"
+      ngModel
+      #password="ngModel">
+    <mat-error *ngIf="password.invalid">Password is required or does not have the required length</mat-error>
+  </mat-form-field>
+</div>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td><span>{{user.id}}</span></td>
+      <td><span>{{user.name}}</span></td>
+      <td><span>{{user.email}}</span></td>
+      <td><span> <button mat-raised-button (click)="deleteUsers(user)">
+    <mat-icon>delete</mat-icon>Delete
+  </button></span></td>
+      <td><span><button mat-raised-button  [disabled] = "username.invalid && email.invalid" (click)="edit()">
+    <mat-icon>edit</mat-icon>Edit
+  </button></span></td>
+      <td><span><button mat-raised-button (click)="fill(user)">
+    <mat-icon>send</mat-icon> Send to edit
+  </button></span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

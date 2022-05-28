@@ -1,0 +1,48 @@
+<button
+  mat-raised-button
+  color="primary"
+  class="save-button"
+  (click)="close()">
+  Close
+</button>
+<button
+  mat-raised-button
+  color="primary"
+  class="save-button"
+  (click)="logOut()">
+  Logout
+</button>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Damage</th>
+      <th>Toughness</th>
+      <th>CC</th>
+      <th>Mobility</th>
+      <th>Utility</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let champ of champs">
+      <td><span>{{champ.id}}</span></td>
+      <td><span>{{champ.name}}</span></td>
+      <td><span>{{champ.description}}</span></td>
+      <td><span>{{champ.damage}}</span></td>
+      <td><span>{{champ.toughness}}</span></td>
+      <td><span>{{champ.crowdControl}}</span></td>
+      <td><span>{{champ.mobility}}</span></td>
+      <td><span>{{champ.utility}}</span></td>
+      <td><span>{{champ.image.toString().slice(0,10)}}</span></td>
+      <td><span><button mat-raised-button  (click) = "selectChampion = champ; editChamp()">
+        <mat-icon>edit</mat-icon>Edit
+      </button></span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
