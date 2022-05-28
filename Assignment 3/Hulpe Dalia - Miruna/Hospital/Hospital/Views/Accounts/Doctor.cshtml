@@ -1,0 +1,34 @@
+﻿@model DoctorViewModel
+
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <h2>Appointments</h2>
+    <table class="table table-striped table-borderless table-responsive-sm ">
+        <thead>
+            <tr class="table-head">
+                <th>Date</th>
+                <th>Pacient</th>
+                <th>Hospital</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Appointments.Count; i++)
+            {
+                <tr>
+                    <td class="table-element-custom">@Model.Appointments[i].DateTime</td>
+                    <td class="table-element-custom">@Model.Appointments[i].Client.Email</td>
+                    <td class="table-element-custom">@Model.Appointments[i].Hospital.Name</td>
+                    <td class="table-element-custom">
+                        <a asp-controller="Doctor" asp-action="AddFeedback" asp-route-id="@Model.Appointments[i].Id" style="color:black">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form asp-controller="Doctor" asp-action="EditDepartment" method="get">
+        <button type="submit" class="btn btn-info">Edit doctor department</button>
+    </form>

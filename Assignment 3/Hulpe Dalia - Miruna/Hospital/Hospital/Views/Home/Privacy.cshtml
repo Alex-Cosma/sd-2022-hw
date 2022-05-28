@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Hospital.Models
+@inject IHtmlLocalizer<SharedResources> Localizer
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@Localizer["privacy.Title"]</h1>
+
+<p>@Localizer["privacy.Text"]</p>
