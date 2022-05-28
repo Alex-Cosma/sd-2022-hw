@@ -1,4 +1,4 @@
-<template>
+  <template>
   <v-dialog
     transition="dialog-bottom-transition"
     max-width="600"
