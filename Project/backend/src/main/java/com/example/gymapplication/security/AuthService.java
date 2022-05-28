@@ -1,11 +1,11 @@
-package com.example.bookstore.security;
+package com.example.gymapplication.security;
 
-import com.example.bookstore.security.dto.SignupRequest;
-import com.example.bookstore.user.RoleRepository;
-import com.example.bookstore.user.UserRepository;
-import com.example.bookstore.user.model.ERole;
-import com.example.bookstore.user.model.Role;
-import com.example.bookstore.user.model.User;
+import com.example.gymapplication.security.dto.SignupRequest;
+import com.example.gymapplication.user.RoleRepository;
+import com.example.gymapplication.user.UserRepository;
+import com.example.gymapplication.user.model.ERole;
+import com.example.gymapplication.user.model.Role;
+import com.example.gymapplication.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,6 @@ public class AuthService {
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder encoder;
-
 
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -42,8 +41,8 @@ public class AuthService {
         Set<Role> roles = new HashSet<>();
 
         if (rolesStr == null) {
-            Role defaultRole = roleRepository.findByName(ERole.EMPLOYEE)
-                    .orElseThrow(() -> new RuntimeException("Cannot find EMPLOYEE role"));
+            Role defaultRole = roleRepository.findByName(ERole.REGULAR_USER)
+                    .orElseThrow(() -> new RuntimeException("Cannot find REGULAR USER role"));
             roles.add(defaultRole);
         } else {
             rolesStr.forEach(r -> {
