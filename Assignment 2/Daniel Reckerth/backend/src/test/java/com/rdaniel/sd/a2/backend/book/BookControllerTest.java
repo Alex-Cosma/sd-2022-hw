@@ -3,7 +3,6 @@ package com.rdaniel.sd.a2.backend.book;
 import com.rdaniel.sd.a2.backend.BaseControllerTest;
 import com.rdaniel.sd.a2.backend.book.dto.BookDto;
 import com.rdaniel.sd.a2.backend.book.dto.BookFilterRequestDto;
-import com.rdaniel.sd.a2.backend.report.ReportService;
 import com.rdaniel.sd.a2.backend.report.ReportServiceFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,17 +14,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-import static com.rdaniel.sd.a2.backend.TestCreationFactory.*;
+import static com.rdaniel.sd.a2.backend.TestCreationFactory.listOf;
+import static com.rdaniel.sd.a2.backend.TestCreationFactory.newBookDto;
 import static com.rdaniel.sd.a2.backend.UrlMappings.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class BookControllerTest extends BaseControllerTest {
@@ -39,7 +41,6 @@ class BookControllerTest extends BaseControllerTest {
   @Mock
   private ReportServiceFactory reportServiceFactory;
 
-
   @BeforeEach
   protected void setUp() {
     super.setUp();
@@ -51,11 +52,12 @@ class BookControllerTest extends BaseControllerTest {
 
   @Test
   void getAllBooks_returnedList_status200() throws Exception {
-    final List<BookDto> books = listOf(BookDto.class, 10);
+    List<BookDto> books = listOf(BookDto.class, 15);
     when(bookService.findAll()).thenReturn(books);
 
-    mockMvc.perform(get(BOOKS_PATH))
+    performGet(BOOKS_PATH)
         .andExpect(status().isOk())
+        .andExpect(content().contentType(APPLICATION_JSON))
         .andExpect(jsonContentToBe(books));
 
     verify(bookService, times(1)).findAll();

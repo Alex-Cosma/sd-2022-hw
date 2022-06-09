@@ -6,7 +6,6 @@ import com.rdaniel.sd.a2.backend.security.dto.SignupRequest;
 import com.rdaniel.sd.a2.backend.user.RoleRepository;
 import com.rdaniel.sd.a2.backend.user.UserRepository;
 import com.rdaniel.sd.a2.backend.user.model.Role;
-import com.rdaniel.sd.a2.backend.user.model.RoleType;
 import com.rdaniel.sd.a2.backend.user.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.rdaniel.sd.a2.backend.TestCreationFactory.newUser;
-import static com.rdaniel.sd.a2.backend.user.model.RoleType.*;
+import static com.rdaniel.sd.a2.backend.user.model.RoleType.EMPLOYEE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

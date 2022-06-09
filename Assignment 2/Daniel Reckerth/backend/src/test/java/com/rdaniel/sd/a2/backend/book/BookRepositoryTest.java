@@ -11,7 +11,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -263,4 +262,114 @@ class BookRepositoryTest {
     assertTrue(pagedResultSortedContent.stream().anyMatch(book -> firstBookAsc.getAuthor().compareTo(book.getAuthor()) < 0
         && firstBookAsc.getTitle().compareTo(book.getTitle()) < 0));
   }
+
+//  @Test
+//  void testComplexSpecificationQuerySecond() {
+//    bookRepository.save(Book.builder()
+//        .title("A Game of Thrones")
+//        .author("George R.R. Martin")
+//        .genre("Epic Fantasy")
+//        .quantity(25)
+//        .price(19.99)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("A Clash of Kings")
+//        .author("George R.R. Martin")
+//        .genre("Epic Fantasy")
+//        .quantity(27)
+//        .price(19.99)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("East of Eden")
+//        .author("John Steinbeck")
+//        .genre("Novel")
+//        .quantity(32)
+//        .price(27.32)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("The Pearl")
+//        .author("John Steinbeck")
+//        .genre("Novel")
+//        .quantity(27)
+//        .price(25.99)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("Lord of the Flies")
+//        .author("William Golding")
+//        .genre("Novel")
+//        .quantity(27)
+//        .price(21.23)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("Lord of the Rings: The Fellowship of the Ring")
+//        .author("J.R.R. Tolkien")
+//        .genre("Epic Fantasy")
+//        .quantity(27)
+//        .price(26.50)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("Lord of the Rings: The Return of the King")
+//        .author("J.R.R. Tolkien")
+//        .genre("Epic Fantasy")
+//        .quantity(30)
+//        .price(26.50)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("Lord of the Rings: The Two Towers")
+//        .author("J.R.R. Tolkien")
+//        .genre("Epic Fantasy")
+//        .quantity(30)
+//        .price(26.50)
+//        .build()
+//    );
+//
+//    bookRepository.save(Book.builder()
+//        .title("The Works of Lord Byron")
+//        .author("Lord Byron")
+//        .genre("Poetry")
+//        .quantity(30)
+//        .price(31.20)
+//        .build()
+//    );
+//
+//    BookFilterRequestDto bookFilterRequestDto = BookFilterRequestDto.builder()
+//        .author("%John%")
+//        .title("%Ring%")
+//        .genre("%Fantasy%")
+//        .price(35.00)
+//        .build();
+//
+//    final int sortedPage = 0;
+//    final int sortedPageSize = 100;
+//
+//    final Sort complex = Sort.by(ASC, "author").and(Sort.by(ASC, "title")).and(Sort.by(ASC, "genre"));
+//    final PageRequest first100AscByComplex = PageRequest.of(sortedPage, sortedPageSize, complex);
+//    final Page<Book> pagedResultSortAsc = bookRepository.findAll(specificationFromFilter(bookFilterRequestDto), first100AscByComplex);
+//    assertTrue(pagedResultSortAsc.hasContent());
+//    assertEquals(2, pagedResultSortAsc.getNumberOfElements());
+//    assertEquals(sortedPage, pagedResultSortAsc.getNumber());
+//
+//    final List<Book> pagedResultSortedContent = new ArrayList<>(pagedResultSortAsc.getContent());
+//    assertEquals(2, pagedResultSortedContent.size());
+//
+//    final Book firstBookAsc = pagedResultSortedContent.get(0);
+//    pagedResultSortedContent.remove(0);
+//
+//    assertTrue(pagedResultSortedContent.stream().anyMatch(book -> firstBookAsc.getAuthor().compareTo(book.getAuthor()) < 0
+//        && firstBookAsc.getTitle().compareTo(book.getTitle()) < 0));
+//  }
 }

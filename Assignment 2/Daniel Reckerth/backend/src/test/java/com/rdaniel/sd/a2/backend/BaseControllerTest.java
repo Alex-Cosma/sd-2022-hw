@@ -29,7 +29,12 @@ public abstract class BaseControllerTest {
   }
 
   protected ResultMatcher jsonContentToBe(Object expectedJsonContent) throws JsonProcessingException {
-    return content().json(new ObjectMapper().writeValueAsString(expectedJsonContent), true);
+    try {
+      return content().json(new ObjectMapper().writeValueAsString(expectedJsonContent), true);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 
   protected ResultActions performPostWithRequestBody(String path, Object body) throws Exception {
@@ -58,12 +63,16 @@ public abstract class BaseControllerTest {
     return mockMvc.perform(jsonType(get(path, pathVariable)));
   }
 
+  protected ResultActions performGet(String path) throws Exception {
+    return mockMvc.perform(jsonType(get(path)));
+  }
+
   protected ResultActions performGetWithModelAttributeAndParams(String path, Pair<String, Object> modelAttribute,
                                                                 List<Pair<String, String>> params) throws Exception {
     MockHttpServletRequestBuilder requestBuilder = get(path);
     params.forEach(param -> requestBuilder.param(param.getFirst(), param.getSecond()));
     requestBuilder.flashAttr(modelAttribute.getFirst(), modelAttribute.getSecond());
-    return mockMvc.perform(requestBuilder);
+    return mockMvc.perform(jsonType(requestBuilder));
   }
 
 

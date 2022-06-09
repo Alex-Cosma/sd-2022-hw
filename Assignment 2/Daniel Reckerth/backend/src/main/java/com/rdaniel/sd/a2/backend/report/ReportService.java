@@ -1,6 +1,5 @@
 package com.rdaniel.sd.a2.backend.report;
 
-
 import com.rdaniel.sd.a2.backend.book.BookRepository;
 import com.rdaniel.sd.a2.backend.book.model.Book;
 import net.sf.jasperreports.engine.JRException;

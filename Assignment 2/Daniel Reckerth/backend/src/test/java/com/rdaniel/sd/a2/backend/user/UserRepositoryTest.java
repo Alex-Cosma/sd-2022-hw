@@ -1,8 +1,8 @@
 package com.rdaniel.sd.a2.backend.user;
 
-import com.rdaniel.sd.a2.backend.user.dto.UserListDto;
 import com.rdaniel.sd.a2.backend.user.model.Role;
 import com.rdaniel.sd.a2.backend.user.model.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,8 @@ import static com.rdaniel.sd.a2.backend.TestCreationFactory.listOf;
 import static com.rdaniel.sd.a2.backend.TestCreationFactory.newUser;
 import static com.rdaniel.sd.a2.backend.user.model.RoleType.ADMIN;
 import static com.rdaniel.sd.a2.backend.user.model.RoleType.EMPLOYEE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class UserRepositoryTest {
@@ -25,6 +26,12 @@ class UserRepositoryTest {
 
   @Autowired
   private RoleRepository roleRepository;
+
+  @BeforeEach
+  void setUp() {
+    userRepository.deleteAll();
+    roleRepository.deleteAll();
+  }
 
   @Test
   void findByUsername() {

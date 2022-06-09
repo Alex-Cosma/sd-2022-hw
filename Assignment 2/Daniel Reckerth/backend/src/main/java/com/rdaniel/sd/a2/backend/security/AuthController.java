@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.rdaniel.sd.a2.backend.UrlMappings.*;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

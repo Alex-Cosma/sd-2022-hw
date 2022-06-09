@@ -4,8 +4,6 @@ import com.rdaniel.sd.a2.backend.book.dto.BookFilterRequestDto;
 import com.rdaniel.sd.a2.backend.book.model.Book;
 import org.springframework.data.jpa.domain.Specification;
 
-import static java.util.Optional.ofNullable;
-
 public class BookSpecification {
 
   public static Specification<Book> similarTitle(String title) {
@@ -26,16 +24,16 @@ public class BookSpecification {
 
   public static Specification<Book> specificationFromFilter(BookFilterRequestDto bookFilterRequestDto) {
     Specification<Book> specification = (root, query, cb) -> cb.conjunction();
-    if(bookFilterRequestDto.getTitle() != null && !bookFilterRequestDto.getTitle().isEmpty()) {
+    if (bookFilterRequestDto.getTitle() != null && !bookFilterRequestDto.getTitle().isEmpty()) {
       specification = specification.and(similarTitle(bookFilterRequestDto.getTitle()));
     }
-    if(bookFilterRequestDto.getAuthor() != null && !bookFilterRequestDto.getAuthor().isEmpty()) {
+    if (bookFilterRequestDto.getAuthor() != null && !bookFilterRequestDto.getAuthor().isEmpty()) {
       specification = specification.and(similarAuthor(bookFilterRequestDto.getAuthor()));
     }
-    if(bookFilterRequestDto.getGenre() != null && !bookFilterRequestDto.getGenre().isEmpty()) {
+    if (bookFilterRequestDto.getGenre() != null && !bookFilterRequestDto.getGenre().isEmpty()) {
       specification = specification.and(similarGenre(bookFilterRequestDto.getGenre()));
     }
-      specification = specification.and(similarPrice(bookFilterRequestDto.getPrice()));
+    specification = specification.and(similarPrice(bookFilterRequestDto.getPrice()));
 
     return specification;
   }

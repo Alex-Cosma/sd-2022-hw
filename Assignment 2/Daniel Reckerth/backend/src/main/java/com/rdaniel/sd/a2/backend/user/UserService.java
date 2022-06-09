@@ -69,7 +69,6 @@ public class UserService {
     }
 
     user.setUsername(regularUserDto.getName());
-    user.setPassword(passwordEncoder.encode(regularUserDto.getPassword()));
     user.setEmail(regularUserDto.getEmail());
 
     return userMapper.userListDtoFromUser(userRepository.save(user));

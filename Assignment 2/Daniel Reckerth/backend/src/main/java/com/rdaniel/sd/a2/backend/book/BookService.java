@@ -28,7 +28,7 @@ public class BookService {
 
   public BookDto findById(Long id) throws EntityNotFoundException {
     final Optional<Book> byId = bookRepository.findById(id);
-    if(byId.isEmpty()) {
+    if (byId.isEmpty()) {
       throw new EntityNotFoundException("Book with id " + id + " not found");
     }
     return bookMapper.toDto(byId.get());
@@ -40,7 +40,7 @@ public class BookService {
 
   public BookDto update(Long id, BookDto bookDto) throws EntityNotFoundException {
     final Book book = bookRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Book with id " + id + " not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Book with id " + id + " not found"));
 
     book.setTitle(bookDto.getTitle());
     book.setAuthor(bookDto.getAuthor());
@@ -53,7 +53,7 @@ public class BookService {
 
   public void delete(Long id) throws EntityNotFoundException {
     final Optional<Book> byId = bookRepository.findById(id);
-    if(byId.isEmpty()) {
+    if (byId.isEmpty()) {
       throw new EntityNotFoundException("Book with id " + id + " not found");
     }
     bookRepository.deleteById(id);
@@ -61,12 +61,16 @@ public class BookService {
 
   public Page<BookDto> findAllFiltered(BookFilterRequestDto bookFilterRequestDto, Pageable pageable) {
     return bookRepository.findAll(specificationFromFilter(bookFilterRequestDto), pageable)
-            .map(bookMapper::toDto);
+        .map(bookMapper::toDto);
   }
 
   public BookDto sellBooks(Long id, int quantity) throws EntityNotFoundException {
     final Book book = bookRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Book with id " + id + " not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Book with id " + id + " not found"));
+
+    if(book.getQuantity() - quantity < 0) {
+      throw new RuntimeException("Not enough books to sell");
+    }
 
     book.setQuantity(book.getQuantity() - quantity);
 

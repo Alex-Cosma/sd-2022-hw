@@ -2,7 +2,7 @@ package com.rdaniel.sd.a2.backend.report;
 
 import com.rdaniel.sd.a2.backend.book.BookRepository;
 import com.rdaniel.sd.a2.backend.book.model.Book;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -27,12 +27,12 @@ public class CsvReportService extends ReportService {
     final List<String[]> dataLines = new ArrayList<>();
     dataLines.add(new String[]{"Id", "Title", "Author", "Genre", "Quantity", "Price"});
     booksOutOfStock.forEach(book -> {
-      String[] dataLine = new String[6];
+      String[] dataLine = new String[5];
       dataLine[0] = book.getTitle();
       dataLine[1] = book.getAuthor();
-      dataLine[3] = book.getGenre();
-      dataLine[4] = String.valueOf(book.getQuantity());
-      dataLine[5] = String.valueOf(book.getPrice());
+      dataLine[2] = book.getGenre();
+      dataLine[3] = String.valueOf(book.getQuantity());
+      dataLine[4] = String.valueOf(book.getPrice());
       dataLines.add(dataLine);
     });
     File file = new File(path);

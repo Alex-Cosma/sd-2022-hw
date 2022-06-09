@@ -1,7 +1,6 @@
 package com.rdaniel.sd.a2.backend.user;
 
 import com.rdaniel.sd.a2.backend.user.dto.UserDetailsImpl;
-import com.rdaniel.sd.a2.backend.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

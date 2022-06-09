@@ -4,6 +4,7 @@ import com.rdaniel.sd.a2.backend.TestCreationFactory;
 import com.rdaniel.sd.a2.backend.book.dto.BookDto;
 import com.rdaniel.sd.a2.backend.book.dto.BookFilterRequestDto;
 import com.rdaniel.sd.a2.backend.book.model.Book;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ class BookServiceIntegrationTest {
 
         final List<BookDto> bookDtos = bookService.findAll();
 
-        assertEquals(books.size(), bookDtos.size());
+        assertEquals(books.size(),bookDtos.size());
     }
 
     @Test

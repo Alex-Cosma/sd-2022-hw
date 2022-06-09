@@ -19,5 +19,5 @@ public class BookFilterRequestDto {
   private final String genre = "";
 
   @Builder.Default
-  private final double price = 0;
+  private final double price = 1.0;
 }

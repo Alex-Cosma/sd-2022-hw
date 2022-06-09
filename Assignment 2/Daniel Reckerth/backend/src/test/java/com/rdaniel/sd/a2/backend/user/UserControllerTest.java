@@ -1,7 +1,6 @@
 package com.rdaniel.sd.a2.backend.user;
 
 import com.rdaniel.sd.a2.backend.BaseControllerTest;
-import com.rdaniel.sd.a2.backend.book.dto.BookDto;
 import com.rdaniel.sd.a2.backend.user.dto.RegularUserDto;
 import com.rdaniel.sd.a2.backend.user.dto.UserListDto;
 import com.rdaniel.sd.a2.backend.user.model.Role;
@@ -21,9 +20,10 @@ import java.util.Set;
 
 import static com.rdaniel.sd.a2.backend.TestCreationFactory.*;
 import static com.rdaniel.sd.a2.backend.UrlMappings.*;
-import static com.rdaniel.sd.a2.backend.user.model.RoleType.*;
+import static com.rdaniel.sd.a2.backend.user.model.RoleType.EMPLOYEE;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserControllerTest extends BaseControllerTest {
@@ -51,8 +51,9 @@ class UserControllerTest extends BaseControllerTest {
     final List<UserListDto> dtos = listOf(UserListDto.class, 20);
     when(userService.allUsersForList()).thenReturn(dtos);
 
-    mockMvc.perform(get(USERS_PATH))
+    performGet(USERS_PATH)
         .andExpect(status().isOk())
+        .andExpect(content().contentType(APPLICATION_JSON))
         .andExpect(jsonContentToBe(dtos));
 
     verify(userService, times(1)).allUsersForList();
@@ -67,9 +68,11 @@ class UserControllerTest extends BaseControllerTest {
     when(roleRepository.findByName(any(RoleType.class))).thenReturn(Optional.ofNullable(employeeRole));
     when(userService.findAllRegularUsers()).thenReturn(dtos);
 
-    mockMvc.perform(get(USERS_PATH + REGULAR_USERS_PATH))
+    performGet(USERS_PATH + REGULAR_USERS_PATH)
         .andExpect(status().isOk())
+        .andExpect(content().contentType(APPLICATION_JSON))
         .andExpect(jsonContentToBe(dtos));
+
 
     verify(userService, times(1)).findAllRegularUsers();
   }

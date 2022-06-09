@@ -1,6 +1,5 @@
 package com.rdaniel.sd.a2.backend.user;
 
-import com.rdaniel.sd.a2.backend.user.model.Role;
 import com.rdaniel.sd.a2.backend.user.model.RoleType;
 import com.rdaniel.sd.a2.backend.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

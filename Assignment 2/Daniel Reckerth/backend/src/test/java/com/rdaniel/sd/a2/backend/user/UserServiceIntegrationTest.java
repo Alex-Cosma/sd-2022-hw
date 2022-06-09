@@ -29,7 +29,6 @@ class UserServiceIntegrationTest {
   @Autowired
   private RoleRepository roleRepository;
 
-
   @BeforeEach
   void setUp() {
     userRepository.deleteAll();

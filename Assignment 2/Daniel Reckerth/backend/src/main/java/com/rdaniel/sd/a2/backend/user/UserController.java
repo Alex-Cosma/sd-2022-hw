@@ -3,6 +3,7 @@ package com.rdaniel.sd.a2.backend.user;
 import com.rdaniel.sd.a2.backend.user.dto.RegularUserDto;
 import com.rdaniel.sd.a2.backend.user.dto.UserListDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,17 +17,20 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping(USERS_PATH)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
   private final UserService userService;
 
   @GetMapping
   @ResponseStatus(OK)
+  @PreAuthorize("hasRole('ADMIN')")
   public List<UserListDto> getAllUsers() {
     return userService.allUsersForList();
   }
 
   @GetMapping(REGULAR_USERS_PATH)
   @ResponseStatus(OK)
+  @PreAuthorize("hasRole('ADMIN')")
   public List<UserListDto> getAllRegularUsers() {
     try {
       return userService.findAllRegularUsers();
@@ -39,6 +43,7 @@ public class UserController {
 
   @GetMapping(RESOURCE_BY_ID)
   @ResponseStatus(OK)
+  @PreAuthorize("hasRole('ADMIN')")
   public UserListDto getUser(@PathVariable Long id) {
     try {
       return userService.findById(id);
@@ -51,6 +56,7 @@ public class UserController {
 
   @PostMapping
   @ResponseStatus(CREATED)
+  @PreAuthorize("hasRole('ADMIN')")
   public UserListDto createRegularUser(@RequestBody RegularUserDto regularUserDto) {
     try {
       return userService.createRegularUser(regularUserDto);
@@ -61,6 +67,7 @@ public class UserController {
 
   @PutMapping(RESOURCE_BY_ID)
   @ResponseStatus(OK)
+  @PreAuthorize("hasRole('ADMIN')")
   public UserListDto updateUser(@PathVariable Long id, @RequestBody RegularUserDto regularUserDto) {
     try {
       return userService.updateRegularUser(id, regularUserDto);
@@ -73,6 +80,7 @@ public class UserController {
 
   @DeleteMapping(RESOURCE_BY_ID)
   @ResponseStatus(NO_CONTENT)
+  @PreAuthorize("hasRole('ADMIN')")
   public void deleteUser(@PathVariable Long id) {
     try {
       userService.deleteRegularUser(id);

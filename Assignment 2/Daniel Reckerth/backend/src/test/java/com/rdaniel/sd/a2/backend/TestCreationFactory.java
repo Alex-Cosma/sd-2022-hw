@@ -6,8 +6,8 @@ import com.rdaniel.sd.a2.backend.user.dto.RegularUserDto;
 import com.rdaniel.sd.a2.backend.user.dto.UserListDto;
 import com.rdaniel.sd.a2.backend.user.model.User;
 
-import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -89,6 +89,7 @@ public class TestCreationFactory {
 
   public static BookDto newBookDto() {
     return BookDto.builder()
+        .id(randomLong())
         .author(randomString())
         .title(randomString())
         .genre(randomString())
@@ -121,9 +122,8 @@ public class TestCreationFactory {
 
   public static double randomBoundedDouble(double upperBound) {
     double lowerBound = 2D;
-    double generatedDouble = lowerBound + new Random().nextDouble() * (upperBound - lowerBound);
-    final DecimalFormat df = new DecimalFormat("#.##");
-    return Double.parseDouble(df.format(generatedDouble));
+    double nr =  lowerBound + new Random().nextDouble() * (upperBound - lowerBound);
+    return Double.parseDouble(String.format(Locale.ROOT,"%.2f", nr));
   }
 
   public static String randomString() {
