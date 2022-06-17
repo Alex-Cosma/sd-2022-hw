@@ -8,8 +8,18 @@ export default {
       }
     );
   },
-  export() {
-    return HTTP.get(BASE_URL + "/items/export" + "PDF", { headers: authHeader() }).then(
+//   /**
+//  * @param {string} searchedItem The string
+//  */
+  searchedItems(searchedItem) {
+    return HTTP.get(BASE_URL + "/items/" + searchedItem, { headers: authHeader() }).then(
+      (response) => {
+        return response.data;
+      }
+    );
+  },
+  exportReport(type) {
+    return HTTP.get(BASE_URL + "/items/export/" + type,  { headers: authHeader() }).then(
       (response) => {
         return response.data;
       }

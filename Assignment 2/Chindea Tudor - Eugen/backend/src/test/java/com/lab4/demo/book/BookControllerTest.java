@@ -32,7 +32,6 @@ class BookControllerTest extends BaseControllerTest {
     @Mock
     private BookService bookService;
 
-
     @BeforeEach
     protected void setUp() {
         super.setUp();

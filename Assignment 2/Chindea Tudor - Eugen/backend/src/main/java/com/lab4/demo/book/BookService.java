@@ -24,23 +24,16 @@ public class BookService {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item not found: " + id));
     }
-    public Book findByTitle(String title){
-        return bookRepository.findByTitle(title)
-                .orElseThrow(() -> new EntityNotFoundException("Item not found: " + title));
-    }
+
     public List<BookDTO> findAll() {
         return bookRepository.findAll().stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
-    public List<BookDTO> findByAuthor(String author) {
-        return bookRepository.findByAuthor(author).stream()
-                .map(bookMapper::toDto)
-                .collect(Collectors.toList());
-    }
-    public List<BookDTO> findByGenre(String genre) {
-        return bookRepository.findByGenre(genre).stream()
-                .map(bookMapper::toDto)
+    public List<BookDTO> findAllByTitleOrAuthorOrGenre(String searchedText){
+        System.out.println(searchedText);
+        return bookRepository.findAllByAuthorLikeOrGenreLikeOrTitleLike("%"+searchedText+"%","%"+searchedText+"%","%"+searchedText+"%")
+                .stream().map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
     public BookDTO create(BookDTO item) {
@@ -74,6 +67,7 @@ public BookDTO sell(Long id) {
     }
 
     public String export(ReportType type) throws IOException {
-        return reportServiceFactory.getReportService(type).export();
+
+        return reportServiceFactory.getReportService(type).export(bookRepository.findAll().stream().map(bookMapper::toDto).collect(Collectors.toList()));
     }
 }

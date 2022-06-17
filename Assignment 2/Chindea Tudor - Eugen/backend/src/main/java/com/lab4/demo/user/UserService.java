@@ -19,7 +19,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final RoleRepository roleRepository;
     private final AuthService authService;
 
     public List<UserDTO> findAll() {

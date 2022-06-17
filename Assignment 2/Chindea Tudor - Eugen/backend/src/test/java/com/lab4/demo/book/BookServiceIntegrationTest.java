@@ -25,7 +25,6 @@ class BookServiceIntegrationTest {
         bookRepository.deleteAll();
     }
 
-
     @Test
     void findAll() {
         List<Book> books = TestCreationFactory.listOf(Book.class);

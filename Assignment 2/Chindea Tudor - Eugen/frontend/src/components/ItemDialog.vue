@@ -23,6 +23,8 @@
           </v-btn>
           <v-btn @click="deleteItem" v-if="!isNew"> Delete </v-btn>
           <v-btn @click="exportPdf" > PDF </v-btn>
+          <v-btn @click="exportCsv" > CSV </v-btn>
+
         </v-card-actions>
       </v-card>
     </template>
@@ -74,8 +76,15 @@ export default {
     },
     exportPdf(){
       api.items
-          .export(
+          .exportReport(
             "PDF"
+          )
+          .then(() => this.$emit("refresh"));
+    },
+    exportCsv(){
+      api.items
+          .exportReport(
+            "CSV"
           )
           .then(() => this.$emit("refresh"));
     }

@@ -1,13 +1,27 @@
 package com.lab4.demo.user;
 
+import com.lab4.demo.user.UserController;
+import com.lab4.demo.user.UserService;
+import com.lab4.demo.user.dto.UserDTO;
 import com.lab4.demo.BaseControllerTest;
+import com.lab4.demo.TestCreationFactory;
+
+import com.lab4.demo.user.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
+import static com.lab4.demo.TestCreationFactory.*;
+import static com.lab4.demo.UrlMapping.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserControllerTest extends BaseControllerTest {
 
@@ -26,5 +40,42 @@ class UserControllerTest extends BaseControllerTest {
     }
 
 
+    @Test
+    void allUsers() throws Exception {
+        List<UserDTO> usersDTO = TestCreationFactory.listOf(UserDTO.class);
+        when(userService.findAll()).thenReturn(usersDTO);
 
+        ResultActions result = mockMvc.perform(get(USER));
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(usersDTO));
+    }
+
+    @Test
+    void create() throws Exception {
+        UserDTO reqUser = newUserDTO();
+        when(userService.create(reqUser)).thenReturn(reqUser);
+
+        ResultActions result = performPostWithRequestBody(USER, reqUser);
+        result.andExpect(status().isOk());
+    }
+
+    @Test
+    void delete() throws Exception {
+        long id =randomLong();
+        doNothing().when(userService).delete(id);
+
+        ResultActions result = performDeleteWIthPathVariable(USER + USERS_ID_PART, id);
+        verify(userService, times(1)).delete(id);
+        result.andExpect(status().isOk());
+    }
+
+    @Test
+    void edit() throws Exception {
+        long id =randomLong();
+        UserDTO reqUser = newUserDTO();
+        when(userService.edit(id, reqUser)).thenReturn(reqUser);
+
+        ResultActions resultActions = performPatchWithRequestBodyAndPathVariable(USER + USERS_ID_PART,reqUser, id);
+        resultActions.andExpect(status().isOk());
+    }
 }

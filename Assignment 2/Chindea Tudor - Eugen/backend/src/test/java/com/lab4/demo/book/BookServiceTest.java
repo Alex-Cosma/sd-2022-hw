@@ -4,7 +4,6 @@ import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.book.model.Book;
 import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.report.ReportServiceFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,9 +12,12 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static com.lab4.demo.TestCreationFactory.randomBoundedInt;
-import static com.lab4.demo.TestCreationFactory.randomString;
+import static com.lab4.demo.TestCreationFactory.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 class BookServiceTest {
@@ -28,7 +30,6 @@ class BookServiceTest {
 
     @Mock
     private BookMapper bookMapper;
-
 
     @Mock
     private ReportServiceFactory reportServiceFactory;
@@ -45,43 +46,58 @@ class BookServiceTest {
         when(bookRepository.findAll()).thenReturn(books);
 
         List<BookDTO> all = bookService.findAll();
-
-        Assertions.assertEquals(books.size(), all.size());
+        assertEquals(books.size(), all.size());
     }
+
+
     @Test
-    void findByAuthor() {
-        List<Book> books = new ArrayList<>();
-        Book book1 = Book.builder().title(randomString())
-                .author("auth1")
-                .genre(randomString())
-                .price(randomBoundedInt(100))
-                .quantity(randomBoundedInt(100))
-                .build();
-        Book book2 =  Book.builder().title(randomString())
-                .author("auth")
-                .genre(randomString())
-                .price(randomBoundedInt(100))
-                .quantity(randomBoundedInt(100))
-                .build();
-        Book book3 =  Book.builder().title(randomString())
-                .author("auth1 2")
-                .genre(randomString())
-                .price(randomBoundedInt(100))
-                .quantity(randomBoundedInt(100))
-                .build();
+    void create() {
+        Book book = newItem();
+        BookDTO bookDTO = newItemDTO();
+        when(bookMapper.toDto(book)).thenReturn(bookDTO);
+        when(bookMapper.fromDto(bookDTO)).thenReturn(book);
+        when(bookRepository.save(book)).thenReturn(book);
+        BookDTO newBookDTO = bookService.create(bookDTO);
+        assertEquals(newBookDTO,bookDTO);
+    }
 
-        books.add(book1);
-        books.add(book2);
-        books.add(book3);
+    @Test
+    void delete() {
+        Book book = newItem();
+        when(bookRepository.save(book)).thenReturn(book);
+        Long id = book.getId();
+        when(bookRepository.findById(id)).thenReturn(Optional.of(book));
+        doNothing().when(bookRepository).delete(book);
+        bookService.delete(book.getId());
+        assertFalse(bookRepository.existsById(id));
+    }
 
-        bookRepository.save(book2);
-        bookRepository.save(book1);
-        bookRepository.save(book3);
+    @Test
+    void edit() {
+        Long bookId = randomLong();
+        Book book = newItem();
+        BookDTO bookDTO = newItemDTO();
+        book.setId(bookId);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+        when(bookMapper.toDto(book)).thenReturn(bookDTO);
+        when(bookMapper.fromDto(bookDTO)).thenReturn(book);
+        when(bookRepository.save(book)).thenReturn(book);
+        BookDTO newBookDTO = bookService.edit(bookId, bookDTO);
 
-        when(bookRepository.findByAuthor("auth1")).thenReturn(books);
+        assertEquals(newBookDTO, bookDTO);
+    }
 
-        List<BookDTO> all = bookService.findByAuthor("auth1");
-        System.out.println(books.size()+"  "+all.size());
-        Assertions.assertEquals(books.size(), all.size());
+    @Test
+    void sell() {
+        Long bookId = randomLong();
+        Book book = newItem();
+        BookDTO bookDTO = newItemDTO();
+        book.setId(bookId);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+        when(bookMapper.toDto(book)).thenReturn(bookDTO);
+        when(bookRepository.save(book)).thenReturn(book);
+        BookDTO newBookDTO = bookService.sell(bookId);
+
+        assertEquals(newBookDTO, bookDTO);
     }
 }

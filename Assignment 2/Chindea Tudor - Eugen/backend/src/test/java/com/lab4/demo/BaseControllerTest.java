@@ -7,12 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 public abstract class BaseControllerTest {
@@ -40,7 +41,14 @@ public abstract class BaseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
     }
-
+    protected ResultActions performDeleteWIthPathVariable(String path, Object pathVariable) throws Exception {
+        return mockMvc.perform(jsonType(delete(path, pathVariable)));
+    }
+    protected ResultActions performPatchWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
+        return mockMvc.perform(jsonType(patch(path, pathVariable)
+                .content(asJsonString(body)))
+        );
+    }
     protected ResultActions performGet(String path) throws Exception {
         return mockMvc.perform(get(path));
     }
@@ -51,7 +59,10 @@ public abstract class BaseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
     }
-
+    private RequestBuilder jsonType(MockHttpServletRequestBuilder content) {
+        return content.contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON);
+    }
     protected String asJsonString(final Object obj) {
         try {
             ObjectMapper mapper = new ObjectMapper();
