@@ -43,6 +43,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.flywaydb/flyway-core
     //implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.10'
     compile "org.flywaydb:flyway-core:7.9.0"
+    // https://mvnrepository.com/artifact/com.textmagic.sdk/textmagic-java-sdk
+    implementation group: 'com.textmagic.sdk', name: 'textmagic-java-sdk', version: '1.2.0'
+    // https://mvnrepository.com/artifact/com.twilio.sdk/twilio
+    implementation group: 'com.twilio.sdk', name: 'twilio', version: '8.31.1'
+
+
+
 
 }
 

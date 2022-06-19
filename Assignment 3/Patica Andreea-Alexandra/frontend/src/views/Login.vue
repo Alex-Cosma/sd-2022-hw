@@ -34,6 +34,31 @@
                 validate-on-blur
               ></v-text-field>
 
+              <v-text-field
+                  v-if="mode === 'register'"
+                  prepend-icon="person"
+                  name="FirstName"
+                  label="FirstName"
+                  v-model="login.firstName"
+                  validate-on-blur
+              ></v-text-field>
+              <v-text-field
+                  v-if="mode === 'register'"
+                  prepend-icon="person"
+                  name="LastName"
+                  label="LastName"
+                  v-model="login.lastName"
+                  validate-on-blur
+              ></v-text-field>
+              <v-text-field
+                  v-if="mode === 'register'"
+                  prepend-icon="person"
+                  name="PhoneNumber"
+                  label="PhoneNumber"
+                  v-model="login.phoneNumber"
+                  validate-on-blur
+              ></v-text-field>
+
               <v-checkbox
                 v-if="mode === 'register'"
                 v-model="checkbox"
@@ -86,6 +111,9 @@ export default {
       email: "",
       username: "",
       password: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
       admin: true,
     },
   }),
@@ -96,7 +124,7 @@ export default {
           if (this.$store.getters["auth/isAdmin"]) {
             router.push("/options");
           } else {
-            router.push("/items");
+            router.push("/user-options");
           }
         } else {
           alert("Invalid credentials!");

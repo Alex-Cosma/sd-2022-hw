@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Library</v-toolbar-title>
+      <v-toolbar-title>Booking App</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

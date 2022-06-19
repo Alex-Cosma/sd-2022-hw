@@ -9,6 +9,7 @@
               <h4 v-else>Register</h4>
             </v-card-title>
             <v-form>
+
               <v-text-field
                 v-if="mode === 'register'"
                 prepend-icon="email"
@@ -18,6 +19,7 @@
                 validate-on-blur
               >
               </v-text-field>
+
               <v-text-field
                 prepend-icon="person"
                 name="Username"

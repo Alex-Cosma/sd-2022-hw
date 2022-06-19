@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Items
+      Properties
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -10,66 +10,70 @@
         single-line
         hide-details
       ></v-text-field>
-      <v-btn @click="addItem">Add Item</v-btn>
+      <v-btn @click="addProperty">Add Property</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :properties="properties"
       :search="search"
-      @click:row="editItem"
+      @click:row="editProperty"
     ></v-data-table>
-    <ItemDialog
+    <PropertyDialog
       :opened="dialogVisible"
-      :item="selectedItem"
+      :property="selectedProperty"
       @refresh="refreshList"
       @close="dialogVisible = !dialogVisible"
-    ></ItemDialog>
+    ></PropertyDialog>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
-import ItemDialog from "../components/ItemDialog";
+import PropertyDialog from "../components/PropertyDialog";
 
 export default {
-  name: "ItemList",
-  components: { ItemDialog },
+  name: "PropertyList",
+  components: { PropertyDialog },
   data() {
     return {
-      items: [],
+      properties: [],
       search: "",
       headers: [
         {
-          text: "Title",
+          text: "Name",
           align: "start",
           sortable: false,
-          value: "title",
+          value: "name",
         },
-        { text: "Author", value: "author" },
+        { text: "Owner", value: "owner" },
+        { text: "Address", value: "address" },
         { text: "Price", value: "price" },
-        { text: "Quantity", value: "quantity" },
         { text: "Description", value: "description" },
+        { text: "NumberOfRooms", value: "numberOfRooms" },
+        { text: "NumberOfBeds", value: "numberOfBeds" },
+        { text: "NumberOfBathrooms", value: "numberOfBathrooms" },
+        { text: "Kitchen", value: "kitchen" },
       ],
       dialogVisible: false,
-      selectedItem: {},
+      selectedProperty: {},
     };
   },
   methods: {
-    editItem(item) {
-      this.selectedItem = item;
+    editProperty(property) {
+      this.selectedProperty = property;
       this.dialogVisible = true;
     },
-    addItem() {
-      this.selectedItem = {};
+    addProperty() {
+      this.selectedProperty = {};
       this.dialogVisible = true;
     },
     async refreshList() {
       console.log("aaaaaaaaaaaaa");
       this.dialogVisible = false;
-      this.selectedItem = {};
-      this.items = await api.items.getAllItemz();
+      this.selectedProperty = {};
+      this.properties = await api.properties.getAllItemz();
       console.log("bbbbbbbbbbbbbbb");
-      console.log(this.items);
+      console.log(this.properties);
     },
   },
   created() {

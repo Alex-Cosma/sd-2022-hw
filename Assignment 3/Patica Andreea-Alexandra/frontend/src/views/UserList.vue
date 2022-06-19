@@ -48,6 +48,9 @@ export default {
         },
         { text: "Email", value: "email" },
         { text: "Password", value: "password" },
+        { text: "FirstName", value: "firstName" },
+        { text: "LastName", value: "lastName" },
+        { text: "PhoneNumber", value: "phoneNumber" },
         //TODO add roles
       ],
       dialogVisible: false,

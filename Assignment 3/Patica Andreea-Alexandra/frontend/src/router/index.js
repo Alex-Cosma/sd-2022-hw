@@ -1,12 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import UserList from "../views/UserList.vue";
-import AdminItemList from "../views/ItemList.vue";
-import ItemList from "../views/ItemListEmployee.vue";
+import AdminPropertyList from "../views/PropertyList.vue";
+import PropertyListUser from "../views/PropertyListUser.vue";
+import SearchPropertyList from "../views/SearchPropertyList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 import AdminOpts from "../views/AdminOptions.vue";
-import GoogleBooksApi from "../views/GoogleApi/GoogleBooksApi.vue"
+import UserOpts from "../views/UserOptions.vue";
+// import GoogleBooksApi from "../views/GoogleApi/GoogleBooksApi.vue"
 
 Vue.use(VueRouter);
 
@@ -24,7 +26,19 @@ const routes = [
       if (store.getters.isAdmin) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "UserOpts" });
+      }
+    },
+  },
+  {
+    path: "/user-options",
+    name: "UserOpts",
+    component: UserOpts,
+    beforeEnter: (to, from, next) => {
+      if (store.state.status.loggedIn) {
+        next();
+      } else {
+        next({ name: "Home" });
       }
     },
   },
@@ -36,38 +50,38 @@ const routes = [
       if (store.getters.isAdmin) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "Properties" });
       }
     },
   },
   {
-    path: "/admin-items",
-    name: "AdminItems",
-    component: AdminItemList,
+    path: "/admin-properties",
+    name: "AdminProperties",
+    component: AdminPropertyList,
     beforeEnter: (to, from, next) => {
       if (store.getters.isAdmin) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "Properties" });
       }
     },
   },
   {
-    path: "/google-books",
-    name: "GoogleBooksApi",
-    component: GoogleBooksApi,
+    path: "/user-properties",
+    name: "PropertyListUser",
+    component: PropertyListUser,
     beforeEnter: (to, from, next) => {
-      if (store.getters.isAdmin) {
+      if (store.state.status.loggedIn) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "Home" });
       }
     },
   },
   {
-    path: "/items",
-    name: "Items",
-    component: ItemList,
+    path: "/search-properties",
+    name: "SearchPropertyList",
+    component: SearchPropertyList,
     beforeEnter: (to, from, next) => {
       if (store.state.status.loggedIn) {
         next();

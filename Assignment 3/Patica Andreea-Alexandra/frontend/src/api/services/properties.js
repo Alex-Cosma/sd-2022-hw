@@ -5,33 +5,42 @@ import ByteToDocument from "./reportGen";
 
 export default {
   getAllItemz() {
-    console.log(BASE_URL + "/items");
-    return HTTP.get(BASE_URL + "/items", { headers: authHeader() }).then(
+    console.log(BASE_URL + "/property");
+    return HTTP.get(BASE_URL + "/property", { headers: authHeader() }).then(
       (response) => {
         console.log(response.data);
         return response.data;
       }
     );
   },
-  create(item) {
-    console.log(BASE_URL + "/items", item);
-    return HTTP.post(BASE_URL + "/items", item, {
+  getPropertiesByOwner(owner) {
+    console.log(BASE_URL + "/property" + owner.getUsername());
+    return HTTP.get(BASE_URL + "/property", { headers: authHeader() }).then(
+        (response) => {
+          console.log(response.data);
+          return response.data;
+        }
+    );
+  },
+  create(property) {
+    console.log(BASE_URL + "/property", property);
+    return HTTP.post(BASE_URL + "/property", property, {
       headers: authHeader(),
     }).then((response) => {
       console.log(response.data);
       return response.data;
     });
   },
-  edit(item) {
-    return HTTP.patch(BASE_URL + "/items/" + item.id, item, {
+  edit(property) {
+    return HTTP.patch(BASE_URL + property.id, property, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;
     });
   },
-  deleteItem(item) {
+  deleteProperty(property) {
     console.log("delete");
-    return HTTP.delete(BASE_URL + "/items/delete/" + item.id, {
+    return HTTP.delete(BASE_URL + "/property/" + property.id, {
       headers: authHeader(),
     }).then((response) => {
       console.log(response.data);

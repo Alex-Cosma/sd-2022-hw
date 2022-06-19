@@ -28,10 +28,11 @@ public class PropertyService {
                 .orElseThrow(() -> new RuntimeException(format("Property with id %s not found", id)));
     }
 
-    public List<PropertyDto> findAll(){
-        return propertyRepository.findAll().stream()
-                .map(propertyMapper::propertyToPropertyDto)
-                .collect(Collectors.toList());
+    public List<Property> findAll(){
+//        return propertyRepository.findAll().stream()
+//                .map(propertyMapper::propertyToPropertyDto)
+//                .collect(Collectors.toList());
+        return propertyRepository.findAll();
     }
 
     public List<PropertyDto> allPropertiesByOwner(String username){

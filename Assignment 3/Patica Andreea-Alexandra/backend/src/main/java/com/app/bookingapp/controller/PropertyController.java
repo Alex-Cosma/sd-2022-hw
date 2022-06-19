@@ -1,6 +1,7 @@
 package com.app.bookingapp.controller;
 
 import com.app.bookingapp.data.dto.model.PropertyDto;
+import com.app.bookingapp.data.sql.entity.Property;
 import com.app.bookingapp.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class PropertyController {
     private final PropertyService propertyService;
 
     @GetMapping
-    public List<PropertyDto> allProperties(){
+    public List<Property> allProperties(){
         return propertyService.findAll();
     }
 
