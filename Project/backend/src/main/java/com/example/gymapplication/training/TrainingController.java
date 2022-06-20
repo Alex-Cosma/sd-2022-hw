@@ -1,12 +1,17 @@
 package com.example.gymapplication.training;
 
+import com.example.gymapplication.report.ReportType;
 import com.example.gymapplication.security.dto.MessageResponse;
 import com.example.gymapplication.training.model.dto.TrainingDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static com.example.gymapplication.UrlMapping.*;
@@ -64,5 +69,16 @@ public class TrainingController {
         trainingService.delete(id);
 
         return ResponseEntity.ok(new MessageResponse("Training deleted successfully"));
+    }
+
+    @GetMapping(EXPORT_REPORT)
+    public ResponseEntity<Resource> exportReport(@PathVariable ReportType type, @PathVariable String username){
+        InputStreamResource resource = null;
+        try {
+            resource = new InputStreamResource(new FileInputStream(trainingService.export(type, username)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok().body(resource);
     }
 }

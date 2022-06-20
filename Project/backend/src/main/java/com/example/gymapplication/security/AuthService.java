@@ -1,5 +1,6 @@
 package com.example.gymapplication.security;
 
+import com.example.gymapplication.email.EmailService;
 import com.example.gymapplication.security.dto.SignupRequest;
 import com.example.gymapplication.user.RoleRepository;
 import com.example.gymapplication.user.UserRepository;
@@ -21,6 +22,8 @@ public class AuthService {
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder encoder;
+
+    private final EmailService emailService;
 
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -51,6 +54,8 @@ public class AuthService {
                 roles.add(ro);
             });
         }
+
+        emailService.sendMail(user);
 
         user.setRoles(roles);
         userRepository.save(user);

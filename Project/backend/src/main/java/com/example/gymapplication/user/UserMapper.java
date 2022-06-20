@@ -35,20 +35,4 @@ public interface UserMapper {
     })
     User fromDto(UserDTO userDTO);
 
-
-    @AfterMapping
-    default void populateRoles(User user, @MappingTarget UserListDTO userListDTO) {
-        userListDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toSet()));
-    }
-
-    @AfterMapping
-    default void populateRegularTrainings(User user, @MappingTarget UserDTO userDTO) {
-        userDTO.setRegularTrainings(user.getTrainings().stream().map(regularTraining -> regularTraining.getTitle()).collect(Collectors.toList()));
-    }
-
-    @AfterMapping
-    default void populateTrainings(User user, @MappingTarget UserDTO userDTO) {
-        userDTO.setTrainings(user.getTrainings().stream().map(training -> training.getTitle()).collect(Collectors.toList()));
-    }
-
 }

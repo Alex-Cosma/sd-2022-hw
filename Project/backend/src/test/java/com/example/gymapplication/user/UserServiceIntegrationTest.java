@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.gymapplication.TestCreationFactory.randomLong;
 import static com.example.gymapplication.TestCreationFactory.randomString;
 import static com.example.gymapplication.user.model.ERole.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,9 +47,9 @@ public class UserServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        //userRepository.deleteAll();
+        userRepository.deleteAll();
         roleRepository.deleteAll();
-        roleRepository.save(new Role(1,ADMIN));
+        roleRepository.save(new Role(1, ADMIN));
         roleRepository.save(new Role(2,TRAINER));
         roleRepository.save(new Role(3,REGULAR_USER));
     }
@@ -87,16 +88,44 @@ public class UserServiceIntegrationTest {
                 .password(passwordEncoder.encode(randomString()))
                 .roles(Set.of(role))
                 .trainings(List.of(training))
-                .regularTrainings(List.of(training))
+                .regularTrainings(Set.of(training))
                 .build();
 
-        User user2 = userRepository.save(user1);
+        UserDTO userDTO = UserDTO.builder()
+                .username(user1.getUsername())
+                .email(user1.getEmail())
+                .password(user1.getPassword())
+                .build();
 
-        System.out.println(user2.getUsername());
+        UserDTO user2 = userService.create(userDTO);
 
-        //UserDTO userDTO1 = userService.create(user);
+        assertTrue(userRepository.findById(user2.getId()).isPresent());
+    }
 
-        //assertEquals(user.getUsername(), userDTO1.getUsername());
-        assertTrue(userRepository.findById(user1.getId()).isPresent());
+    @Test
+    void edit() {
+        UserDTO user = UserDTO.builder()
+                .id(randomLong())
+                .username(randomString())
+                .email("email@email.com")
+                .password(passwordEncoder.encode(randomString()))
+                .build();
+        UserDTO user2 = userService.create(user);
+        user2.setUsername("otherUsername");
+        userService.edit(user2.getId(),user2);
+
+        assertEquals(userRepository.findById(user2.getId()).get().getUsername(), user2.getUsername());
+    }
+
+    @Test
+    void delete() {
+        UserDTO user = UserDTO.builder()
+                .username(randomString())
+                .email("email@email.com")
+                .password(passwordEncoder.encode(randomString()))
+                .build();
+        UserDTO user2 = userService.create(user);
+        userService.delete(user2.getId());
+        assertTrue(userRepository.findById(user2.getId()).isEmpty());
     }
 }

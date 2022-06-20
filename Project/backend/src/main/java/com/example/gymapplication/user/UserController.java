@@ -25,6 +25,12 @@ public class UserController {
         return userService.allUsersForList();
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(TRAINERS)
+    public List<UserDTO> allTrainers() {
+        return userService.allTrainers();
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid UserDTO user) {
 

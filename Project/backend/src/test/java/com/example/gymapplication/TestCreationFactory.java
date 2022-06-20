@@ -2,18 +2,25 @@ package com.example.gymapplication;
 
 import com.example.gymapplication.training.model.Training;
 import com.example.gymapplication.training.model.dto.TrainingDTO;
+import com.example.gymapplication.tutorial.model.dto.TutorialDTO;
+import com.example.gymapplication.user.model.ERole;
+import com.example.gymapplication.user.model.Role;
 import com.example.gymapplication.user.model.User;
 import com.example.gymapplication.user.model.dto.UserDTO;
 import com.example.gymapplication.user.model.dto.UserListDTO;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.example.gymapplication.user.model.ERole.TRAINER;
 import static java.util.stream.Collectors.toList;
 
 public class TestCreationFactory {
@@ -87,6 +94,14 @@ public class TestCreationFactory {
                 .id(randomLong())
                 .title(randomString())
                 .type(randomString())
+                .build();
+    }
+
+    public static TutorialDTO newTutorialDTO() {
+        return TutorialDTO.builder()
+                .id(randomString())
+                .title(randomString())
+                .image(new Binary(BsonBinarySubType.BINARY, randomString().getBytes()))
                 .build();
     }
 

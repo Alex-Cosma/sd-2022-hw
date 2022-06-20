@@ -3,8 +3,9 @@ package com.example.gymapplication.training;
 import com.example.gymapplication.BaseControllerTest;
 import com.example.gymapplication.TestCreationFactory;
 import com.example.gymapplication.security.dto.MessageResponse;
-import com.example.gymapplication.training.model.Training;
 import com.example.gymapplication.training.model.dto.TrainingDTO;
+import com.example.gymapplication.user.UserService;
+import com.example.gymapplication.user.model.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,10 +15,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
-import static com.example.gymapplication.TestCreationFactory.randomLong;
-import static com.example.gymapplication.TestCreationFactory.randomString;
-import static com.example.gymapplication.UrlMapping.TRAININGS;
-import static com.example.gymapplication.UrlMapping.TRAINING_ID_PATH;
+import static com.example.gymapplication.TestCreationFactory.*;
+import static com.example.gymapplication.UrlMapping.*;
+import static com.example.gymapplication.report.ReportType.PDF;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +28,9 @@ public class TrainingControllerTest extends BaseControllerTest {
 
     @Mock
     private TrainingService trainingService;
+
+    @Mock
+    private UserService userService;
 
     @BeforeEach
     protected void setUp() {
@@ -127,4 +130,32 @@ public class TrainingControllerTest extends BaseControllerTest {
         result2.andExpect(status().isOk()).andExpect(jsonContentToBe(new MessageResponse("Training deleted successfully")));
         verify(trainingService, times(1)).delete(reqTraining.getId());
     }
+
+    /*
+    @Test
+    void exportReport() throws Exception {
+        UserDTO reqUser = UserDTO.builder()
+                .id(1L)
+                .username("username3")
+                .email("email3@email.com")
+                .password(encodePassword("password3"))
+                .build();
+
+        TrainingDTO reqTraining = TrainingDTO.builder()
+                .id(1L)
+                .title("Cardio")
+                .type("For kids")
+                .date("Wednesday")
+                .location("Calea Turzii nr. 82")
+                .build();
+
+        when(userService.create(reqUser)).thenReturn(reqUser);
+        when(trainingService.create(reqTraining)).thenReturn(reqTraining);
+        when(userService.create(reqUser)).thenReturn(reqUser);
+
+        ResultActions result = performGetWithPathVariable(TRAININGS+EXPORT_REPORT,PDF,"username3");
+        result.andExpect(status().isOk());
+    }
+    */
+
 }

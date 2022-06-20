@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static com.example.gymapplication.user.model.ERole.REGULAR_USER;
+import static com.example.gymapplication.user.model.ERole.TRAINER;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -29,34 +31,24 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder encoder;
 
-    /*
-    public List<UserMinimalDTO> allUsersMinimal() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::userMinimalFromUser)
-                .collect(toList());
-    }
-    */
-
     public List<UserListDTO> allUsersForList() {
         return userRepository.findAll()
                 .stream().map(userMapper::userListDtoFromUser)
                 .collect(toList());
     }
 
-    /*
-    public List<UserDTO> allUsers() {
+    public List<UserDTO> allTrainers() {
         return userRepository.findAll()
-                .stream().map(userMapper::toDto)
+                .stream()
+                .filter(user -> user.getRoles().contains(roleRepository.findByName(TRAINER)
+                        .orElseThrow(() -> new EntityNotFoundException("Role not found"))))
+                .map(user -> {
+                    UserDTO userDTO = userMapper.toDto(user);
+                    userDTO.setRole(user.getRoles().toString());
+                    return userDTO;
+                })
                 .collect(toList());
     }
-    */
-
-    /*
-    public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
-    }
-    */
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
@@ -76,7 +68,7 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("Role not found: " + REGULAR_USER));
 
         user.setRoles(Set.of(r));
-        user.setRegularTrainings(new ArrayList<>());
+        user.setRegularTrainings(new HashSet<>());
 
         return userMapper.toDto(userRepository.save(user));
     }
@@ -98,16 +90,13 @@ public class UserService {
 
     public void addRegularTraining(Long userId, Long trainingId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"))   ;
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         Training training = trainingRepository.findById(trainingId)
                 .orElseThrow(() -> new EntityNotFoundException("Training not found"));
 
         user.getRegularTrainings().add(training);
 
-        //userMapper.populateRegularTrainings(user,userMapper.toDto(user));
-
-        //userRepository.save(user);
         userMapper.toDto(userRepository.save(user));
     }
 }
