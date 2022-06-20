@@ -17,7 +17,7 @@ public class MailServer {
                 mailSender.setPort(587);
 
                 mailSender.setUsername("zaraantonia@yahoo.com");
-                mailSender.setPassword("xmxnlllfbydokbik");
+                mailSender.setPassword("password");
 
                 Properties props = mailSender.getJavaMailProperties();
                 props.put("mail.smtp.ssl.trust", "smtp.mail.yahoo.com");
