@@ -24,10 +24,11 @@ public class UserService {
     private final AccountTypeRepository accountTypeRepository;
     private final RoleRepository roleRepository;
 
-    public List<UserDto> findAll(){
-        return userRepository.findAll().stream()
-                .map(userMapper::userToUserDto)
-                .collect(Collectors.toList());
+    public List<User> findAll(){
+//        return userRepository.findAll().stream()
+//                .map(userMapper::userToUserDto)
+//                .collect(Collectors.toList());
+        return userRepository.findAll();
     }
 
     //TODO all regular users

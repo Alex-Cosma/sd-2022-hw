@@ -12,9 +12,9 @@
         </v-toolbar>
         <v-form @submit="checkForm">
           <v-text-field v-model="property.name" label="Title" />
-          <v-text-field v-model="property.owner" label="Author" />
-          <v-text-field v-model="property.address" label="Price" />
-          <v-text-field v-model="property.price" label="Quantity" />
+          <v-text-field v-model="property.owner" label="Owner" />
+          <v-text-field v-model="property.address" label="Address" />
+          <v-text-field v-model="property.price" label="Price" />
           <v-text-field v-model="property.description" label="Description" />
           <v-text-field v-model="property.numberOfRooms" label="NumberOfRooms" />
           <v-text-field v-model="property.numberOfBeds" label="NumberOfBeds" />
@@ -104,11 +104,16 @@ export default {
         api.properties
           .deleteProperty({
             id: this.property.id,
-            title: this.property.title,
-            author: this.property.author,
+            name: this.property.name,
+            owner: this.property.owner,
+            address: this.property.address,
+            picturesId: this.property.picturesId,
             price: this.property.price,
-            quantity: this.property.quantity,
             description: this.property.description,
+            numberOfRooms: this.property.numberOfRooms,
+            numberOfBeds: this.property.numberOfBeds,
+            numberOfBathrooms: this.property.numberOfBathrooms,
+            kitchen: this.property.kitchen,
           })
           .then(() => this.$emit("refresh"));
       }

@@ -1,6 +1,7 @@
 package com.app.bookingapp.controller;
 
 import com.app.bookingapp.data.dto.model.UserDto;
+import com.app.bookingapp.data.sql.entity.User;
 import com.app.bookingapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserDto> allUsers(){
+    public List<User> allUsers(){
         return userService.findAll();
     }
 

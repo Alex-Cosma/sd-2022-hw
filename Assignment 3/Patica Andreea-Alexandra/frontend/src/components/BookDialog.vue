@@ -8,19 +8,11 @@
     <template>
       <v-card>
         <v-toolbar color="primary" dark>
-          {{ isNew ? "Create property" : "Edit property" }}
+          {{ "Want to book?" }}
         </v-toolbar>
-        <v-form @submit="checkForm">
-          <v-text-field v-model="property.name" label="Title" />
-          <v-text-field v-model="property.owner" label="Author" />
-          <v-text-field v-model="property.address" label="Price" />
-          <v-text-field v-model="property.price" label="Quantity" />
-          <v-text-field v-model="property.description" label="Description" />
-          <v-text-field v-model="property.numberOfRooms" label="NumberOfRooms" />
-          <v-text-field v-model="property.numberOfBeds" label="NumberOfBeds" />
-          <v-text-field v-model="property.numberOfBathrooms" label="NumberOfBathrooms" />
-          <v-text-field v-model="property.kitchen" label="Kitchen" />
-        </v-form>
+<!--        <v-form @submit="checkForm">-->
+          <p>Name: {{ property.name }}</p>
+<!--        </v-form>-->
         <v-card-actions>
           <v-btn @click="persist">
             {{ isNew ? "Create" : "Save" }}
@@ -34,6 +26,7 @@
       </v-card>
     </template>
   </v-dialog>
+
 </template>
 
 <script>
@@ -44,6 +37,8 @@ export default {
   props: {
     property: Object,
     user: Object,
+    arrivalDate: Date,
+    leavingDate: Date,
     opened: Boolean,
   },
   methods: {

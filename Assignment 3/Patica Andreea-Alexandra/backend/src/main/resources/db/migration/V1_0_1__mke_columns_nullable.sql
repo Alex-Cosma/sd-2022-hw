@@ -1,0 +1,1 @@
+ALTER TABLE property MODIFY pictures_id int(11);
