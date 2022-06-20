@@ -14,7 +14,7 @@ function BookItem({ book }) {
       <div>{book.price}</div>
       <Link
         to={
-          user.roles.includes('ADMIN')
+          user.roles.includes('ROLE_ADMIN')
             ? `/books/${book.id}`
             : `/books/${book.id}/sell`
         }

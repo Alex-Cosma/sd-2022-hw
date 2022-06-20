@@ -11,6 +11,7 @@ function Register() {
   const rolesOptions = [
     { value: 'ROLE_ADMIN', label: 'Administrator' },
     { value: 'ROLE_EMPLOYEE', label: 'Employee' },
+    { value: 'ROLE_CUSTOMER', label: 'Customer' },
   ]
 
   const [formData, setFormData] = useState({
@@ -34,9 +35,9 @@ function Register() {
       toast.error(message)
     }
 
-    // redirect when logged in
+    //
     if (isSuccess || user) {
-      navigate('/')
+      navigate('/login')
     }
 
     dispatch(reset())
@@ -71,6 +72,9 @@ function Register() {
         roles,
       }
       dispatch(register(userData))
+      toast.success(
+        'Account registered! You will receive a notification email!'
+      )
     }
   }
 

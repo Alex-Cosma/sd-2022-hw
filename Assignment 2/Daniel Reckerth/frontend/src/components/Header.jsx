@@ -30,7 +30,7 @@ function Header() {
       <ul>
         {user ? (
           <>
-            {user.roles.includes('ADMIN') ? (
+            {user.roles.includes('ROLE_ADMIN') ? (
               <>
                 <li>
                   <Link to='/books'>

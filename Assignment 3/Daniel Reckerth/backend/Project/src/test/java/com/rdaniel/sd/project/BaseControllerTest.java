@@ -1,4 +1,4 @@
-package com.rdaniel.sd.a2.backend;
+package com.rdaniel.sd.project;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,7 +43,19 @@ public abstract class BaseControllerTest {
     );
   }
 
+  protected ResultActions performPostWithRequestBodyAndPathVariables(String path, Object body, Object... pathVariables) throws Exception {
+    return mockMvc.perform(jsonType(post(path, pathVariables)
+        .content(asJsonString(body)))
+    );
+  }
+
   protected ResultActions performPatchWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
+    return mockMvc.perform(jsonType(patch(path, pathVariable)
+        .content(asJsonString(body)))
+    );
+  }
+
+  protected ResultActions performPatchWithRequestBodyAndPathVariables(String path, Object body, Object... pathVariable) throws Exception {
     return mockMvc.perform(jsonType(patch(path, pathVariable)
         .content(asJsonString(body)))
     );
@@ -55,11 +67,25 @@ public abstract class BaseControllerTest {
     );
   }
 
+  protected ResultActions performPutWithRequestBodyAndPathVariables(String path, Object body, Object... pathVariable) throws Exception {
+    return mockMvc.perform(jsonType(put(path, pathVariable)
+        .content(asJsonString(body)))
+    );
+  }
+
   protected ResultActions performDeleteWithPathVariable(String path, Object pathVariable) throws Exception {
     return mockMvc.perform(jsonType(delete(path, pathVariable)));
   }
 
+  protected ResultActions performDeleteWithPathVariables(String path, Object... pathVariable) throws Exception {
+    return mockMvc.perform(jsonType(delete(path, pathVariable)));
+  }
+
   protected ResultActions performGetWithPathVariable(String path, Object pathVariable) throws Exception {
+    return mockMvc.perform(jsonType(get(path, pathVariable)));
+  }
+
+  protected ResultActions performGetWithPathVariables(String path, Object... pathVariable) throws Exception {
     return mockMvc.perform(jsonType(get(path, pathVariable)));
   }
 
