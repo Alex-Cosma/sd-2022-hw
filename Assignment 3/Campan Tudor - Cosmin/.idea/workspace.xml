@@ -5,51 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0142d9f5-9388-4e14-98d7-f0c96b9df9a9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Mail/MailSendigService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Reports/Model/Report.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Reports/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Reports/ReportService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Reports/ReportsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/DriverController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/DriverMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/DriverRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/DriverService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/model/Driver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/driver/model/dto/DriverDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/FineController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/FineMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/FineRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/FineService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/Model/Fine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/fine/Model/dto/FineDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/section/Model/Section.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/section/SectionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/section/SectionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/user/mapper/NewUserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/driver/DriverControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/driver/DriverRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/driver/DriverServiceIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/driver/DriverServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/fine/FineControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/fine/FineServiceIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/fine/FineServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/mail/MailSendingServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/reports/ReportsControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/reports/ReportsServiceIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/reports/ReportsServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/section/SectionRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/section/SectionServiceIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/section/SectionServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/policeSection/user/UserServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/services/drivers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/services/reports.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/DriverDialog.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/UserDialog.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/views/DriverList.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ProiectCampanTudor/ProiectCampanTudor.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Assignment 1/Campan Tudor - Cosmin/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assignment 1/Campan Tudor - Cosmin/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Assignment 1/Campan Tudor - Cosmin/src/test/java/repository/action/ActionRepositoryMySqlTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assignment 1/Campan Tudor - Cosmin/src/test/java/repository/action/ActionRepositoryMySqlTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.changeMe!" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProiectTudor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ProiectTudor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Bootstrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/policeSection/Bootstrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdfReport.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/pdfReport.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,8 +85,8 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Gradle.UserServiceIntegrationTest">
-    <configuration name="UserControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.FineServiceIntegrationTest.create">
+    <configuration name="FineServiceIntegrationTest.create" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
@@ -140,7 +99,53 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.policeSection.user.UserControllerTest&quot;" />
+            <option value="&quot;com.policeSection.fine.FineServiceIntegrationTest.create&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="FineServiceIntegrationTest.findAll" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.policeSection.fine.FineServiceIntegrationTest.findAll&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SectionRepositoryTest.testFindByNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.policeSection.section.SectionRepositoryTest.testFindByNumber&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -173,52 +178,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="UserServiceIntegrationTest.delete" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.policeSection.user.UserServiceIntegrationTest.delete&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="UserServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.policeSection.user.UserServiceTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="demo.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.policeSection.DemoApplication" />
@@ -234,11 +193,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.UserServiceIntegrationTest" />
-        <item itemvalue="Gradle.UserServiceIntegrationTest.delete" />
+        <item itemvalue="Gradle.FineServiceIntegrationTest.create" />
+        <item itemvalue="Gradle.FineServiceIntegrationTest.findAll" />
+        <item itemvalue="Gradle.SectionRepositoryTest.testFindByNumber" />
         <item itemvalue="Spring Boot.DemoApplication" />
-        <item itemvalue="Gradle.UserControllerTest" />
-        <item itemvalue="Gradle.UserServiceTest" />
+        <item itemvalue="Gradle.UserServiceIntegrationTest" />
       </list>
     </recent_temporary>
   </component>
@@ -254,7 +213,13 @@
       <workItem from="1652900764748" duration="9714000" />
       <workItem from="1653048279201" duration="60036000" />
       <workItem from="1653470125613" duration="21013000" />
-      <workItem from="1653549486459" duration="32382000" />
+      <workItem from="1653549486459" duration="32599000" />
+      <workItem from="1653630075227" duration="959000" />
+      <workItem from="1653739991469" duration="995000" />
+      <workItem from="1654509557252" duration="1607000" />
+      <workItem from="1654524278647" duration="1975000" />
+      <workItem from="1655733251431" duration="2780000" />
+      <workItem from="1655754781678" duration="3012000" />
     </task>
     <servers />
   </component>
