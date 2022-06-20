@@ -1,5 +1,7 @@
-package com.assignment2.bookstoreapp.user.model;
+package com.project.clinic.user.model;
 
+import com.project.clinic.skin_color.model.SkinColor;
+import com.project.clinic.treatment.model.Treatment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +35,15 @@ public class User {
     @Column(nullable = false, length = 120)
     private String password;
 
+    @ManyToMany
+    private Set<Treatment> treatments;
+
+    @Column
+    private int points;
+
+    @ManyToOne(cascade=CascadeType.DETACH)
+    private SkinColor skinColor;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -50,3 +61,4 @@ public class User {
         return rolesStr;
     }
 }
+
