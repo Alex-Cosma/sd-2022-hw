@@ -1,5 +1,6 @@
-package com.assignment2.bookstoreapp.user.dto;
+package com.project.clinic.user.dto;
 
+import com.project.clinic.treatment.model.Treatment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,5 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserRegisterDTO extends  UserMinimalDTO{
     private Set<String> roles;
-    private String password;
+    private String skinColor;
+    private Set<Treatment> treatments;
 }
