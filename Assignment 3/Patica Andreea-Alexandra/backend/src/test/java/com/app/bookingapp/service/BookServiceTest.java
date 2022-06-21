@@ -3,6 +3,7 @@ package com.app.bookingapp.service;
 import com.app.bookingapp.data.dto.mapper.BookMapper;
 import com.app.bookingapp.data.dto.mapper.BookMapperImpl;
 import com.app.bookingapp.data.dto.model.BookDto;
+import com.app.bookingapp.data.dto.model.SimpleBookDto;
 import com.app.bookingapp.data.sql.entity.*;
 import com.app.bookingapp.data.sql.entity.enums.EAccountType;
 import com.app.bookingapp.data.sql.entity.enums.ERole;
@@ -74,7 +75,7 @@ public class BookServiceTest {
 
         when(bookRepository.findAll()).thenReturn(books);
 
-        List<BookDto> all = bookService.findAll();
+        List<Book> all = bookService.findAll();
 
         assertEquals(noBooks, all.size());
     }
@@ -101,7 +102,7 @@ public class BookServiceTest {
 
         when(bookRepository.findAllByUserUsername(user.getUsername())).thenReturn(books);
 
-        List<BookDto> foundBooks = bookService.allBooksByUser(user.getUsername());
+        List<Book> foundBooks = bookService.allBooksByUser(user.getUsername());
         Assertions.assertEquals(noBooks, foundBooks.size());
     }
 
@@ -114,12 +115,13 @@ public class BookServiceTest {
                 .noSqlId(randomString())
                 .build();
         BookDto bookDto = bookMapper.bookToBookDto(book);
+        SimpleBookDto simpleBookDto = new SimpleBookDto(bookDto.getUser().getUsername(), bookDto.getProperty(), bookDto.getDate());
 
         when(userRepository.findByUsername(any())).thenReturn(Optional.of(user));
         when(propertyRepository.findPropertyByName(any())).thenReturn(Optional.of(property));
         when(bookRepository.save(any())).thenReturn(book);
 
-        BookDto savedBookDto = bookService.create(bookDto);
+        BookDto savedBookDto = bookService.create(simpleBookDto);
         assertEquals(bookDto, savedBookDto);
     }
 

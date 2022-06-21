@@ -22,7 +22,7 @@ public class PropertyController {
     }
 
     @GetMapping(USERNAME)
-    public List<PropertyDto> allPropertiesByOwner(@PathVariable String username){
+    public List<Property> allPropertiesByOwner(@PathVariable String username){
         return propertyService.allPropertiesByOwner(username);
     }
 

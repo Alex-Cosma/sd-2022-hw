@@ -187,16 +187,16 @@
       Arrival date
       <date-pick
           v-model="arrivalDate"
-          :format="'YYYY.MM.DD'"
+          :format="'YYYY-MM-DD'"
       ></date-pick>
     </v-card-title>
-    <v-card-title>
-      Leaving date
-      <date-pick
-          v-model="leavingDate"
-          :format="'YYYY.MM.DD'"
-      ></date-pick>
-    </v-card-title>
+<!--    <v-card-title>-->
+<!--      Leaving date-->
+<!--      <date-pick-->
+<!--          v-model="leavingDate"-->
+<!--          :format="'YYYY.MM.DD'"-->
+<!--      ></date-pick>-->
+<!--    </v-card-title>-->
     <v-data-table
         :headers="headers"
         :items="properties"
@@ -208,9 +208,9 @@
 
     <BookDialog
         :opened="dialogVisible"
+        :username="username"
         :property="selectedProperty"
         :arrivalDate="arrivalDate"
-        :leavingDate="leavingDate"
         @refresh="refreshList"
         @close="dialogVisible = !dialogVisible"
     ></BookDialog>
@@ -221,12 +221,14 @@
 import api from "../api";
 import BookDialog from "../components/BookDialog";
 import DatePick from 'vue-date-pick';
+import { auth as store } from "../store/auth.module";
 
 export default {
   name: "PropertyList",
   components: { BookDialog,DatePick },
   data() {
     return {
+      username: store.state.user.username,
       properties: [],
       search: "",
       arrivalDate: "",
@@ -265,7 +267,7 @@ export default {
       console.log("bbbbbbbbbbbbbbb");
     },
   },
-  created() {
+    created() {
     this.refreshList();
   },
 };

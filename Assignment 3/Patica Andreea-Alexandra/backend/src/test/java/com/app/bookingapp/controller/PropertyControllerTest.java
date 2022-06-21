@@ -3,6 +3,7 @@ package com.app.bookingapp.controller;
 import com.app.bookingapp.BaseControllerTest;
 import com.app.bookingapp.TestCreationFactory;
 import com.app.bookingapp.data.dto.model.PropertyDto;
+import com.app.bookingapp.data.sql.entity.Property;
 import com.app.bookingapp.data.sql.entity.User;
 import com.app.bookingapp.service.PropertyService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,8 +38,8 @@ public class PropertyControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testAllBooks() throws Exception {
-        List<PropertyDto> properties = TestCreationFactory.listOf(PropertyDto.class);
+    void testAllProperties() throws Exception {
+        List<Property> properties = TestCreationFactory.listOf(PropertyDto.class);
         when(propertyService.findAll()).thenReturn(properties);
 
         ResultActions response = performGet(PROPERTY);
@@ -51,7 +52,7 @@ public class PropertyControllerTest extends BaseControllerTest {
     @Test
     void testAllPropertiesByOwner() throws Exception {
         User user = buildUser();
-        List<PropertyDto> properties = TestCreationFactory.listOf(PropertyDto.class, user);
+        List<Property> properties = TestCreationFactory.listOf(Property.class, user);
         when(propertyService.allPropertiesByOwner(user.getUsername())).thenReturn(properties);
 
         ResultActions response = performGetWithPathVariable(PROPERTY + USERNAME, user.getUsername());
@@ -61,7 +62,7 @@ public class PropertyControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testCreate() throws Exception {                        //TODO
+    void testCreate() throws Exception {
         PropertyDto reqProperty = TestCreationFactory.newPropertyDto();
 
         when(propertyService.create(reqProperty)).thenReturn(reqProperty);
@@ -77,7 +78,7 @@ public class PropertyControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testUpdate() throws Exception {                //TODO
+    void testUpdate() throws Exception {
         final long id = randomLong();
         PropertyDto reqProperty = TestCreationFactory.newPropertyDto();
 

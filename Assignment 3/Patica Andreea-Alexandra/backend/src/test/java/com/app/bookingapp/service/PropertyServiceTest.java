@@ -65,7 +65,7 @@ public class PropertyServiceTest {
 
         when(propertyRepository.findAll()).thenReturn(properties);
 
-        List<PropertyDto> all = propertyService.findAll();
+        List<Property> all = propertyService.findAll();
 
         assertEquals(noProperties, all.size());
     }
@@ -87,7 +87,7 @@ public class PropertyServiceTest {
 
         when(propertyRepository.findAllByOwnerUsername(user.getUsername())).thenReturn(properties);
 
-        List<PropertyDto> foundProperties = propertyService.allPropertiesByOwner(user.getUsername());
+        List<Property> foundProperties = propertyService.allPropertiesByOwner(user.getUsername());
         Assertions.assertEquals(noProperties, foundProperties.size());
     }
 

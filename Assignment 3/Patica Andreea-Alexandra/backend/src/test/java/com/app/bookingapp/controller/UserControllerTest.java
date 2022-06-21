@@ -3,6 +3,7 @@ package com.app.bookingapp.controller;
 import com.app.bookingapp.BaseControllerTest;
 import com.app.bookingapp.TestCreationFactory;
 import com.app.bookingapp.data.dto.model.UserDto;
+import com.app.bookingapp.data.sql.entity.User;
 import com.app.bookingapp.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class UserControllerTest extends BaseControllerTest {
 
     @Test
     void testAllUsers() throws Exception {
-        List<UserDto> users = TestCreationFactory.listOf(UserDto.class);
+        List<User> users = TestCreationFactory.listOf(UserDto.class);
         when(userService.findAll()).thenReturn(users);
 
         ResultActions response = performGet(USERS);
@@ -47,7 +48,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testCreate() throws Exception {                        //TODO
+    void testCreate() throws Exception {
         UserDto reqUser = TestCreationFactory.newUserDto();
 
         when(userService.create(reqUser)).thenReturn(reqUser);
@@ -63,7 +64,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testUpdate() throws Exception {                //TODO
+    void testUpdate() throws Exception {                
         final long id = randomLong();
         UserDto reqUser = TestCreationFactory.newUserDto();
 

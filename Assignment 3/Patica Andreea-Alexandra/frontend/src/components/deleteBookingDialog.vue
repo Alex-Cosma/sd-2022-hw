@@ -8,21 +8,23 @@
     <template>
       <v-card>
         <v-toolbar color="primary" dark>
-          {{ "Want to book?" }}
+          {{ "What do you want to do?" }}
         </v-toolbar>
-<!--        <v-form @submit="checkForm">-->
-          <p>Name: {{ property.name }}</p>
-<!--        </v-form>-->
+        <!--        <v-form @submit="checkForm">-->
+        <!--        </v-form>-->
         <v-card-actions>
-          <v-btn @click="persist">
-            {{ "Book!" }}
+          <v-btn @click="deleteBooking">
+            {{ "Delete!" }}
+          </v-btn>
+          <v-btn @click="downloadBooking">
+            {{ "Download PDF!" }}
           </v-btn>
         </v-card-actions>
-<!--        <v-card-actions>-->
-<!--          <v-btn @click="deleteProperty">-->
-<!--            {{ isNew ? "" : "Delete" }}-->
-<!--          </v-btn>-->
-<!--        </v-card-actions>-->
+        <!--        <v-card-actions>-->
+        <!--          <v-btn @click="deleteProperty">-->
+        <!--            {{ isNew ? "" : "Delete" }}-->
+        <!--          </v-btn>-->
+        <!--        </v-card-actions>-->
       </v-card>
     </template>
   </v-dialog>
@@ -33,11 +35,9 @@
 import api from "../api";
 
 export default {
-  name: "BookDialog",
+  name: "DeleteBookingDialog",
   props: {
-    username: String,
-    property: Object,
-    arrivalDate: Date,
+    booking: Object,
     opened: Boolean,
   },
   methods: {
@@ -59,34 +59,31 @@ export default {
       // if (!this.description) this.errors.push("Age required.");
       // e.preventDefault();
     },
-    persist() {
+    deleteBooking() {
+      console.log("delete");
+      console.log(this.booking);
       api.book
-          .create({
-            username: this.username,
-            property: this.property,
-            date: this.arrivalDate,
+          .deleteBooking({
+            id: this.booking.id,
+            property: this.booking.property,
+            user: this.booking.user,
+            date: this.booking.date,
           })
           .then(() => this.$emit("refresh"));
     },
-    deleteProperty() {
-      if (!this.isNew) {
-        console.log("delete");
-        api.properties
-            .deleteProperty({
-              id: this.property.id,
-              title: this.property.title,
-              author: this.property.author,
-              price: this.property.price,
-              quantity: this.property.quantity,
-              description: this.property.description,
-            })
-            .then(() => this.$emit("refresh"));
-      }
+    downloadBooking() {
+      api.book
+          .downloadBooking({
+            property: this.booking.property,
+            user: this.booking.user,
+            date: this.booking.date,
+          })
+          .then(() => this.$emit("refresh"));
     },
   },
   computed: {
     isNew: function () {
-      return !this.property.id;
+      return !this.booking.id;
     },
   },
 };

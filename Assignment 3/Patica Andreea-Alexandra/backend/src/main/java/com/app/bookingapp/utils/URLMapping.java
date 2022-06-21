@@ -16,6 +16,8 @@ public class URLMapping {
 
     //book
     public static final String BOOK = API_PATH + "/book";
+    public static final String NEW = "/new/{username}";
+    public static final String PDF = "/pdf";
 
 
     public static final String ID = "/{id}";

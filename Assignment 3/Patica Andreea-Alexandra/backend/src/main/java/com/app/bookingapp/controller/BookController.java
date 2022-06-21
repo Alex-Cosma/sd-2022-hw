@@ -1,8 +1,14 @@
 package com.app.bookingapp.controller;
 
 import com.app.bookingapp.data.dto.model.BookDto;
+import com.app.bookingapp.data.dto.model.PropertyDto;
+import com.app.bookingapp.data.dto.model.SimpleBookDto;
+import com.app.bookingapp.data.sql.entity.Book;
 import com.app.bookingapp.service.BookService;
+import com.app.bookingapp.service.PdfService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,17 +22,17 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public List<BookDto> allCards(){
+    public List<Book> allBooks(){
         return bookService.findAll();
     }
 
     @GetMapping(USERNAME)
-    public List<BookDto> allBooksByUser(@PathVariable String username){
+    public List<Book> allBooksByUser(@PathVariable String username){
         return bookService.allBooksByUser(username);
     }
 
     @PostMapping()
-    public BookDto create(@RequestBody BookDto book){
+    public BookDto create(@RequestBody SimpleBookDto book){
         return bookService.create(book);
     }
 
@@ -38,5 +44,15 @@ public class BookController {
     @DeleteMapping(ID)
     public void delete(@PathVariable Long id) {
         bookService.delete(id);
+    }
+
+
+    @PostMapping(PDF)
+    public byte[] getPDF(@RequestBody BookDto book) {
+        try {
+            return PdfService.createPdf(book);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }

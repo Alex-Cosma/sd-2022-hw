@@ -56,4 +56,10 @@ public class Property {
     @Column(name = "picture")
     private byte[] picture;
 
+    @Column(name = "longitude")
+    private Float longitude;
+
+    @Column(name = "latitude")
+    private Float latitude;
+
 }

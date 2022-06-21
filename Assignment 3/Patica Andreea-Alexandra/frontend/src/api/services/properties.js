@@ -14,8 +14,8 @@ export default {
     );
   },
   getPropertiesByOwner(owner) {
-    console.log(BASE_URL + "/property" + owner.getUsername());
-    return HTTP.get(BASE_URL + "/property", { headers: authHeader() }).then(
+    console.log(BASE_URL + "/property/" + owner.username);
+    return HTTP.get(BASE_URL + "/property/"+owner.username, { headers: authHeader() }).then(
         (response) => {
           console.log(response.data);
           return response.data;
@@ -32,7 +32,7 @@ export default {
     });
   },
   edit(property) {
-    return HTTP.patch(BASE_URL + property.id, property, {
+    return HTTP.patch(BASE_URL + "/property/" + property.id, property, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;

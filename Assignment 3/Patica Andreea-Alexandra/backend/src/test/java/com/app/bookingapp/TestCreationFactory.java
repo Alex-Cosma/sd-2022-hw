@@ -9,7 +9,6 @@ import com.app.bookingapp.data.sql.entity.enums.EAccountType;
 import com.app.bookingapp.data.sql.entity.enums.ERole;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

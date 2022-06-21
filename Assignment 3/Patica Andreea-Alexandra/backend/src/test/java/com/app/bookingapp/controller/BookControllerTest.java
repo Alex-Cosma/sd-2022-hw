@@ -3,6 +3,8 @@ package com.app.bookingapp.controller;
 import com.app.bookingapp.BaseControllerTest;
 import com.app.bookingapp.TestCreationFactory;
 import com.app.bookingapp.data.dto.model.BookDto;
+import com.app.bookingapp.data.dto.model.SimpleBookDto;
+import com.app.bookingapp.data.sql.entity.Book;
 import com.app.bookingapp.data.sql.entity.User;
 import com.app.bookingapp.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +40,7 @@ public class BookControllerTest extends BaseControllerTest {
 
     @Test
     void testAllBooks() throws Exception {
-        List<BookDto> books = TestCreationFactory.listOf(BookDto.class);
+        List<Book> books = TestCreationFactory.listOf(Book.class);
         when(bookService.findAll()).thenReturn(books);
 
         ResultActions response = performGet(BOOK);
@@ -51,7 +53,7 @@ public class BookControllerTest extends BaseControllerTest {
     @Test
     void testAllBooksByUser() throws Exception {
         User user = buildUser();
-        List<BookDto> books = TestCreationFactory.listOf(BookDto.class, user);
+        List<Book> books = TestCreationFactory.listOf(BookDto.class, user);
         when(bookService.allBooksByUser(user.getUsername())).thenReturn(books);
 
         ResultActions response = performGetWithPathVariable(BOOK + USERNAME, user.getUsername());
@@ -61,14 +63,16 @@ public class BookControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testCreate() throws Exception {                        //TODO
+    void testCreate() throws Exception {
         BookDto reqBook = TestCreationFactory.newBookDto();
+        SimpleBookDto simpleBookDto = new SimpleBookDto(reqBook.getUser().getUsername(), reqBook.getProperty(), reqBook.getDate());
 
-        when(bookService.create(reqBook)).thenReturn(reqBook);
 
-        ResultActions result = performPostWithRequestBody(BOOK, reqBook);
+        when(bookService.create(simpleBookDto)).thenReturn(reqBook);
 
-        verify(bookService, times(1)).create(reqBook);
+        ResultActions result = performPostWithRequestBody(BOOK, simpleBookDto);
+
+        verify(bookService, times(1)).create(simpleBookDto);
 
         ResultMatcher jsonReqItem = jsonContentToBe(reqBook);
         result.andExpect(status().isCreated());

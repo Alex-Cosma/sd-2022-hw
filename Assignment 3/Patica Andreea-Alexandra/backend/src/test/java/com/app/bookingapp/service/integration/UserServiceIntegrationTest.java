@@ -64,7 +64,7 @@ public class UserServiceIntegrationTest {
         }
         userRepository.saveAll(users);
 
-        List<UserDto> all = userService.findAll();
+        List<User> all = userService.findAll();
 
         assertEquals(noUsers, all.size());
     }

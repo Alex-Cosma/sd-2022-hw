@@ -29,7 +29,7 @@ public class Book {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "no_sql_id", nullable = false, length = 64)
+    @Column(name = "no_sql_id", nullable = true, length = 64)
     private String noSqlId;
 
 }

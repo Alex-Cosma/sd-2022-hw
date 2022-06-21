@@ -19,6 +19,8 @@ public class PropertyDto implements Serializable {
     private final Long numberOfBathrooms;
     private final Long kitchen;
     private final byte[] picture;
+    private final Float longitude;
+    private final Float latitude;
 
     @Override
     public boolean equals(Object o) {

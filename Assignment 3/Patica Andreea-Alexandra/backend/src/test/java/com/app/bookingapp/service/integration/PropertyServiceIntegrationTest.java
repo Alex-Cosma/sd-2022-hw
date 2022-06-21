@@ -70,7 +70,7 @@ public class PropertyServiceIntegrationTest {
         }
         propertyRepository.saveAll(properties);
 
-        List<PropertyDto> all = propertyService.findAll();
+        List<Property> all = propertyService.findAll();
 
         assertEquals(noProperties, all.size());
     }
@@ -85,7 +85,7 @@ public class PropertyServiceIntegrationTest {
         }
         propertyRepository.saveAll(properties);
 
-        List<PropertyDto> foundProperties = propertyService.allPropertiesByOwner(user.getUsername());
+        List<Property> foundProperties = propertyService.allPropertiesByOwner(user.getUsername());
         assertEquals(noProperties, foundProperties.size());
     }
 

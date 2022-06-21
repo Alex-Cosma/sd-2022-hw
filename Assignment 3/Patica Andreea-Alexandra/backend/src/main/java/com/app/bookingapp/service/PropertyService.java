@@ -35,10 +35,12 @@ public class PropertyService {
         return propertyRepository.findAll();
     }
 
-    public List<PropertyDto> allPropertiesByOwner(String username){
-        return propertyRepository.findAllByOwnerUsername(username).stream()
-                .map(propertyMapper::propertyToPropertyDto)
-                .collect(Collectors.toList());
+    public List<Property> allPropertiesByOwner(String username){
+//        return propertyRepository.findAllByOwnerUsername(username).stream()
+//                .filter(property-> property.getOwner().getUsername().equals(username))
+//                .map(propertyMapper::propertyToPropertyDto)
+//                .collect(Collectors.toList());
+        return propertyRepository.findAllByOwnerUsername(username);
     }
 
     public PropertyDto create(PropertyDto propertyDto){
@@ -65,14 +67,12 @@ public class PropertyService {
 
         Optional<User> userOp = userRepository.findByUsername(propertyDto.getOwner().getUsername());
 
-        Property property = propertyMapper.propertyDtoToProperty(propertyDto);
-
-        userOp.ifPresent(property::setOwner);
+        userOp.ifPresent(propertyEntity::setOwner);
 
         PropertyDto propertyDtoAdded;
 
         try{
-            propertyDtoAdded = propertyMapper.propertyToPropertyDto(propertyRepository.save(property));
+            propertyDtoAdded = propertyMapper.propertyToPropertyDto(propertyRepository.save(propertyEntity));
         }catch(Exception e){
             propertyDtoAdded = null;
         }

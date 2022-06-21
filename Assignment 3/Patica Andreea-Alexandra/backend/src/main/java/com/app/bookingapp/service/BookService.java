@@ -2,6 +2,7 @@ package com.app.bookingapp.service;
 
 import com.app.bookingapp.data.dto.mapper.BookMapper;
 import com.app.bookingapp.data.dto.model.BookDto;
+import com.app.bookingapp.data.dto.model.SimpleBookDto;
 import com.app.bookingapp.data.sql.entity.Book;
 import com.app.bookingapp.data.sql.entity.Property;
 import com.app.bookingapp.data.sql.entity.User;
@@ -31,23 +32,32 @@ public class BookService {
                 .orElseThrow(() -> new RuntimeException(format("Book with id %s not found", id)));
     }
 
-    public List<BookDto> findAll(){
-        return bookRepository.findAll().stream()
-                .map(bookMapper::bookToBookDto)
-                .collect(Collectors.toList());
+    public List<Book> findAll(){
+//        return bookRepository.findAll().stream()
+//                .map(bookMapper::bookToBookDto)
+//                .collect(Collectors.toList());
+        return bookRepository.findAll();
     }
 
-    public List<BookDto> allBooksByUser(String username){
-        return bookRepository.findAllByUserUsername(username).stream()
-                .map(bookMapper::bookToBookDto)
-                .collect(Collectors.toList());
+    public List<Book> allBooksByUser(String username){
+//        return bookRepository.findAllByUserUsername(username).stream()
+//                .map(bookMapper::bookToBookDto)
+//                .collect(Collectors.toList());
+        return bookRepository.findAllByUserUsername(username);
     }
 
-    public BookDto create(BookDto bookDto){
-        Optional<User> userOp = userRepository.findByUsername(bookDto.getUser().getUsername());
-        Optional<Property> propertyOp = propertyRepository.findPropertyByName(bookDto.getProperty().getName());
+    public BookDto create(SimpleBookDto simpleBookDto){
+        Optional<User> userOp = userRepository.findByUsername(simpleBookDto.getUsername());
+        Optional<Property> propertyOp = propertyRepository.findPropertyByName(simpleBookDto.getProperty().getName());
 
-        Book book = bookMapper.bookDtoToBook(bookDto);
+//        BookDto bookDto = BookDto.builder()
+//                .date(simpleBookDto.getDate())
+//                .property(simpleBookDto.getProperty())
+
+
+//        Book book = bookMapper.bookDtoToBook(bookDto);
+        Book book = new Book();
+        book.setDate(simpleBookDto.getDate());
 
         userOp.ifPresent(book::setUser);
         propertyOp.ifPresent(book::setProperty);

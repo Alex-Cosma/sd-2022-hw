@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import UserList from "../views/UserList.vue";
 import AdminPropertyList from "../views/PropertyList.vue";
 import PropertyListUser from "../views/PropertyListUser.vue";
+import BookingListUser from "../views/BookingListUser.vue";
 import SearchPropertyList from "../views/SearchPropertyList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
@@ -82,6 +83,18 @@ const routes = [
     path: "/search-properties",
     name: "SearchPropertyList",
     component: SearchPropertyList,
+    beforeEnter: (to, from, next) => {
+      if (store.state.status.loggedIn) {
+        next();
+      } else {
+        next({ name: "Home" });
+      }
+    },
+  },
+  {
+    path: "/bookings",
+    name: "BookingListUser",
+    component: BookingListUser,
     beforeEnter: (to, from, next) => {
       if (store.state.status.loggedIn) {
         next();
