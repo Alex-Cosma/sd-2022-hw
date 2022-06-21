@@ -43,7 +43,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final DriverService driverService;
 
-    @Value("true")
+    @Value("false")
     private Boolean bootstrap;
 
     @Override
