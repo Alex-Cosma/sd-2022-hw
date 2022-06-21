@@ -95,6 +95,6 @@ class ItemServiceIntegrationTest {
         itemRepository.save(item);
 
         boolean result = itemService.delete(id);
-        Assertions.assertEquals(result, true);
+        Assertions.assertTrue(result);
     }
 }

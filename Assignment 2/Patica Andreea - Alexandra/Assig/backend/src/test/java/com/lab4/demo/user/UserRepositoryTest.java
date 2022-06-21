@@ -61,7 +61,7 @@ public class UserRepositoryTest {
 
         repository.save(user);
         repository.findByUsername(username);
-        assertEquals(user.getUsername(), username);
+        assertEquals(user.getUsername(), username);     //not good
     }
 
     @Test
