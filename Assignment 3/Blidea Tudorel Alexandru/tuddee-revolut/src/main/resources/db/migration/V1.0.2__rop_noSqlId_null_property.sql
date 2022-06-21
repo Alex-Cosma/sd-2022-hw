@@ -1,0 +1,1 @@
+alter table users MODIFY noSqlId char(24);

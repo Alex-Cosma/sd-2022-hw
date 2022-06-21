@@ -1,0 +1,26 @@
+{
+  "port": 4408,
+  "corsConfig": {
+    "origin": "*"
+  },
+  "ibanLength": 34,
+  "banks": [{
+    "name": "Banca Transilvania", 
+    "prefixIban": "BANCATRANS",
+    "prefixToken": "BANCA_TRANS_APPROVE",
+    "endpoint": "/btransilvania",
+    "abbreviation": "bt"
+  }, {
+    "name": "Banca Comerciala Romana (BCR)",
+    "prefixIban": "BCRACC",
+    "prefixToken": "BCR_APPROVE",
+    "endpoint": "/bcrbank",
+    "abbreviation": "bcr"
+  }, {
+    "name": "CEC Bank",
+    "prefixIban": "CEC69ROACC",
+    "prefixToken": "CEC_CEC_CEC",
+    "endpoint": "/bankcec",
+    "abbreviation": "cec"
+  }]
+}

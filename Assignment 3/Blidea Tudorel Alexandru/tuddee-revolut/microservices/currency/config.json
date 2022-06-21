@@ -1,0 +1,11 @@
+{
+  "port": 3070,
+  "ratesFile": "startRates.json",
+  "corsConfig": {
+    "origin": "*"
+  },
+  "baseCurrency": "EUR",
+  "fluctuatePeriod": 1000,
+  "fluctuation": 0.4814,
+  "quotient": 0.001
+}

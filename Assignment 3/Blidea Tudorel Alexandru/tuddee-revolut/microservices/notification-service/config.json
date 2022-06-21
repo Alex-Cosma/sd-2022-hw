@@ -1,0 +1,13 @@
+{
+  "port": 3078,
+  "baseOkStatus": 204,
+  "corsConfig": {
+    "origin": "*"
+  },
+  "tokens": {
+
+  },
+  "mail": {
+    
+  }
+}
