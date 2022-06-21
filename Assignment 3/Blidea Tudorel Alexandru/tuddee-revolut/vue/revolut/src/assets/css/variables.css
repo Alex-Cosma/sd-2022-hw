@@ -1,0 +1,17 @@
+:root {
+    --primary: #1459a9;
+    --secondary: #67b6fe;
+    --accent: #fb86a9;
+    --success: #a8e4db;
+    --primary-o: #1459a9B1;
+    --secondary-o: #67b6feB1;
+    --accent-o: #fb86a9B1;
+    --main-gradient: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary), var(--accent), var(--secondary));
+    --main-gradient-opacity: linear-gradient(45deg, var(--primary-o), var(--accent-o), var(--secondary-o), var(--accent-o), var(--secondary-o));
+    --bar-height: 7vh;
+    --hero-height: 100vh;
+    --primary-shadow: -5px -1px 20px 1px var(--primary);
+    --animation-time: 10s;
+    --hero-background-url: url("http://localhost:3077/images/mahero.png");
+    --footer-gradient: linear-gradient(45deg, #000000, #000000, #000000, #2d2d2d);
+}

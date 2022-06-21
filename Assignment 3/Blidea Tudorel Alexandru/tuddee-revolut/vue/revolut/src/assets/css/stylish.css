@@ -1,0 +1,3 @@
+.blur-container {
+    backdrop-filter: blur(5px);
+}

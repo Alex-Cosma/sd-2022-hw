@@ -1,0 +1,38 @@
+{
+      "romanian": {
+            "welcome": {
+                  "title": "Bine ai venit",
+                  "text": "Echipa Revolut iti ureaza un calduros bun venit!",
+                  "offers": "Avem o multime de oferte, precum: ",
+                  "cards": "Comanda acum cardul potrivit pentru tine dintr-o paleta destul de larga!",
+                  "currecySubscribeButton": "Rate de schimb valutar",
+                  "seeAllOffersButton": "Vezi toate ofertele",
+                  "shareWithOthersButton": "Spune-le si altora",
+                  "newsletterUpdateButton": "Aboneaza-te la Newsletter",
+                  "orderCardButton": "Comanda-ti cardul!"
+            },
+            "exchanges": {
+                  "title": "Schimburile valutare de astazi: ",
+                  "exchangeNowButton": "Schimba acum!"
+            }
+      },
+
+      "english": {
+            "welcome": {
+                  "title": "Welcome",
+                  "text": "Our team sends you the best wishes!",
+                  "offers": "We have a lot of offers, such as: ",
+                  "cards": "Get a new card now!",
+                  "currecySubscribeButton": "Currencies",
+                  "seeAllOffersButton": "See all offers",
+                  "shareWithOthersButton": "Share with others",
+                  "newsletterUpdateButton": "Subscribe to our Newsletter",
+                  "orderCardButton": "Get the perfect card!"
+            },
+            "exchanges": {
+                  "title": "Today Currencies: ",
+                  "exchangeNowButton": "Exchange now!"
+            }
+      }
+
+}

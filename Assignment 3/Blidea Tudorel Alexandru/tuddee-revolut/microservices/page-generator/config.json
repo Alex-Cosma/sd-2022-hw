@@ -1,0 +1,10 @@
+{
+  "port": 3069,
+  "mongoBaseUrl": "mongodb://localhost:27017",
+  "database": "page-generator",
+  "mainPage": "main-page",
+  "cards": "cards",
+  "corsConfig": {
+    "origin": "*"
+  }
+}
