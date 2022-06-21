@@ -9,9 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.web.bind.annotation.RequestPart;
+
+import javax.servlet.http.Part;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public abstract class BaseControllerTest {
     protected MockMvc mockMvc;
@@ -70,6 +74,10 @@ public abstract class BaseControllerTest {
     protected ResultActions performGetWithPathVariable(String path, Object... pathVariables) throws Exception {
         return mockMvc.perform(get(path, pathVariables));
     }
+
+    //protected ResultActions performPostWithRequestPart(String path) throws Exception {
+    //    return mockMvc.perform(multipart(path)).andExpect(status().isOk());
+    //}
 
     protected String asJsonString(final Object obj) {
         try {

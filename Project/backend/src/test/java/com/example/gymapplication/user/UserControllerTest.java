@@ -16,10 +16,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.gymapplication.TestCreationFactory.*;
 import static com.example.gymapplication.UrlMapping.*;
+import static com.example.gymapplication.user.model.ERole.TRAINER;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -51,6 +53,24 @@ public class UserControllerTest extends BaseControllerTest {
         ResultActions result = mockMvc.perform(get(USER));
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(userListDTOs));
+    }
+
+    @Test
+    void allTrainers() throws Exception {
+        UserDTO reqUser = UserDTO.builder()
+                .username("username")
+                .email("email@email.com")
+                .password(encodePassword("password"))
+                .role(TRAINER.name())
+                .build();
+
+        List<UserDTO> trainerListDTOs = new ArrayList<>();
+        trainerListDTOs.add(reqUser);
+        when(userService.allTrainers()).thenReturn(trainerListDTOs);
+
+        ResultActions result = mockMvc.perform(get(USER+TRAINERS));
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(trainerListDTOs));
     }
 
     @Test

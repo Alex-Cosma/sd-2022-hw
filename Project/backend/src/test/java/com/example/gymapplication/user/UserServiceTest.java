@@ -1,6 +1,7 @@
 package com.example.gymapplication.user;
 
 import com.example.gymapplication.TestCreationFactory;
+import com.example.gymapplication.report.ReportServiceFactory;
 import com.example.gymapplication.training.LocationRepository;
 import com.example.gymapplication.training.TrainingMapper;
 import com.example.gymapplication.training.TrainingRepository;
@@ -20,10 +21,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.example.gymapplication.TestCreationFactory.randomString;
 import static com.example.gymapplication.user.model.ERole.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -57,6 +60,9 @@ public class UserServiceTest {
     @Mock
     private TrainingService trainingService;
 
+    @Mock
+    private ReportServiceFactory reportServiceFactory;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -68,7 +74,7 @@ public class UserServiceTest {
         roleRepository.save(new Role(2,TRAINER));
         roleRepository.save(new Role(3, REGULAR_USER));
         userService = new UserService(userRepository, roleRepository, trainingRepository, userMapper, passwordEncoder);
-        trainingService = new TrainingService(locationRepository, trainingRepository, userRepository, trainingMapper);
+        trainingService = new TrainingService(locationRepository, trainingRepository, userRepository, trainingMapper, reportServiceFactory);
     }
 
     @Test
@@ -80,6 +86,26 @@ public class UserServiceTest {
 
         assertEquals(users.size(), all.size());
     }
+
+    /*
+    @Test
+    void allTrainers() {
+        User user = User.builder()
+                .id(1L)
+                .username(randomString())
+                .password(randomString())
+                .roles(Set.of(new Role(2,TRAINER)))
+                .build();
+
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        when(userRepository.findAll()).thenReturn(users);
+
+        List<UserDTO> all = userService.allTrainers();
+
+        assertEquals(users.size(), all.size());
+    }
+    */
 
     @Test
     void findById() {
@@ -252,6 +278,6 @@ public class UserServiceTest {
 
         userService.addRegularTraining(createdUser.getId(),createdTraining.getId());
 
-        assertEquals(createdTraining.getTitle(),user.getRegularTrainings().get(0).getTitle());
+        assertEquals(createdTraining.getTitle(),user.getRegularTrainings().iterator().next().getTitle());
     }
 }

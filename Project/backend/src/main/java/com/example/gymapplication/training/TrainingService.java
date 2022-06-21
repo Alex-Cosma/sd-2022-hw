@@ -1,5 +1,7 @@
 package com.example.gymapplication.training;
 
+import com.example.gymapplication.report.ReportServiceFactory;
+import com.example.gymapplication.report.ReportType;
 import com.example.gymapplication.training.model.Location;
 import com.example.gymapplication.training.model.Training;
 import com.example.gymapplication.training.model.dto.TrainingDTO;
@@ -20,6 +22,7 @@ public class TrainingService {
     private final TrainingRepository trainingRepository;
     private final UserRepository userRepository;
     private final TrainingMapper trainingMapper;
+    private final ReportServiceFactory reportServiceFactory;
 
     public TrainingDTO findById(Long id) {
         return trainingMapper.toDto(trainingRepository.findById(id)
@@ -32,7 +35,12 @@ public class TrainingService {
 
     public List<TrainingDTO> findAll() {
         return trainingRepository.findAll().stream()
-                .map(trainingMapper::toDto)
+                .map(training -> {
+                    TrainingDTO trainingDTO = trainingMapper.toDto(training);
+                    trainingDTO.setLocation(training.getLocation().getAddress());
+                    trainingDTO.setUser(training.getUser().getUsername());
+                    return trainingDTO;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -40,7 +48,12 @@ public class TrainingService {
         PageRequest pageRequest = PageRequest.of(0, 10);
         return trainingRepository.findAllByTitleLikeOrTypeLikeOrDateLike("%"+filter+"%",
                         "%"+filter+"%","%"+filter+"%",pageRequest).stream()
-                .map(trainingMapper::toDto)
+                .map(training -> {
+                    TrainingDTO trainingDTO = trainingMapper.toDto(training);
+                    trainingDTO.setLocation(training.getLocation().getAddress());
+                    trainingDTO.setUser(training.getUser().getUsername());
+                    return trainingDTO;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -79,5 +92,23 @@ public class TrainingService {
         trainingToEdit.setUser(trainer);
 
         return trainingMapper.toDto(trainingRepository.save(trainingToEdit));
+    }
+
+    public List<TrainingDTO> getUserTrainings(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        return user.getRegularTrainings().stream()
+                .map(training -> {
+                    TrainingDTO trainingDTO = trainingMapper.toDto(training);
+                    trainingDTO.setLocation(training.getLocation().getAddress());
+                    trainingDTO.setUser(training.getUser().getUsername());
+                    return trainingDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public String export(ReportType type, String username) {
+        return reportServiceFactory.getReportService(type).export(getUserTrainings(username), username);
     }
 }

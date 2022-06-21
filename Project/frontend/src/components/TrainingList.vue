@@ -47,7 +47,7 @@ export default {
         { text: "Type", value: "type" },
         { text: "Date", value: "date" },
         { text: "Location", value: "location" },
-        { text: "User", value: "user" },
+        { text: "Trainer", value: "user" },
       ],
       dialogVisible: false,
       selectedTraining: {},

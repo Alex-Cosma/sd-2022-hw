@@ -62,5 +62,8 @@ export const auth = {
     isAdmin: (state) => {
       return state.user.roles.includes("ADMIN");
     },
+    isTrainer: (state) => {
+      return state.user.roles.includes("TRAINER");
+    }
   },
 };

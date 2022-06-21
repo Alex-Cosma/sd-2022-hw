@@ -1,13 +1,13 @@
 <template>
-  <RegularTrainingList></RegularTrainingList>
+  <TabBarRegularUser></TabBarRegularUser>
 </template>
 
 <script>
-import RegularTrainingList from "@/components/RegularTrainingList";
+import TabBarRegularUser from "../components/TabBarRegularUser";
 
 export default {
   name: "RegularUser",
-  components: { RegularTrainingList },
+  components: { TabBarRegularUser },
 };
 </script>
 

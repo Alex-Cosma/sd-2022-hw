@@ -87,7 +87,11 @@ export default {
           if (this.$store.getters["auth/isAdmin"]) {
             router.push("/admin");
           } else {
-            router.push("/regular_user");
+            if (this.$store.getters["auth/isTrainer"]) {
+              router.push("/trainer");
+            } else {
+              router.push("/regular_user");
+            }
           }
         } else {
           alert("Invalid credentials!");

@@ -56,5 +56,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "training_id"))
     @Builder.Default
-    private List<Training> regularTrainings = new ArrayList<>();
+    private Set<Training> regularTrainings = new HashSet<>();
 }

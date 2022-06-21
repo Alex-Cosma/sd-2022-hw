@@ -2,8 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
-import Admin from "@/views/Admin";
-import RegularUser from "@/views/RegularUser";
+import Admin from "../views/Admin";
+import RegularUser from "../views/RegularUser";
+import Trainer from "../views/Trainer";
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,19 @@ const routes = [
       if (store.getters.isAdmin) {
         next();
       } else {
-        next({ name: "Items" });
+        next({ name: "Home" });
+      }
+    },
+  },
+  {
+    path: "/trainer",
+    name: "Trainer",
+    component: Trainer,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isTrainer) {
+        next();
+      } else {
+        next({ name: "Home" });
       }
     },
   },
