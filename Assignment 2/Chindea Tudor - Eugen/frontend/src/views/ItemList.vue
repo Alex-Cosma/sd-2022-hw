@@ -9,8 +9,10 @@
         label="Search"
         single-line
         hide-details
+        @input="searchBook"
       ></v-text-field>
       <v-btn @click="addItem">Create Book</v-btn>
+      <!-- <v-btn @click="searchedItems">Search Book</v-btn>  -->
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -61,7 +63,11 @@ export default {
     addItem() {
       this.dialogVisible = true;
     },
-   
+    async searchBook() {
+      this.dialogVisible = false;
+      
+      this.items = await api.items.searchedItems(this.search);
+    },
      deleteItem(item) {
       this.selectedItem = item;
       this.dialogVisible = true;

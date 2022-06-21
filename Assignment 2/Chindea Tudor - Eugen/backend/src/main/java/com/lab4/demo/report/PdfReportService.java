@@ -6,15 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.lab4.demo.report.ReportType.PDF;
 
 @Service
 @RequiredArgsConstructor
-public class PdfReportService implements ReportService {
+public class PdfReportService implements ReportService
+{
 
     private BookService bookService;
 
@@ -23,7 +26,7 @@ public class PdfReportService implements ReportService {
     }
 
     @Override
-    public String export() throws IOException{
+    public String export(List<BookDTO> books) throws IOException{
         PDDocument doc = null;
         try
         {
@@ -34,17 +37,18 @@ public class PdfReportService implements ReportService {
 
 
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
-            for(BookDTO item : bookService.findAll() ){
-                if(item.getQuantity() == 0){
+            for(BookDTO book : books ){
+                if(book.getQuantity() == 0){
                     contentStream.beginText();
+                    contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
                     contentStream.newLineAtOffset(200,685);
-                    contentStream.showText(item.getTitle());
+                    contentStream.showText(book.getTitle());
                     contentStream.endText();
                 }
             }
 
             contentStream.close();
-            doc.save( "C:\\Users\\tudor\\Downloads\\report.pdf" );
+            doc.save( "report.pdf" );
         }
         finally
         {

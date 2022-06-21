@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.lab4.demo.UrlMapping.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping(ITEMS)
 @RequiredArgsConstructor
@@ -21,6 +22,11 @@ public class BookController {
     @GetMapping
     public List<BookDTO> allItems() {
         return bookService.findAll();
+    }
+
+    @GetMapping(ITEMS_SEARCH_PART)
+    public List<BookDTO> searchedItems(@PathVariable String searchedBook) {
+        return bookService.findAllByTitleOrAuthorOrGenre(searchedBook);
     }
 
     @PostMapping

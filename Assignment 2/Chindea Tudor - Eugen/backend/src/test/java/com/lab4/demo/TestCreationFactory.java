@@ -3,6 +3,7 @@ package com.lab4.demo;
 import com.lab4.demo.book.model.Book;
 import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.user.dto.UserDTO;
+import com.lab4.demo.user.model.User;
 
 import java.util.List;
 import java.util.Random;
@@ -40,8 +41,15 @@ public class TestCreationFactory {
         ).collect(Collectors.toSet()) // remove duplicates in case of Long for example
                 .stream().collect(toList());
     }
-
-    private static UserDTO newUserDTO() {
+    public static User newUser(){
+        return User.builder()
+                .id(randomLong())
+                .username(randomString())
+                .email(randomEmail())
+                .password(randomString())
+                .build();
+    }
+    public static UserDTO newUserDTO() {
         return UserDTO.builder()
                 .id(randomLong())
                 .username(randomString())
@@ -49,7 +57,7 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static Book newItem() {
+    public static Book newItem() {
         return Book.builder()
                 .id(randomLong())
                 .title(randomString())
@@ -60,7 +68,7 @@ public class TestCreationFactory {
                 .build();
     }
 
-    private static BookDTO newItemDTO() {
+    public static BookDTO newItemDTO() {
         return BookDTO.builder()
                 .id(randomLong())
                 .title(randomString())
