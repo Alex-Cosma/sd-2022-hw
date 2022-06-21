@@ -1,14 +1,11 @@
 package com.app.bookingapp.controller;
 
 import com.app.bookingapp.data.dto.model.BookDto;
-import com.app.bookingapp.data.dto.model.PropertyDto;
 import com.app.bookingapp.data.dto.model.SimpleBookDto;
 import com.app.bookingapp.data.sql.entity.Book;
 import com.app.bookingapp.service.BookService;
 import com.app.bookingapp.service.PdfService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

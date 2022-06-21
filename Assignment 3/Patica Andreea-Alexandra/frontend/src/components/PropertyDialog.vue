@@ -38,6 +38,7 @@
 
 <script>
 import api from "../api";
+import {auth as store} from "@/store/auth.module";
 
 export default {
   name: "PropertyDialog",
@@ -69,11 +70,11 @@ export default {
         api.properties
           .create({
             name: this.property.name,
-            owner: this.property.owner,
+            owner: store.state.user,
             address: this.property.address,
             picturesId: this.property.picturesId,
             price: this.property.price,
-            rating: this.property.rating,
+            rating: 0,
             description: this.property.description,
             numberOfRooms: this.property.numberOfRooms,
             numberOfBeds: this.property.numberOfBeds,

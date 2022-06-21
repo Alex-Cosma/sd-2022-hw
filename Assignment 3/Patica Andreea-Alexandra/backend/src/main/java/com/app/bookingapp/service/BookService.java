@@ -11,10 +11,11 @@ import com.app.bookingapp.data.sql.repo.PropertyRepository;
 import com.app.bookingapp.data.sql.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -33,16 +34,10 @@ public class BookService {
     }
 
     public List<Book> findAll(){
-//        return bookRepository.findAll().stream()
-//                .map(bookMapper::bookToBookDto)
-//                .collect(Collectors.toList());
         return bookRepository.findAll();
     }
 
     public List<Book> allBooksByUser(String username){
-//        return bookRepository.findAllByUserUsername(username).stream()
-//                .map(bookMapper::bookToBookDto)
-//                .collect(Collectors.toList());
         return bookRepository.findAllByUserUsername(username);
     }
 
@@ -50,12 +45,6 @@ public class BookService {
         Optional<User> userOp = userRepository.findByUsername(simpleBookDto.getUsername());
         Optional<Property> propertyOp = propertyRepository.findPropertyByName(simpleBookDto.getProperty().getName());
 
-//        BookDto bookDto = BookDto.builder()
-//                .date(simpleBookDto.getDate())
-//                .property(simpleBookDto.getProperty())
-
-
-//        Book book = bookMapper.bookDtoToBook(bookDto);
         Book book = new Book();
         book.setDate(simpleBookDto.getDate());
 
@@ -66,6 +55,18 @@ public class BookService {
 
         try{
             bookDtoAdded = bookMapper.bookToBookDto(bookRepository.save(book));
+            Twilio.init("AC7f0ce2f681fbed6b1355149e3e7417eb", "ef6adc165654d0d259d0cce98da0c3fc");
+            Message message = Message.creator(
+                            //new com.twilio.type.PhoneNumber("+40786079644"),
+                            new com.twilio.type.PhoneNumber("+40756285628"),
+                            new com.twilio.type.PhoneNumber("+19895463499"),
+                            "Your booking to location" + bookDtoAdded.getProperty().getName()
+                                    + ", address " + bookDtoAdded.getProperty().getAddress()
+                                    + ", on date " + bookDtoAdded.getDate() + " has been successfully registered!")
+                    .create();
+
+            System.out.println(message.getSid());
+
         }catch(Exception e){
             bookDtoAdded = null;
         }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -25,9 +24,6 @@ public class UserService {
     private final RoleRepository roleRepository;
 
     public List<User> findAll(){
-//        return userRepository.findAll().stream()
-//                .map(userMapper::userToUserDto)
-//                .collect(Collectors.toList());
         return userRepository.findAll();
     }
 

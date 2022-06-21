@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -29,17 +28,10 @@ public class PropertyService {
     }
 
     public List<Property> findAll(){
-//        return propertyRepository.findAll().stream()
-//                .map(propertyMapper::propertyToPropertyDto)
-//                .collect(Collectors.toList());
         return propertyRepository.findAll();
     }
 
     public List<Property> allPropertiesByOwner(String username){
-//        return propertyRepository.findAllByOwnerUsername(username).stream()
-//                .filter(property-> property.getOwner().getUsername().equals(username))
-//                .map(propertyMapper::propertyToPropertyDto)
-//                .collect(Collectors.toList());
         return propertyRepository.findAllByOwnerUsername(username);
     }
 

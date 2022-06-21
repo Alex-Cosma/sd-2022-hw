@@ -64,7 +64,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void testUpdate() throws Exception {                
+    void testUpdate() throws Exception {
         final long id = randomLong();
         UserDto reqUser = TestCreationFactory.newUserDto();
 

@@ -4,6 +4,7 @@ package com.app.bookingapp.service.integration;
 import com.app.bookingapp.data.dto.mapper.BookMapper;
 import com.app.bookingapp.data.dto.mapper.BookMapperImpl;
 import com.app.bookingapp.data.dto.model.BookDto;
+import com.app.bookingapp.data.dto.model.SimpleBookDto;
 import com.app.bookingapp.data.sql.entity.*;
 import com.app.bookingapp.data.sql.entity.enums.EAccountType;
 import com.app.bookingapp.data.sql.entity.enums.ERole;
@@ -99,21 +100,22 @@ public class BookServiceIntegrationTest {
         assertEquals(noBooks, foundProperties.size());
     }
 
-//    @Test
-//    void testCreate(){
-//        Book book = Book.builder()
-//                .user(user)
-//                .property(property)
-//                .date(randomDate())
-//                .noSqlId(randomString())
-//                .build();
-//
-//        BookDto bookDto = bookMapper.bookToBookDto(book);
-//
-//        BookDto savedBookDto = bookService.create(bookDto);
-//
-//        assertEquals(savedBookDto, bookDto);        //TODO problems with float values
-//    }
+    @Test
+    void testCreate(){
+        Book book = Book.builder()
+                .user(user)
+                .property(property)
+                .date(randomDate())
+                .noSqlId(randomString())
+                .build();
+
+        BookDto bookDto = bookMapper.bookToBookDto(book);
+        SimpleBookDto simpleBookDto = new SimpleBookDto(bookDto.getUser().getUsername(), bookDto.getProperty(), bookDto.getDate());
+
+        BookDto savedBookDto = bookService.create(simpleBookDto);
+
+        assertEquals(savedBookDto, bookDto);
+    }
 
     @Test
     void testUpdateBook(){
